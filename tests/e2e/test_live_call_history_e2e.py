@@ -137,7 +137,7 @@ def test_live_call_history_identity_order_states_and_read_only(stack, browser, e
     s.live = live("live-R1", "S1", call_view("c1", 2))
     s.details["live-R1/calls/c1"] = (200, detail("c1", [rev("c1", 1, "CLOSED"), rev("c1", 2, "AVAILABLE")]))
     page.goto(f"{stack.base}/#market")
-    expect(page.get_by_test_id("live-call-direction")).to_have_text("LONG", timeout=15_000)
+    expect(page.get_by_test_id("live-call-direction")).to_have_text("▲ LONG", timeout=15_000)
     open_history(page)
     expect(hist).to_have_attribute("data-state", "ok")
     expect(hist.get_by_test_id("history-identity")).to_contain_text("c1")
@@ -259,7 +259,7 @@ def test_live_call_history_fits_a_phone_width(stack, browser, evidence_dir):  # 
     s.live = live("live-R1", "S1", call_view("c1", 2))
     s.details["live-R1/calls/c1"] = (200, detail("c1", [rev("c1", 1, "CLOSED"), rev("c1", 2, "AVAILABLE")]))
     page.goto(f"{stack.base}/#market")
-    expect(page.get_by_test_id("live-call-direction")).to_have_text("LONG", timeout=15_000)
+    expect(page.get_by_test_id("live-call-direction")).to_have_text("▲ LONG", timeout=15_000)
     page.wait_for_timeout(300)
     before = page.evaluate(OFFENDERS)  # the cockpit's own pre-existing offenders (method badge), not this panel
     open_history(page)

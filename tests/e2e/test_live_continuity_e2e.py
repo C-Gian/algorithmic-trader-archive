@@ -19,7 +19,7 @@ from datetime import timedelta
 import pytest
 from playwright.sync_api import expect
 
-from test_ui_smoke import ROOT, WEB_DIST, Stack, browser, evidence_dir, record, wait_for  # noqa: F401
+from test_ui_smoke import ROOT, WEB_DIST, Stack, browser, evidence_dir, it_price, record, wait_for  # noqa: F401
 
 pytestmark = [pytest.mark.e2e, pytest.mark.db]
 sys.path.insert(0, str(ROOT / "tests"))
@@ -119,7 +119,7 @@ def test_quote_interruption_reload_and_resume_follow_the_backend_state(database_
         c1, st1 = _call(stack)
         assert st1["state"] == "LIVE" and st1["current"] and c1["admissible_bounds"]
         expect(panel).to_have_attribute("data-state", "AVAILABLE", timeout=15_000)
-        expect(page.get_by_test_id("live-admissible")).to_have_text(f"{c1['admissible_bounds'][0]} – {c1['admissible_bounds'][1]}")
+        expect(page.get_by_test_id("live-admissible")).to_have_text(f"{it_price(c1['admissible_bounds'][0])} – {it_price(c1['admissible_bounds'][1])}")
         expect(page.locator(".band-admissible")).to_have_count(1)
         page.screenshot(path=str(evidence_dir / "continuity-1-available.png"), full_page=True)
         facts["1_available"] = {k: c1[k] for k in ("call_id", "revision", "entry_status", "entry_reasons", "admissible_bounds")}

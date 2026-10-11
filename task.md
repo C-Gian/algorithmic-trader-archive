@@ -1,5 +1,38 @@
-# Current task — Cockpit desktop arrangement: SECOND visual proposal
-Date: 2026-10-10. Status: SECOND PROPOSAL DELIVERED — awaiting Gian's choice ([proposal](delivery/evidence/COCKPIT-VISUAL-PROPOSAL-2/PROPOSAL.md)). The first proposal was not approved and is not implemented. No product change active; after Gian's choice the implementation follows in this same step, with no intermediate Astra step. Studies INACTIVE. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+# Current task — Cockpit: implementation of the SECOND visual proposal
+Date: 2026-10-11. Status: IMPLEMENTATION COMPLETE — final check with the Owner STILL TO DO ([note](delivery/evidence/COCKPIT-IMPLEMENTATION-2/NOTE.md)). The technical checks are not evidence of Gian's understanding; a short joint check follows the delivery. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+## Assignment (relayed by the Owner, 11 October 2026; expected base `c7abfb8`)
+
+Gian approved the second proposal ("per ora ok"). Implement it in this step, with no Astra step in between.
+- **Approved scope.**
+  - A more compact chart on the left and a wider decision panel on the right.
+  - The market reading kept apart from the call.
+  - Operational information grouped, details progressive.
+  - A separate palette for direction, availability and technical states across the whole cockpit.
+  - Candles in the existing PriceChart, from the OHLC already received. No second chart.
+- **Unchanged.** Semantics, guidance and authoritative availability. No change to method, API, persistence or Workbench.
+- **Check before applying.** The patch must not alter:
+  - published contents and values;
+  - update identity and ownership;
+  - async response handling;
+  - the entry band shown only when available;
+  - the concluded call kept apart from the new expectation.
+- **Ordinary corrections.**
+  - Coherent Italian price notation in the chart and the panel, without changing precision or values.
+  - No overlapping level labels.
+  - A method badge readable at the supported widths.
+- **Checks.**
+  - The six synthetic states.
+  - SHORT available vs an error; concluded LONG vs available entry.
+  - Chart OHLC, time order and levels.
+  - Proposal, history and continuity regressions.
+  - Desktop, 1024 and 390 px.
+  - Contrast, and states recognisable by text and symbols.
+- **Delivery.** A bounded diff, the checks, the limits and images. Implementation is kept distinct from the Owner's final check.
+- **Excluded.** CI queries, real feed, Owner data, economic tests.
+
+## Previous task — Cockpit desktop arrangement: SECOND visual proposal
+Date: 2026-10-10. Status: SECOND PROPOSAL DELIVERED — APPROVED by Gian ("per ora ok", relayed 11 October 2026) and implemented in the task above ([proposal](delivery/evidence/COCKPIT-VISUAL-PROPOSAL-2/PROPOSAL.md)). The first proposal was not approved and is not implemented.
 
 ## Assignment (relayed by the Owner, 10 October 2026; expected base `4a918dc`)
 

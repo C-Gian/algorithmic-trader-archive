@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { adviserApi, CallView, LiveView, reasonText, ScenarioState, ScenarioView } from "../adviser";
-import { fmtLocal, fmtTime, humanize } from "../lib/format";
+import { fmtLocal, fmtPrice, fmtTime, humanize } from "../lib/format";
 import { Icon } from "../ui/Icon";
 import { Badge, cx, Tone } from "../ui/primitives";
+import type { IconName } from "../ui/Icon";
 
 // Live cockpit main panel: "Che cosa propone il sistema adesso?". It shows only the authoritative backend state of the
 // committed live view: entry availability is call.entry_status (already masked by the API for a non-current session),
@@ -91,12 +92,12 @@ function condition(p: ScenarioView, s: ScenarioState | undefined): string | null
   }
   if (s?.waiting) {
     return s.waiting.corridor
-      ? `Scenario confermato: serve un ritorno del prezzo nel corridoio ${s.waiting.corridor[0]} – ${s.waiting.corridor[1]}.`
+      ? `Scenario confermato: serve un ritorno del prezzo nel corridoio ${fmtPrice(s.waiting.corridor[0])} – ${fmtPrice(s.waiting.corridor[1])}.`
       : "Scenario confermato: nessun corridoio di ritorno residuo.";
   }
   const status = s?.status ?? p.status ?? "ARMED";
   const k = s?.trigger_level ?? p.trigger_level;
-  if (status === "ARMED" && k) return `Serve l'innesco: una chiusura oltre ${k}.`;
+  if (status === "ARMED" && k) return `Serve l'innesco: una chiusura oltre ${fmtPrice(k)}.`;
   if (status === "WATCH") return "Si osserva una possibile reazione: nessun innesco ancora definito.";
   return null;
 }
@@ -107,7 +108,7 @@ function ScenarioCards({ v }: { v: LiveView }) {
     <>
       {mv?.principal && (
         <div className="call-scenario" data-testid="live-scenario">
-          <Badge tone={mv.principal.direction === "LONG" ? "pos" : "neg"}>{mv.principal.direction} {mv.principal.family}{" "}
+          <Badge tone={mv.principal.direction === "LONG" ? "pos" : "neg"}>{mv.principal.direction === "LONG" ? "▲" : "▼"} {mv.principal.direction} {mv.principal.family}{" "}
             {(mv.principal.status ?? "ARMED").toLowerCase()}</Badge>
           <span className="small-text">{mv.principal.antecedent}</span>
         </div>
@@ -120,7 +121,7 @@ function ScenarioCards({ v }: { v: LiveView }) {
             <dt>Why</dt><dd>{s.entry_ended!.base === "CORRIDOR" ? "no confirming close could be inside the usable corridor"
               : "no confirming close could be inside the historical economic region"}</dd>
             <dt>Ended at</dt><dd className="mono">{fmtTime(s.entry_ended!.at)}</dd>
-            <dt>Scenario</dt><dd>still {s.status.toLowerCase()} · invalid at {s.invalidation_level ?? "—"}</dd>
+            <dt>Scenario</dt><dd>still {s.status.toLowerCase()} · invalid at {fmtPrice(s.invalidation_level)}</dd>
           </dl>
         </div>
       ))}
@@ -131,27 +132,27 @@ function ScenarioCards({ v }: { v: LiveView }) {
             {s.observing!.lost_anchor?.V ? ` (stop ${s.observing!.lost_anchor.V})` : ""} was touched before confirmation.
             This is not a call and not an entry: nothing to do now.</p>
           <dl className="call-geo">
-            <dt>Narrative destination</dt><dd className="mono">{s.destination ?? "—"}</dd>
+            <dt>Narrative destination</dt><dd className="mono">{fmtPrice(s.destination)}</dd>
             <dt>Observation ends</dt><dd className="mono">{fmtTime(s.observing!.original_expiry)} (original deadline)</dd>
           </dl>
         </div>
       ))}
       {(v.scenarios ?? []).filter((s) => s.waiting).map((s) => (
         <div className="call-waiting" key={s.scenario_id} data-testid="live-waiting">
-          <Badge tone="info">{s.direction} {s.family} confirmed — {s.waiting!.phase === "WAIT_RESPONSE"
+          <Badge tone="neutral" icon="clock">{s.direction} {s.family} confirmed — {s.waiting!.phase === "WAIT_RESPONSE"
             ? "waiting for a local recovery" : "waiting for a usable price"}</Badge>
           <p className="small-text">{s.waiting!.text} This is not a call: do not treat it as “enter now”.</p>
           {s.waiting!.response && (
             <dl className="kv-grid small-text" data-testid="live-waiting-response">
-              <dt>Return reference</dt><dd className="mono">H0 {s.waiting!.response.H0} · L0 {s.waiting!.response.L0} · published {fmtTime(s.waiting!.response.published_at)}</dd>
+              <dt>Return reference</dt><dd className="mono">H0 {fmtPrice(s.waiting!.response.H0)} · L0 {fmtPrice(s.waiting!.response.L0)} · published {fmtTime(s.waiting!.response.published_at)}</dd>
               <dt>Call possible only if</dt><dd>{s.waiting!.response.recovery_rule}</dd>
               <dt>Ends this attempt</dt><dd>{s.waiting!.response.contradiction_rule}</dd>
             </dl>
           )}
           <dl className="call-geo">
-            <dt>Usable return corridor</dt><dd className="mono">{s.waiting!.corridor ? `${s.waiting!.corridor[0]} – ${s.waiting!.corridor[1]}` : "none left"}</dd>
-            <dt>Target now</dt><dd className="mono">{s.waiting!.target_now} <span className="muted">(at confirmation {s.waiting!.target_at_confirmation})</span></dd>
-            <dt>Stop guidance if issued</dt><dd className="mono">{s.waiting!.stop_V}</dd>
+            <dt>Usable return corridor</dt><dd className="mono">{s.waiting!.corridor ? `${fmtPrice(s.waiting!.corridor[0])} – ${fmtPrice(s.waiting!.corridor[1])}` : "none left"}</dd>
+            <dt>Target now</dt><dd className="mono">{fmtPrice(s.waiting!.target_now)} <span className="muted">(at confirmation {fmtPrice(s.waiting!.target_at_confirmation)})</span></dd>
+            <dt>Stop guidance if issued</dt><dd className="mono">{fmtPrice(s.waiting!.stop_V)}</dd>
             <dt>Waits until</dt><dd className="mono">{fmtTime(s.waiting!.wait_until)} · hard deadline {fmtTime(s.waiting!.hard_deadline)}</dd>
             <dt>Blockers now</dt><dd>{s.waiting!.blockers.length ? s.waiting!.blockers.map(reasonText).join(", ") : "none (waiting for a fresh minute)"}</dd>
           </dl>
@@ -190,10 +191,9 @@ export function unverifiedExplanation(c: CallView): { title: string; body: strin
           "non considerarlo disponibile." };
 }
 
-const IT_NUM = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 8 });
-function itNum(x: string): string {
-  const n = Number(x);
-  return Number.isFinite(n) ? IT_NUM.format(n) : x;
+const itNum = fmtPrice;
+function fmtPriceOr(x: string | null | undefined, none: string): string {
+  return x === null || x === undefined || x === "" ? none : fmtPrice(x);
 }
 
 export type GuidanceKind = "HOLD" | "ENTRY_VALID" | "ENTRY_UNVERIFIED" | "TARGET_REACHED" | "EXIT" | "UNKNOWN" | "MISSING";
@@ -246,7 +246,7 @@ function EntryFacts({ c, available }: { c: CallView; available: boolean }) {
     <dl className="call-geo proposal-facts">
       {available ? (
         <><dt>Fascia d'ingresso ammessa ora</dt>
-          <dd className="mono" data-testid="live-admissible">{c.admissible_bounds ? `${c.admissible_bounds[0]} – ${c.admissible_bounds[1]}` : "non indicata dal sistema"}</dd></>
+          <dd className="mono" data-testid="live-admissible">{c.admissible_bounds ? `${fmtPrice(c.admissible_bounds[0])} – ${fmtPrice(c.admissible_bounds[1])}` : "non indicata dal sistema"}</dd></>
       ) : (
         <><dt>Motivo</dt><dd data-testid="live-entry-reasons">{reasons}</dd></>
       )}
@@ -255,33 +255,17 @@ function EntryFacts({ c, available }: { c: CallView; available: boolean }) {
 }
 
 /** The perspective of someone already following the call: what the recorded system text says, in plain Italian. */
-function CallUpdate({ c, v, unverified }: { c: CallView; v: LiveView; unverified: boolean }) {
+function CallUpdate({ c, v }: { c: CallView; v: LiveView }) {
   const notCurrent = c.presentation === "NOT_CURRENT";
   const r = notCurrent ? { kind: "NOT_CURRENT", text: "Sessione non corrente: l'ultimo testo salvato non è presentato come " +
     "indicazione attuale (resta negli approfondimenti e nella cronologia)." } : readGuidance(c.guidance);
   return (
     <>
-      <div className="proposal-state tone-neutral" data-testid="live-call-guidance" data-kind={r.kind}>{r.text}</div>
+      <div className="persp-guidance" data-testid="live-call-guidance" data-kind={r.kind}>{r.text}</div>
       {!notCurrent && (
         <div className="small-text muted" data-testid="live-call-guidance-basis">In base al testo registrato dal sistema alla
           valutazione del {fmtLocal(v.clock)}; l'originale è negli approfondimenti.</div>
       )}
-      <div className="proposal-dir" data-testid="live-direction">
-        <span className="call-dir" data-testid="live-call-direction">{c.direction}</span>
-        <span>{c.direction === "LONG" ? "Indicazione di acquisto: il sistema si aspetta un rialzo del prezzo."
-          : "Indicazione di vendita: il sistema si aspetta un ribasso del prezzo."}</span>
-      </div>
-      <dl className="call-geo proposal-facts">
-        {unverified && (
-          <dd className="proposal-group-note" data-testid="live-call-levels-note">Livelli della call già emessa: target e stop
-            da soli non sono una proposta d'ingresso attuale.</dd>
-        )}
-        <dt>Target operativo</dt><dd className="mono" data-testid="live-target">{c.target}</dd>
-        <dt>Stop indicato</dt><dd className="mono" data-testid="live-stop-guidance">{c.stop}</dd>
-        <dt>Scadenza dell'indicazione</dt><dd data-testid="live-deadline">{fmtLocal(c.hard_deadline)}</dd>
-        <dt>Orizzonte atteso</dt><dd>{c.expected_minutes ? `${c.expected_minutes[0]}–${c.expected_minutes[1]} min` : "non indicato"}</dd>
-        <dt>Tesi</dt><dd data-testid="live-thesis">{THESIS_IT[c.thesis_status] ?? c.thesis_status}</dd>
-      </dl>
     </>
   );
 }
@@ -304,17 +288,16 @@ function ConcludedCall({ v, t, expected }: { v: LiveView; t: LiveView["recent_ca
   const reading = r ? (r.text ? readGuidance(r.text)
     : { kind: "MISSING", text: "Testo registrato alla conclusione non disponibile: nessuna indicazione operativa è mostrata." }) : null;
   return (
-    <div className="proposal-group" data-testid="live-call-concluded" data-terminal={t.terminal}>
-      <div className="adv-section-title" data-testid="live-section-following">{FOLLOWING}</div>
-      <div className="proposal-state tone-neutral" data-testid="live-concluded-guidance" data-kind={reading?.kind ?? "LOADING"}>
+    <div className="stack-sm" data-testid="live-call-concluded" data-terminal={t.terminal}>
+      <div className="persp-guidance" data-testid="live-concluded-guidance" data-kind={reading?.kind ?? "LOADING"}>
         {reading ? reading.text : "…"}</div>
       <p data-testid="live-last-terminal">Ultima indicazione: {t.direction} {t.family},{" "}
         {THESIS_IT[t.terminal] ?? t.terminal} ({fmtLocal(t.terminal_at)}).</p>
-      <dl className="call-geo proposal-facts">
+      <dl className="call-geo proposal-facts persp-facts">
         <dt>Motivo registrato</dt><dd data-testid="live-concluded-reason">{reasonIt(t.reason)}</dd>
         {t.terminal === "TARGET_REACHED" && (
           <><dt>Target operativo della call</dt>
-            <dd className="mono" data-testid="live-concluded-target">{r ? (r.target ? `${r.target} — raggiunto` : "non disponibile") : "…"}</dd></>
+            <dd className="mono" data-testid="live-concluded-target">{r ? (r.target ? `${fmtPrice(r.target)} — raggiunto` : "non disponibile") : "…"}</dd></>
         )}
       </dl>
       <p className="small-text" data-testid="live-concluded-separation">
@@ -330,74 +313,156 @@ function ConcludedCall({ v, t, expected }: { v: LiveView; t: LiveView["recent_ca
   );
 }
 
+// Colour map: blue = new entry available, amber = attention / not verifiable,
+// grey = waiting, closed entry, history and conclusion; green/red only for the call direction. Always icon + text.
+const SIGNAL: Record<string, { cls: string; icon: IconName }> = {
+  AVAILABLE: { cls: "sig-avail", icon: "check" }, CLOSED: { cls: "sig-muted", icon: "pause" },
+  UNVERIFIED: { cls: "sig-attn", icon: "alert" }, UNKNOWN: { cls: "sig-attn", icon: "alert" },
+  TERMINAL: { cls: "sig-muted", icon: "stop" }, WAITING: { cls: "sig-muted", icon: "clock" }, NO_VIEW: { cls: "sig-muted", icon: "clock" },
+};
+
+function DirChip({ dir, ended }: { dir: string; ended?: boolean }) {
+  return (
+    <span className={cx("dir-chip", dir === "LONG" ? "dir-long" : "dir-short", ended && "is-ended")} data-testid="live-call-direction">
+      {dir === "LONG" ? "▲" : "▼"} {dir}</span>
+  );
+}
+
+/** One strip with the call's identity and its operational levels (shown once). */
+function CallStrip({ c, t, unverified }: { c: CallView | null; t: LiveView["recent_calls"][number] | undefined; unverified: boolean }) {
+  if (c) {
+    return (
+      <div className="call-strip" data-testid="live-call-identity">
+        <div className="strip-head">
+          <DirChip dir={c.direction} />
+          <div className="strip-id">
+            <span className="strip-title">Call {c.family} · {c.family_text}</span>
+            <span className="small-text strip-sub">{c.direction === "LONG" ? "Indicazione di acquisto: il sistema si aspetta un rialzo del prezzo."
+              : "Indicazione di vendita: il sistema si aspetta un ribasso del prezzo."} Emessa {fmtLocal(c.issued_at)}.</span>
+          </div>
+        </div>
+        <dl className="strip-levels">
+          <div><dt>Target operativo</dt><dd className="mono" data-testid="live-target">{fmtPrice(c.target)}</dd></div>
+          <div><dt>Stop indicato</dt><dd className="mono" data-testid="live-stop-guidance">{fmtPrice(c.stop)}</dd></div>
+          <div><dt>Scadenza dell'indicazione</dt><dd data-testid="live-deadline">{fmtLocal(c.hard_deadline)}</dd></div>
+          <div><dt>Orizzonte atteso</dt><dd>{c.expected_minutes ? `${c.expected_minutes[0]}–${c.expected_minutes[1]} min` : "non indicato"}</dd></div>
+          <div><dt>Tesi</dt><dd data-testid="live-thesis">{THESIS_IT[c.thesis_status] ?? c.thesis_status}</dd></div>
+        </dl>
+        {unverified && <p className="small-text muted" data-testid="live-call-levels-note">Livelli della call già emessa: target e stop
+          da soli non sono una proposta d'ingresso attuale.</p>}
+      </div>
+    );
+  }
+  if (t) {
+    return (
+      <div className="call-strip is-ended" data-testid="live-call-identity">
+        <div className="strip-head">
+          <DirChip dir={t.direction} ended />
+          <div className="strip-id">
+            <span className="strip-title">Call {t.family} <span className="sig-chip sig-muted"><Icon name="stop" size={13} />
+              Conclusa — {(THESIS_IT[t.terminal] ?? t.terminal).replace(/^conclusa — /, "")}</span></span>
+            <span className="small-text strip-sub">Ultima call, conclusa {fmtLocal(t.terminal_at)}. Non è più un'indicazione attiva.</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="call-strip is-none" data-testid="live-call-identity">
+      <span className="sig-chip sig-muted"><Icon name="clock" size={13} /> Nessuna call emessa in questo momento</span>
+    </div>
+  );
+}
+
+/** The current market reading, shown under the chart: a market assessment, never the call. Without a view the
+ * direction is declared unavailable, never inferred. */
+export function MarketReading({ v }: { v: LiveView | null }) {
+  const mv = v?.market_view ?? null;
+  const d = mv?.expected_direction ?? "UNAVAILABLE";
+  const p = mv?.principal ?? null;
+  const ps = p ? (v?.scenarios ?? []).find((s) => s.scenario_id === p.scenario_id) : undefined;
+  return (
+    <section className="decision-market" data-testid="live-market-reading">
+      <div className="market-head">
+        <span className="persp-title">Lettura attuale del mercato</span>
+        <span className="muted small-text">È una valutazione del mercato, non la call: non dice se entrare.</span>
+      </div>
+      <div className="proposal-dir market-dir" data-testid="live-direction">
+        <Arrow d={d} />
+        <span>Direzione attesa: <b data-testid="live-expected" className={d === "UP" ? "dir-long" : d === "DOWN" ? "dir-short" : undefined}>
+          {EXPECTED_IT[d] ?? d}</b>{mv?.conditional ? " (condizionale)" : ""}</span>
+        {mv && <span className="muted small-text">· {ROW_IT[mv.table_row] ?? humanize(mv.table_row)}</span>}
+      </div>
+      {v && (p ? (
+        <dl className="market-facts" data-testid="live-scenario-levels">
+          <div><dt>Scenario</dt><dd>{p.direction} {p.family}</dd></div>
+          <div><dt>Destinazione dello scenario</dt>
+            <dd><span className="mono">{fmtPriceOr(ps?.destination ?? p.destination ?? p.conditional_target, "non indicata")}</span> <span className="muted">(non è un target operativo)</span></dd></div>
+          <div><dt>Invalidazione dello scenario</dt>
+            <dd><span className="mono">{fmtPriceOr(ps?.invalidation_level ?? p.invalidation_level, "non indicata")}</span> <span className="muted">(livello strutturale, non è uno stop)</span></dd></div>
+          <div><dt>Orizzonte atteso</dt><dd>{mv?.horizon_minutes ? `${mv.horizon_minutes[0]}–${mv.horizon_minutes[1]} min` : "non indicato"}</dd></div>
+          <div className="span-all"><dt>Condizione ancora necessaria</dt><dd data-testid="live-condition">{condition(p, ps) ?? "non indicata dal sistema"}</dd></div>
+        </dl>
+      ) : <p className="proposal-note">Nessuno scenario principale in questo momento.</p>)}
+      {v && <p className="muted small-text">Lettura qualitativa, non una probabilità.</p>}
+    </section>
+  );
+}
+
 export function ProposalPanel({ v, onHistory }: { v: LiveView | null; onHistory: (callId: string) => void }) {
   const st = proposalState(v);
   const mv = v?.market_view ?? null;
   const c = v?.call ?? null;
   const available = st.key === "AVAILABLE";
   const d = mv?.expected_direction ?? "UNAVAILABLE";
-  const p = mv?.principal ?? null;
-  const ps = p ? (v?.scenarios ?? []).find((s) => s.scenario_id === p.scenario_id) : undefined;
   const lastTerminal = [...(v?.recent_calls ?? [])].sort((a, b) => (a.terminal_at < b.terminal_at ? 1 : -1))[0];
-  const tone = c ? (c.direction === "LONG" ? "is-long" : "is-short") : "is-none";
-  const twoSides = !!v && (!!c || !!lastTerminal);
+  const sig = SIGNAL[st.key] ?? SIGNAL.UNKNOWN;
+  const notCurrent = c?.presentation === "NOT_CURRENT" || (!!v?.stale_session && !c);
   return (
-    <section className={cx("call-panel proposal", tone)} data-testid="live-call" data-state={st.key}>
-      <div className="eyebrow">Che cosa propone il sistema adesso</div>
-      {twoSides && <p className="small-text muted" data-testid="live-perspectives-note">{PERSPECTIVES}</p>}
-      {v && <div className="adv-section-title" data-testid="live-new-entry-title">{NO_POSITION}</div>}
-      <div className={cx("proposal-state", `tone-${st.tone}`)} data-testid={c ? "live-entry" : v ? "live-no-trade" : "live-no-view"}>
-        {st.text}
-      </div>
-      <div className="proposal-badges">
-        {c?.presentation === "NOT_CURRENT" || (v?.stale_session && !c)
-          ? <Badge tone="warn" testid="live-call-not-current">Sessione non corrente: disponibilità non verificabile</Badge>
-          : c && <Badge tone={c.origin === "LIVE" ? "pos" : "pending"}>{c.origin === "LIVE" ? "Call live" : "Ricostruita — non operativa"}</Badge>}
-      </div>
+    <section className="decision" data-testid="live-call" data-state={st.key}>
+      <header className="decision-head">
+        <div className="eyebrow">Che cosa propone il sistema adesso</div>
+        <div className="decision-meta">
+          {notCurrent && <span className="sig-chip sig-tech" data-testid="live-call-not-current"><Icon name="cpu" size={13} />
+            Sessione non corrente: disponibilità non verificabile</span>}
+          {c && !notCurrent && <Badge tone={c.origin === "LIVE" ? "info" : "pending"} icon="cpu">{c.origin === "LIVE" ? "Origine: call live" : "Ricostruita — non operativa"}</Badge>}
+          {v && <span className="proposal-updated" data-testid="live-updated">Ultimo aggiornamento: {fmtLocal(v.clock)}</span>}
+        </div>
+      </header>
+      {!v && (
+        <div className={cx("persp-state", sig.cls)} data-testid="live-no-view"><Icon name={sig.icon} size={20} /> <span>{st.text}</span></div>
+      )}
       {!v && <p className="proposal-note">Avvia l'adviser live per valutare il mercato. Da fermo non viene monitorato nulla.</p>}
-      {c && st.key === "UNVERIFIED" && (() => {
-        const x = unverifiedExplanation(c);
-        return (
-          <div className="proposal-consequence" data-testid="live-entry-consequence" data-kind={x.kind}>
-            <b>{x.title}</b><p>{x.body}</p>
-          </div>
-        );
-      })()}
-      {c && <EntryFacts c={c} available={available} />}
-      {v && <div className="proposal-updated" data-testid="live-updated">Ultimo aggiornamento: {fmtLocal(v.clock)}</div>}
-
-      {c && v && (
-        <div className="proposal-group" data-testid="live-call-update">
-          <div className="adv-section-title" data-testid="live-section-following">{FOLLOWING}</div>
-          <CallUpdate c={c} v={v} unverified={st.key === "UNVERIFIED"} />
-        </div>
-      )}
-
-      {v && !c && lastTerminal && <ConcludedCall v={v} t={lastTerminal} expected={d} />}
-      {v && !c && lastTerminal && <div className="adv-section-title">Lettura attuale del mercato</div>}
-      {!c && (
-        <div className="proposal-dir" data-testid="live-direction">
-          <Arrow d={d} />
-          <span>Direzione attesa: <b data-testid="live-expected">{EXPECTED_IT[d] ?? d}</b>{mv?.conditional ? " (condizionale)" : ""}</span>
-        </div>
-      )}
-      {v && !c && (
+      {v && (
         <>
-          {mv && <div className="proposal-sub">{ROW_IT[mv.table_row] ?? humanize(mv.table_row)}</div>}
-          {p ? (
-            <dl className="call-geo proposal-facts" data-testid="live-scenario-levels">
-              <dt>Scenario</dt><dd>{p.direction} {p.family}</dd>
-              <dt>Condizione ancora necessaria</dt><dd data-testid="live-condition">{condition(p, ps) ?? "non indicata dal sistema"}</dd>
-              <dt>Destinazione dello scenario</dt>
-              <dd><span className="mono">{ps?.destination ?? p.destination ?? p.conditional_target ?? "non indicata"}</span> <span className="muted">(non è un target operativo)</span></dd>
-              <dt>Invalidazione dello scenario</dt>
-              <dd><span className="mono">{ps?.invalidation_level ?? p.invalidation_level ?? "non indicata"}</span> <span className="muted">(livello strutturale, non è uno stop)</span></dd>
-              <dt>Orizzonte atteso</dt><dd>{mv?.horizon_minutes ? `${mv.horizon_minutes[0]}–${mv.horizon_minutes[1]} min` : "non indicato"}</dd>
-            </dl>
-          ) : <p className="proposal-note">Nessuno scenario principale in questo momento.</p>}
+          <CallStrip c={c} t={c ? undefined : lastTerminal} unverified={st.key === "UNVERIFIED"} />
+          <p className="small-text muted" data-testid="live-perspectives-note">{PERSPECTIVES}</p>
+          <div className="persp-row">
+            <div className="persp-title" data-testid="live-new-entry-title">{NO_POSITION}</div>
+            <div className="persp-body">
+              <div className={cx("persp-state", sig.cls)} data-testid={c ? "live-entry" : "live-no-trade"}>
+                <Icon name={sig.icon} size={20} /> <span>{st.text}</span></div>
+              {c && st.key === "UNVERIFIED" && (() => {
+                const x = unverifiedExplanation(c);
+                return (
+                  <div className="proposal-consequence persp-consequence" data-testid="live-entry-consequence" data-kind={x.kind}>
+                    <b>{x.title}</b><p>{x.body}</p>
+                  </div>
+                );
+              })()}
+              {c && <EntryFacts c={c} available={available} />}
+            </div>
+          </div>
+          <div className="persp-row" data-testid="live-call-update">
+            <div className="persp-title" data-testid="live-section-following">{FOLLOWING}</div>
+            <div className="persp-body">
+              {c ? <CallUpdate c={c} v={v} />
+                : lastTerminal ? <ConcludedCall v={v} t={lastTerminal} expected={d} />
+                : <p className="small-text muted">Nessuna call emessa da seguire in questo momento.</p>}
+            </div>
+          </div>
         </>
       )}
-
       {v && (
         <p className="proposal-note">È l'indicazione del sistema, non una tua operazione: l'app non sa se hai aperto posizioni.
           Lo stop è un'indicazione, non un ordine.</p>
@@ -428,9 +493,9 @@ export function ProposalPanel({ v, onHistory }: { v: LiveView | null; onHistory:
               <dl className="call-geo" data-testid="live-call-technical">
                 <dt>Testo del sistema</dt><dd data-testid="live-guidance">{c.guidance}</dd>
                 <dt>Codici registrati</dt><dd className="mono">{c.entry_status}{c.entry_reasons.length ? ` · ${c.entry_reasons.join(", ")}` : ""}</dd>
-                <dt>Area strutturale (storico)</dt><dd className="mono">{c.structural_area[0]} – {c.structural_area[1]}</dd>
+                <dt>Area strutturale (storico)</dt><dd className="mono">{fmtPrice(c.structural_area[0])} – {fmtPrice(c.structural_area[1])}</dd>
                 {!available && c.admissible_bounds && (
-                  <><dt>Ultima fascia calcolata (non utilizzabile ora)</dt><dd className="mono">{c.admissible_bounds[0]} – {c.admissible_bounds[1]}</dd></>
+                  <><dt>Ultima fascia calcolata (non utilizzabile ora)</dt><dd className="mono">{fmtPrice(c.admissible_bounds[0])} – {fmtPrice(c.admissible_bounds[1])}</dd></>
                 )}
                 <dt>Famiglia</dt><dd>{c.family} · {c.family_text} · target {humanize(c.target_type)}</dd>
                 <dt>Emessa (UTC)</dt><dd className="mono">{fmtTime(c.issued_at)} a {c.issue_reference}</dd>
@@ -444,7 +509,6 @@ export function ProposalPanel({ v, onHistory }: { v: LiveView | null; onHistory:
                 Show this call's recorded history (revision r{c.revision})</button>
             )}
             <ScenarioCards v={v} />
-            <p className="muted small-text">Lettura qualitativa, non una probabilità.</p>
           </div>
         </details>
       )}

@@ -107,17 +107,18 @@ def test_main_panel_states_follow_only_the_authoritative_backend_state(stack, br
     expect(page.get_by_test_id("live-direction")).to_contain_text("(condizionale)")
     expect(page.get_by_test_id("live-condition")).to_contain_text("ripresa locale")
     levels = page.get_by_test_id("live-scenario-levels")
-    expect(levels).to_contain_text("100900")
+    expect(levels).to_contain_text("100.900")  # Italian notation, same value
     expect(levels).to_contain_text("non è un target operativo")
-    expect(levels).to_contain_text("99700.0")
+    expect(levels).to_contain_text("99.700")
     expect(levels).to_contain_text("non è uno stop")
     for word in ("Target operativo", "Stop indicato", "Fascia d'ingresso"):
         expect(panel).not_to_contain_text(word)
+        expect(page.get_by_test_id("live-market-reading")).not_to_contain_text(word)
     expect(page.get_by_test_id("live-updated")).to_have_text(LOCAL)
     expect(page.get_by_test_id("live-proposal-details")).to_contain_text("RULE-R")  # exact rule kept in the details
 
     show(armed_v02_view(), "WAITING")
-    expect(page.get_by_test_id("live-condition")).to_have_text("Serve l'innesco: una chiusura oltre 99500.")
+    expect(page.get_by_test_id("live-condition")).to_have_text("Serve l'innesco: una chiusura oltre 99.500.")
     expect(page.get_by_test_id("live-expected")).to_have_text("Ribasso")
 
     # AVAILABLE: the admissible band appears only now (panel and chart)
@@ -128,7 +129,8 @@ def test_main_panel_states_follow_only_the_authoritative_backend_state(stack, br
     expect(page.get_by_test_id("live-stop-guidance")).to_have_text("90")
     expect(page.get_by_test_id("live-deadline")).to_have_text(LOCAL)
     expect(page.get_by_test_id("live-thesis")).to_have_text("ancora valida")
-    expect(page.get_by_test_id("live-direction")).to_contain_text("Indicazione di acquisto")
+    expect(page.get_by_test_id("live-call-identity")).to_contain_text("Indicazione di acquisto")
+    expect(page.get_by_test_id("live-call-direction")).to_have_text("▲ LONG")
     expect(page.locator(".band-admissible")).to_have_count(1)
     expect(page.get_by_test_id("live-entry-consequence")).to_have_count(0)
     expect(page.get_by_test_id("live-call-levels-note")).to_have_count(0)
@@ -217,7 +219,8 @@ def test_main_panel_states_follow_only_the_authoritative_backend_state(stack, br
     expect(page.get_by_test_id("live-entry")).to_have_count(0)
     concluded = page.get_by_test_id("live-call-concluded")
     expect(concluded).to_have_attribute("data-terminal", "TARGET_REACHED")
-    expect(concluded.get_by_test_id("live-section-following")).to_have_text("Se hai già aperto un'operazione su questa call")
+    expect(page.get_by_test_id("live-call-update").get_by_test_id("live-call-concluded")).to_have_count(1)
+    expect(page.get_by_test_id("live-section-following")).to_have_text("Se hai già aperto un'operazione su questa call")
     expect(page.get_by_test_id("live-concluded-reason")).to_have_text("motivo registrato: R")
     # the call's history is not stored here: its closing text and target are declared missing, never rebuilt
     expect(page.get_by_test_id("live-concluded-guidance")).to_have_attribute("data-kind", "MISSING")
@@ -225,7 +228,7 @@ def test_main_panel_states_follow_only_the_authoritative_backend_state(stack, br
     expect(page.get_by_test_id("live-concluded-separation")).to_contain_text("non prolunga questa call")
     for word in ("mantenere", "chiudi"):
         expect(panel).not_to_contain_text(word)  # the conclusion is never turned into a hold/close order
-    expect(panel).to_contain_text("Lettura attuale del mercato")
+    expect(page.get_by_test_id("live-market-reading")).to_contain_text("Lettura attuale del mercato")
 
     # a non-current session through the real presentation boundary (saved entry was AVAILABLE)
     show(not_current(), "UNVERIFIED")

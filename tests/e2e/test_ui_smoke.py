@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 from datetime import timedelta
+from decimal import Decimal
 from pathlib import Path
 
 import httpx
@@ -475,6 +476,19 @@ def test_ui_public_recorder_start_stop_and_completed_session(stack, browser, evi
 COCKPIT_AREAS = ("live-direction", "live-call", "live-price", "live-changes", "live-technical")
 SECTIONS = {"market": "page-overview", "backtest": "page-backtest", "replay": "page-replay", "data": "page-data",
             "recorder": "page-recorder"}
+
+
+def it_price(x: str) -> str:
+    """The cockpit's Italian price notation (web ``fmtPrice``, it-IT): same value, ``.`` grouping from five integer
+    digits, ``,`` decimals, no trailing zero decimals (100700.0 -> 100.700, 100798.5 -> 100.798,5)."""
+    s = format(Decimal(x), "f")
+    if "." in s:
+        s = s.rstrip("0").rstrip(".")
+    ip, _, fp = s.partition(".")
+    sign, digits = ("-", ip[1:]) if ip.startswith("-") else ("", ip)
+    if len(digits) >= 5:
+        digits = f"{int(digits):,}".replace(",", ".")
+    return sign + digits + (f",{fp}" if fp else "")
 
 
 def no_horizontal_overflow(page: Page) -> bool:

@@ -11,6 +11,16 @@ export function fmtNum(v: string | number | null | undefined, digits = 2): strin
   return Number.isFinite(n) ? n.toLocaleString("en-US", { maximumFractionDigits: digits }) : String(v);
 }
 
+const PRICE_IT = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 8 });
+
+/** A published price in Italian notation (100.700,5): the value is never rounded or altered, only grouped; trailing zero
+ * decimals are not printed (100700.0 -> 100.700). A non-numeric input is returned as written. */
+export function fmtPrice(v: string | number | null | undefined): string {
+  if (v === null || v === undefined || v === "") return "—";
+  const n = Number(v);
+  return Number.isFinite(n) ? PRICE_IT.format(n) : String(v);
+}
+
 export function fmtInt(v: number | null | undefined): string {
   return v === null || v === undefined ? "—" : v.toLocaleString("en-US");
 }
