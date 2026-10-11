@@ -133,7 +133,8 @@ def test_live_restart_after_the_initial_terminal_never_reopens_or_reprepares():
     s1, clock = session(mins, fx.T(4, 7))
     assert not s1.driver.rt.core.waits
     s2 = lv.LiveSession(compat=COMPAT, build="test", clock=clock, method="v0.6")
-    s2.start(_persisted(s1), fetcher(mins))
+    s2.start({**_persisted(s1), "method": "v0.6"}, fetcher(mins))  # as LiveStore.load_state: the lineage's method
+    assert s2.epoch.run_id == s1.epoch.run_id  # a real resume of the same v0.6 run, not a method-change reset
     assert not s2.driver.rt.core.waits
     assert not [e for e in s2.driver.take()[0] if e["kind"] == "entry_attempt"
                 and e["record"]["transition"] in ("RESPONSE_REFERENCE", "WAIT_OPEN")]

@@ -1,5 +1,20 @@
-# Current task — Cockpit: implementation of the SECOND visual proposal
-Date: 2026-10-11. Status: IMPLEMENTATION COMPLETE — final check with the Owner STILL TO DO ([note](delivery/evidence/COCKPIT-IMPLEMENTATION-2/NOTE.md)). The technical checks are not evidence of Gian's understanding; a short joint check follows the delivery. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+# Current task — Live continuity after a voluntary Stop and a new Start (verification)
+Date: 2026-10-11. Status: VERIFIED — READY FOR DIRECTOR REVIEW — LIVE STOP/START CONTINUITY ONLY; one open conflict reported for a Director decision (Stop dispatch, see the STATE). No product change. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+## Assignment (relayed by the Owner, 11 October 2026; expected base `e298660`)
+
+Does a voluntary Stop followed by Start create a new session? Is the same run kept? What happens to the previous call and its availability?
+- **Survey.** Kept apart: Stop then Start, a browser reload, and a worker interruption and resumption. The path data interruption → UNVERIFIED → reload → resumption → CLOSED is not repeated. Reconstruct, with references:
+  - session and run identity, and the conditions to resume or create a run;
+  - the effect of Stop on the call, and the treatment of revisions and terminals;
+  - the checks needed before a current availability;
+  - the UI path to the previous call.
+- **Coverage.** Reuse the existing tests. Add only one targeted synthetic test where proof is missing, through the API and the cockpit. A saved AVAILABLE never becomes current by restore alone.
+- **Defects.** Fix only bounded defects against the established contract. Stop and report if a session or lifecycle semantic must be chosen.
+- **Excluded.** Language, mobile or graphic polish; Owner data; real feed; economic tests; CI queries.
+
+## Previous task — Cockpit: implementation of the SECOND visual proposal
+Date: 2026-10-11. Status: IMPLEMENTATION COMPLETE (`e298660`) — final check with the Owner STILL TO DO ([note](delivery/evidence/COCKPIT-IMPLEMENTATION-2/NOTE.md)). The technical checks are not evidence of Gian's understanding; a short joint check follows the delivery. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
 
 ## Assignment (relayed by the Owner, 11 October 2026; expected base `c7abfb8`)
 
