@@ -1,174 +1,199 @@
-"""Voluntary Stop then Start of the live adviser with a v0.6 call AVAILABLE (E2E; synthetic MP-005 tape, mocked
-services, no network, no Owner data). Engine sessions are real ``LiveSession`` objects persisted through the real
-``LiveStore`` under real claimed session rows; the API server and the cockpit read that database unmodified.
+"""Voluntary Stop then Start of the live adviser with a v0.6 call AVAILABLE, through the REAL worker path (E2E; the
+WP-009 offline fakes fed with the synthetic MP-005 tape: mocked OKX REST/WebSocket/ticker, no network, no Owner data):
+Start -> call AVAILABLE -> Stop requested -> Stop confirmed and saved by the worker -> Start -> restore.
 
-The worker's own Stop/Start loop (method-agnostic) is covered by ``test_adviser_live_db`` with v0.2; here the Stop
-epilogue mirrors ``LiveAdviserWorker._session`` (connection STOPPED, status STOPPED, fenced save, row stopped).
-
-Contract checked (MP-001 §9 restart rule, WP-009 continuity): Start creates a NEW session that resumes the SAME
-continuity run (gap < 96 h, same instrument and method); the restart gap overlapping the ongoing thesis ends the old call
-UNASSESSABLE (RESTART_GAP_OVERLAPS_THESIS), recorded once, in the same run, by the second session; no duplicate journal
-rows, no reopening, no repeated or new alert, no new call from reconstruction; the saved AVAILABLE never becomes current
-again; the cockpit shows the concluded call and its recorded history, and no usable entry.
-
-Observed and reported, not asserted as a contract: the worker's Stop epilogue tapes STOPPED but saves without a dispatch,
-so session 1's stored view still holds entry AVAILABLE (the API presents it as UNVERIFIED / NOT_CURRENT), and at the next
-Start the restart terminal (stamped at the last processed instant) precedes the pending STOPPED: no Stop-time UNVERIFIED
-revision is journaled."""
+Contract (orchestrator decision, 11 October 2026):
+- Stop keeps the last assessment and its timestamp. A kept AVAILABLE is historical: the API serves UNVERIFIED with the
+  stopped/not-current reason and no usable band; the cockpit shows no current availability, also after a reload.
+- STOPPED is a SESSION event at its actual time: never an engine input, never a call revision, never backdated.
+- At Start the existing gap rules apply: same run (gap < 96 h, same instrument and method); the restart gap ends the
+  ongoing thesis UNASSESSABLE (AVAILABLE -> UNASSESSABLE in the journal); no new "every Stop invalidates" rule.
+- One continuity run, two sessions; the old call is never duplicated, reopened or re-alerted; its recorded history is
+  consultable and distinct from current availability and from the session interruption."""
 
 from __future__ import annotations
 
 import sys
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import adviser6_fixtures as fx
 import pytest
 from playwright.sync_api import expect
 
-from test_ui_smoke import ROOT, browser, evidence_dir, stack  # noqa: F401
+from test_ui_smoke import ROOT, browser, evidence_dir, stack, wait_for  # noqa: F401
 
 pytestmark = [pytest.mark.e2e, pytest.mark.db]
 sys.path.insert(0, str(ROOT / "tests"))
-from test_adviser_live import COMPAT, fetcher  # noqa: E402
-from test_mp005_live import WIDE, feed6, session, tape  # noqa: E402
+from pack_fixtures import connect  # noqa: E402
+from test_adviser_live_db import FakeClock, _run_worker, _wait, ws_messages  # noqa: E402
+from test_mp004_live import START  # noqa: E402
+from test_mp005_live import tape  # noqa: E402
 
-from algotrader import db  # noqa: E402
 from algotrader.adviser import live as lv  # noqa: E402
 
-EQ = fx.minute(99995, 100005, 99990, 100000)  # the proposal/episode LONG tape: the call is AVAILABLE at 04:07:01.5
-QUOTES = {fx.T(4, 5): WIDE}
+EQ = fx.minute(99995, 100005, 99990, 100000)  # the proposal/episode LONG tape: a v0.6 call issued at 04:07:01
 
 
-def _claim(c, sid: str) -> lv.LiveStore:
-    got = lv.LiveAdviserWorker("unused", worker_id="adviser:restart-test", lease_seconds=600).claim(c)
-    assert got is not None and got[0]["session_id"] == sid
-    return lv.LiveStore(c, sid, "adviser:restart-test", got[1])
+def _tape(c, sid: str) -> list[dict]:
+    return [cmd for b in c.execute("SELECT command FROM adviser_input_tape WHERE session_id = %s ORDER BY seq",
+                                   (sid,)).fetchall() for cmd in b["command"]["commands"]]
 
 
-def _stop_like_worker(c, store: lv.LiveStore, sess: lv.LiveSession) -> None:
-    """The Owner's Stop as the worker ends a session (live.py ``LiveAdviserWorker._session`` epilogue)."""
-    lv.stop_session(c, store.sid)
-    sess.on_connection("STOPPED", sess.clock())
-    sess.status = "STOPPED"
-    store.save(sess)
-    c.execute("UPDATE adviser_live_sessions SET status = 'stopped', stopped_at = now(), phase = 'STOPPED', "
-              "lease_owner = NULL, lease_expires_at = NULL WHERE session_id = %s AND lease_generation = %s",
-              (store.sid, store.gen))
+def _session(c, sid: str) -> dict:
+    return c.execute("SELECT * FROM adviser_live_sessions WHERE session_id = %s", (sid,)).fetchone()
 
 
-def test_stop_then_start_keeps_the_run_ends_the_old_call_and_never_restores_availability(stack, browser, evidence_dir):  # noqa: F811
+def _current_available(stack) -> bool:
+    st = stack.get("/api/adviser/live")
+    return bool(st["current"]) and ((st["view"] or {}).get("call") or {}).get("entry_status") == "AVAILABLE"
+
+
+def test_stop_then_start_through_the_worker_keeps_history_and_never_serves_old_availability(stack, browser, evidence_dir):  # noqa: F811
+    url = stack.env["ALGOTRADER_DATABASE_URL"]
     mins = tape("L", fx.REF, fx.neutral(1)[0], EQ, fx.VALID)
-    with db.connection(stack.env["ALGOTRADER_DATABASE_URL"], autocommit=True) as c:
-        # session 1: Start (v0.6) -> live call AVAILABLE -> voluntary Stop
-        sid1 = lv.start_session(c, "http://x", "v0.6")
-        store1 = _claim(c, sid1)
-        s1, clock = session(mins, fx.T(4, 7), quotes=QUOTES)
-        call = s1.driver.rt.core.call
-        assert call is not None and call.entry == "AVAILABLE" and call.thesis == "ONGOING"
-        cid, run = call.cid, s1.epoch.run_id
-        store1.save(s1)
-        clock.t = fx.T(4, 7) + timedelta(seconds=3)
-        _stop_like_worker(c, store1, s1)
-        alerts1 = c.execute("SELECT alert_key, change_type FROM adviser_alerts ORDER BY created_at").fetchall()
-        assert [a["change_type"] for a in alerts1] == ["NEW_CALL"]
-        saved = c.execute("SELECT view FROM adviser_live_sessions WHERE session_id = %s", (sid1,)).fetchone()["view"]
-        assert saved["call"]["call_id"] == cid and saved["call"]["thesis_status"] == "ONGOING"
-        # the Stop is taped by session 1 (its dispatch is still pending in the saved state: see the module note)
-        tape1 = [cmd for b in c.execute("SELECT command FROM adviser_input_tape WHERE session_id = %s ORDER BY seq",
-                                        (sid1,)).fetchall() for cmd in b["command"]["commands"]]
-        assert tape1[-1]["cmd"] == "connection" and tape1[-1]["state"] == "STOPPED"
-        n1 = c.execute("SELECT count(*) AS n FROM adviser_journal WHERE run_id = %s", (run,)).fetchone()["n"]
-
-    # while stopped: the API presents the last saved assessment as not current, never as an available entry
-    st = stack.get("/api/adviser/live")
-    assert st["session"]["session_id"] == sid1 and st["state"] == "STOPPED" and not st["current"]
-    assert st["view"]["call"]["call_id"] == cid and st["view"]["call"]["entry_status"] == "UNVERIFIED"
-    assert st["view"]["call"]["admissible_bounds"] is None and st["view"]["call"]["presentation"] == "NOT_CURRENT"
-
-    with db.connection(stack.env["ALGOTRADER_DATABASE_URL"], autocommit=True) as c:
-        # session 2: Start 5 minutes later -> new session, same run; the restart gap ends the old thesis
-        clock.t = fx.T(4, 12) + timedelta(seconds=30)
-        sid2 = lv.start_session(c, "http://x", "v0.6")
-        assert sid2 != sid1
-        store2 = _claim(c, sid2)
-        s2 = lv.LiveSession(compat=COMPAT, build="test", clock=clock, method="v0.6")
-        s2.start(store2.load_state(), fetcher(mins))
-        assert s2.epoch.run_id == run and s2.status == "WARMING_UP"
-        assert any(n["event"] == "resumed" and n["run_id"] == run for n in s2.notes)
-        assert s2.driver.rt.core.call is None
-        store2.save(s2)
-        s2.on_connection("CONNECTED", clock.t)
-        feed6(s2, clock, mins, fx.T(4, 12), fx.T(4, 15))  # fresh live minutes after the restart
-        assert s2.status == "LIVE"
-        store2.save(s2)
-
-        rows = c.execute("SELECT seq, kind, record_id, subject, clock_time, record FROM adviser_journal "
-                         "WHERE run_id = %s ORDER BY seq", (run,)).fetchall()
-        runs = {r["run_id"] for r in c.execute("SELECT DISTINCT run_id FROM adviser_journal").fetchall()}
-        alerts2 = c.execute("SELECT alert_key, change_type FROM adviser_alerts ORDER BY created_at").fetchall()
-        tape2 = [cmd for b in c.execute("SELECT command FROM adviser_input_tape WHERE session_id = %s ORDER BY seq",
-                                        (sid2,)).fetchall() for cmd in b["command"]["commands"]]
-        sessions = c.execute("SELECT session_id, status, view->>'run_id' AS run FROM adviser_live_sessions "
-                             "ORDER BY created_at").fetchall()
-
-    # one continuity run, two sessions; the journal grew without duplicates or gaps
-    assert runs == {run}
-    assert [(s["session_id"], s["status"], s["run"]) for s in sessions] == [(sid1, "stopped", run), (sid2, "running", run)]
-    assert [r["seq"] for r in rows] == list(range(1, len(rows) + 1)) and len(rows) > n1
-    assert len({r["record_id"] for r in rows}) == len(rows)
-    # the old call: issued once, never reissued or reopened; its only terminal is the restart-gap one
-    assert [r["record_id"] for r in rows if r["kind"] == "call"] == [cid]
-    revs = [r for r in rows if r["kind"] == "call_revision" and r["subject"] == cid]
-    assert [r["record"]["revision"] for r in revs] == list(range(1, len(revs) + 1))
-    terminals = [r for r in revs if r["record"]["thesis_status"] != "ONGOING"]
-    assert len(terminals) == 1 and terminals[0] is revs[-1]
-    term = terminals[0]["record"]
-    assert (term["thesis_status"], term["terminal_reason"]) == ("UNASSESSABLE", "RESTART_GAP_OVERLAPS_THESIS")
-    assert term["entry_status"] != "AVAILABLE" and terminals[0]["seq"] > n1  # written by the second session
-    assert terminals[0]["clock_time"] < fx.T(4, 12)  # at the restart point (last processed instant), before catch-up
-    assert any(cmd["cmd"] == "restart" and cmd["reason"] == "RESTART_GAP_OVERLAPS_THESIS" for cmd in tape2)
-    assert not [r for r in rows[n1:] if r["kind"] == "call"]  # reconstruction and the first live minutes issue no call
-    # no alert replayed, and no alert for the restart terminal
-    assert alerts2 == alerts1
-
-    # live API: the new session on the same run, no current call, the old call listed as concluded once
-    st = stack.get("/api/adviser/live")
-    assert st["session"]["session_id"] == sid2 and st["view"]["run_id"] == run
-    assert st["view"]["call"] is None
-    rc = [x for x in st["view"]["recent_calls"] if x["call_id"] == cid]
-    assert len(rc) == 1 and (rc[0]["terminal"], rc[0]["reason"]) == ("UNASSESSABLE", "RESTART_GAP_OVERLAPS_THESIS")
-    detail = stack.get(f"/api/adviser/runs/{run}/calls/{cid}")
-    assert detail["call"]["call_id"] == cid and detail["revisions"] == [r["record"] for r in revs]
-
-    # cockpit: concluded call and its recorded history; no usable entry anywhere, also after a reload
+    clock = FakeClock(START + timedelta(seconds=30))
     ctx = browser.new_context(viewport={"width": 1440, "height": 1000}, timezone_id="Europe/Rome")
     page = ctx.new_page()
     errors: list[str] = []
     page.on("pageerror", lambda e: errors.append(str(e)))
-    page.goto(f"{stack.base}/#market")
-    for attempt in range(2):
-        panel = page.get_by_test_id("live-call")
-        expect(panel).to_have_attribute("data-state", "WAITING", timeout=15_000)
-        expect(page.get_by_test_id("live-call-identity")).to_contain_text("Conclusa — non valutabile")
-        expect(page.get_by_test_id("live-call-concluded")).to_have_attribute("data-terminal", "UNASSESSABLE")
-        expect(page.get_by_test_id("live-concluded-reason")).to_contain_text("RESTART_GAP_OVERLAPS_THESIS")
-        expect(page.get_by_test_id("live-concluded-guidance")).not_to_have_attribute("data-kind", "LOADING", timeout=15_000)
-        for gone in ("live-entry", "live-admissible"):
-            expect(page.get_by_test_id(gone)).to_have_count(0)
-        expect(page.locator(".sig-avail")).to_have_count(0)
-        expect(page.locator(".band-admissible")).to_have_count(0)
-        expect(page.get_by_test_id("live-no-trade")).to_have_text("In attesa — nessun ingresso proposto")
-        if attempt == 0:
-            page.screenshot(path=str(evidence_dir / "restart-cockpit.png"), full_page=True)
+    panel = page.get_by_test_id("live-call")
+    th2 = sid2 = None
+    try:
+        # ---- session 1: Start (v0.6) -> live call AVAILABLE ----------------------------------------------------------
+        with connect(url) as c:
+            sid1 = lv.start_session(c, "http://x", "v0.6")
+        th1, ws1 = _run_worker(url, clock, ws_messages(START, fx.T(4, 7), mins), mins)
+        _wait(url, "SELECT 1 FROM adviser_live_sessions WHERE session_id = %s AND view->>'status' = 'WARMING_UP'", (sid1,))
+        ws1.gate.set()
+        call_row = _wait(url, "SELECT * FROM adviser_journal WHERE kind = 'call'", ())
+        cid, run = call_row["record_id"], call_row["run_id"]
+        wait_for(lambda: _current_available(stack), timeout=60)
+        page.goto(f"{stack.base}/#market")
+        expect(panel).to_have_attribute("data-state", "AVAILABLE", timeout=15_000)  # precondition: served as current
+        with connect(url) as c:
+            before = _session(c, sid1)["view"]
+            n_before = c.execute("SELECT count(*) AS n FROM adviser_journal WHERE run_id = %s", (run,)).fetchone()["n"]
+            alerts1 = [a["alert_key"] for a in c.execute("SELECT alert_key FROM adviser_alerts ORDER BY created_at")]
+        assert before["call"]["call_id"] == cid and before["call"]["entry_status"] == "AVAILABLE"
+
+        # ---- Stop requested -> confirmed and saved by the worker -----------------------------------------------------
+        with connect(url) as c:
+            lv.stop_session(c, sid1)
+        th1.join(60)
+        assert not th1.is_alive()
+        with connect(url) as c:
+            s1 = _session(c, sid1)
+            tape1 = _tape(c, sid1)
+            n_stop = c.execute("SELECT count(*) AS n FROM adviser_journal WHERE run_id = %s", (run,)).fetchone()["n"]
+        v1 = s1["view"]
+        assert s1["status"] == "stopped" and s1["stopped_at"] is not None and v1["status"] == "STOPPED"
+        assert not v1["connected"]
+        # the last assessment is kept as it was, with its own timestamp (historical AVAILABLE, no Stop revision)
+        assert v1["clock"] == before["clock"] and v1["call"] == before["call"]
+        assert n_stop == n_before  # the Stop wrote no journal record
+        # STOPPED is a session event at the Stop's own time, never an engine input
+        stop_note = [n for n in v1["notes"] if n["event"] == "stopped"]
+        stop_at = datetime.fromisoformat(stop_note[0]["at"].replace("Z", "+00:00")) if stop_note else None
+        assert len(stop_note) == 1 and stop_at >= datetime.fromisoformat(before["clock"].replace("Z", "+00:00"))
+        assert not [x for x in tape1 if x["cmd"] == "connection" and x["state"] == "STOPPED"]
+        # served while stopped: UNVERIFIED, stopped/not-current reason, no usable band
+        st = stack.get("/api/adviser/live")
+        assert st["session"]["session_id"] == sid1 and st["state"] == "STOPPED" and not st["current"]
+        sc = st["view"]["call"]
+        assert (sc["call_id"], sc["entry_status"], sc["entry_status_saved"]) == (cid, "UNVERIFIED", "AVAILABLE")
+        assert "SESSION_NOT_CURRENT:STOPPED" in sc["entry_reasons"] and sc["admissible_bounds"] is None
+        assert sc["presentation"] == "NOT_CURRENT"
+        for reload in (False, True):
+            if reload:
+                page.reload()
+            expect(panel).to_have_attribute("data-state", "UNVERIFIED", timeout=15_000)
+            expect(page.get_by_test_id("live-call-not-current")).to_be_visible()
+            expect(page.get_by_test_id("live-entry-consequence")).to_have_attribute("data-kind", "NOT_CURRENT")
+            expect(page.get_by_test_id("live-admissible")).to_have_count(0)
+            expect(page.locator(".sig-avail")).to_have_count(0)
+            expect(page.locator(".band-admissible")).to_have_count(0)
+            # the interruption is a session event in What changed, not a call revision
+            expect(page.get_by_test_id("live-timeline")).to_contain_text("stopped")
+        page.screenshot(path=str(evidence_dir / "restart-1-stopped.png"), full_page=True)
+
+        # ---- Start 5 minutes later -> restore -----------------------------------------------------------------------
+        clock.set(fx.T(4, 12) + timedelta(seconds=30))
+        with connect(url) as c:
+            sid2 = lv.start_session(c, "http://x", "v0.6")
+        assert sid2 != sid1
+        th2, ws2 = _run_worker(url, clock, ws_messages(fx.T(4, 12), fx.T(4, 15), mins), mins)
+        _wait(url, "SELECT 1 FROM adviser_live_sessions WHERE session_id = %s AND view->>'status' = 'WARMING_UP'", (sid2,))
+        ws2.gate.set()
+        _wait(url, "SELECT 1 FROM adviser_live_sessions WHERE session_id = %s AND view->>'status' = 'LIVE'", (sid2,))
+        _wait(url, "SELECT 1 FROM adviser_journal WHERE kind = 'call_revision' AND subject = %s AND "
+                   "record->>'terminal_reason' = 'RESTART_GAP_OVERLAPS_THESIS'", (cid,))
+        with connect(url) as c:
+            rows = c.execute("SELECT seq, kind, record_id, subject, clock_time, record FROM adviser_journal "
+                             "WHERE run_id = %s ORDER BY seq", (run,)).fetchall()
+            runs = {r["run_id"] for r in c.execute("SELECT DISTINCT run_id FROM adviser_journal").fetchall()}
+            alerts2 = [a["alert_key"] for a in c.execute("SELECT alert_key FROM adviser_alerts ORDER BY created_at")]
+            tape2 = _tape(c, sid2)
+            v2 = _session(c, sid2)["view"]
+            all_tape = [cmd for b in c.execute("SELECT command FROM adviser_input_tape WHERE run_id = %s", (run,))
+                        for cmd in b["command"]["commands"]]
+        # same continuity run, a new session; the existing gap rule (not a Stop rule) ends the old thesis
+        assert runs == {run} and v2["run_id"] == run
+        assert any(n["event"] == "resumed" and n["run_id"] == run for n in v2["notes"])
+        assert not [n for n in v2["notes"] if n["event"] == "pending_stop_superseded"]  # nothing pending from the Stop
+        assert [r["seq"] for r in rows] == list(range(1, len(rows) + 1))
+        assert len({r["record_id"] for r in rows}) == len(rows)
+        assert [r["record_id"] for r in rows if r["kind"] == "call"] == [cid]  # issued once, never reissued
+        revs = [r for r in rows if r["kind"] == "call_revision" and r["subject"] == cid]
+        assert [r["record"]["revision"] for r in revs] == list(range(1, len(revs) + 1))
+        assert all(r["seq"] > n_stop for r in revs)  # no revision was written by the Stop (none before it either)
+        terminals = [r for r in revs if r["record"]["thesis_status"] != "ONGOING"]
+        assert len(terminals) == 1 and terminals[0] is revs[-1]
+        term = terminals[0]
+        assert (term["record"]["thesis_status"], term["record"]["terminal_reason"]) == (
+            "UNASSESSABLE", "RESTART_GAP_OVERLAPS_THESIS")
+        assert term["record"]["entry_status"] != "AVAILABLE"
+        restart = [x for x in tape2 if x["cmd"] == "restart"]
+        assert len(restart) == 1 and restart[0]["reason"] == "RESTART_GAP_OVERLAPS_THESIS"
+        # the gap terminal sits at the restored processing point (existing rule): never after the Stop, never moved
+        assert datetime.fromisoformat(restart[0]["at"]) == term["clock_time"]
+        assert term["clock_time"] <= stop_at
+        assert not [x for x in all_tape if x["cmd"] == "connection" and x["state"] == "STOPPED"]
+        assert not [r for r in rows if r["seq"] > n_stop and r["kind"] == "call"]  # no new call from reconstruction
+        assert alerts2 == alerts1  # no replayed alert and no alert for the gap terminal
+
+        st = stack.get("/api/adviser/live")
+        assert st["session"]["session_id"] == sid2 and st["view"]["run_id"] == run and st["view"]["call"] is None
+        rc = [x for x in st["view"]["recent_calls"] if x["call_id"] == cid]
+        assert len(rc) == 1 and (rc[0]["terminal"], rc[0]["reason"]) == ("UNASSESSABLE", "RESTART_GAP_OVERLAPS_THESIS")
+        detail = stack.get(f"/api/adviser/runs/{run}/calls/{cid}")
+        assert detail["call"]["call_id"] == cid and detail["revisions"] == [r["record"] for r in revs]
+
+        for _ in range(2):  # the restored cockpit, then after a reload
             page.reload()
-    # the previous call's recorded history, from What changed
-    page.get_by_test_id("timeline-call-history-open").first.click()
-    hist = page.get_by_test_id("live-call-history")
-    expect(hist).to_be_visible()
-    expect(hist.get_by_test_id("history-identity")).to_contain_text(cid)
-    expect(hist.get_by_test_id("history-identity")).to_contain_text(run)
-    expect(hist.get_by_test_id("history-status-terminal")).to_be_visible()
-    expect(hist.get_by_test_id("history-revisions")).to_contain_text("RESTART_GAP_OVERLAPS_THESIS")
-    page.screenshot(path=str(evidence_dir / "restart-history.png"), full_page=True)
-    assert not errors, errors
-    ctx.close()
+            expect(panel).to_have_attribute("data-state", "WAITING", timeout=15_000)
+            expect(page.get_by_test_id("live-call-identity")).to_contain_text("Conclusa — non valutabile")
+            expect(page.get_by_test_id("live-call-concluded")).to_have_attribute("data-terminal", "UNASSESSABLE")
+            expect(page.get_by_test_id("live-concluded-reason")).to_contain_text("RESTART_GAP_OVERLAPS_THESIS")
+            for gone in ("live-entry", "live-admissible", "live-call-not-current"):
+                expect(page.get_by_test_id(gone)).to_have_count(0)
+            expect(page.locator(".sig-avail")).to_have_count(0)
+            expect(page.locator(".band-admissible")).to_have_count(0)
+            expect(page.get_by_test_id("live-timeline")).to_contain_text("resumed")  # the interruption: a session event
+        page.screenshot(path=str(evidence_dir / "restart-2-after-start.png"), full_page=True)
+        # the call's recorded history, from What changed: revisions only, distinct from availability and sessions
+        page.get_by_test_id("timeline-call-history-open").first.click()
+        hist = page.get_by_test_id("live-call-history")
+        expect(hist.get_by_test_id("history-identity")).to_contain_text(cid)
+        expect(hist.get_by_test_id("history-identity")).to_contain_text(run)
+        expect(hist.get_by_test_id("history-status-terminal")).to_be_visible()
+        expect(hist.get_by_test_id("history-revisions")).to_contain_text("RESTART_GAP_OVERLAPS_THESIS")
+        expect(hist.get_by_test_id("history-revisions")).not_to_contain_text("LIVE_SESSION_STOPPED")
+        page.screenshot(path=str(evidence_dir / "restart-3-history.png"), full_page=True)
+        assert not errors, errors
+    finally:
+        ctx.close()
+        if sid2 is not None:
+            with connect(url) as c:
+                lv.stop_session(c, sid2)
+            if th2 is not None:
+                th2.join(60)

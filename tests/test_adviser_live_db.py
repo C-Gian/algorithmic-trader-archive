@@ -40,12 +40,13 @@ class FakeClock:
             self.t = max(self.t, t)
 
 
-def ws_messages(start: datetime, end: datetime) -> list[tuple[datetime, str]]:
+def ws_messages(start: datetime, end: datetime, minutes: list | None = None) -> list[tuple[datetime, str]]:
+    minutes = MINUTES if minutes is None else minutes  # any DAY1-based minute tape (default: the WP-009 fixture)
     out = []
     t = start
     while t < end:
         i = int((t - DAY1) / MIN)
-        m = MINUTES[i]
+        m = minutes[i]
         ms = str(int(t.timestamp() * 1000))
         recv = t + MIN + SEC
         out.append((recv - SEC / 2, json.dumps({"arg": {"channel": "candle1m", "instId": "BTC-USDT-SWAP"}, "data": [
@@ -95,8 +96,9 @@ class FakeWS:
 class FakeQuotes:
     """Scripted public quotes: one per offered instant (the latest complete close +/- 0.1), never fabricated."""
 
-    def __init__(self, clock: FakeClock) -> None:
+    def __init__(self, clock: FakeClock, minutes: list | None = None) -> None:
         self.clock = clock
+        self.minutes = MINUTES if minutes is None else minutes
         self.pending: list[datetime] = []
         self.taken = threading.Event()
         self.lock = threading.Lock()
@@ -115,8 +117,8 @@ class FakeQuotes:
             t = self.pending.pop(0)
             self.taken.set()
         self.clock.set(t)
-        i = min(int((floor(t) - DAY1) / MIN) - 1, len(MINUTES) - 1)
-        c = MINUTES[i].c
+        i = min(int((floor(t) - DAY1) / MIN) - 1, len(self.minutes) - 1)
+        c = self.minutes[i].c
         return Quote(c - Decimal("0.1"), c + Decimal("0.1"), t, t, "BTC-USDT-SWAP", "q" * 64)
 
 
@@ -124,14 +126,15 @@ def floor(t: datetime) -> datetime:
     return t.replace(second=0, microsecond=0)
 
 
-def _run_worker(database_url, clock, msgs):
-    f = fake_from(MINUTES)
+def _run_worker(database_url, clock, msgs, minutes: list | None = None):
+    minutes = MINUTES if minutes is None else minutes
+    f = fake_from(minutes)
     ws = FakeWS(clock, msgs)
 
     async def connect_ws(url):
         return ws
 
-    quotes = FakeQuotes(clock)
+    quotes = FakeQuotes(clock, minutes)
     ws.quotes = quotes
     w = lv.LiveAdviserWorker(database_url, worker_id="adviser:test", lease_seconds=30,
                              rest_client_factory=lambda base: client(f), quote_client_factory=lambda base: quotes,

@@ -128,6 +128,63 @@ def test_live_temporary_cost_restriction_then_recovery_and_issue(side):
     assert call["actionability"]["side_price"] == ("100012" if side == "L" else "99988")
 
 
+def _stop_restart(legacy_stopped: bool) -> dict:
+    """A v0.6 call AVAILABLE, the Owner's Stop at 04:07:03, Start at 04:12:30. ``legacy_stopped`` reproduces a state
+    saved BEFORE the orchestrator decision of 11 October 2026, whose worker taped the Stop as a STOPPED connection
+    command left pending in the saved runtime."""
+    mins = tape("L", fx.REF, fx.neutral(1)[0], fx.minute(99995, 100005, 99990, 100000), fx.VALID)
+    s1, clock = session(mins, fx.T(4, 7), quotes={fx.T(4, 5): WIDE})
+    assert s1.driver.rt.core.call.entry == "AVAILABLE"
+    j0, _, t0 = s1.driver.take()  # everything up to the Stop
+    view0 = s1.view()
+    clock.t = fx.T(4, 7) + timedelta(seconds=3)
+    if legacy_stopped:
+        s1.on_connection("STOPPED", clock.t)
+    s1.stopped(clock.t)
+    j1, _, t1 = s1.driver.take()  # what the Stop itself wrote and taped
+    p = {**_persisted(s1), "method": "v0.6"}  # as LiveStore.load_state
+    clock.t = fx.T(4, 12) + timedelta(seconds=30)
+    s2 = lv.LiveSession(compat=COMPAT, build="test", clock=clock, method="v0.6")
+    s2.start(p, fetcher(mins))
+    j2, _, t2 = s2.driver.take()
+    return {"s1": s1, "s2": s2, "view0": view0, "j0": j0, "t0": t0, "j1": j1, "t1": t1, "j2": j2, "t2": t2}
+
+
+def _calls(journal: list[dict]) -> list[tuple]:
+    return [(e["kind"], e["clock_time"], {k: v for k, v in e["record"].items() if k != "env"}) for e in journal
+            if e["kind"] in ("call", "call_revision", "material_change")]
+
+
+def test_stop_is_a_session_event_and_a_legacy_pending_stopped_never_governs_the_restore():
+    """Orchestrator decision (11 October 2026): STOPPED is a session event, never an engine input or a call revision.
+    The Stop keeps the last assessment (historical AVAILABLE, same clock); at Start the existing gap rule ends the
+    thesis UNASSESSABLE at the restored processing point. A STOPPED left pending by a pre-decision worker is superseded
+    at its own instant (same dispatch) and changes nothing: the same call records as a restore without it, no alert,
+    and the run's input tape (both sessions) still reproduces the journal."""
+    r = _stop_restart(legacy_stopped=False)
+    assert r["j1"] == [] and r["t1"] == []  # the Stop wrote and taped nothing in the engine
+    v = r["s1"].view()
+    assert v["status"] == "STOPPED" and not v["connected"]
+    assert (v["clock"], v["call"]) == (r["view0"]["clock"], r["view0"]["call"])  # the kept assessment, unchanged
+    assert v["call"]["entry_status"] == "AVAILABLE"  # historical; the API serves it as UNVERIFIED / not current
+    assert r["s1"].notes[-1] == {"at": "2025-09-01T04:07:03+00:00", "event": "stopped"}  # its actual time
+    revs = [e["record"] for e in r["j2"] if e["kind"] == "call_revision"]
+    assert [(x["thesis_status"], x["terminal_reason"]) for x in revs] == [("UNASSESSABLE", "RESTART_GAP_OVERLAPS_THESIS")]
+    assert r["s2"].driver.rt.core.connection["state"] == "DISCONNECTED" and lv.alerts_from(r["j2"], "run") == []
+
+    old = _stop_restart(legacy_stopped=True)
+    assert [c["state"] for c in old["t1"] if c["cmd"] == "connection"] == ["STOPPED"]  # taped by the old worker
+    assert old["j1"] == []  # pending at the save: no revision at the Stop
+    assert any(n["event"] == "pending_stop_superseded" and n["stop_at"] == "2025-09-01T04:07:03+00:00"
+               for n in old["s2"].notes)
+    assert old["s2"].driver.rt.core.connection["state"] == "DISCONNECTED"
+    assert not [p for p in old["s2"].driver.rt.pending if p[2] == "connection"]
+    assert _calls(old["j2"]) == _calls(r["j2"]) and lv.alerts_from(old["j2"], "run") == []
+    d = lv.replay_tape(old["t0"] + old["t1"] + old["t2"], lv.live_config(COMPAT, "test", "v0.6"),
+                       old["s1"].epoch.cov_from)
+    assert [e["digest"] for e in d.take()[0]] == [e["digest"] for e in old["j0"] + old["j1"] + old["j2"]]
+
+
 def test_live_restart_after_the_initial_terminal_never_reopens_or_reprepares():
     mins = fx.live_tape6(fx.REF_COR, *fx.neutral(30))
     s1, clock = session(mins, fx.T(4, 7))

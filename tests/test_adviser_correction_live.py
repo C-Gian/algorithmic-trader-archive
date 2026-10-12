@@ -91,7 +91,10 @@ def test_silent_stale_socket_follows_the_registered_staleness_terminal_rule():
     assert alerts.count("TERMINAL") == 1
 
 
-def test_owner_stop_is_taped_unverified_but_never_alerted():
+def test_a_taped_stopped_connection_is_unverified_but_never_alerted():
+    """Engine rule for an explicit STOPPED connection command (still accepted, e.g. in tapes and states saved before
+    11 October 2026). Since the orchestrator decision of that date the worker no longer tapes the Owner's Stop: it is a
+    session event and the API serves UNVERIFIED while stopped (test_mp005_live, e2e/test_live_restart_e2e)."""
     sess, clock, core = _available()
     sess.on_connection("STOPPED", clock.t)
     sess.tick(clock.t)

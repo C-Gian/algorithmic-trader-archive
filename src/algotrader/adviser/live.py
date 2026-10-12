@@ -392,6 +392,13 @@ class LiveSession:
         if persisted is not None and not reset_reason:
             # a restart gap overlapping an ongoing thesis makes it UNASSESSABLE; old alerts never replay as new
             self.driver.restart(at, "RESTART_GAP_OVERLAPS_THESIS")
+            # the Owner's Stop is a session event, never an engine input (orchestrator decision, 11 October 2026); a
+            # state saved before that decision may still hold it as a pending STOPPED connection command: it is
+            # superseded at its own instant by DISCONNECTED (same dispatch, existing taped command), so it never governs
+            # an assessment of the new session, moves no timestamp and produces no revision or alert
+            for t in sorted({x[0] for x in self.driver.rt.pending if x[2] == "connection" and x[3] == "STOPPED"}):
+                self.driver.connection("DISCONNECTED", t)
+                self.note("pending_stop_superseded", stop_at=_iso(t))
         self.reconstruct(fetch_history, now)
 
     def reconstruct(self, fetch_history: HistoryFetcher, now: datetime) -> None:
@@ -497,6 +504,14 @@ class LiveSession:
         self.note({"CONNECTED": "ws_connected", "DISCONNECTED": "ws_disconnected", "STOPPED": "stopped"}[state])
         if not self.connected and self.status == "LIVE":
             self.status = "DISCONNECTED"
+
+    def stopped(self, at: datetime) -> None:
+        """The Owner's Stop as a SESSION event at its actual time (orchestrator decision, 11 October 2026): no engine
+        input, no call revision and no change to the last assessment, which stays stored as historical with its own
+        timestamp. While stopped the API serves entry UNVERIFIED / not current from the session state."""
+        self.connected = False
+        self.status = "STOPPED"
+        self.notes.append({"at": _iso(at), "event": "stopped"})
 
     def tick(self, now: datetime) -> None:
         self.driver.advance(now)
@@ -910,9 +925,7 @@ class LiveAdviserWorker:
                 for tk in late:
                     tk.cancel()
                 await asyncio.gather(*owned, return_exceptions=True)
-        if sess.driver is not None:
-            sess.on_connection("STOPPED", self.clock())  # entry not verifiable while stopped; never alerted
-        sess.status = "STOPPED"
+        sess.stopped(self.clock())  # a session event: the last assessment is kept as stored; never an engine input
         if sess.driver is not None and sess.epoch is not None:
             store.save(sess)
         conn.execute("UPDATE adviser_live_sessions SET status = 'stopped', stopped_at = now(), phase = 'STOPPED', "

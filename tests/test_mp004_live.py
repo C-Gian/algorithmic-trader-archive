@@ -162,7 +162,9 @@ def test_live_restore_from_persisted_state_keeps_the_reference():
     w1 = next(iter(s1.driver.rt.core.waits.values()))
     assert w1.phase == "WAIT_RESPONSE"
     s2 = lv.LiveSession(compat=COMPAT, build="test", clock=clock, method="v0.5")
-    s2.start(_persisted(s1), fetcher(mins))
+    s2.start({**_persisted(s1), "method": "v0.5"}, fetcher(mins))  # as LiveStore.load_state: the lineage's method
+    assert s2.epoch.run_id == s1.epoch.run_id  # a real resume of the same v0.5 run, not a method-change reset
+    assert not [n for n in s2.notes if n["event"] == "continuity_reset"]
     w2 = next(iter(s2.driver.rt.core.waits.values()), None)
     if w2 is not None:  # same continuity: the single reference is carried, never re-prepared
         assert w2.ref == w1.ref and w2.phase == "WAIT_RESPONSE"

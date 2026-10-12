@@ -1,5 +1,26 @@
-# Current task — Live continuity after a voluntary Stop and a new Start (verification)
-Date: 2026-10-11. Status: VERIFIED — READY FOR DIRECTOR REVIEW — LIVE STOP/START CONTINUITY ONLY; one open conflict reported for a Director decision (Stop dispatch, see the STATE). No product change. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+# Current task — Closing the Stop/Start contract (orchestrator decision)
+Date: 2026-10-12. Status: DELIVERED — READY FOR DIRECTOR REVIEW — LIVE STOP/START CONTRACT ONLY. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+## Assignment (relayed by the Owner, 11 October 2026; expected base `bcf34ea`)
+
+**Orchestrator decision (Astra), authoritative.** UNVERIFIED during a Stop is an availability condition served by the API, not a revision imposed on the engine.
+- Stop keeps the last assessment and its timestamp. A kept AVAILABLE is historical: the API serves UNVERIFIED, the stopped / not-current reason and no usable band as a current proposal.
+- STOPPED is a session event at its actual time. It never becomes a call revision and is never backdated to the last processed instant.
+- The journal may go from AVAILABLE to UNASSESSABLE at the restart: the service suspension is a separate fact.
+- The existing gap rules apply at the restart. There is no new "every Stop invalidates the call or the scenario" rule.
+- The timer effects hypothesised in the previous delivery are not established and do not motivate this decision.
+
+**Work.**
+1. Align the README and the tests to the distinction between the engine's historical state and the served current availability.
+2. Prove it on the real worker path: AVAILABLE → Stop requested → Stop confirmed and saved → Start → restore. Check through the API and the cockpit, also after a reload.
+3. Follow STOPPED through the tape and the restore: no late decisional application. Bounded correction of the session-event handling only.
+4. Check how the interruption is consultable and kept distinct from the call history. No invented UNVERIFIED revision; report any new API or persistence need.
+5. Fix the missing method in the v0.5 restore test.
+
+Timers, gap rules, terminals and the method stay unchanged.
+
+## Previous task — Live continuity after a voluntary Stop and a new Start (verification)
+Date: 2026-10-11. Status: VERIFIED (`bcf34ea`); the reported Stop-dispatch conflict was decided by the orchestrator and closed in the task above. No product change. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
 
 ## Assignment (relayed by the Owner, 11 October 2026; expected base `e298660`)
 

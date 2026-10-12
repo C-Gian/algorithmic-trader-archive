@@ -1,6 +1,6 @@
 # Project State
 
-Updated: 2026-10-11 — Live Stop/Start continuity verified (v0.6, synthetic): new session, same run, the old call ends UNASSESSABLE at the next Start; one Stop-dispatch conflict reported for the Director (see the last section). Earlier: Live cockpit: second visual proposal implemented (chart left with candles, wider decision panel, whole-cockpit palette, Italian price notation); implementation complete, final check with the Owner STILL TO DO (see the last section). Earlier (2026-10-10): Preparatory cycle of HDP-001 and A v0.6 closed within the documented limits (orchestrator disposition); future source availability not attested, risk accepted; pre-execution conditions and separate authorization remain; both studies INACTIVE (see the last section). Earlier: study input provisioning path documented and checked synthetically. Earlier: A v0.6: Decision registered; statistical implementation delivered, awaiting the Director's final review; studies INACTIVE. (see the last section). Earlier: A v0.6 offline bootstrap and ledger v2 protections implemented on synthetic evidence only. Earlier: A v0.6 study path technically prepared on synthetic evidence only; study NOT launchable; studies INACTIVE (see the last section). Earlier: HDP-001 verification executor prepared and checked on synthetic inputs only; HDP-001 INACTIVE. Earlier: studies (HDP-001, A v0.6): decision on the study references registered verbatim; **Riferimenti registrati; preparazione esecutiva ancora incompleta; studi INACTIVE.** (see the last section). Earlier: product: live cockpit historical alerts presented as recorded past events (banner and timeline only), delivered: READY FOR DIRECTOR REVIEW — HISTORICAL ALERTS PRESENTATION ONLY (see the last section). Earlier: live cockpit main panel clarity (Italian, authoritative state only), delivered: READY FOR DIRECTOR REVIEW — COCKPIT CLARITY ONLY (see the last section). Earlier: live call history consultable from the live cockpit (read-only), delivered: READY FOR DIRECTOR REVIEW — LIVE CALL HISTORY ONLY (see the last section). Studies unchanged and INACTIVE. Earlier: A v0.6 operational evaluation design approved by Astra and registered; window [2027-01-25T00:00Z, 2027-07-26T00:00Z) fixed; pre-start freeze still to complete/verify; execution INACTIVE (see the last section). Earlier: HDP-001 exploration closed (Director, `cf18dbd`); verification frozen; execution INACTIVE. Earlier: HDP-001 exploration (authorized, exposed Sep–Dec 2025) delivered. Earlier: HDP-001 verification window proposed (documentary only; not opened, execution INACTIVE). Earlier: HDP-001 hourly directional persistence protocol approved and registered; execution INACTIVE (see the last section). 2026-10-09 — WP-015 (MP-005 v0.6) implemented and delivered: READY FOR DIRECTOR REVIEW — WP-015 ONLY (see the last section). Earlier the same day: the Owner continuous v0.5 run `eval-20261009T155751-be8b2b` was accepted descriptively and its four R→N paths were diagnosed (cb356f2, corrected at 3c6af11). WP-014 (MP-004 v0.5) and its correction remain awaiting Director engineering review.
+Updated: 2026-10-12 — Stop/Start contract closed per the orchestrator decision of 11 October 2026: the Owner's Stop is a session event (not an engine input or revision); the API serves UNVERIFIED while stopped; real worker path proven (see the last section). Earlier (2026-10-11): Live Stop/Start continuity verified (v0.6, synthetic): new session, same run, the old call ends UNASSESSABLE at the next Start; one Stop-dispatch conflict reported for the Director (see the last section). Earlier: Live cockpit: second visual proposal implemented (chart left with candles, wider decision panel, whole-cockpit palette, Italian price notation); implementation complete, final check with the Owner STILL TO DO (see the last section). Earlier (2026-10-10): Preparatory cycle of HDP-001 and A v0.6 closed within the documented limits (orchestrator disposition); future source availability not attested, risk accepted; pre-execution conditions and separate authorization remain; both studies INACTIVE (see the last section). Earlier: study input provisioning path documented and checked synthetically. Earlier: A v0.6: Decision registered; statistical implementation delivered, awaiting the Director's final review; studies INACTIVE. (see the last section). Earlier: A v0.6 offline bootstrap and ledger v2 protections implemented on synthetic evidence only. Earlier: A v0.6 study path technically prepared on synthetic evidence only; study NOT launchable; studies INACTIVE (see the last section). Earlier: HDP-001 verification executor prepared and checked on synthetic inputs only; HDP-001 INACTIVE. Earlier: studies (HDP-001, A v0.6): decision on the study references registered verbatim; **Riferimenti registrati; preparazione esecutiva ancora incompleta; studi INACTIVE.** (see the last section). Earlier: product: live cockpit historical alerts presented as recorded past events (banner and timeline only), delivered: READY FOR DIRECTOR REVIEW — HISTORICAL ALERTS PRESENTATION ONLY (see the last section). Earlier: live cockpit main panel clarity (Italian, authoritative state only), delivered: READY FOR DIRECTOR REVIEW — COCKPIT CLARITY ONLY (see the last section). Earlier: live call history consultable from the live cockpit (read-only), delivered: READY FOR DIRECTOR REVIEW — LIVE CALL HISTORY ONLY (see the last section). Studies unchanged and INACTIVE. Earlier: A v0.6 operational evaluation design approved by Astra and registered; window [2027-01-25T00:00Z, 2027-07-26T00:00Z) fixed; pre-start freeze still to complete/verify; execution INACTIVE (see the last section). Earlier: HDP-001 exploration closed (Director, `cf18dbd`); verification frozen; execution INACTIVE. Earlier: HDP-001 exploration (authorized, exposed Sep–Dec 2025) delivered. Earlier: HDP-001 verification window proposed (documentary only; not opened, execution INACTIVE). Earlier: HDP-001 hourly directional persistence protocol approved and registered; execution INACTIVE (see the last section). 2026-10-09 — WP-015 (MP-005 v0.6) implemented and delivered: READY FOR DIRECTOR REVIEW — WP-015 ONLY (see the last section). Earlier the same day: the Owner continuous v0.5 run `eval-20261009T155751-be8b2b` was accepted descriptively and its four R→N paths were diagnosed (cb356f2, corrected at 3c6af11). WP-014 (MP-004 v0.5) and its correction remain awaiting Director engineering review.
 
 **Current task: [task.md](task.md) — A v0.6 continuous evaluation, technical preparation ([references §8](delivery/A-V06-OPERATIONAL-EVALUATION-REFERENCES.md)): technically ready on synthetic evidence, study not launchable; studies INACTIVE. Previous: HDP-001 verification executor, technical preparation ([references §7](delivery/HDP-001-VERIFICATION-REFERENCES.md)); executor prepared to the extent shown by synthetic tests; HDP-001 INACTIVE. Previous: closure of the study references: Riferimenti registrati; preparazione esecutiva ancora incompleta; studi INACTIVE. [Decision](delivery/HDP-001-A-V06-REFERENCES-DECISION.md) · [HDP-001 references](delivery/HDP-001-VERIFICATION-REFERENCES.md) · [A v0.6 references](delivery/A-V06-OPERATIONAL-EVALUATION-REFERENCES.md) · [exposure register](delivery/STUDY-EXPOSURE-REGISTER.md). Previous: historical alerts vs current availability (live cockpit banner and timeline only), delivered; awaiting Director review and Owner-operated CI ([evidence](delivery/evidence/LIVE-HISTORICAL-ALERTS/NOTE.md)). Previous: cockpit clarity of the operational state, delivered ([evidence](delivery/evidence/LIVE-PROPOSAL-CLARITY/NOTE.md)). Previous: live call history in the live cockpit, delivered ([evidence](delivery/evidence/LIVE-CALL-HISTORY/SUMMARY.md)). Previous: WP-015 MP-005 v0.6 implementation, delivered, awaiting Director engineering review. No Owner run prepared.** [MP-005](delivery/MP-005-V06-INITIAL-RESPONSE-INCOMPATIBILITY.md) · [closure](delivery/MP-005-DIRECTOR-CLOSURE.md) · [authorization](delivery/WP-015-MP-005-IMPLEMENTATION-SPEC.md) · [evidence](delivery/evidence/WP-015-ENGINEERING-EVIDENCE.md). v0.5: [MP-004](delivery/MP-004-V05-RETURN-RESPONSE.md) · [closure](delivery/MP-004-DIRECTOR-CLOSURE.md) · [erratum](delivery/MP-004-ERRATUM-SECTION-6-RATIOS.md) · [evidence](delivery/evidence/WP-014-ENGINEERING-EVIDENCE.md). Sep–Dec 2025 is exposed development; Jan–Aug 2026 stays protected except the authorized tail.
 
@@ -1216,7 +1216,7 @@ Verification only. There is no product change. One test was added and one existi
   - *What changed* has the row and a **history** button, which opens the call history (terminal). The same holds after a reload.
   - There is no entry block and no band.
 
-**Conflict reported (not fixed: a lifecycle choice).**
+**Conflict reported (not fixed: a lifecycle choice).** *Decided by the orchestrator on 11 October 2026 and closed in the next section; kept here as history.*
 - The Stop epilogue tapes `STOPPED` at the stop instant but saves without dispatching it.
 - So session 1's stored view and engine state keep entry AVAILABLE; only the API mask presents it as UNVERIFIED.
 - At the next Start the restart terminal (at the last processed instant, 04:07:01.5) precedes the pending STOPPED (04:07:03). No Stop-time UNVERIFIED revision is ever journaled; the call goes AVAILABLE → UNASSESSABLE.
@@ -1244,3 +1244,65 @@ Verification only. There is no product change. One test was added and one existi
 - Worker takeover is not exercised end to end.
 - Alert times come from the database's clock (wall time), not the synthetic clock.
 - CI is Owner-operated: PENDING / NOT CHECKED. v0.6 and HDP-001 frozen; studies INACTIVE.
+
+## Stop/Start contract closed — orchestrator decision (base `bcf34ea`; READY FOR DIRECTOR REVIEW — LIVE STOP/START CONTRACT ONLY)
+
+**Decision (Astra, orchestrator; relayed by the Owner, 11 October 2026).**
+- UNVERIFIED during a Stop is an availability condition served by the API, not a revision imposed on the engine.
+- Stop keeps the last assessment and its timestamp; a kept AVAILABLE is historical.
+- STOPPED is a session event at its actual time: never a call revision, never backdated.
+- The journal may go AVAILABLE → UNASSESSABLE at the restart.
+- The existing gap rules apply; there is no new Stop rule.
+- The timer effects hypothesised at `bcf34ea` are not established.
+
+**Before → after** (`live.py`).
+- **Stop.**
+  - Before: the worker's epilogue pushed `connection STOPPED` into the engine tape at the Stop instant and saved without dispatching it.
+  - After: `LiveSession.stopped(at)` records a session event only: note `stopped` at the actual time, `connected = false`, status STOPPED.
+  - The engine state and the stored view keep the last assessment, unchanged.
+- **Restore.**
+  - Before: a STOPPED pending in a saved state was applied late in the new session. Observed: the connection became STOPPED (since the Stop instant) after the restore's DISCONNECTED, during catch-up.
+  - After: on resume, a pending STOPPED (states saved before the decision) is superseded at its own instant by DISCONNECTED, in the same dispatch and with the existing taped command, plus the note `pending_stop_superseded`.
+  - It moves no timestamp, produces no revision or alert, and the run tape still replays to the same journal.
+- **Unchanged.** Engine rules, timers, gap rules and terminals, the method, the API presentation mask, persistence and the schemas.
+
+**Real worker path** (new `tests/e2e/test_live_restart_e2e.py`, replacing the mirrored epilogue of `bcf34ea`). The WP-009 worker fakes now accept a minute tape (`test_adviser_live_db`) and run the v0.6 MP-005 LONG tape. The steps:
+1. The call is AVAILABLE, served as current, and the cockpit shows AVAILABLE.
+2. Stop is requested; the worker confirms and saves.
+   - The session is stopped, with `stopped_at`.
+   - The view keeps the same clock and the same call (historical AVAILABLE).
+   - The journal is unchanged, and no STOPPED is taped.
+   - The session note `stopped` carries the actual time.
+3. While stopped, the API serves UNVERIFIED, `entry_status_saved` AVAILABLE, `SESSION_NOT_CURRENT:STOPPED`, no band, NOT_CURRENT. The cockpit shows the not-current UNVERIFIED state, no band or entry range, and *What changed* "stopped", also after a reload.
+4. Start 5 minutes later: a new session, the same run (`resumed`), nothing pending to supersede, then LIVE.
+5. In the journal:
+   - contiguous seqs and unique ids; the call issued once;
+   - one terminal, UNASSESSABLE `RESTART_GAP_OVERLAPS_THESIS`, at the restored processing point (the taped `restart` instant, ≤ the Stop time);
+   - no STOPPED anywhere in the run tape;
+   - no new call, and alerts unchanged.
+6. The API shows no current call and the old call once in `recent_calls`; the call-detail route equals its revisions.
+7. The cockpit shows "Conclusa — non valutabile" and no availability, also after a reload. The interruption appears as session notes in *What changed* ("stopped", then "resumed"). The call history (revisions only, terminal) contains no Stop revision.
+
+**Unit tests.**
+- `test_mp005_live::test_stop_is_a_session_event_and_a_legacy_pending_stopped_never_governs_the_restore`:
+  - the Stop writes or tapes nothing in the engine; the view and clock are kept; the note carries the actual time; the gap terminal follows at the restart;
+  - the legacy variant gives the same call records, DISCONNECTED and no pending connection;
+  - replaying the whole run tape (both sessions) gives identical digests.
+- `test_mp004_live::test_live_restore_from_persisted_state_keeps_the_reference`: the persisted `method` was missing. It is now passed, and the test asserts the same run with no continuity reset.
+- `test_adviser_correction_live::test_a_taped_stopped_connection_is_unverified_but_never_alerted` (renamed): the engine rule for an explicit STOPPED is unchanged; the worker no longer tapes the Owner's Stop.
+- The README is aligned.
+
+**How the interruption is consultable (limit, not expanded).**
+- While stopped: the stopped session's notes ("stopped" with its time) in *What changed*, and `stopped_at` in the session row.
+- After Start: `/api/adviser/live` serves only the latest session, so *What changed* shows its "resumed" note (with the downtime in the stored note) but no longer the earlier "stopped" row.
+- The Stop instant stays in `adviser_live_sessions` (`stopped_at`, `diagnostic_log`), with no API to read earlier sessions.
+- The call history shows only the call's revisions. Making past sessions consultable would need a new read API; it is reported and not built.
+
+**Checks.**
+- Live unit tests: 51 passed (`test_mp005_live`, `test_mp004_live`, `test_adviser_correction_live`, `test_adviser_live`, `test_mp002_live`, `test_mp003_live`; non-DB).
+- 53 passed on a disposable PostgreSQL container (removed afterwards):
+  - `test_adviser_live_db`, `test_live_call_history_db`, `test_adviser_correction_live_db`;
+  - `test_mp002_live` to `test_mp005_live` with DB;
+  - E2E `test_adviser_e2e`, `test_live_continuity_e2e`, `test_live_call_history_e2e`, `test_live_restart_e2e`, `test_live_presentation_e2e`, `test_live_proposal_e2e`, `test_live_cockpit_layout_e2e`, `test_mp005_e2e`.
+
+**Limits.** Worker takeover after a lease expiry is still not exercised end to end. Alert times come from the database's clock. CI is Owner-operated: PENDING / NOT CHECKED. v0.6 and HDP-001 frozen; studies INACTIVE.
