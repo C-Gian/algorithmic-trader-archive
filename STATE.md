@@ -1432,3 +1432,14 @@ Verification only. There is no product change. One test was added and one existi
   - Tabulation byte-identical on rerun.
   - No product suite (no product change). No lint (ruff absent).
 - **Status.** Product, v0.6 and HDP-001 unchanged and frozen. Studies INACTIVE. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+
+## Subsequent closure annotation — 12 October 2026
+
+The orchestrator accepted closure of the descriptive E exploration delivered at `d2729e1`, on the Director's review. This annotation supersedes the pending-review status above; the original registration and executor delivery remain preserved.
+
+The Director independently recalculated the comparison from `episodes.csv`: 359 owners, 161 armed, 141 strata, 123 singletons, 38 contributing episodes; C = 5, D = 5, T = 13 and d(Y|E) = 0/23. Input integrity and the full engine processing remain executor verifications. The orchestrator read SUMMARY and REGISTRATION, without independently rerunning scripts or the CSV comparison.
+
+The accepted conclusion is a scarce and concentrated comparison, with zero aggregate association. Opposite-signed stratum contributions cancel; this does not establish absence of association in every stratum or irrelevance of reaction character generally.
+
+**Decision: this E branch stops here. E is not promoted to an operational criterion; A remains unchanged.** No weight, filter, class widening, new cutoff, other curve summary or further period is authorized. Definitions, tools and results are retained as acquired knowledge. No new activity is activated. v0.6 and HDP-001 remain frozen; the two future studies remain INACTIVE. CI was not queried.
