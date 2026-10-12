@@ -1,4 +1,19 @@
-# Current task — MarketView explanation, presentation only (live cockpit box)
+# Current task — A reaction directional efficiency: synthetic feasibility (design completion)
+Date: 2026-10-12. Status: EXECUTOR DELIVERY — FEASIBLE ON SYNTHETIC EVIDENCE ONLY ([note](delivery/A-REACTION-EFFICIENCY-DESIGN-COMPLETION.md)); the Director's review is PENDING. No real exploration authorized. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (authoritative rectification relayed by the Owner, 12 October 2026; base `16d03a6`)
+
+Read the [A reaction character design](delivery/A-REACTION-CHARACTER-DESIGN.md) (supplied by Gian, kept byte-identical as history) and this rectification.
+- **Candidate.** The reaction's directional efficiency E = (q0 − qn) / Σ|qj − q(j−1)|; zero denominator UNDEFINED. The time profile is descriptive only; E does not validate speed, temporal order or overall quality. q = d × price; Aq = minimum transformed low, Bq = maximum transformed high of A's source window, Iq = Bq − Aq > 0 (SHORT swaps high/low).
+- **Scope.** One synthetic step, separate from the product. No change to engine, method, API, persistence or UI. No Owner extraction, acquisition, backtest, economic result, protected period or CI query.
+1. **Actual path.** Reuse the v0.6 harness, functions and fixtures; synthetic OHLC through the ordinary entry, initialization and readiness included. No injected scenario, anchor, call or guidance; no gate or timing manipulation. A few paths showing: a pair with comparable geometry and duration but different E; a pair with equal E and different temporal order; coherent LONG/SHORT reflection. Verify lifecycle compatibility (no unintended confirmation or invalidation before the cutoff).
+2. **Causality and history.** Per path: observable origin and actual q0; admitted bars, intervals and known_at; E on the available prefix only; no bar crossing the origin; history kept through REVISE/REARM; insufficient data and zero denominator declared. The measure stays outside the engine.
+3. **Single cutoff.** Motivated by the existing lifecycle; first option the first ARM. One primary observation per episode; no retrospective anchor choice; no alternative cutoffs tried on outcomes.
+4. **Essential comparison.** One E → outcome relation with a concrete, simple way to make episodes comparable: few necessary quantities, the distances already determined by the others, numerical matching conventions, non-comparable episodes and absence of overlap. No identical episodes, complex model, "good reaction" thresholds or arbitrary minimum quota.
+5. **Complete outcomes.** One question: B reached before the premise fails, within the original structural horizon, after the cutoff. Levels and horizon frozen at the cutoff, distinct from later call management. Contacts, closes and precedence consistent with the existing contracts, no invented intrabar order. Distinguish B first, failure first, horizon observed without B, ambiguous, incomplete/censored, and other concurrent terminals by explicit convention.
+- **Delivery.** A short design-completion note (decisions and rectifications, OHLC paths and synthetic results, cutoff and comparison, outcome taxonomy, checks and limits, feasible or a precise impediment). Keep the earlier design as history and state what supersedes it. Commit and push.
+
+## Previous task — MarketView explanation, presentation only (live cockpit box)
 Date: 2026-10-12. Status: IMPLEMENTATION DELIVERED ([delivery and map](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-PRESENTATION.md)); the Director's review and the Owner's guided check are PENDING; comprehension not verified. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
 ## Assignment (orchestrator decision, relayed by the Owner, 12 October 2026; base `0619e5f`)
