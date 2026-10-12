@@ -150,6 +150,25 @@ v0.6 is v0.5 with ONE named addition ([MP-005](delivery/MP-005-V06-INITIAL-RESPO
 - **Reports and UI**: report v6 = report v5 + the `INITIAL_RESPONSE_INCOMPATIBLE` count as a **subset of X** (never added again), by base, direction and WAIT-open month, ratio over P (zero denominator undefined), with the declared loss of later C/R classifications (no counterfactual) in JSON, Markdown and Copy report for chat. The 20-owner RETURN convention is NOT_APPLICABLE. The Workbench and the live cockpit offer v0.6 with its status and purpose before Start; an ended entry attempt is shown as *entry attempt ended — scenario not invalidated*, distinct from an invalidated scenario; the read-only comparison adds the MP-005 limitation and the subset row (default pair v0.5/v0.6 when both exist).
 - **Limits**: synthetic fixtures only (the MP-005 §8/§9 rows checked literally through the pinned functions, reachable tapes on the MP-002 base path); no Owner run, replay on real data or economic comparison; usefulness unknown.
 
+## EXPERIMENTAL v0.6-a2x — second A attempt (not a release; synthetic proofs only; not in the application)
+
+An isolated implementation of the [A second-attempt design](delivery/A-SECOND-ATTEMPT-DESIGN.md) (design `b20919e`, ratification `3705fd0`) for synthetic proofs. It is **not** a selectable method: the Workbench, the live cockpit, the API, controls and jobs never list or accept it, it is never the default, and it is not installed in the Owner stack. Only test paths select it explicitly (`methods.get("v0.6-a2x", experimental=True)`, `harness.run_pure(..., method="v0.6-a2x")`).
+
+- **Behaviour.** It is v0.6, plus one distinct successor attempt after a CONFIRMED A scenario is invalidated by its V before the original expiry H0:
+  - the same-direction discovery slot stays reserved;
+  - the successor arms only on a fresh complete 15m reaction after the failure, and confirms anew;
+  - the impulse geometry stays frozen, and every clock is bounded by H0;
+  - routing, selection and protections are inherited.
+- **A different policy, not just an extra call.** The reservation can defer an ordinary same-direction A birth, and on release the ordinary latch applies.
+- **Implementation.**
+  - `adviser/core_a2x.py` and `runtime_a2x.py`.
+  - Two behaviour-preserving hooks in `core3` (`_conf_clocks`, `_a_hard`), used at confirmation, routing and issue.
+  - Identities: `btc.context-action.v0.6-a2x` / `a2x.rules.exp1`, `adviser.core.v6-a2x`, `algotrader.adviser-state.v6-a2x`, `algotrader.adviser-runtime.v6-a2x`.
+  - The register is MP-005 with no new number. No report, reconciliation or Deep validation.
+- **Records.** They use the semantic.v2 revision-5 shapes. The new values (the observation `a_second_attempt`, the successor's reasons and setup keys, `ORIGINAL_IMPULSE_EXPIRY`) are not registered in the public changelog: registration is required before any publication.
+- **Evidence.** [summary](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md).
+- **Not done.** No data evaluation, backtest or economic result.
+
 ## HDP-001 verification executor (offline study tool; study INACTIVE)
 
 `scripts/hdp001_verify.py` applies the frozen HDP-001 protocol to verified local `marketdata.v1` datasets.

@@ -61,10 +61,12 @@ def channel_ids(feed_manifest) -> dict[str, str]:
     return dict(sorted(out.items()))
 
 
-def engine_config(feed_manifest, pack: dict, build: str | None, method: str | None = None) -> dict[str, Any]:
+def engine_config(feed_manifest, pack: dict, build: str | None, method: str | None = None, *,
+                  experimental: bool = False) -> dict[str, Any]:
     """Pinned adviser configuration of a new pack adviser evaluation (method release, identity, profile, windows,
-    tick, channels). ``method`` absent = the existing v0.2 default."""
-    rel = methods.get(method)
+    tick, channels). ``method`` absent = the existing v0.2 default; an experimental variant only with
+    ``experimental=True`` (never passed by the application)."""
+    rel = methods.get(method, experimental=experimental)
     chans = channel_ids(feed_manifest)
     caps = {x["capability"]: x["status"] for x in pack.get("capabilities", [])}
     funding_covered = caps.get("funding_settlements") in ("AUTHORITATIVE_COMPLETE",)
@@ -177,6 +179,10 @@ def _runtime_cls(rel: methods.Release):
         from .runtime6 import AdviserRuntimeV6
 
         return AdviserRuntimeV6, AdviserRuntimeV6.CORE_CLS
+    if rel.key == "v0.6-a2x":  # EXPERIMENTAL (explicit selection only)
+        from .runtime_a2x import AdviserRuntimeA2X
+
+        return AdviserRuntimeA2X, AdviserRuntimeA2X.CORE_CLS
     from .core3 import AdviserCoreV3
     from .runtime3 import AdviserRuntimeV3
 

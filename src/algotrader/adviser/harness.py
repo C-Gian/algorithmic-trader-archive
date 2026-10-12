@@ -194,11 +194,12 @@ def make_runtime(*, tick=Decimal("0.1"), eval_start=None, eval_end=None, evaluat
                  profile: CapabilityProfile | None = None, origin: str = sc.Origin.HISTORICAL_MODELED.value,
                  clock_policy: str = ClockPolicy.MODELED_COMPLETE_PREFIX.value, sample_views: bool = True,
                  funding_mode: str | None = None, method: str = "v0.2", params=None) -> AdviserRuntime:
-    """``method`` selects the packaged release (v0.2 baseline / v0.3 MP-002 / v0.4 MP-003 / v0.5 MP-004 / v0.6 MP-005); ``params`` overrides the typed register
+    """``method`` selects the packaged release (v0.2 baseline / v0.3 MP-002 / v0.4 MP-003 / v0.5 MP-004 / v0.6 MP-005), or
+    by its explicit key the EXPERIMENTAL v0.6-a2x variant (test paths only); ``params`` overrides the typed register
     for engineering fixtures only (e.g. a different cost envelope to test cost invariance)."""
     from . import methods
 
-    rel = methods.get(method)
+    rel = methods.get(method, experimental=True)
     profile = profile or historical_profile()
     p = params or rel.params()
     cfg = AdviserConfig(instrument=INST, tick=D(tick), profile=profile,
@@ -220,8 +221,10 @@ def make_runtime(*, tick=Decimal("0.1"), eval_start=None, eval_end=None, evaluat
     if evaluator:
         ev = EvaluatorV3(p, D(tick), eval_start=eval_start, eval_end=eval_end,
                          funding_mode=funding_mode or profile.funding_outcomes.value, sample_views=sample_views)
-    rt_cls = {"v0.4": AdviserRuntimeV4, "v0.5": AdviserRuntimeV5, "v0.6": AdviserRuntimeV6}.get(
-        rel.key, AdviserRuntimeV3)
+    from .runtime_a2x import AdviserRuntimeA2X
+
+    rt_cls = {"v0.4": AdviserRuntimeV4, "v0.5": AdviserRuntimeV5, "v0.6": AdviserRuntimeV6,
+              "v0.6-a2x": AdviserRuntimeA2X}.get(rel.key, AdviserRuntimeV3)
     return rt_cls(rt_cls.CORE_CLS(cfg), ev)
 
 

@@ -1,0 +1,144 @@
+# A — secondo tentativo: implementazione sperimentale isolata (v0.6-a2x)
+
+12 ottobre 2026. Base `3705fd0`, branch main. Consegna dell'executor; la review del Director è pendente.
+
+Fonte autoritativa: [`delivery/A-SECOND-ATTEMPT-DESIGN.md`](../../A-SECOND-ATTEMPT-DESIGN.md) (disegno `b20919e`, ratifica e precisazioni `3705fd0`), letta per intero prima di implementare. Solo prove sintetiche.
+
+Il checkout è stato aggiornato dall'Owner durante l'ispezione iniziale: prima `137b8af`, poi `3705fd0`, per un fast-forward eseguito fuori da questa sessione. Nessun pull o fetch dell'executor.
+
+## Identità della variante
+
+| Campo | Valore |
+|---|---|
+| Chiave | `v0.6-a2x`, in `methods.EXPERIMENTAL`, non in `RELEASES` |
+| Modello / regole | `btc.context-action.v0.6-a2x` / `a2x.rules.exp1` |
+| Implementazione / stati | `adviser.core.v6-a2x`, `algotrader.adviser-state.v6-a2x`, `algotrader.adviser-runtime.v6-a2x`, engine `observe.stream.v7-a2x` |
+| Documento regole | `method/A-SECOND-ATTEMPT-DESIGN.md`, copia byte-identica del disegno. Manifest: delta, poi MP-005 e tutti i testi ereditati da v0.6 |
+| Registro | `method/A2X-SECOND-ATTEMPT-PARAMETERS.json` = registro MP-005 con identità e stato cambiati, più la sezione categorica `second_attempt`. **Nessun numero nuovo**: residuo A 30 min, frazione di progresso e scala ereditati |
+| Report / riconciliazione / Deep | Nessuno (`NONE_EXPERIMENTAL`) |
+
+**Selezione.** `methods.get("v0.6-a2x")` è rifiutato: è la chiamata usata da API, controlli, job e live. La variante si ottiene solo con `experimental=True`, che passano soltanto:
+- `harness.make_runtime/run_pure` (percorsi di prova);
+- `engine_config(..., experimental=True)`, mai passato dall'app.
+
+`for_engine` accetta solo un documento che la fissi già. La variante non è elencata da `selectable()`, non è predefinita e non è installata nello stack Owner. Nessuna UI.
+
+## Diff
+
+- **`core3.py`.** Due hook a comportamento invariato:
+  - `_conf_clocks`, alla conferma;
+  - `_a_hard`, al routing e all'emissione A.
+
+  Per v0.3–v0.6 restituiscono esattamente le espressioni precedenti. Lo dimostrano i pin byte-per-byte esistenti e la suite completa.
+- **`core_a2x.py` (nuovo).** `AdviserCoreA2X(AdviserCoreV6)`:
+  - apertura del riesame su `_scen_end`;
+  - riserva dell'owner;
+  - formazione fresca in `_a_close`;
+  - B, gap e staleness nel riesame;
+  - successore con legame al genitore;
+  - clock limitati a H0;
+  - recupero escluso per residuo insufficiente;
+  - rinvio delle nascite ordinarie;
+  - capacità che conta la riserva;
+  - codec di stato.
+- **`runtime_a2x.py` (nuovo).** Codec runtime della variante. Uno stato v0.6 e uno della variante non si decodificano a vicenda.
+- **`methods.py`, `engine.py`, `harness.py`.** Registrazione sperimentale e selezione esplicita.
+- **Test (nuovi).** `tests/adviser_a2x_fixtures.py`, `tests/test_a2x_second_attempt.py`.
+- **Documenti.** README (sezione sperimentale), STATE, task.
+
+## Effetto sulle nascite ordinarie (politica diversa)
+
+Durante la riserva e fino al terminale del successore o a H0, **una nascita A ordinaria nella stessa direzione non può avvenire**, anche se Q_A è vero.
+
+Nel nastro dedicato:
+- v0.6 fa nascere un impulso ordinario alle 05:15;
+- la variante lo rinvia e pubblica `ORDINARY_BIRTH_DEFERRED`;
+- al rilascio (H0, 05:30) vale il latch ordinario: i Q_A veri delle 05:30 e 05:45 non bastano, serve un falso osservato dopo il rilascio (06:00), poi un vero (07:30).
+
+Inoltre i falsi osservati durante la riserva non vengono "accantonati". Una valutazione dovrà quindi riguardare l'intera politica, non solo le call del successore.
+
+## Comportamento atteso e osservato (LONG; SHORT speculare con gli stessi tempi)
+
+Nastro principale `two_calls`:
+- A 97000, B 100900, z 200, H0 05:30;
+- S1 confermato alle 04:01, con la call 1 emessa alle 04:03.
+
+| Ora | Atteso dal disegno | Osservato |
+|---|---|---|
+| 04:04 | V contattato: S1 e la call 1 INVALIDATED come in v0.6; riesame con origine O = 04:15 | S1 `TERMINAL INVALIDATED V_CONTACT` e record di S1, figlio e call 1 identici a v0.6; osservazione `REVIEW_OPEN` (origine 04:15, R1 99900) |
+| 04:15 | La barra [04:00,04:15) contiene il fallimento: esclusa | Non conteggiata (`new_bars` 0) |
+| 04:30 | Barra fresca con chiusura contraria, R2 99650 < R1: ARM S2 con K2 = 100050, V2 = 99450 | `SUCCESSOR_ARMED` e S2 `ARM SECOND_ATTEMPT_FRESH_POST_FAILURE_REACTION`: R 99650, K 100050, V 99450, B 100900, parent = S1; monitoraggio di B dalle 04:30 |
+| 04:31 | Chiusura 100050,1 = K2 + tick: C2 con 59 min residui; scadenza H0, progresso a C2 + (H0 − C2)/2 | `CONFIRM`: deadline 05:30, progresso 05:00:30; figlio in WAIT RETURN con hard deadline 05:30 |
+| 04:32–04:34 | Blocco temporaneo, riferimento, recupero (regole ereditate) | `BLOCKERS` (CLOSE_OUTSIDE_RETURN_CORRIDOR), `RESPONSE_REFERENCE`, `ISSUE` |
+| 04:34 | Call 2 distinta: hard deadline H0, progresso a issue + (H0 − issue)/2 | Call 2: V 99450, ref 99865, scadenza 05:30 `ORIGINAL_IMPULSE_EXPIRY`, progresso 05:02 |
+| 05:04 | — | S2 `DESTINATION_REACHED` |
+
+Bordi e precedenze (LONG e SHORT):
+
+| Caso | Atteso | Osservato |
+|---|---|---|
+| Nessun fatto nuovo (contraria senza minimo sotto R1; vecchio K superato) | Nessun S2; riesame fino a H0 | `REVIEW_CLOSED EXPIRED` alle 05:30; una sola CONFIRM di S1 |
+| Recupero già avvenuto nella barra del fallimento (chiusura 100100) | Né vecchie barre né vecchia conferma | K2 = 100050 dalla barra fresca; C2 dal minuto [04:30,04:31) |
+| Fallimento sulla frontiera (contatto [04:14,04:15)) | tf = O = 04:15; la barra che inizia a tf è ammessa | Riesame con opened_at = origine = 04:15; ARM alle 04:30 |
+| Residuo esattamente 30 min | Conferma | CONFIRM alle 05:00, progresso 05:15, nessun TOO_LATE |
+| Residuo inferiore (29 min) | Osservazione conservata, nessuna opportunità, nessuna proroga | `RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL` (barra, intervallo, disponibilità 05:01, cursor, close 100050,1, residuo 1740 s, richiesto 30); S2 `EXPIRED SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL` |
+| Recupero disponibile esattamente a H0 | Il timer precede | S2 `OWNER_RELEASE` + `EXPIRED ORIGINAL_SETUP_DEADLINE` alle 05:30; nessuna CONFIRM né esclusione |
+| Barra qualificante che chiude a H0 | Il timer precede l'ARM | `REVIEW_CLOSED EXPIRED` alle 05:30; nessun S2 |
+| Chiusura 15m ≤ A+z prima dell'ARM | Riesame chiuso | `WITHDRAWN CLOSE_AT_OR_BEYOND_A_PLUS_ZONE` alle 04:30 |
+| Chiusura ≤ A+z nel dispatch del fallimento | Nessuna riserva | `REVIEW_NOT_OPENED PREMISE_…`; il resto del journal identico a v0.6 |
+| Contatto con B durante il riesame | Chiuso | `DESTINATION_REACHED` alle 04:55 |
+| Minuto mancante | Chiuso | `UNASSESSABLE REQUIRED_MONITORING_GAP` alle 04:21 |
+| Stallo del feed (1m stale) | Chiuso | `UNASSESSABLE REQUIRED_TRADE_1M_STALE` alle 04:22 |
+| S2 confermato poi V2 contattato, nuova reazione e recupero | Nessun terzo tentativo | S2 INVALIDATED alle 04:38; nessuna osservazione o scenario successivo |
+| Contraddizione locale del figlio S2 | Terminale del solo figlio; nessun riavvio | `LOCAL_RESPONSE_CONTRADICTED` alle 04:34; S2 resta CONFIRMED fino a STALLED alle 05:00:30; una sola call |
+
+## Mappa requisiti → prove (`tests/test_a2x_second_attempt.py`)
+
+| Requisito | Prova |
+|---|---|
+| Identità separata, selezione esplicita, non installabile | `test_variant_identity_is_separate_explicit_and_not_selectable` |
+| v0.6 invariato quando la variante non è selezionata | `test_v06_behaviour_is_preserved_when_the_variant_is_not_selected`; pin byte-per-byte esistenti v0.4/v0.5 e suite completa |
+| Un solo successore dopo V_CONTACT ammissibile; terminali esclusi | `test_without_a_confirmed_v_contact_the_variant_equals_v06` (75 nastri: STALLED, DESTINATION_REACHED, UNASSESSABLE, perdita d'ancora pre-conferma, terminali del solo figlio); `test_other_confirmed_terminals_never_open_a_review` (TIME_EXPIRED, B+V nello stesso intervallo) |
+| LONG e SHORT fino al successore, call effettiva | `test_successor_reaches_an_issued_call_long_and_short` |
+| S1, figlio e call 1 preservati | `test_first_attempt_child_and_call_records_are_exactly_v06` |
+| Formazione post-fallimento, vecchie barre e vecchia conferma inutilizzabili | `test_old_bars_and_the_old_confirmation_are_never_new_facts`, `test_an_earlier_recovery_and_the_old_confirmation_never_confirm_the_successor` |
+| Nessun terzo tentativo | `test_no_third_attempt` |
+| Premessa, B, gap/staleness, H0 con precedenze | `test_premise_close_before_arm_ends_the_review`, `test_premise_close_in_the_failure_dispatch_excludes_the_review_and_keeps_v06`, `test_destination_gap_and_staleness_close_the_review`, `test_original_expiry_precedes_an_arm_completing_at_h0` |
+| Bordi temporali | `test_failure_exactly_on_a_15m_frontier`, `test_residual_exactly_30_minutes_confirms`, `test_residual_below_30_minutes_is_recorded_not_confirmed`, `test_recovery_available_exactly_at_h0_is_preceded_by_the_timer` |
+| Riserva, rilascio, latch | `test_reservation_defers_an_ordinary_birth_then_releases_with_the_ordinary_latch` |
+| Routing: blocco temporaneo e terminale distinti | `test_successor_routing_keeps_temporary_blockers_and_terminal_endings_distinct` |
+| Encode/decode e restore | `test_restore_at_every_critical_point_reproduces_the_uninterrupted_run`. Codec di produzione `pack_runtime/unpack_runtime` dopo 9 dispatch: call 1, apertura, formazione, ARM, C2, blocco, riferimento, call 2, scadenze. Digest identici, nessun record duplicato o mancante, clock invariati (05:30 / 05:00:30), riserva ripristinata; nessuna decodifica come v0.6 |
+
+Verifiche indipendenti: livelli, tempi e transizioni sono scritti a mano dalle costanti dei nastri, non ricavati dal motore. Ogni nastro parte da storia fredda attraverso l'ordine ordinario del kernel (warmup, readiness, contesto, scala). Nessuno stato, anchor o call è predisposto.
+
+## Controlli eseguiti
+
+- **Test della variante.** `tests/test_a2x_second_attempt.py`: 112 passati.
+- **Suite completa senza e2e** (come il primo job CI), in 6 shard paralleli: **1276 passati, 0 falliti, 255 skippati**.
+  - Tutti i 255 skip hanno lo stesso motivo: `ALGOTRADER_TEST_DATABASE_URL not set`, cioè nessun DB di test isolato in locale. Le suite DB **non** sono quindi verificate qui.
+  - Sono inclusi i pin byte-per-byte v0.4 (53) e v0.5 (68), la parità v0.5/v0.6 e tutti i percorsi MP-002–MP-005.
+- **Non eseguiti.**
+  - e2e: richiede build web, stack Postgres e Chromium.
+  - Lint: ruff non installato.
+  - La CI non è stata interrogata: e2e e suite DB restano affidati alla CI dell'Owner.
+
+## Limiti
+
+- **Solo prove sintetiche.** Nessun dato Owner, acquisizione, conteggio sui 28 casi, replay reale, backtest o valutazione economica. L'utilità della politica è ignota.
+- **Contratti.** I record usano le forme semantic.v2 revisione 5 e si validano. Introducono però **valori nuovi** non registrati nel changelog pubblico, perché la variante non è una release pubblicata:
+  - l'osservazione `structure/a_second_attempt` con le categorie REVIEW_OPEN, REVIEW_NOT_OPENED, REVIEW_CLOSED, SUCCESSOR_ARMED, ORDINARY_BIRTH_DEFERRED, RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL;
+  - il motivo ARM `SECOND_ATTEMPT_FRESH_POST_FAILURE_REACTION`;
+  - il motivo terminale `SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL`;
+  - le chiavi `setup` attempt, impulse_id, parent_scenario_id, review_opened_at, formation_origin, failed_attempt_R;
+  - renewal `SECOND_ATTEMPT` e `hard_deadline_origin` `ORIGINAL_IMPULSE_EXPIRY`.
+
+  La registrazione è necessaria prima di qualsiasi pubblicazione.
+- **Id.** Gli id degli scenari includono l'hash delle regole, come per ogni release: gli id della variante differiscono da quelli v0.6. I confronti normalizzano gli id.
+- **Scelte tecniche dell'executor** (nessuna deroga metodologica):
+  - la vista aggiunge una riga di motivo mentre il riesame è aperto;
+  - l'orizzonte descrittivo di S2 armato è limitato al residuo;
+  - un riesame aperto si chiude alla fine della finestra di valutazione (TAIL), e in TAIL non se ne aprono;
+  - la riserva conta nella capacità A.
+- **Non coperto da un nastro dedicato.** La chiusura del riesame per contesto contrario. Il codice applica il gate A ordinario a ogni dispatch.
+- **Non raggiungibile su dati completi.** Un PRICE_PREMISE_FAILED di A confermato prima di un contatto V, perché V = R − z sta sopra A.
+- v0.6 e HDP-001 restano invariati; gli studi restano INACTIVE.

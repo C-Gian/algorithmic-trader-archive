@@ -927,15 +927,24 @@ class AdviserCoreV3(AdviserCore):
         return out
 
     def _confirm(self, s: Scen, m: Bar, t: datetime) -> None:
-        hard = self.p.hard(s.family)
         s.status, s.conf_at, s.conf_seq = "CONFIRMED", t, self.seq
         s.conf_close_t, s.conf_s15, s.conf_minute = tbar(m, s.d)[3], self.s15, m.rid
-        s.conf_deadline, s.progress_at = t + hard, t + _scaled(hard, self.p.progress_fraction)
+        s.conf_deadline, s.progress_at = self._conf_clocks(s, t)
         s.last_end = m.end
         self.counters["triggered"][s.family] += 1
         self.counters["v3"]["confirmations"][f"{s.family}_{dname(s.d)}"] = \
             self.counters["v3"]["confirmations"].get(f"{s.family}_{dname(s.d)}", 0) + 1
         self._emit_scen(s, "CONFIRM", m.rid, t)
+
+    def _conf_clocks(self, s: Scen, t: datetime) -> tuple[datetime, datetime]:
+        """Scenario hard deadline and progress check fixed at confirmation ``t`` (family hard horizon; an
+        experimental variant may bound them differently)."""
+        hard = self.p.hard(s.family)
+        return t + hard, t + _scaled(hard, self.p.progress_fraction)
+
+    def _a_hard(self, s: Scen) -> tuple[datetime, str]:
+        """A child/call hard deadline and its origin label: the confirmation-anchored A hard horizon."""
+        return s.conf_at + self.p.hard("A"), "STRUCTURAL_CONFIRMATION_PUBLICATION"
 
     def _target3(self, s: Scen, price: Decimal, t: datetime) -> dict[str, Any]:
         """Conservative target at a price (MP-001 §3 resolver on the eligible zone set after all newly complete
@@ -1014,7 +1023,7 @@ class AdviserCoreV3(AdviserCore):
         tg = self._target3(s, tc, t)
         v_real, t_real = self._real_levels(d, s.v_t, tg["t_t"])
         h_t = tbar(m, d)[1]
-        hard = s.conf_at + p.hard("A")
+        hard = self._a_hard(s)[0]
         geom: dict[str, str | None] = {
             "R": _s(s.r_t * d), "K_trigger": _s(s.k_t * d), "V": _s(v_real), "T_confirm": _s(t_real),
             "T_current": _s(t_real), "S15": _s(self.s15), "tick": _s(tick), "confirmation_close": _s(tc),
@@ -1409,7 +1418,7 @@ class AdviserCoreV3(AdviserCore):
         p = self.p
         hard_td = p.hard(s.family)
         if s.family == "A":
-            hard, origin = s.conf_at + hard_td, "STRUCTURAL_CONFIRMATION_PUBLICATION"
+            hard, origin = self._a_hard(s)
             progress = half_point(t, hard)
         else:
             hard, origin = t + hard_td, "ISSUE"

@@ -209,6 +209,33 @@ V06 = Release(
                ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
 
 RELEASES: dict[str, Release] = {r.key: r for r in (V02, V03, V04, V05, V06)}
+
+# EXPERIMENTAL variants: never a release, never the default, never listed by ``selectable`` (the application cannot
+# offer or launch them: ``get`` refuses them unless the caller selects them explicitly with ``experimental=True``).
+V06_A2X = Release(
+    key="v0.6-a2x", label="EXPERIMENTAL v0.6-a2x — one second A attempt on the same impulse (not a release)",
+    status="EXPERIMENTAL_ISOLATED_SYNTHETIC_ONLY", status_label="experimental, synthetic proofs only, not installable",
+    purpose=("A-SECOND-ATTEMPT-DESIGN (design b20919e, ratification 3705fd0): v0.6, plus after a CONFIRMED A scenario "
+             "is invalidated by its V before the original expiry, the same-direction discovery slot stays reserved and "
+             "one distinct successor may arm on a fresh complete post-failure reaction and confirm anew, with the "
+             "frozen impulse geometry and every clock bounded by the original expiry. A different policy, not only an "
+             "extra call: the reservation can defer an ordinary same-direction A birth."),
+    model="btc.context-action.v0.6-a2x", rules_version="a2x.rules.exp1",
+    rules_file=idn.METHOD_DIR / "A-SECOND-ATTEMPT-DESIGN.md",
+    register_file=idn.METHOD_DIR / "A2X-SECOND-ATTEMPT-PARAMETERS.json",
+    implementation="adviser.core.v6-a2x", evaluator_implementation="adviser.evaluator.v3",
+    core_state_format="algotrader.adviser-state.v6-a2x", runtime_format="algotrader.adviser-runtime.v6-a2x",
+    evaluator_state_format="algotrader.adviser-evaluation-state.v2", engine_format="observe.stream.v7-a2x",
+    report_version="NONE_EXPERIMENTAL", reconciliation_version="NONE_EXPERIMENTAL", deep_version="NONE_EXPERIMENTAL",
+    inherited=(("BASE_MP005_RULES", idn.METHOD_DIR / "MP-005-V06-INITIAL-RESPONSE-INCOMPATIBILITY.md"),
+               ("BASE_MP005_CLOSURE", idn.METHOD_DIR / "MP-005-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP004_RULES", idn.METHOD_DIR / "MP-004-V05-RETURN-RESPONSE.md"),
+               ("INHERITED_MP004_CLOSURE", idn.METHOD_DIR / "MP-004-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP003_RULES", idn.METHOD_DIR / "MP-003-A-REACTION-ANCHOR-DISPOSITION.md"),
+               ("INHERITED_MP002_RULES", idn.METHOD_DIR / "MP-002-SCENARIO-CONFIRMATION-ENTRY-PROPOSAL.md"),
+               ("INHERITED_MP002_DISPOSITION", idn.METHOD_DIR / "MP-002-DIRECTOR-DISPOSITION.md"),
+               ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
+EXPERIMENTAL: dict[str, Release] = {V06_A2X.key: V06_A2X}
 # MP-002 structural-scenario lineage (scenario/entry_attempt kinds); v0.5/v0.6 inherit the v0.4 anchors
 SCENARIO_METHODS = frozenset({"v0.3", "v0.4", "v0.5", "v0.6"})
 ANCHOR_METHODS = frozenset({"v0.4", "v0.5", "v0.6"})  # MP-003 pre-confirmation A anchor epochs
@@ -221,8 +248,11 @@ class UnknownMethod(ValueError):
     """A requested or pinned method is not a packaged release."""
 
 
-def get(key: str | None) -> Release:
+def get(key: str | None, *, experimental: bool = False) -> Release:
+    """A packaged release; an EXPERIMENTAL variant only when the caller selects it explicitly (test paths)."""
     k = key or DEFAULT
+    if k in EXPERIMENTAL and experimental:
+        return EXPERIMENTAL[k]
     if k not in RELEASES:
         raise UnknownMethod(f"unknown adviser method {k!r} (available: {', '.join(RELEASES)})")
     return RELEASES[k]
@@ -236,7 +266,7 @@ def for_model(model: str) -> Release:
 
 def for_engine(adviser: dict[str, Any]) -> Release:
     """Release pinned by an engine/state document (absent ``method`` = v0.2: every WP-009 run)."""
-    return get(adviser.get("method") or "v0.2")
+    return get(adviser.get("method") or "v0.2", experimental=True)  # only a document pinned explicitly
 
 
 def is_scenario_method(key: str | None) -> bool:

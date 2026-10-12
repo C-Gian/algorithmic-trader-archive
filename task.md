@@ -1,4 +1,31 @@
-# Current task — Isolate the A confirmation / anchor-loss boundary (paired synthetic verification)
+# Current task — Experimental implementation of the A second attempt (v0.6-a2x, isolated, synthetic proofs only)
+Date: 2026-10-12. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md)); the Director's review is PENDING. Not a release, not selectable in the application, not installed in the Owner stack. v0.6 and HDP-001 unchanged; studies INACTIVE.
+
+## Assignment (relayed by the Owner, 12 October 2026; Astra approved the design and authorized an isolated implementation with synthetic proofs only)
+
+Authoritative source: `delivery/A-SECOND-ATTEMPT-DESIGN.md` (design `b20919e`; ratification and precisions `3705fd0`), read in full before implementing. No pull/fetch; verify and report the available checkout.
+
+1. **Scope.** Identify the variant separately from v0.6, with explicit selection in test paths. Reuse the ordinary architecture: no parallel engine or new infrastructure. Do not install it in the Owner stack or make it the default. No new UI.
+2. **Implement the whole design.** One successor after an admissible V_CONTACT; old scenario, child and call preserved for good; formation entirely after the failure, with a new confirmation; frozen impulse geometry; discovery reservation, release and latch; H0 binding, with the successor's clocks; ordinary routing, selection, slot and conflicts.
+3. **Ratified precisions.**
+   - An eligible recovery with less than 30 minutes left is recorded with its exclusion reason: no operative opportunity, no extension.
+   - The child's consumption is not widened: temporary blocks, terminals and consumption at the first RETURN recovery follow the inherited rules.
+4. **Discriminating synthetic proofs**, through the ordinary entry, including warmup and readiness, with no state preset. Cover:
+   - LONG and SHORT up to the successor, including an issuable case with an actual call;
+   - old bars and the old confirmation unusable; no third attempt;
+   - premise, B, gap/staleness and H0 precedences;
+   - edges: failure on the 15m frontier, residual exactly 30 and below, recovery exactly at H0;
+   - the reservation excluding an ordinary birth, then release and renewal with the correct latch;
+   - terminals excluded from opening the review;
+   - routing with temporary and terminal blocks kept distinct;
+   - the previous call and its levels and history unchanged;
+   - encode/decode and restore at critical points;
+   - v0.6 preserved when the variant is not selected.
+5. **Conflicts.** Report any further methodological derogation before introducing it.
+6. **Delivery.** Variant identity, diff, requirement→proof map, expected/observed behaviour and checks. Declare the effect on ordinary births. Update STATE and task, separating the executor delivery from the Director's review. Commit and push; no CI query. No Owner data, acquisition, count on the 28 cases, real replay, backtest or economic evaluation.
+
+
+## Previous task — Isolate the A confirmation / anchor-loss boundary (paired synthetic verification)
 Date: 2026-10-12. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMATION-BOUNDARY-PAIR/SUMMARY.md)); the Director's review is PENDING. Synthetic evidence only; no rule change. v0.6 and HDP-001 frozen; studies INACTIVE.
 
 ## Assignment (relayed by the Owner, 12 October 2026; base `0deb61e`, after the Director's review of the comparison)
