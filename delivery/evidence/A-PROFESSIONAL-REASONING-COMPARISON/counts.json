@@ -1,0 +1,84 @@
+{
+ "v04_q4_2025": {
+  "K_minus_R_over_S15": {
+   "at_most_1": 31,
+   "max": "3.053",
+   "median": "1.012",
+   "min": "0.467"
+  },
+  "confirmations": 64,
+  "scenario_terminal": {
+   "DESTINATION_REACHED": 43,
+   "INVALIDATED": 16,
+   "STALLED": 1,
+   "TIME_EXPIRED": 4
+  },
+  "source": "WP-012-OWNER-Q4-DIAGNOSIS/confirmations.csv (v0.4, A confirmations Oct-Dec 2025)"
+ },
+ "v06_sep_dec_2025": {
+  "after_confirmed_v_contact": {
+   "count": 28,
+   "minutes_to_next_same_side_A_birth_sorted": [
+    42,
+    66,
+    84,
+    91,
+    91,
+    107,
+    128,
+    134,
+    138,
+    141,
+    152,
+    154,
+    272,
+    607,
+    614,
+    614,
+    864,
+    995,
+    1172,
+    1490,
+    1900,
+    2288,
+    2655,
+    2706,
+    4125,
+    4343,
+    5445,
+    5755
+   ],
+   "next_birth_within_120_min": 6,
+   "next_birth_within_240_min": 12,
+   "without_later_same_side_birth": 0
+  },
+  "armed": 161,
+  "armed_owners_with_transition": {
+   "ANCHOR_LOST": 111,
+   "CONFIRM": 89,
+   "OWNER_RELEASE": 32,
+   "REARM": 99,
+   "REVISE": 19,
+   "TERMINAL": 161
+  },
+  "confirmed": 89,
+  "confirmed_by_anchor_history": {
+   "AFTER_REARM": 61,
+   "ON_FIRST_ANCHOR": 28
+  },
+  "confirmed_terminal": {
+   "DESTINATION_REACHED:DESTINATION_CONTACT": 54,
+   "INVALIDATED:V_CONTACT": 28,
+   "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+   "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4
+  },
+  "owners": 359,
+  "source": "A-REACTION-EFFICIENCY-EXPLORATION/results.json (v0.6, owners born Sep-Dec 2025)",
+  "unconfirmed_terminal": {
+   "DESTINATION_REACHED:DESTINATION_CONTACT": 24,
+   "EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+   "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 12,
+   "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 33
+  }
+ }
+}

@@ -1,4 +1,18 @@
-# Current task — A reaction directional efficiency: descriptive exploration of E, September–December 2025
+# Current task — A professional-reasoning comparison with v0.6
+Date: 2026-10-12. Status: EXECUTOR DELIVERY ([comparison](delivery/A-PROFESSIONAL-REASONING-COMPARISON.md)); the Director's review is PENDING. Documentary only. v0.6 and HDP-001 frozen; the future studies INACTIVE.
+
+## Assignment (relayed by the Owner, 12 October 2026; base `58ff69a`)
+
+Goal: an adviser that observes, forms conditional expectations and updates them as the reference traders do, developed and checked without waiting for future data. Start from the professional materials already collected and the v0.6 specifications and code; do not reopen E or the cyclical Evoluta component.
+
+1. **One example.** Choose one already documented professional example that makes observable: observations → expectation → operating condition → new observations → maintenance or revision. Separate what the trader states from our interpretation; do not fill missing steps with our rules.
+2. **Step-by-step comparison with actual v0.6 behavior.** For each step: information used by the professional, information available to the product, decision of the current rules, and correspondence, difference or not determinable. Do not confuse absence of a call with absence of analysis, nor a planned function with a demonstrated capability.
+3. **Evidence.** Reuse existing synthetic and historical evidence that documents that behavior. No new replay or acquisition; no access to the Owner stack or to protected periods.
+4. **Delivery.** A short comparison and ONE conclusion: behavior already corresponding; concrete difference to address; example insufficient for the comparison. On a difference, show the precise point where expectation or update changes and propose the minimum verification needed before correcting. Do not implement yet and do not invent a new indicator. Not a profit evaluation or a general dossier.
+5. **Records.** Sources, code references and limits. Commit and push; no pull/fetch, no CI query. v0.6 and HDP-001 unchanged; future studies INACTIVE. Deliver to the Director, without asking Astra for a decision.
+
+
+## Previous task — A reaction directional efficiency: descriptive exploration of E, September–December 2025
 Date: 2026-10-12. Status: EXECUTOR DELIVERY — EXPLORATION EXECUTED ([summary](delivery/evidence/A-REACTION-EFFICIENCY-EXPLORATION/SUMMARY.md), [registration](delivery/evidence/A-REACTION-EFFICIENCY-EXPLORATION/REGISTRATION.md)); the Director's review is PENDING. Only this descriptive exploration is active. Product, v0.6 and HDP-001 frozen; the two future studies INACTIVE.
 
 ## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `6a0f22a`), with Astra's bounded input derogation (same day)
