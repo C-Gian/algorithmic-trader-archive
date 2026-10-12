@@ -1,4 +1,20 @@
-# Current task — Final localization of the MarketView gap (live use session v0.6)
+# Current task — MarketView explanation, presentation only (live cockpit box)
+Date: 2026-10-12. Status: IMPLEMENTATION DELIVERED ([delivery and map](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-PRESENTATION.md)); the Director's review and the Owner's guided check are PENDING; comprehension not verified. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (orchestrator decision, relayed by the Owner, 12 October 2026; base `0619e5f`)
+
+Explain the present state faithfully and declare when no condition is published; no new engine information, no trigger derived in the frontend.
+1. **Review before the change.** Map source → displayed text, distinguishing four groups: observed context and phase; MarketView conclusion and reason; published entry condition; published event that would change the reading. Do not derive future conditions from the frozen rules. Do not use the absence of a call to infer the absence of a scenario. Handle missing fields and unknown values explicitly.
+2. **Minimal presentation in the existing box.** Three linked steps.
+   - *Che cosa osserva*: context and phase in plain Italian.
+   - *Che cosa ne conclude*: the reading and the recorded reason. Incerta and Equilibrio stay distinct; Equilibrio promises no future sideways movement; Incerta does not mean no observations.
+   - *Che cosa sta aspettando*: the published condition with its values, or the stated sentence when there is no scenario. When a scenario exists without a condition, declare only the missing datum.
+   - In the details, the no-revision-event sentence.
+   - No "aspetta una rottura" or "attende conferme"; internal codes are not the main explanation; MarketView, call and availability stay apart.
+3. **Perimeter.** Box language and local grouping only. No change to layout, palette, engine, method, API, persistence or guidance.
+4. **Verification and delivery.** Reuse the reconstruction and the existing tests. Verify Incerta and Equilibrio on the session records and the existing published-condition case, adding coverage only for the new risks. Deliver the map, the diff, the checks, RECONSTRUCTION images and the limits. Commit and push; no CI query.
+
+## Previous task — Final localization of the MarketView gap (live use session v0.6)
 Date: 2026-10-12. Status: LOCALIZATION DELIVERED ([document](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-GAP-LOCALIZATION.md)). Observations, reasons and the absence of an entry condition are present and correctable in the explanation. The condition that would change the reading is a missing informational link, to submit to Astra. No product change. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
 ## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `ab8d080`)

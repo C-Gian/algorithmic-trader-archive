@@ -89,6 +89,8 @@ export interface MarketViewDoc {
   table_row: string;
   principal: ScenarioView | null;
   alternatives: ScenarioView[];
+  /** v0.3+: WATCH hypotheses (absent for v0.2). */
+  watch?: ScenarioView[];
   ongoing_call_id: string | null;
   horizon_minutes: [number, number] | null;
   levels: Record<string, string | null>;

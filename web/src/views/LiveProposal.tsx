@@ -19,7 +19,7 @@ const ROW_IT: Record<string, string> = {
   OPPOSING_SCENARIOS: "Gli scenari indicano direzioni opposte",
   ONGOING_CALL: "Segue la call in corso finché la sua premessa regge",
   ARMED_SCENARIO: "Condizionale: una call solo se avviene l'innesco",
-  BALANCED_RANGE: "Mercato in equilibrio (range)",
+  BALANCED_RANGE: "Equilibrio in fase di compressione o rotazione",
   NO_SUPPORTED_PLAN: "Nessun piano supportato nelle condizioni attuali",
   CONDITIONAL_SCENARIO: "Condizionale: uno scenario supportato in una direzione",
   WATCH_ONLY: "Solo ipotesi in osservazione: né previsione né call",
@@ -374,6 +374,92 @@ function CallStrip({ c, t, unverified }: { c: CallView | null; t: LiveView["rece
   );
 }
 
+// "Lettura attuale del mercato" box, three linked steps (presentation only, fields of the served view):
+// 1. what is observed: market_view.observed_context (1h) and market_view.phase (15m), plain Italian of the engine's own
+//    classes (core.py _derive_1h/_derive_15m); 2. what it concludes: expected_direction, conditional, table_row and the
+//    recorded reason, translated only for reason texts the engine writes (core.py/core3.py compute_view), otherwise kept
+//    as technical text; 3. what it is waiting for: the condition published for a scenario (condition()), never a trigger
+//    derived here. "No scenario" is said only when every published scenario list is present and empty; the absence of a
+//    call is never used for it. Unknown or missing values are declared, not guessed.
+
+const CONTEXT_IT: Record<string, [string, string | null]> = {
+  UP: ["in rialzo", "nelle ultime ore il prezzo è salito in modo ampio e regolare"],
+  DOWN: ["in ribasso", "nelle ultime ore il prezzo è sceso in modo ampio e regolare"],
+  BALANCED: ["in equilibrio", "nelle ultime ore il prezzo non si è mosso in modo abbastanza ampio e regolare in una direzione"],
+  UNAVAILABLE: ["non disponibile", "dati a 1 ora insufficienti o non aggiornati"],
+};
+
+const PHASE_IT: Record<string, [string, string | null]> = {
+  EXPANSION: ["espansione", "il prezzo si muove in modo ampio e regolare"],
+  COMPRESSION: ["compressione", "le escursioni recenti si sono ristrette, senza un movimento regolare"],
+  REACTION: ["reazione", "il prezzo si muove contro il contesto a 1 ora"],
+  ROTATION: ["rotazione", "il prezzo oscilla senza progredire, sia a 1 ora sia a 15 minuti"],
+  TRANSITION: ["transizione", "il movimento non corrisponde a nessuna delle altre fasi riconosciute"],
+  UNAVAILABLE: ["non disponibile", "dati insufficienti o non aggiornati per classificarla"],
+};
+
+const CONCLUSION_IT: Record<string, string> = {
+  UP: "Il sistema indica un rialzo.",
+  DOWN: "Il sistema indica un ribasso.",
+  BALANCED: "Il sistema legge il mercato in equilibrio: non indica né un rialzo né un ribasso.",
+  UNCERTAIN: "Il sistema non indica una direzione: la lettura resta incerta.",
+  UNAVAILABLE: "Il sistema non può formare una lettura con i dati attuali.",
+};
+
+const STATUS_IT: Record<string, string> = { WATCH: "in osservazione", ARMED: "armato", CONFIRMED: "confermato" };
+
+/** One observed class in plain Italian: missing and unrecognized values are declared, never mapped to a neighbour. */
+function observed(table: Record<string, [string, string | null]>, value: string | null | undefined): [string, string | null] {
+  if (value === null || value === undefined || value === "") return ["non indicato dal sistema", null];
+  return table[value] ?? [`valore non riconosciuto (${value})`, null];
+}
+
+/** The recorded reason in plain Italian, only for the exact texts the engine writes; null keeps it technical. */
+export function readingReasonIt(r: string): string | null {
+  let m: RegExpMatchArray | null;
+  if (/^observed \w+\/\w+; missing antecedent: no born A impulse or compression box scenario$/.test(r)) {
+    return "Manca il presupposto: non è nato nessuno scenario di impulso (famiglia A) o di box di compressione.";
+  }
+  if ((m = r.match(/^balanced 1h context in (compression|rotation); no qualified box$/))) {
+    return `Contesto a 1 ora in equilibrio con fase di ${m[1] === "compression" ? "compressione" : "rotazione"}; `
+      + "nessun box qualificato, quindi nessun limite di prezzo indicato.";
+  }
+  if ((m = r.match(/^balanced 1h context in (compression|rotation); rotation inside \[([^,\]]+), ([^\]]+)\]$/))) {
+    return `Contesto a 1 ora in equilibrio con fase di ${m[1] === "compression" ? "compressione" : "rotazione"}; `
+      + `il prezzo ruota dentro il box ${fmtPrice(m[2])} – ${fmtPrice(m[3])}.`;
+  }
+  if (/^observed \w+\/\w+ without a supported prospective plan$/.test(r)) {
+    return "Con questo contesto e questa fase il metodo non ha un piano supportato.";
+  }
+  if (/^(supported armed\/confirmed|valid armed) scenarios point in opposite directions/.test(r)) {
+    return "Ci sono scenari attivi in direzioni opposte.";
+  }
+  if (/^the ongoing call is opposed by a valid armed scenario$/.test(r)) {
+    return "La call in corso ha contro uno scenario armato valido.";
+  }
+  if (/^only conditional WATCH hypotheses: /.test(r)) {
+    return "Ci sono solo ipotesi in osservazione: non sono una previsione né una call.";
+  }
+  if ((m = r.match(/^([ABC]) (LONG|SHORT) (armed|confirmed)(:| )/))) {
+    return `Uno scenario ${m[2]} della famiglia ${m[1]} è ${m[3] === "armed" ? "armato" : "confermato"}.`;
+  }
+  if ((m = r.match(/^ongoing ([ABC]) (LONG|SHORT) toward /))) {
+    return `È in corso una call ${m[2]} della famiglia ${m[1]} finché la sua premessa regge.`;
+  }
+  return null;
+}
+
+/** A published scenario (principal, alternative, watch or listed) with the condition it states, if any. */
+function ScenarioWait({ p, s }: { p: ScenarioView; s: ScenarioState | undefined }) {
+  const status = s?.status ?? p.status;
+  return (
+    <li data-testid="live-waiting-scenario">
+      Scenario {p.direction} {p.family}{status ? ` (${STATUS_IT[status] ?? status})` : ""}:{" "}
+      {condition(p, s) ?? "il sistema non ha pubblicato una condizione specifica per questo scenario."}
+    </li>
+  );
+}
+
 /** The current market reading, shown under the chart: a market assessment, never the call. Without a view the
  * direction is declared unavailable, never inferred. */
 export function MarketReading({ v }: { v: LiveView | null }) {
@@ -381,29 +467,109 @@ export function MarketReading({ v }: { v: LiveView | null }) {
   const d = mv?.expected_direction ?? "UNAVAILABLE";
   const p = mv?.principal ?? null;
   const ps = p ? (v?.scenarios ?? []).find((s) => s.scenario_id === p.scenario_id) : undefined;
+  const [ctxText, ctxGloss] = observed(CONTEXT_IT, mv?.observed_context);
+  const [phText, phGloss] = observed(PHASE_IT, mv?.phase);
+  const reasons = mv?.reasons ?? [];
+  const reasonsIt = reasons.map(readingReasonIt);
+  // published scenario lists other than the principal (an absent list is unknown, never "empty")
+  const listed: ScenarioView[] = [
+    ...(mv?.alternatives ?? []),
+    ...(mv?.watch ?? []),
+  ];
+  const states = v?.method === "v0.2" ? null : v?.scenarios;
+  const others: { p: ScenarioView; s: ScenarioState | undefined }[] = [
+    ...listed.map((x) => ({ p: x, s: (states ?? []).find((s) => s.scenario_id === x.scenario_id) })),
+    ...(states ?? []).filter((s) => s.scenario_id !== p?.scenario_id && !listed.some((x) => x.scenario_id === s.scenario_id))
+      .map((s) => ({ p: s as unknown as ScenarioView, s })),
+    ...((v?.method === "v0.2" ? v?.attempts : []) ?? []).filter((a) => a.attempt_id !== p?.scenario_id)
+      .map((a) => ({ p: { scenario_id: a.attempt_id, family: a.family, direction: a.direction, status: a.status,
+                          trigger_level: a.trigger_level } as unknown as ScenarioView, s: undefined })),
+  ];
+  const listsKnown = !!mv && Array.isArray(mv.alternatives)
+    && (v?.method === "v0.2" ? Array.isArray(v?.attempts) : Array.isArray(v?.scenarios));
+  const ongoingCall = !!v?.call || !!mv?.ongoing_call_id;
+  const noScenario = !p && others.length === 0 && listsKnown && !ongoingCall;
+  const noRevisionEvent = !p && others.length === 0;
   return (
     <section className="decision-market" data-testid="live-market-reading">
       <div className="market-head">
         <span className="persp-title">Lettura attuale del mercato</span>
         <span className="muted small-text">È una valutazione del mercato, non la call: non dice se entrare.</span>
       </div>
-      <div className="proposal-dir market-dir" data-testid="live-direction">
-        <Arrow d={d} />
-        <span>Direzione attesa: <b data-testid="live-expected" className={d === "UP" ? "dir-long" : d === "DOWN" ? "dir-short" : undefined}>
-          {EXPECTED_IT[d] ?? d}</b>{mv?.conditional ? " (condizionale)" : ""}</span>
-        {mv && <span className="muted small-text">· {ROW_IT[mv.table_row] ?? humanize(mv.table_row)}</span>}
+      <div className="mr-steps">
+        <div className="mr-step" data-testid="live-observes">
+          <div className="mr-step-title">Che cosa osserva</div>
+          {mv ? (
+            <ul className="mr-list">
+              <li data-testid="live-observed-context">Contesto a 1 ora: <b>{ctxText}</b>{ctxGloss && <span className="muted"> — {ctxGloss}</span>}</li>
+              <li data-testid="live-observed-phase">Fase a 15 minuti: <b>{phText}</b>{phGloss && <span className="muted"> — {phGloss}</span>}</li>
+            </ul>
+          ) : <p className="small-text muted">Nessuna osservazione pubblicata.</p>}
+        </div>
+        <div className="mr-step" data-testid="live-concludes">
+          <div className="mr-step-title">Che cosa ne conclude</div>
+          <div className="proposal-dir market-dir" data-testid="live-direction">
+            <Arrow d={d} />
+            <span>Direzione attesa: <b data-testid="live-expected" className={d === "UP" ? "dir-long" : d === "DOWN" ? "dir-short" : undefined}>
+              {EXPECTED_IT[d] ?? d}</b>{mv?.conditional ? " (condizionale)" : ""}</span>
+            {mv && <span className="muted small-text">· {ROW_IT[mv.table_row] ?? humanize(mv.table_row)}</span>}
+          </div>
+          {mv && <p className="small-text" data-testid="live-conclusion">{CONCLUSION_IT[d] ?? `Lettura non riconosciuta (${d}).`}</p>}
+          {mv && (
+            <p className="small-text" data-testid="live-reason">
+              {reasons.length === 0 ? "Il sistema non ha registrato una motivazione testuale per questa lettura."
+                : reasonsIt.every((x) => x === null) ? "La motivazione è registrata solo come testo tecnico (vedi i termini tecnici qui sotto)."
+                : `Perché: ${reasonsIt.filter((x) => x !== null).join(" ")}${reasonsIt.some((x) => x === null)
+                  ? " Altre motivazioni sono registrate solo come testo tecnico." : ""}`}
+            </p>
+          )}
+        </div>
+        <div className="mr-step" data-testid="live-waiting-for">
+          <div className="mr-step-title">Che cosa sta aspettando</div>
+          {!v ? <p className="small-text muted">Nessuna valutazione in corso.</p>
+            : p ? (
+              <dl className="market-facts" data-testid="live-scenario-levels">
+                <div><dt>Scenario</dt><dd>{p.direction} {p.family}</dd></div>
+                <div><dt>Destinazione dello scenario</dt>
+                  <dd><span className="mono">{fmtPriceOr(ps?.destination ?? p.destination ?? p.conditional_target, "non indicata")}</span> <span className="muted">(non è un target operativo)</span></dd></div>
+                <div><dt>Invalidazione dello scenario</dt>
+                  <dd><span className="mono">{fmtPriceOr(ps?.invalidation_level ?? p.invalidation_level, "non indicata")}</span> <span className="muted">(livello strutturale, non è uno stop)</span></dd></div>
+                <div><dt>Orizzonte atteso</dt><dd>{mv?.horizon_minutes ? `${mv.horizon_minutes[0]}–${mv.horizon_minutes[1]} min` : "non indicato"}</dd></div>
+                <div className="span-all"><dt>Condizione ancora necessaria</dt><dd data-testid="live-condition">{condition(p, ps) ?? "il sistema non ha pubblicato una condizione specifica per questo scenario"}</dd></div>
+              </dl>
+            ) : others.length > 0 ? (
+              <ul className="mr-list small-text" data-testid="live-waiting-others">
+                {others.slice(0, 4).map((x) => <ScenarioWait key={x.p.scenario_id} p={x.p} s={x.s} />)}
+              </ul>
+            ) : ongoingCall ? (
+              <p className="small-text" data-testid="live-ongoing-call">È in corso una call: ingresso e aggiornamenti sono nel pannello
+                «Che cosa propone il sistema adesso».</p>
+            ) : noScenario ? (
+              <p className="small-text" data-testid="live-no-scenario">Non c'è ancora uno scenario attivo. Il sistema non ha pubblicato
+                una condizione specifica da attendere per un ingresso.</p>
+            ) : <p className="small-text" data-testid="live-no-condition">Il sistema non ha pubblicato una condizione specifica da attendere
+                per un ingresso.</p>}
+        </div>
       </div>
-      {v && (p ? (
-        <dl className="market-facts" data-testid="live-scenario-levels">
-          <div><dt>Scenario</dt><dd>{p.direction} {p.family}</dd></div>
-          <div><dt>Destinazione dello scenario</dt>
-            <dd><span className="mono">{fmtPriceOr(ps?.destination ?? p.destination ?? p.conditional_target, "non indicata")}</span> <span className="muted">(non è un target operativo)</span></dd></div>
-          <div><dt>Invalidazione dello scenario</dt>
-            <dd><span className="mono">{fmtPriceOr(ps?.invalidation_level ?? p.invalidation_level, "non indicata")}</span> <span className="muted">(livello strutturale, non è uno stop)</span></dd></div>
-          <div><dt>Orizzonte atteso</dt><dd>{mv?.horizon_minutes ? `${mv.horizon_minutes[0]}–${mv.horizon_minutes[1]} min` : "non indicato"}</dd></div>
-          <div className="span-all"><dt>Condizione ancora necessaria</dt><dd data-testid="live-condition">{condition(p, ps) ?? "non indicata dal sistema"}</dd></div>
-        </dl>
-      ) : <p className="proposal-note">Nessuno scenario principale in questo momento.</p>)}
+      {mv && (
+        <details className="more mr-tech" data-testid="live-reading-tech">
+          <summary><Icon name="chevron" size={14} className="summary-chevron" /> Termini tecnici della lettura</summary>
+          <div className="more-body stack-sm small-text">
+            {noRevisionEvent && (
+              <p data-testid="live-no-revision-event">Non è indicato un evento specifico che farebbe cambiare questa lettura. È un limite
+                della spiegazione disponibile: non significa che la lettura non possa cambiare.</p>
+            )}
+            <dl className="call-geo">
+              <dt>Contesto 1h</dt><dd className="mono">{mv.observed_context ?? "—"}</dd>
+              <dt>Fase 15m</dt><dd className="mono">{mv.phase ?? "—"}</dd>
+              <dt>Lettura</dt><dd className="mono">{d}{mv.conditional ? " · conditional" : ""} · {mv.table_row}</dd>
+              {reasons.length > 0 && <><dt>Motivazione (testo del sistema)</dt><dd className="mono">{reasons.join(" | ")}</dd></>}
+              {(mv.counterevidence ?? []).length > 0 && <><dt>Elementi contrari registrati</dt><dd className="mono">{mv.counterevidence.join(" | ")}</dd></>}
+              {(mv.blockers ?? []).length > 0 && <><dt>Dati mancanti</dt><dd className="mono">{mv.blockers.join(" | ")}</dd></>}
+            </dl>
+          </div>
+        </details>
+      )}
       {v && <p className="muted small-text">Lettura qualitativa, non una probabilità.</p>}
     </section>
   );

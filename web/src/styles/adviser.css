@@ -206,6 +206,12 @@
 .market-facts dt { font-size: var(--fs-xs); color: var(--text-3); }
 .market-facts dd { margin: 0; font-size: var(--fs-sm); }
 .market-facts .span-all { grid-column: 1 / -1; }
+/* market reading in three linked steps: observe → conclude → waiting for (one connecting rule, existing tokens only) */
+.mr-steps { display: flex; flex-direction: column; gap: var(--s-3); border-left: 2px solid var(--line-3); padding-left: var(--s-3); }
+.mr-step { display: flex; flex-direction: column; gap: var(--s-1); }
+.mr-step-title { font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text-3); }
+.mr-list { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-sm); }
+.mr-step p { margin: 0; }
 /* timeline: direction with its arrow; new items marked by weight, not by colour */
 .tl-dir { font-weight: 700; }
 .change-timeline li.is-new .tl-kind, .change-timeline li.tl-alert.is-new .hist-alert-event { color: var(--text); }

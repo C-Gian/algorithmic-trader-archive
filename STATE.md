@@ -1369,3 +1369,11 @@ Verification only. There is no product change. One test was added and one existi
 - **Present and correctable in the explanation:** the observations (1h context BALANCED, phase), the reason (`table_row` plus `reasons`) and the absence of any entry condition (no scenario). Italian wording with source fields is proposed.
 - **Missing informational link, for Astra:** no recorded condition under which a scenario would be born or the reading would change (`watch`, `alternatives` and `counterevidence` empty). The phase rule separating Incerta from Equilibrio exists only in the frozen method.
 - **Status.** No product change.
+
+### Market-reading box: presentation only (base `0619e5f`; implementation delivered; Director review and the Owner's guided check PENDING)
+
+[Delivery and source → text map](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-PRESENTATION.md). Orchestrator decision: explain the present state faithfully and declare when no condition is published; no new engine information, no trigger derived in the frontend.
+- **Change.** The box reads in three linked steps (*Che cosa osserva* / *Che cosa ne conclude* / *Che cosa sta aspettando*), with *Termini tecnici* collapsed. Missing and unknown values are declared. The no-scenario sentence appears only when every published list is present and empty. The BALANCED_RANGE label no longer says "range".
+- **Unchanged.** Engine, method, API, persistence, guidance, layout, palette and the right-hand panel.
+- **Checks.** Web build and typecheck pass. New E2E `test_live_market_reading_e2e.py` (session records 760/772/776/781 and existing published-condition cases), plus regression E2E on a disposable PostgreSQL: 26 passed (11 suites). After a text-only correction of the UNAVAILABLE descriptions: 4 passed on re-run.
+- **Not verified.** Gian's comprehension. The change is not deployed on the Owner's running stack (still `87322ac`).
