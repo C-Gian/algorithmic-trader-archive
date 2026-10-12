@@ -118,3 +118,13 @@ Dominio q. LONG: A=97000, B=100900, S15_nascita=2000, z=200, R1=99900, V1=99700;
 **Verdetto:** proposta definibile, ma non ottenibile cambiando soltanto il terminale V. Richiede owner dell’impulso distinto dal tentativo, nuovi legami d’identità e clocks espliciti. Queste sono le decisioni metodologiche da approvare prima di implementare. Se non sono accettate, il design non va “semplificato” prorogando l’impulso o riaprendo S1.
 
 Nessun beneficio, frequenza o risultato economico stimato. v0.6 e studi congelati invariati e INACTIVE.
+
+
+## Ratifica e precisazioni prima dell’implementazione — 12 ottobre 2026
+
+L’orchestratore ha letto questo disegno a `b20919e`, lo ha approvato come candidata sperimentale e autorizzato un’implementazione isolata con sole prove sintetiche. Non è autorizzata la sostituzione di v0.6 né una valutazione sui dati o economica. La riserva modifica l’allocazione dell’owner e può escludere nuove opportunità ordinarie: un’eventuale valutazione dovrà riguardare l’intera politica, non soltanto i successori.
+
+1. **Recupero osservato con residuo insufficiente.** Se una nuova barra eleggibile soddisfa il criterio di recupero con meno di 30 minuti prima di H0, conservarne identità, intervallo, disponibilità, prezzo e motivo di esclusione. Non presentarlo come assenza del movimento. Non pubblicare un’opportunità confermata/operativa e non prorogare H0. L’annotazione non consente recupero di barre vecchie o ingresso retroattivo.
+2. **Routing ereditato.** La frase «un rifiuto consuma il figlio» riguarda esclusivamente il consumo già previsto dal routing ordinario. Blocchi temporanei ammessi mantengono l’attesa; terminali la concludono; la prima ripresa RETURN e il suo consumo seguono integralmente v0.5/v0.6. Nessun veto aggiuntivo, retry o consumo anticipato viene introdotto da quella frase.
+
+Prove richieste: ingresso ordinario LONG/SHORT con successore geometricamente emettibile; esclusione di dati/ conferme precedenti e terzo tentativo; precedenze e bordi temporali; riserva, rilascio, latch e impulso ordinario escluso; persistenza/restore; vecchia call immutata e v0.6 invariata quando la variante non è selezionata. Nessun dato Owner, acquisizione, conteggio dei 28 casi o backtest. Un conflitto che richieda ulteriori deroghe va riportato prima di ampliare il metodo.
