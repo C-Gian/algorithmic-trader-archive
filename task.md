@@ -1,4 +1,11 @@
-# Current task — Diagnosis of the MarketView explanation (live use session v0.6)
+# Current task — Final localization of the MarketView gap (live use session v0.6)
+Date: 2026-10-12. Status: LOCALIZATION DELIVERED ([document](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-GAP-LOCALIZATION.md)). Observations, reasons and the absence of an entry condition are present and correctable in the explanation. The condition that would change the reading is a missing informational link, to submit to Astra. No product change. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `ab8d080`)
+
+No product change; only the records already examined in the diagnosis. Gian's feedback: he wants to know what the system observed, why the direction stays uncertain and what is missing before a possible entry; simple presentation, layout unchanged. For Incerta and Equilibrio, report: (1) the observations available, (2) the recorded reason linking them to the reading, (3) any recorded entry condition and (4) any recorded condition that would change the reading, keeping 3 and 4 strictly apart, with no invented trigger. Propose short Italian wording for supported content only, with source field and value; do not turn Incerta into expected sideways movement or the absence of a call into an absence of reading. Outcome: information present and correctable in the explanation, or missing informational link to submit to Astra.
+
+## Previous task — Diagnosis of the MarketView explanation (live use session v0.6)
 Date: 2026-10-12. Status: DIAGNOSIS DELIVERED ([diagnosis](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-DIAGNOSIS.md)); awaiting Gian's feedback before any correction is proposed. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
 ## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `baf9ffa`)

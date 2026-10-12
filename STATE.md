@@ -1362,3 +1362,10 @@ Verification only. There is no product change. One test was added and one existi
 ### Market-reading box diagnosis (executor, diagnosis only; awaiting Gian's feedback)
 
 [Diagnosis](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-DIAGNOSIS.md). No original screenshot of the box exists (`Cattura.PNG` does not frame it); the text Gian read is not attested. The box was rebuilt with the served 87322ac frontend: one reconstruction from the saved view (final interval) and partial ones from the journal records. Two texts: *Incerta · Nessuna struttura qualificata* (11:22–12:00 and 13:30–13:45 Rome) and *Equilibrio · Mercato in equilibrio (range)* (12:00–13:30). The box never shows "BALANCED"; the raw code appears in the Momentum lens card and the collapsed *Approfondimenti*. Five missing links are reported: observation, reason, the Incerta/Equilibrio difference, an empty "what would change it" in the data, and the link to the waiting state. No product change; no correction proposed before Gian's feedback.
+
+### Market-reading gap localized (executor; after Gian's feedback)
+
+[Localization](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-GAP-LOCALIZATION.md), from records 760/772/776/781 and the saved view only.
+- **Present and correctable in the explanation:** the observations (1h context BALANCED, phase), the reason (`table_row` plus `reasons`) and the absence of any entry condition (no scenario). Italian wording with source fields is proposed.
+- **Missing informational link, for Astra:** no recorded condition under which a scenario would be born or the reading would change (`watch`, `alternatives` and `counterevidence` empty). The phase rule separating Incerta from Equilibrio exists only in the frozen method.
+- **Status.** No product change.
