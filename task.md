@@ -1,4 +1,16 @@
-# Current task — Integrated synthetic acceptance check of the adviser v0.6
+# Current task — Owner use session of the live adviser v0.6 (preparation)
+Date: 2026-10-12. Status: ENVIRONMENT PREPARED (build `87322ac` served, method v0.6 available, no pre-existing live state); the session is started by the Owner, not by the executor ([record](delivery/evidence/LIVE-V06-USE-SESSION/NOTE.md)). Executor record; the Director's acceptance is separate. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (orchestrator authorization, relayed by the Owner, 12 October 2026; build `87322ac`, CI green as reported by the Owner)
+
+Prepare the Owner's ordinary environment for one live use session of v0.6, two hours from Start.
+- Verify the checkout, the build actually served and method v0.6. No pull or fetch: a mismatching checkout is reported to the Owner.
+- Before Start: verify the configured OKX instrument, the interval the ordinary catch-up will read for initialization and that it does not intersect protected periods; check whether a pre-existing live state would cause a restore, a consultation or a recovery of protected periods. No state deleted, no continuity rule changed; a conflict stops the work. Only the ordinary services needed.
+- The executor does not start the session: the Owner presses Start. No extra acquisition, account link, economic evaluator or product change, before or during the session.
+- Minimal documentary record: SHA, method, instrument, actual session interval and actual initialization coverage. The study exposure register receives the intervals actually read once available, distinct from the INACTIVE studies.
+- Excluded: CI queries.
+
+## Previous task — Integrated synthetic acceptance check of the adviser v0.6
 Date: 2026-10-12. Status: DELIVERED — READY FOR DIRECTOR REVIEW — V0.6 INTEGRATED EPISODE ONLY ([note](delivery/evidence/LIVE-V06-INTEGRATED-EPISODE/NOTE.md)). Executor delivery; the Director's final acceptance is pending. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
 
 ## Assignment (orchestrator authorization, relayed by the Owner, 12 October 2026; expected base `115b9b5`)
