@@ -1,4 +1,17 @@
-# Current task — A professional-reasoning comparison with v0.6
+# Current task — Isolate the A confirmation / anchor-loss boundary (paired synthetic verification)
+Date: 2026-10-12. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMATION-BOUNDARY-PAIR/SUMMARY.md)); the Director's review is PENDING. Synthetic evidence only; no rule change. v0.6 and HDP-001 frozen; studies INACTIVE.
+
+## Assignment (relayed by the Owner, 12 October 2026; base `0deb61e`, after the Director's review of the comparison)
+
+1. **Paired tapes.** Two OHLC tapes through the ordinary v0.6 entry, identical except for the close of the first resumption attempt: just below, or at, K + tick. Keep identical the initial geometry and anchor, the later V contact without premise failure, the formation of the next reaction and the later resumption. Do not inject state or bypass gates.
+2. **Isolation.** Verify that the variation produces only the expected difference before the V contact. Report effects on later aggregations; do not assume a single close leaves every derivation unchanged.
+3. **Comparative sequence.** observation → scenario state → published expectation → published condition → consequence of the V contact → treatment of the later resumption.
+4. **Distinguish.** (1) protection of any issued call; (2) conclusion of the specific confirmed hypothesis; (3) ability to recognize the continuation with a new reaction, without a new impulse.
+5. **Limits.** Do not change rules. Do not call the result a "defect" or a "necessary correction": the collected source does not define the validity of the second leg. Do not run the count on the 28 real cases yet. No acquisition, Owner access, protected period or CI; E not reopened; RETURN not modified.
+6. **Delivery.** Synthetic evidence and a circumscribed conclusion. Commit and push; no pull/fetch. v0.6 and HDP-001 unchanged; studies INACTIVE.
+
+
+## Previous task — A professional-reasoning comparison with v0.6
 Date: 2026-10-12. Status: EXECUTOR DELIVERY ([comparison](delivery/A-PROFESSIONAL-REASONING-COMPARISON.md)); the Director's review is PENDING. Documentary only. v0.6 and HDP-001 frozen; the future studies INACTIVE.
 
 ## Assignment (relayed by the Owner, 12 October 2026; base `58ff69a`)

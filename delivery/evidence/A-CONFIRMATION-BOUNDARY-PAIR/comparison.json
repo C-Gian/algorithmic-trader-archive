@@ -1,0 +1,1690 @@
+{
+ "LONG": {
+  "calls": {
+   "C": 0,
+   "N": 0
+  },
+  "differences_before_V_contact": {
+   "C": [
+    [
+     "scenario",
+     "2025-09-01T04:01:00Z"
+    ],
+    [
+     "entry_attempt",
+     "2025-09-01T04:01:00Z"
+    ],
+    [
+     "market_view",
+     "2025-09-01T04:01:00Z"
+    ]
+   ],
+   "N": []
+  },
+  "first_differing_clock": "2025-09-01T04:01:00Z",
+  "identical_kinds_throughout": [
+   "landmark",
+   "observation"
+  ],
+  "journal_counts": {
+   "C": {
+    "entry_attempt": 3,
+    "landmark": 5,
+    "market_view": 29,
+    "observation": 36,
+    "scenario": 8
+   },
+   "N": {
+    "entry_attempt": 5,
+    "landmark": 5,
+    "market_view": 30,
+    "observation": 36,
+    "scenario": 10
+   }
+  },
+  "lifecycle": {
+   "C": [
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100900",
+     "clock": "2025-09-01T03:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": "100700",
+     "V": "99800.0",
+     "antecedent": "a later eligible complete 1m close >= 100700.1 with low > 99800.0 confirms continuation toward 100900",
+     "clock": "2025-09-01T03:45:00Z",
+     "epoch": 1,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "ARM"
+    },
+    {
+     "K": "100049.9",
+     "V": "99700.0",
+     "antecedent": "a later eligible complete 1m close >= 100050.0 with low > 99700.0 confirms continuation toward 100900",
+     "clock": "2025-09-01T04:00:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "LOWER_CLEAN_REACTION_REANCHOR",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REVISE"
+    },
+    {
+     "K": "100049.9",
+     "V": "99700.0",
+     "antecedent": "confirmed: continuation toward 100900 while V 99700.0 holds and before 2025-09-01T08:01:00+00:00",
+     "clock": "2025-09-01T04:01:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04",
+     "status": "CONFIRMED",
+     "terminal": null,
+     "transition": "CONFIRM"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:01:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+     "status": null,
+     "terminal": null,
+     "transition": "WAIT_OPEN"
+    },
+    {
+     "K": "100049.9",
+     "V": "99700.0",
+     "antecedent": "confirmed: continuation toward 100900 while V 99700.0 holds and before 2025-09-01T08:01:00+00:00",
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "V_CONTACT",
+     "status": "TERMINAL",
+     "terminal": "INVALIDATED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T05:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_EXPIRY",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "OWNER_RELEASE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_DEADLINE",
+     "status": "TERMINAL",
+     "terminal": "EXPIRED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    }
+   ],
+   "N": [
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100900",
+     "clock": "2025-09-01T03:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": "100700",
+     "V": "99800.0",
+     "antecedent": "a later eligible complete 1m close >= 100700.1 with low > 99800.0 confirms continuation toward 100900",
+     "clock": "2025-09-01T03:45:00Z",
+     "epoch": 1,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "ARM"
+    },
+    {
+     "K": "100049.9",
+     "V": "99700.0",
+     "antecedent": "a later eligible complete 1m close >= 100050.0 with low > 99700.0 confirms continuation toward 100900",
+     "clock": "2025-09-01T04:00:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "LOWER_CLEAN_REACTION_REANCHOR",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REVISE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "scenario under observation; waiting for a new completed reaction strictly beyond the lost anchor R 99900 (anchor 2 invalidated); continuation toward 100900 is not confirmed and this is not an entry",
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "V_CONTACT",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "ANCHOR_LOST"
+    },
+    {
+     "K": "100050",
+     "V": "99500.0",
+     "antecedent": "a later eligible complete 1m close >= 100050.1 with low > 99500.0 confirms continuation toward 100900",
+     "clock": "2025-09-01T04:15:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REARM"
+    },
+    {
+     "K": "100050",
+     "V": "99500.0",
+     "antecedent": "confirmed: continuation toward 100900 while V 99500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "clock": "2025-09-01T04:23:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04",
+     "status": "CONFIRMED",
+     "terminal": null,
+     "transition": "CONFIRM"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:23:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+     "status": null,
+     "terminal": null,
+     "transition": "WAIT_OPEN"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:24:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": null,
+     "terminal": null,
+     "transition": "BLOCKERS"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:46:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": null,
+     "terminal": null,
+     "transition": "BLOCKERS"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:53:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "PRE_ENTRY_TARGET_CONTACT",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    },
+    {
+     "K": "100050",
+     "V": "99500.0",
+     "antecedent": "confirmed: continuation toward 100900 while V 99500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "clock": "2025-09-01T05:03:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "DESTINATION_CONTACT",
+     "status": "TERMINAL",
+     "terminal": "DESTINATION_REACHED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T05:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_EXPIRY",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "OWNER_RELEASE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 100955",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_DEADLINE",
+     "status": "TERMINAL",
+     "terminal": "EXPIRED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    }
+   ]
+  },
+  "records_only_in_C": [
+   [
+    "scenario",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:15:00Z"
+   ]
+  ],
+  "records_only_in_N": [
+   [
+    "scenario",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:15:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:15:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:24:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:46:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:53:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T05:03:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T05:03:00Z"
+   ]
+  ],
+  "state_after_dispatch": {
+   "2025-09-01T04:00:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": true,
+    "differing_keys": [],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T04:01:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "last_1m",
+     "recent_1m",
+     "slot_px",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "scen",
+     "waits"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T04:02:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "recent_1m",
+     "slot_px",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T04:15:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "latch",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T04:23:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "latch",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen",
+     "waits"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T05:03:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": false
+    },
+    "aggregations_identical": true,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "journal_chain",
+     "journal_seq",
+     "latch"
+    ],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   },
+   "2025-09-01T05:30:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": true,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "journal_chain",
+     "journal_seq"
+    ],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     },
+     "N": {
+      "-1": "READY",
+      "1": "NEED_FALSE"
+     }
+    }
+   }
+  },
+  "tape_difference": [
+   {
+    "C_payload": {
+     "close": "100050",
+     "high": "100050",
+     "low": "99950",
+     "open": "99950",
+     "payload_type": "trade_bar_1m",
+     "volume_base": "1",
+     "volume_base_ccy": "BTC",
+     "volume_contracts": "100",
+     "volume_quote": "100050",
+     "volume_quote_ccy": "USDT"
+    },
+    "N_payload": {
+     "close": "100049.9",
+     "high": "100050",
+     "low": "99950",
+     "open": "99950",
+     "payload_type": "trade_bar_1m",
+     "volume_base": "1",
+     "volume_base_ccy": "BTC",
+     "volume_contracts": "100",
+     "volume_quote": "100049.9",
+     "volume_quote_ccy": "USDT"
+    },
+    "family": "trade_bar_1m",
+    "start": "2025-09-01T04:00:00+00:00"
+   }
+  ],
+  "views_04_00_to_05_30": {
+   "C": [
+    {
+     "clock": "2025-09-01T04:00:00Z",
+     "expected_direction": "UP",
+     "invalidation_level": "99700.0",
+     "principal_antecedent": "a later eligible complete 1m close >= 100050.0 with low > 99700.0 confirms continuation toward 100900",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "100049.9",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:01:00Z",
+     "expected_direction": "UP",
+     "invalidation_level": "99700.0",
+     "principal_antecedent": "confirmed: continuation toward 100900 while V 99700.0 holds and before 2025-09-01T08:01:00+00:00",
+     "principal_status": "CONFIRMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "100049.9",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:02:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:30:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "if a clean reaction and recovery confirm, continuation toward 100955"
+     ]
+    }
+   ],
+   "N": [
+    {
+     "clock": "2025-09-01T04:00:00Z",
+     "expected_direction": "UP",
+     "invalidation_level": "99700.0",
+     "principal_antecedent": "a later eligible complete 1m close >= 100050.0 with low > 99700.0 confirms continuation toward 100900",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "100049.9",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:02:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "scenario under observation; waiting for a new completed reaction strictly beyond the lost anchor R 99900 (anchor 2 invalidated); continuation toward 100900 is not confirmed and this is not an entry"
+     ]
+    },
+    {
+     "clock": "2025-09-01T04:15:00Z",
+     "expected_direction": "UP",
+     "invalidation_level": "99500.0",
+     "principal_antecedent": "a later eligible complete 1m close >= 100050.1 with low > 99500.0 confirms continuation toward 100900",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "100050",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:23:00Z",
+     "expected_direction": "UP",
+     "invalidation_level": "99500.0",
+     "principal_antecedent": "confirmed: continuation toward 100900 while V 99500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "principal_status": "CONFIRMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "100050",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:03:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:30:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "if a clean reaction and recovery confirm, continuation toward 100955"
+     ]
+    }
+   ]
+  }
+ },
+ "SHORT": {
+  "calls": {
+   "C": 0,
+   "N": 0
+  },
+  "differences_before_V_contact": {
+   "C": [
+    [
+     "scenario",
+     "2025-09-01T04:01:00Z"
+    ],
+    [
+     "entry_attempt",
+     "2025-09-01T04:01:00Z"
+    ],
+    [
+     "market_view",
+     "2025-09-01T04:01:00Z"
+    ]
+   ],
+   "N": []
+  },
+  "first_differing_clock": "2025-09-01T04:01:00Z",
+  "identical_kinds_throughout": [
+   "landmark",
+   "observation"
+  ],
+  "journal_counts": {
+   "C": {
+    "entry_attempt": 3,
+    "landmark": 5,
+    "market_view": 29,
+    "observation": 36,
+    "scenario": 8
+   },
+   "N": {
+    "entry_attempt": 5,
+    "landmark": 5,
+    "market_view": 30,
+    "observation": 36,
+    "scenario": 10
+   }
+  },
+  "lifecycle": {
+   "C": [
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99100",
+     "clock": "2025-09-01T03:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": "99300",
+     "V": "100200.0",
+     "antecedent": "a later eligible complete 1m close <= 99299.9 with high < 100200.0 confirms continuation toward 99100",
+     "clock": "2025-09-01T03:45:00Z",
+     "epoch": 1,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "ARM"
+    },
+    {
+     "K": "99950.1",
+     "V": "100300.0",
+     "antecedent": "a later eligible complete 1m close <= 99950.0 with high < 100300.0 confirms continuation toward 99100",
+     "clock": "2025-09-01T04:00:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "LOWER_CLEAN_REACTION_REANCHOR",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REVISE"
+    },
+    {
+     "K": "99950.1",
+     "V": "100300.0",
+     "antecedent": "confirmed: continuation toward 99100 while V 100300.0 holds and before 2025-09-01T08:01:00+00:00",
+     "clock": "2025-09-01T04:01:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04",
+     "status": "CONFIRMED",
+     "terminal": null,
+     "transition": "CONFIRM"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:01:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+     "status": null,
+     "terminal": null,
+     "transition": "WAIT_OPEN"
+    },
+    {
+     "K": "99950.1",
+     "V": "100300.0",
+     "antecedent": "confirmed: continuation toward 99100 while V 100300.0 holds and before 2025-09-01T08:01:00+00:00",
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "V_CONTACT",
+     "status": "TERMINAL",
+     "terminal": "INVALIDATED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T05:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_EXPIRY",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "OWNER_RELEASE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_DEADLINE",
+     "status": "TERMINAL",
+     "terminal": "EXPIRED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    }
+   ],
+   "N": [
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99100",
+     "clock": "2025-09-01T03:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": "99300",
+     "V": "100200.0",
+     "antecedent": "a later eligible complete 1m close <= 99299.9 with high < 100200.0 confirms continuation toward 99100",
+     "clock": "2025-09-01T03:45:00Z",
+     "epoch": 1,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "ARM"
+    },
+    {
+     "K": "99950.1",
+     "V": "100300.0",
+     "antecedent": "a later eligible complete 1m close <= 99950.0 with high < 100300.0 confirms continuation toward 99100",
+     "clock": "2025-09-01T04:00:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "LOWER_CLEAN_REACTION_REANCHOR",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REVISE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "scenario under observation; waiting for a new completed reaction strictly beyond the lost anchor R 100100 (anchor 2 invalidated); continuation toward 99100 is not confirmed and this is not an entry",
+     "clock": "2025-09-01T04:02:00Z",
+     "epoch": 2,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "V_CONTACT",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "ANCHOR_LOST"
+    },
+    {
+     "K": "99950",
+     "V": "100500.0",
+     "antecedent": "a later eligible complete 1m close <= 99949.9 with high < 100500.0 confirms continuation toward 99100",
+     "clock": "2025-09-01T04:15:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION",
+     "status": "ARMED",
+     "terminal": null,
+     "transition": "REARM"
+    },
+    {
+     "K": "99950",
+     "V": "100500.0",
+     "antecedent": "confirmed: continuation toward 99100 while V 100500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "clock": "2025-09-01T04:23:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04",
+     "status": "CONFIRMED",
+     "terminal": null,
+     "transition": "CONFIRM"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:23:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+     "status": null,
+     "terminal": null,
+     "transition": "WAIT_OPEN"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:24:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": null,
+     "terminal": null,
+     "transition": "BLOCKERS"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:46:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": null,
+     "status": null,
+     "terminal": null,
+     "transition": "BLOCKERS"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T04:53:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "PRE_ENTRY_TARGET_CONTACT",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    },
+    {
+     "K": "99950",
+     "V": "100500.0",
+     "antecedent": "confirmed: continuation toward 99100 while V 100500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "clock": "2025-09-01T05:03:00Z",
+     "epoch": 3,
+     "kind": "scenario",
+     "owner": "2025-09-01T03:15:00+00:00",
+     "reason": "DESTINATION_CONTACT",
+     "status": "TERMINAL",
+     "terminal": "DESTINATION_REACHED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T05:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "FALSE_AT_OR_AFTER_RELEASE_TO_TRUE",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "BIRTH"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_EXPIRY",
+     "status": "WATCH",
+     "terminal": null,
+     "transition": "OWNER_RELEASE"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": "if a clean reaction and recovery confirm, continuation toward 99045",
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "scenario",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "ORIGINAL_SETUP_DEADLINE",
+     "status": "TERMINAL",
+     "terminal": "EXPIRED",
+     "transition": "TERMINAL"
+    },
+    {
+     "K": null,
+     "V": null,
+     "antecedent": null,
+     "clock": "2025-09-01T07:30:00Z",
+     "epoch": null,
+     "kind": "entry_attempt",
+     "owner": "2025-09-01T05:15:00+00:00",
+     "reason": "SCENARIO_TERMINAL",
+     "status": null,
+     "terminal": null,
+     "transition": "TERMINAL"
+    }
+   ]
+  },
+  "records_only_in_C": [
+   [
+    "scenario",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:01:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:15:00Z"
+   ]
+  ],
+  "records_only_in_N": [
+   [
+    "scenario",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:02:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:15:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:15:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T04:23:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:24:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:46:00Z"
+   ],
+   [
+    "entry_attempt",
+    "2025-09-01T04:53:00Z"
+   ],
+   [
+    "scenario",
+    "2025-09-01T05:03:00Z"
+   ],
+   [
+    "market_view",
+    "2025-09-01T05:03:00Z"
+   ]
+  ],
+  "state_after_dispatch": {
+   "2025-09-01T04:00:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": true,
+    "differing_keys": [],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T04:01:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "last_1m",
+     "recent_1m",
+     "slot_px",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "scen",
+     "waits"
+    ],
+    "latch": {
+     "C": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T04:02:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "recent_1m",
+     "slot_px",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen"
+    ],
+    "latch": {
+     "C": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T04:15:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "journal_seq",
+     "latch",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T04:23:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": true
+    },
+    "aggregations_identical": false,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "disl",
+     "journal_chain",
+     "latch",
+     "v3",
+     "view",
+     "view_key"
+    ],
+    "differing_v3_keys": [
+     "a_owner",
+     "scen",
+     "waits"
+    ],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T05:03:00+00:00": {
+    "a_owner_held": {
+     "C": false,
+     "N": false
+    },
+    "aggregations_identical": true,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "journal_chain",
+     "journal_seq",
+     "latch"
+    ],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "READY",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   },
+   "2025-09-01T05:30:00+00:00": {
+    "a_owner_held": {
+     "C": true,
+     "N": true
+    },
+    "aggregations_identical": true,
+    "differing_keys": [
+     "counters",
+     "diag",
+     "journal_chain",
+     "journal_seq"
+    ],
+    "differing_v3_keys": [],
+    "latch": {
+     "C": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     },
+     "N": {
+      "-1": "NEED_FALSE",
+      "1": "READY"
+     }
+    }
+   }
+  },
+  "tape_difference": [
+   {
+    "C_payload": {
+     "close": "99950",
+     "high": "100050",
+     "low": "99950",
+     "open": "100050",
+     "payload_type": "trade_bar_1m",
+     "volume_base": "1",
+     "volume_base_ccy": "BTC",
+     "volume_contracts": "100",
+     "volume_quote": "99950",
+     "volume_quote_ccy": "USDT"
+    },
+    "N_payload": {
+     "close": "99950.1",
+     "high": "100050",
+     "low": "99950",
+     "open": "100050",
+     "payload_type": "trade_bar_1m",
+     "volume_base": "1",
+     "volume_base_ccy": "BTC",
+     "volume_contracts": "100",
+     "volume_quote": "99950.1",
+     "volume_quote_ccy": "USDT"
+    },
+    "family": "trade_bar_1m",
+    "start": "2025-09-01T04:00:00+00:00"
+   }
+  ],
+  "views_04_00_to_05_30": {
+   "C": [
+    {
+     "clock": "2025-09-01T04:00:00Z",
+     "expected_direction": "DOWN",
+     "invalidation_level": "100300.0",
+     "principal_antecedent": "a later eligible complete 1m close <= 99950.0 with high < 100300.0 confirms continuation toward 99100",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "99950.1",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:01:00Z",
+     "expected_direction": "DOWN",
+     "invalidation_level": "100300.0",
+     "principal_antecedent": "confirmed: continuation toward 99100 while V 100300.0 holds and before 2025-09-01T08:01:00+00:00",
+     "principal_status": "CONFIRMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "99950.1",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:02:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:30:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "if a clean reaction and recovery confirm, continuation toward 99045"
+     ]
+    }
+   ],
+   "N": [
+    {
+     "clock": "2025-09-01T04:00:00Z",
+     "expected_direction": "DOWN",
+     "invalidation_level": "100300.0",
+     "principal_antecedent": "a later eligible complete 1m close <= 99950.0 with high < 100300.0 confirms continuation toward 99100",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "99950.1",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:02:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "scenario under observation; waiting for a new completed reaction strictly beyond the lost anchor R 100100 (anchor 2 invalidated); continuation toward 99100 is not confirmed and this is not an entry"
+     ]
+    },
+    {
+     "clock": "2025-09-01T04:15:00Z",
+     "expected_direction": "DOWN",
+     "invalidation_level": "100500.0",
+     "principal_antecedent": "a later eligible complete 1m close <= 99949.9 with high < 100500.0 confirms continuation toward 99100",
+     "principal_status": "ARMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "99950",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T04:23:00Z",
+     "expected_direction": "DOWN",
+     "invalidation_level": "100500.0",
+     "principal_antecedent": "confirmed: continuation toward 99100 while V 100500.0 holds and before 2025-09-01T08:23:00+00:00",
+     "principal_status": "CONFIRMED",
+     "table_row": "CONDITIONAL_SCENARIO",
+     "trigger_level": "99950",
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:03:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:15:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "NO_QUALIFIED_STRUCTURE",
+     "trigger_level": null,
+     "watch_antecedents": []
+    },
+    {
+     "clock": "2025-09-01T05:30:00Z",
+     "expected_direction": "UNCERTAIN",
+     "invalidation_level": null,
+     "principal_antecedent": null,
+     "principal_status": null,
+     "table_row": "WATCH_ONLY",
+     "trigger_level": null,
+     "watch_antecedents": [
+      "if a clean reaction and recovery confirm, continuation toward 99045"
+     ]
+    }
+   ]
+  }
+ },
+ "closes_long": {
+  "C": "100050",
+  "N": "100049.9"
+ },
+ "generated_from": "hand-made synthetic tapes (engineering inputs, not market data)",
+ "method": "v0.6"
+}
