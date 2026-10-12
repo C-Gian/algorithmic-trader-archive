@@ -2,14 +2,14 @@
 
 **Executor record, not the Director's acceptance.** This is a real use session of the live adviser by the Owner (Gian), authorized by the orchestrator on 12 October 2026. It is not a study, not an economic test and not evidence of market prediction or profit. v0.6 and HDP-001 are frozen; the studies (HDP-001, A v0.6) stay INACTIVE and this session is not part of them.
 
-**Status (2026-10-12):** session held and stopped by the Owner. Executor report delivered (§2–§7); the Director's final acceptance is pending. Exposure register: row 10.
+**Status (2026-10-12):** session held and stopped by the Owner. Executor report delivered (§2–§7); the Director's final acceptance is pending. Exposure register: row 10. Diagnosis of the market-reading box: [MARKET-READING-DIAGNOSIS](MARKET-READING-DIAGNOSIS.md) (awaiting Gian's feedback).
 
 ## 1. Preparation (executor, 2026-10-12, before Start)
 
 | Item | Verified value |
 |---|---|
 | Checkout | `main` at `87322acd4a74f8aa875312c380408f7d09369823`, clean, equal to `origin/main` as already known locally (no pull or fetch) |
-| CI on that SHA | green, as reported by the Owner (not queried by the executor) |
+| CI on that SHA | green, as attested by the Owner: asked about the exact SHA `87322acd4a74f8aa875312c380408f7d09369823`, the Owner answered "ci verde, va bene farlo ora". Owner attestation; not verified by the Director, not queried by the executor |
 | Build served | `/api/health` → `code_version` `87322acd4a74f8aa875312c380408f7d09369823+image`. Before preparation the stack served `eab7d23…+image`; the image was rebuilt from the checkout with the README upgrade procedure (`docker compose build`, `docker compose stop api worker recorder observer corpus adviser`, `docker compose up -d`). Migration exit 0. No volume touched. |
 | Services | `db` (unchanged, kept running), `migrate`, `api` (healthy, `127.0.0.1:8000`), `adviser`, plus the ordinary idle `worker`, `recorder`, `observer`, `corpus`. No replay, corpus job or recording queued or running. |
 | Method | `v0.6` offered by `/api/adviser/methods`: model `btc.context-action.v0.6`, rules `mp005.rules.v0.6`, rules SHA-256 `57bf2309…2e66`, register SHA-256 `98ef101e…5bda`, implementation `adviser.core.v6`, status ENGINEERING_REVIEW_PENDING, economic usefulness UNVALIDATED. The DELTA file `MP-005-V06-INITIAL-RESPONSE-INCOMPATIBILITY.md` and `MP-005-DIRECTOR-CLOSURE.md` in the checkout hash (LF) to the values the build declares. **The cockpit preselects v0.2: v0.6 must be chosen before Start.** |

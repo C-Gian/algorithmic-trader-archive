@@ -1357,3 +1357,8 @@ Verification only. There is no product change. One test was added and one existi
 - **Priority difficulty.** Comprehensibility of the market reading, still to be confirmed as a reproducible problem; not declared a technical defect.
 - **Saved state.** The run's continuity state is now saved: a future Start restores this run.
 - **Status.** v0.6 and HDP-001 frozen; studies INACTIVE. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+- **CI before Start (record completed).** Asked about the exact SHA `87322acd4a74f8aa875312c380408f7d09369823`, the Owner answered "ci verde, va bene farlo ora". This is the Owner's attestation; not verified by the Director, not queried by the executor.
+
+### Market-reading box diagnosis (executor, diagnosis only; awaiting Gian's feedback)
+
+[Diagnosis](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-DIAGNOSIS.md). No original screenshot of the box exists (`Cattura.PNG` does not frame it); the text Gian read is not attested. The box was rebuilt with the served 87322ac frontend: one reconstruction from the saved view (final interval) and partial ones from the journal records. Two texts: *Incerta · Nessuna struttura qualificata* (11:22–12:00 and 13:30–13:45 Rome) and *Equilibrio · Mercato in equilibrio (range)* (12:00–13:30). The box never shows "BALANCED"; the raw code appears in the Momentum lens card and the collapsed *Approfondimenti*. Five missing links are reported: observation, reason, the Incerta/Equilibrio difference, an empty "what would change it" in the data, and the link to the waiting state. No product change; no correction proposed before Gian's feedback.

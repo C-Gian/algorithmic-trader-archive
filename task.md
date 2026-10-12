@@ -1,7 +1,19 @@
-# Current task — Report on the Owner's live use session of v0.6
-Date: 2026-10-12. Status: REPORT DELIVERED ([record §2–§7](delivery/evidence/LIVE-V06-USE-SESSION/NOTE.md), [exposure register](delivery/STUDY-EXPOSURE-REGISTER.md) row 10); the Director's final acceptance is pending. Studies INACTIVE; v0.6 and HDP-001 frozen.
+# Current task — Diagnosis of the MarketView explanation (live use session v0.6)
+Date: 2026-10-12. Status: DIAGNOSIS DELIVERED ([diagnosis](delivery/evidence/LIVE-V06-USE-SESSION/MARKET-READING-DIAGNOSIS.md)); awaiting Gian's feedback before any correction is proposed. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
-## Assignment (orchestrator, relayed by the Owner, 12 October 2026)
+## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `baf9ffa`)
+
+Diagnosis only, no product change; recorded data and materials of the session only; no session, acquisition or economic evaluation.
+1. Find original screenshots of the session framing "Lettura attuale del mercato"; do not deduce from BALANCED the text Gian read.
+2. Recover the relevant recorded state and check whether the box can be rebuilt faithfully with the 87322ac frontend, reusing existing tools. Distinguish original screenshot, reconstruction from saved state and partial reconstruction (non-attestable elements); never present a reconstruction as the Owner's screen.
+3. Deliver the full box text and, if possible, a reconstructed image with source, instant and limits. Map each explanation to the available fields and reasons: observation → expectation or its absence → current operational meaning. Report missing links without inventing them in the frontend.
+4. Wait for Gian's feedback before proposing a correction; no change to general layout, palette, method or rules.
+5. Complete the pre-Start CI record: the Owner's "ci verde, va bene farlo ora" about the exact SHA 87322acd4a74f8aa875312c380408f7d09369823; attestation attributed to the Owner, not verified by the Director; no CI query.
+
+## Previous task — Report on the Owner's live use session of v0.6
+Date: 2026-10-12. Status: REPORT DELIVERED (`baf9ffa`); the Director's final acceptance is pending.
+
+### Assignment (orchestrator, relayed by the Owner, 12 October 2026)
 
 The session is over; start no other. No product change, no additional acquisition. Recorded data only, read-only:
 - confirm the session is stopped, and its method, build and run identity;

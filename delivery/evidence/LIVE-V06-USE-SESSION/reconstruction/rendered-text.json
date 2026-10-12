@@ -1,0 +1,22 @@
+{
+ "saved": {
+  "box": "Lettura attuale del mercato\nÈ una valutazione del mercato, non la call: non dice se entrare.\n◆\nDirezione attesa: Incerta\n· Nessuna struttura qualificata nelle condizioni attuali\n\nNessuno scenario principale in questo momento.\n\nLettura qualitativa, non una probabilità.",
+  "approfondimenti": "Approfondimenti\nmotivazioni, dettagli tecnici e cronologia\nLettura\nUNCERTAIN · NO_QUALIFIED_STRUCTURE\nContesto 1h osservato\nBALANCED\nFase\nTRANSITION\nValutazione (UTC)\n2026-10-12 11:45:46 UTC\nMotivazioni (testo del sistema)\nobserved BALANCED/TRANSITION; missing antecedent: no born A impulse or compression box scenario"
+ },
+ "record-760": {
+  "box": "Lettura attuale del mercato\nÈ una valutazione del mercato, non la call: non dice se entrare.\n◆\nDirezione attesa: Incerta\n· Nessuna struttura qualificata nelle condizioni attuali\n\nNessuno scenario principale in questo momento.\n\nLettura qualitativa, non una probabilità.",
+  "approfondimenti": "Approfondimenti\nmotivazioni, dettagli tecnici e cronologia\nLettura\nUNCERTAIN · NO_QUALIFIED_STRUCTURE\nContesto 1h osservato\nBALANCED\nFase\nEXPANSION\nValutazione (UTC)\n2026-10-12 11:45:46 UTC\nMotivazioni (testo del sistema)\nobserved BALANCED/EXPANSION; missing antecedent: no born A impulse or compression box scenario"
+ },
+ "record-772": {
+  "box": "Lettura attuale del mercato\nÈ una valutazione del mercato, non la call: non dice se entrare.\n◆\nDirezione attesa: Equilibrio\n· Mercato in equilibrio (range)\n\nNessuno scenario principale in questo momento.\n\nLettura qualitativa, non una probabilità.",
+  "approfondimenti": "Approfondimenti\nmotivazioni, dettagli tecnici e cronologia\nLettura\nBALANCED · BALANCED_RANGE\nContesto 1h osservato\nBALANCED\nFase\nROTATION\nValutazione (UTC)\n2026-10-12 11:45:46 UTC\nMotivazioni (testo del sistema)\nbalanced 1h context in rotation; no qualified box"
+ },
+ "record-776": {
+  "box": "Lettura attuale del mercato\nÈ una valutazione del mercato, non la call: non dice se entrare.\n◆\nDirezione attesa: Equilibrio\n· Mercato in equilibrio (range)\n\nNessuno scenario principale in questo momento.\n\nLettura qualitativa, non una probabilità.",
+  "approfondimenti": "Approfondimenti\nmotivazioni, dettagli tecnici e cronologia\nLettura\nBALANCED · BALANCED_RANGE\nContesto 1h osservato\nBALANCED\nFase\nCOMPRESSION\nValutazione (UTC)\n2026-10-12 11:45:46 UTC\nMotivazioni (testo del sistema)\nbalanced 1h context in compression; no qualified box"
+ },
+ "record-781": {
+  "box": "Lettura attuale del mercato\nÈ una valutazione del mercato, non la call: non dice se entrare.\n◆\nDirezione attesa: Incerta\n· Nessuna struttura qualificata nelle condizioni attuali\n\nNessuno scenario principale in questo momento.\n\nLettura qualitativa, non una probabilità.",
+  "approfondimenti": "Approfondimenti\nmotivazioni, dettagli tecnici e cronologia\nLettura\nUNCERTAIN · NO_QUALIFIED_STRUCTURE\nContesto 1h osservato\nBALANCED\nFase\nTRANSITION\nValutazione (UTC)\n2026-10-12 11:45:46 UTC\nMotivazioni (testo del sistema)\nobserved BALANCED/TRANSITION; missing antecedent: no born A impulse or compression box scenario"
+ }
+}
