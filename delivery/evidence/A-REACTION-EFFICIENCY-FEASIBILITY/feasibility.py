@@ -8,7 +8,8 @@ admitted trade bars (``available_time``) to compute, outside the engine:
 * the oriented domain q = d * price, Aq / Bq from the transformed extremes of the A source window, q0 = the source bar
   close, and E = (q0 - qn) / sum |qj - q(j-1)| on the admitted prefix (zero denominator UNDEFINED, never 0);
 * the single primary observation at the first ARM publication (cutoff), its comparison key, and
-* the frozen outcome after the cutoff (B before the premise failure within the original structural horizon).
+* the frozen outcome after the cutoff (B before the premise failure within the original structural horizon), with
+  explicit coverage of the horizon, checked also on a few targeted hand-built cases of the classifier alone.
 
 Nothing here injects a scenario, anchor, call or guidance, or touches a gate, readiness or timestamp. Synthetic paths
 are not market data; no result here is an economic or predictive finding.
@@ -233,37 +234,47 @@ def agg15(bars: list[Bar1], start: datetime):
 
 
 def outcome(bars, gaps, d, cutoff, horizon, bq, pq) -> dict:
-    """Frozen at the cutoff: first of B contact (1m high_q >= Bq, interval wholly after the cutoff) or premise failure
-    (complete 15m close_q <= Aq + z, close after the cutoff), each counted only if made known before the horizon
-    timer (inherited order: timers precede intervals and 15m closes admitted at the same instant). Market-time order
-    of interval ends; no intrabar order is inferred."""
+    """Frozen at the cutoff. Walks the 1m grid in market time, from the minute containing the cutoff to the last
+    minute starting before the horizon H, and resolves at the first of:
+    * B contact: a complete 1m bar wholly after the cutoff with high_q >= Bq;
+    * premise failure: a complete 15m close_q <= Aq + z, the 15m bar ending after the cutoff.
+    An event counts only if its bar ends before H and is made known before H (inherited order: timers precede
+    intervals and 15m closes admitted at the same instant). Market-time order of interval ends; no intrabar order is
+    inferred. HORIZON_OBSERVED_NO_B requires complete coverage: every minute starting before H present and, if it ends
+    before H, known before H. Otherwise:
+    * a minute missing (gap or absent) -> INCOMPLETE_CENSORED / INTERRUPTED;
+    * a minute ending before H but made known only at/after H -> INCOMPLETE_CENSORED / DELAYED;
+    * a B contact in the minute reaching H (start < H <= end), never knowable before H -> AMBIGUOUS / HORIZON;
+    * a B contact in the minute straddling the cutoff -> AMBIGUOUS / CUTOFF."""
     by_start = {b.start: b for b in bars}
     gapset = set(gaps)
     t = cutoff.replace(second=0, microsecond=0)
-    events = []
-    while True:
-        b = by_start.get(t)
-        end = t + MIN
-        if t in gapset or (b is None and t < horizon):
-            if end <= cutoff:
-                t = end
-                continue
-            return {"class": "INCOMPLETE_CENSORED", "at": iso(t), "detail": "trade minute MISSING before resolution"}
-        if b is None or b.known_at >= horizon:
-            if b is not None and b.start < horizon and b.known_at >= horizon and tq(b, d)[1] >= bq:
-                events.append(f"B contact {iso(b.start)} made known at/after the horizon: outside")
-            return {"class": "HORIZON_OBSERVED_NO_B", "at": iso(horizon), "detail": "horizon reached, B not reached",
-                    "notes": events}
-        _, hq, _, cq = tq(b, d)
-        if b.end <= cutoff:
-            t = end
-            continue
+    notes = []
+    while t < horizon:
+        b = None if t in gapset else by_start.get(t)
+        if b is None:
+            return {"class": "INCOMPLETE_CENSORED", "kind": "INTERRUPTED", "at": iso(t),
+                    "detail": f"trade minute [{iso(t)},{iso(t + MIN)}) MISSING before resolution"}
+        _, hq, _, _ = tq(b, d)
         if b.start < cutoff:  # straddles the cutoff publication
             if hq >= bq:
-                return {"class": "AMBIGUOUS", "at": iso(b.end),
+                return {"class": "AMBIGUOUS", "kind": "CUTOFF", "at": iso(b.end),
                         "detail": f"B reached in [{iso(b.start)},{iso(b.end)}) straddling the cutoff {iso(cutoff)}"}
-            t = end
+            t = b.end
             continue
+        if b.end >= horizon:  # the minute reaching H: its content is never known before H
+            if hq >= bq:
+                return {"class": "AMBIGUOUS", "kind": "HORIZON", "at": iso(b.end),
+                        "detail": f"B reached in [{iso(b.start)},{iso(b.end)}) reaching the horizon {iso(horizon)}, "
+                                  f"made known at {iso(b.known_at)}"}
+            a = agg15(bars, b.end - M15) if b.end.minute % 15 == 0 and b.end.second == 0 else None
+            if a is not None and tq(Bar1(b.start, b.end, b.known_at, *a), d)[3] <= pq:
+                notes.append(f"15m close {a[3]} at {iso(b.end)}, not before the horizon: outside")
+            break
+        if b.known_at >= horizon:
+            return {"class": "INCOMPLETE_CENSORED", "kind": "DELAYED", "at": iso(b.end),
+                    "detail": f"[{iso(b.start)},{iso(b.end)}) ends before the horizon {iso(horizon)} but was made "
+                              f"known at {iso(b.known_at)}"}
         if hq >= bq:
             return {"class": "B_BEFORE_PREMISE_FAILURE", "at": iso(b.end), "detail": f"1m high {b.h}"}
         if b.end.minute % 15 == 0 and b.end.second == 0:
@@ -272,7 +283,62 @@ def outcome(bars, gaps, d, cutoff, horizon, bq, pq) -> dict:
                 later = next((x for x in bars if x.start >= b.end and x.known_at < horizon and tq(x, d)[1] >= bq), None)
                 return {"class": "PREMISE_FAILURE_BEFORE_B", "at": iso(b.end), "detail": f"15m close {a[3]}",
                         "later_B_contact_not_counted": None if later is None else iso(later.end)}
-        t = end
+        t = b.end
+    return {"class": "HORIZON_OBSERVED_NO_B", "at": iso(horizon), "coverage": "COMPLETE",
+            "detail": f"every minute of [{iso(cutoff)},{iso(horizon)}) present and, ending before the horizon, known "
+                      f"before it; B not reached", "notes": notes}
+
+
+def classifier_cases() -> list[dict]:
+    """A few targeted synthetic cases of outcome() alone (hand-built 1m bars, not engine runs): LONG flat at 100050
+    with Bq 100900 and premise 97200; SHORT = the same tape mirrored about 100000 (every q shifted by -200000).
+    'hist': known_at = end, cutoff 03:45:00, H 05:30:00 (on the grid). 'live': known_at = end + 1 s, cutoff and H
+    at +1.5 s, so [05:30,05:31) reaches H."""
+    def build(clock, edits=None, drop=(), late=None):
+        edits, late = edits or {}, late or {}
+        lag = timedelta(0) if clock == "hist" else timedelta(seconds=1)
+        out = []
+        for k in range(int((T(5, 45) - T(3, 30)) / MIN)):
+            s = T(3, 30) + k * MIN
+            if s in drop:
+                continue
+            o, h, lo, c = edits.get(s, (D(100050),) * 4)
+            out.append(Bar1(s, s + MIN, late.get(s, s + MIN + lag), o, h, lo, c))
+        return out
+
+    def mir(bs):
+        return [Bar1(b.start, b.end, b.known_at, 200000 - b.o, 200000 - b.lo, 200000 - b.h, 200000 - b.c) for b in bs]
+
+    B1 = (D(100050), D(100910), D(100050), D(100050))  # 1m touching B, closing back
+    P15 = (D(100050), D(100050), D(97100), D(97100))  # 1m closing its 15m bar at 97100 <= 97200
+    cases = [
+        ("complete coverage, no B", "hist", {}, (), {}, "HORIZON_OBSERVED_NO_B", None),
+        ("interrupted: feed stops after 05:09", "hist", {}, [T(5, 10) + k * MIN for k in range(35)], {},
+         "INCOMPLETE_CENSORED", "INTERRUPTED"),
+        ("delayed, no event: [05:00,05:01) known 05:40", "hist", {}, (), {T(5, 0): T(5, 40)},
+         "INCOMPLETE_CENSORED", "DELAYED"),
+        ("delayed B contact: [05:00,05:01) touches B, known 05:40", "hist", {T(5, 0): B1}, (), {T(5, 0): T(5, 40)},
+         "INCOMPLETE_CENSORED", "DELAYED"),
+        ("B in the minute reaching H [05:29,05:30)", "hist", {T(5, 29): B1}, (), {}, "AMBIGUOUS", "HORIZON"),
+        ("premise 15m close exactly at H (05:30)", "hist", {T(5, 29): P15}, (), {}, "HORIZON_OBSERVED_NO_B", None),
+        ("minute reaching H missing", "hist", {}, (T(5, 29),), {}, "INCOMPLETE_CENSORED", "INTERRUPTED"),
+        ("live: B in [05:29,05:30), known 05:30:01 < H", "live", {T(5, 29): B1}, (), {},
+         "B_BEFORE_PREMISE_FAILURE", None),
+        ("live: B in [05:30,05:31) straddling H 05:30:01.5", "live", {T(5, 30): B1}, (), {}, "AMBIGUOUS", "HORIZON"),
+        ("live: complete coverage, no B", "live", {}, (), {}, "HORIZON_OBSERVED_NO_B", None),
+    ]
+    res = []
+    for name, clock, edits, drop, late, want, kind in cases:
+        off = timedelta(0) if clock == "hist" else timedelta(seconds=1.5)
+        cut, hor = T(3, 45) + off, T(5, 30) + off
+        for side in ("LONG", "SHORT"):
+            bs = build(clock, edits, drop, late)
+            d, shift = (1, D(0)) if side == "LONG" else (-1, D(-200000))
+            got = outcome(mir(bs) if d < 0 else bs, [], d, cut, hor, D(100900) + shift, D(97200) + shift)
+            res.append({"case": name, "side": side, "cutoff": iso(cut), "horizon": iso(hor), "expected": want,
+                        "expected_kind": kind, "got": got,
+                        "pass": got["class"] == want and got.get("kind") == kind})
+    return res
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -401,7 +467,7 @@ def main() -> None:
                                          "HORIZON_OBSERVED_NO_B")
         e["Y"] = None if not e["eligible"] else int(cls == "B_BEFORE_PREMISE_FAILURE")
     doc = {"prefix_birth_arm_records_identical_to_BASE": same, "purpose": "A reaction directional efficiency: synthetic feasibility (engineering inputs, not market data)",
-           "method": METHOD, "episodes": eps, "reflection": refl}
+           "method": METHOD, "episodes": eps, "reflection": refl, "classifier_cases": classifier_cases()}
     OUT.write_text(json.dumps(doc, indent=1, default=str) + "\n", encoding="utf-8")
     print(f"{'episode':24} {'side':5} {'cutoff':22} {'E@cut':9} {'n':>3} {'key (age,phase,binB,binP)':34} outcome")
     for e in eps:
@@ -411,6 +477,11 @@ def main() -> None:
               f"{str(e['E_at_cutoff'].get('n', '')):>3} {str(key):34} {(e.get('outcome') or {}).get('class')}")
     print("prefix BIRTH/ARM records identical to BASE:", same)
     print("reflection all equal:", all(all(v for k, v in r.items() if k != "episode") for r in refl))
+    cc = doc["classifier_cases"]
+    for c in cc:
+        print(f"  classifier {c['side']:5} {c['case']:58} {c['got']['class']}/{c['got'].get('kind')}"
+              f" {'ok' if c['pass'] else 'FAIL'}")
+    print(f"classifier cases passed: {sum(c['pass'] for c in cc)}/{len(cc)}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,16 @@
-# Current task — A reaction directional efficiency: synthetic feasibility (design completion)
+# Current task — A reaction directional efficiency: corrections to the `25d4bd3` delivery
+Date: 2026-10-12. Status: EXECUTOR DELIVERY — CORRECTIONS APPLIED ([note](delivery/A-REACTION-EFFICIENCY-DESIGN-COMPLETION.md), Corrections paragraph); the Director's review is PENDING. No real exploration authorized. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (Director, relayed by the Owner, 12 October 2026; base `25d4bd3`)
+
+Complete the 25d4bd3 delivery with three corrections:
+1. **outcome().** known_at ≥ horizon does not automatically prove a fully observed horizon. Distinguish complete coverage, interrupted or delayed observation, and a contact straddling the horizon. Verify with a few targeted synthetic classifier cases.
+2. **Sign of the statistic.** The formula was the opposite of Somers' D of Y on E. Adopt the standard convention and state which sign means higher E associated with lower B attainment.
+3. **Exclusion of R.** E uses closes and does not measure shadow excursions. Uncontrolled R remains a possible geometric difference. Strata by bins make geometry approximately comparable, not identical.
+
+Update only the strictly necessary note, script and evidence. Do not change cutoff, candidate, engine or product. No real data, new acquisition or CI query; no pull/fetch. Commit and push; report SHA and checks.
+
+## Previous task — A reaction directional efficiency: synthetic feasibility (design completion)
 Date: 2026-10-12. Status: EXECUTOR DELIVERY — FEASIBLE ON SYNTHETIC EVIDENCE ONLY ([note](delivery/A-REACTION-EFFICIENCY-DESIGN-COMPLETION.md)); the Director's review is PENDING. No real exploration authorized. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
 ## Assignment (authoritative rectification relayed by the Owner, 12 October 2026; base `16d03a6`)

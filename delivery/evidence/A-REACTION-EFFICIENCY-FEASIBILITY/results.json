@@ -2242,7 +2242,8 @@
    "outcome": {
     "class": "HORIZON_OBSERVED_NO_B",
     "at": "2025-09-01T05:30:00Z",
-    "detail": "horizon reached, B not reached",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
     "notes": []
    },
    "engine_after_cutoff": [
@@ -2799,8 +2800,9 @@
    },
    "outcome": {
     "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
     "at": "2025-09-01T04:30:00Z",
-    "detail": "trade minute MISSING before resolution"
+    "detail": "trade minute [2025-09-01T04:30:00Z,2025-09-01T04:31:00Z) MISSING before resolution"
    },
    "engine_after_cutoff": [
     {
@@ -4729,6 +4731,7 @@
    },
    "outcome": {
     "class": "AMBIGUOUS",
+    "kind": "CUTOFF",
     "at": "2025-09-01T03:46:00Z",
     "detail": "B reached in [2025-09-01T03:45:00Z,2025-09-01T03:46:00Z) straddling the cutoff 2025-09-01T03:45:01.500000Z"
    },
@@ -6979,7 +6982,8 @@
    "outcome": {
     "class": "HORIZON_OBSERVED_NO_B",
     "at": "2025-09-01T05:30:00Z",
-    "detail": "horizon reached, B not reached",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
     "notes": []
    },
    "engine_after_cutoff": [
@@ -7536,8 +7540,9 @@
    },
    "outcome": {
     "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
     "at": "2025-09-01T04:30:00Z",
-    "detail": "trade minute MISSING before resolution"
+    "detail": "trade minute [2025-09-01T04:30:00Z,2025-09-01T04:31:00Z) MISSING before resolution"
    },
    "engine_after_cutoff": [
     {
@@ -9466,6 +9471,7 @@
    },
    "outcome": {
     "class": "AMBIGUOUS",
+    "kind": "CUTOFF",
     "at": "2025-09-01T03:46:00Z",
     "detail": "B reached in [2025-09-01T03:45:00Z,2025-09-01T03:46:00Z) straddling the cutoff 2025-09-01T03:45:01.500000Z"
    },
@@ -9553,6 +9559,316 @@
    "outcome_equal": true,
    "times_equal": true,
    "Iq_equal": true
+  }
+ ],
+ "classifier_cases": [
+  {
+   "case": "complete coverage, no B",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:00Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": []
+   },
+   "pass": true
+  },
+  {
+   "case": "complete coverage, no B",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:00Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": []
+   },
+   "pass": true
+  },
+  {
+   "case": "interrupted: feed stops after 05:09",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "INTERRUPTED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
+    "at": "2025-09-01T05:10:00Z",
+    "detail": "trade minute [2025-09-01T05:10:00Z,2025-09-01T05:11:00Z) MISSING before resolution"
+   },
+   "pass": true
+  },
+  {
+   "case": "interrupted: feed stops after 05:09",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "INTERRUPTED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
+    "at": "2025-09-01T05:10:00Z",
+    "detail": "trade minute [2025-09-01T05:10:00Z,2025-09-01T05:11:00Z) MISSING before resolution"
+   },
+   "pass": true
+  },
+  {
+   "case": "delayed, no event: [05:00,05:01) known 05:40",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "DELAYED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "DELAYED",
+    "at": "2025-09-01T05:01:00Z",
+    "detail": "[2025-09-01T05:00:00Z,2025-09-01T05:01:00Z) ends before the horizon 2025-09-01T05:30:00Z but was made known at 2025-09-01T05:40:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "delayed, no event: [05:00,05:01) known 05:40",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "DELAYED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "DELAYED",
+    "at": "2025-09-01T05:01:00Z",
+    "detail": "[2025-09-01T05:00:00Z,2025-09-01T05:01:00Z) ends before the horizon 2025-09-01T05:30:00Z but was made known at 2025-09-01T05:40:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "delayed B contact: [05:00,05:01) touches B, known 05:40",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "DELAYED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "DELAYED",
+    "at": "2025-09-01T05:01:00Z",
+    "detail": "[2025-09-01T05:00:00Z,2025-09-01T05:01:00Z) ends before the horizon 2025-09-01T05:30:00Z but was made known at 2025-09-01T05:40:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "delayed B contact: [05:00,05:01) touches B, known 05:40",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "DELAYED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "DELAYED",
+    "at": "2025-09-01T05:01:00Z",
+    "detail": "[2025-09-01T05:00:00Z,2025-09-01T05:01:00Z) ends before the horizon 2025-09-01T05:30:00Z but was made known at 2025-09-01T05:40:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "B in the minute reaching H [05:29,05:30)",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "AMBIGUOUS",
+   "expected_kind": "HORIZON",
+   "got": {
+    "class": "AMBIGUOUS",
+    "kind": "HORIZON",
+    "at": "2025-09-01T05:30:00Z",
+    "detail": "B reached in [2025-09-01T05:29:00Z,2025-09-01T05:30:00Z) reaching the horizon 2025-09-01T05:30:00Z, made known at 2025-09-01T05:30:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "B in the minute reaching H [05:29,05:30)",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "AMBIGUOUS",
+   "expected_kind": "HORIZON",
+   "got": {
+    "class": "AMBIGUOUS",
+    "kind": "HORIZON",
+    "at": "2025-09-01T05:30:00Z",
+    "detail": "B reached in [2025-09-01T05:29:00Z,2025-09-01T05:30:00Z) reaching the horizon 2025-09-01T05:30:00Z, made known at 2025-09-01T05:30:00Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "premise 15m close exactly at H (05:30)",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:00Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": [
+     "15m close 97100 at 2025-09-01T05:30:00Z, not before the horizon: outside"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "case": "premise 15m close exactly at H (05:30)",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:00Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:00Z,2025-09-01T05:30:00Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": [
+     "15m close 102900 at 2025-09-01T05:30:00Z, not before the horizon: outside"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "case": "minute reaching H missing",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "INTERRUPTED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
+    "at": "2025-09-01T05:29:00Z",
+    "detail": "trade minute [2025-09-01T05:29:00Z,2025-09-01T05:30:00Z) MISSING before resolution"
+   },
+   "pass": true
+  },
+  {
+   "case": "minute reaching H missing",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:00Z",
+   "horizon": "2025-09-01T05:30:00Z",
+   "expected": "INCOMPLETE_CENSORED",
+   "expected_kind": "INTERRUPTED",
+   "got": {
+    "class": "INCOMPLETE_CENSORED",
+    "kind": "INTERRUPTED",
+    "at": "2025-09-01T05:29:00Z",
+    "detail": "trade minute [2025-09-01T05:29:00Z,2025-09-01T05:30:00Z) MISSING before resolution"
+   },
+   "pass": true
+  },
+  {
+   "case": "live: B in [05:29,05:30), known 05:30:01 < H",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "B_BEFORE_PREMISE_FAILURE",
+   "expected_kind": null,
+   "got": {
+    "class": "B_BEFORE_PREMISE_FAILURE",
+    "at": "2025-09-01T05:30:00Z",
+    "detail": "1m high 100910"
+   },
+   "pass": true
+  },
+  {
+   "case": "live: B in [05:29,05:30), known 05:30:01 < H",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "B_BEFORE_PREMISE_FAILURE",
+   "expected_kind": null,
+   "got": {
+    "class": "B_BEFORE_PREMISE_FAILURE",
+    "at": "2025-09-01T05:30:00Z",
+    "detail": "1m high 99950"
+   },
+   "pass": true
+  },
+  {
+   "case": "live: B in [05:30,05:31) straddling H 05:30:01.5",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "AMBIGUOUS",
+   "expected_kind": "HORIZON",
+   "got": {
+    "class": "AMBIGUOUS",
+    "kind": "HORIZON",
+    "at": "2025-09-01T05:31:00Z",
+    "detail": "B reached in [2025-09-01T05:30:00Z,2025-09-01T05:31:00Z) reaching the horizon 2025-09-01T05:30:01.500000Z, made known at 2025-09-01T05:31:01Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "live: B in [05:30,05:31) straddling H 05:30:01.5",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "AMBIGUOUS",
+   "expected_kind": "HORIZON",
+   "got": {
+    "class": "AMBIGUOUS",
+    "kind": "HORIZON",
+    "at": "2025-09-01T05:31:00Z",
+    "detail": "B reached in [2025-09-01T05:30:00Z,2025-09-01T05:31:00Z) reaching the horizon 2025-09-01T05:30:01.500000Z, made known at 2025-09-01T05:31:01Z"
+   },
+   "pass": true
+  },
+  {
+   "case": "live: complete coverage, no B",
+   "side": "LONG",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:01.500000Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:01.500000Z,2025-09-01T05:30:01.500000Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": []
+   },
+   "pass": true
+  },
+  {
+   "case": "live: complete coverage, no B",
+   "side": "SHORT",
+   "cutoff": "2025-09-01T03:45:01.500000Z",
+   "horizon": "2025-09-01T05:30:01.500000Z",
+   "expected": "HORIZON_OBSERVED_NO_B",
+   "expected_kind": null,
+   "got": {
+    "class": "HORIZON_OBSERVED_NO_B",
+    "at": "2025-09-01T05:30:01.500000Z",
+    "coverage": "COMPLETE",
+    "detail": "every minute of [2025-09-01T03:45:01.500000Z,2025-09-01T05:30:01.500000Z) present and, ending before the horizon, known before it; B not reached",
+    "notes": []
+   },
+   "pass": true
   }
  ]
 }
