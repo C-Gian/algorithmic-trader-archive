@@ -1,5 +1,19 @@
-# Current task — Owner use session of the live adviser v0.6 (preparation)
-Date: 2026-10-12. Status: ENVIRONMENT PREPARED (build `87322ac` served, method v0.6 available, no pre-existing live state); the session is started by the Owner, not by the executor ([record](delivery/evidence/LIVE-V06-USE-SESSION/NOTE.md)). Executor record; the Director's acceptance is separate. Studies INACTIVE; v0.6 and HDP-001 frozen.
+# Current task — Report on the Owner's live use session of v0.6
+Date: 2026-10-12. Status: REPORT DELIVERED ([record §2–§7](delivery/evidence/LIVE-V06-USE-SESSION/NOTE.md), [exposure register](delivery/STUDY-EXPOSURE-REGISTER.md) row 10); the Director's final acceptance is pending. Studies INACTIVE; v0.6 and HDP-001 frozen.
+
+## Assignment (orchestrator, relayed by the Owner, 12 October 2026)
+
+The session is over; start no other. No product change, no additional acquisition. Recorded data only, read-only:
+- confirm the session is stopped, and its method, build and run identity;
+- recover the actual Start, LIVE and Stop times, distinct from the Owner's approximate times (Start about 11:22, Stop about 13:45 Rome, about 2 h 23 min: the overrun is recorded explicitly);
+- recover the actual initialization interval and coverage, live data and missing minutes per family;
+- check calls, reading changes and technical anomalies recorded during the session; "not seen by the Owner" is not "never happened";
+- no evaluation of direction correctness, return or profit, and no comparison with the studies.
+
+Complete the NOTE and the exposure register with the intervals actually read, including the overrun, not qualified as unexamined. At most one priority difficulty: comprehensibility of the market reading, still to be confirmed as reproducible; no technical defect declared on the Owner's comment alone. Keep BALANCED (observed context) distinct from the expected direction *Incerta*. Commit and push the records only. Excluded: CI queries.
+
+## Previous task — Owner use session of the live adviser v0.6 (preparation)
+Date: 2026-10-12. Status: ENVIRONMENT PREPARED, then session held by the Owner ([record](delivery/evidence/LIVE-V06-USE-SESSION/NOTE.md)).
 
 ## Assignment (orchestrator authorization, relayed by the Owner, 12 October 2026; build `87322ac`, CI green as reported by the Owner)
 
