@@ -1,4 +1,19 @@
-# Current task — Closing the Stop/Start contract (orchestrator decision)
+# Current task — Integrated synthetic acceptance check of the adviser v0.6
+Date: 2026-10-12. Status: DELIVERED — READY FOR DIRECTOR REVIEW — V0.6 INTEGRATED EPISODE ONLY ([note](delivery/evidence/LIVE-V06-INTEGRATED-EPISODE/NOTE.md)). Executor delivery; the Director's final acceptance is pending. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+## Assignment (orchestrator authorization, relayed by the Owner, 12 October 2026; expected base `115b9b5`)
+
+One integrated synthetic v0.6 check, from the ordinary Start to the formation of the expectation, and to the issue and update of the call, through engine, persistence, API and cockpit.
+- **Question.** Does the product build its expectation from the data, issue a call when the rules allow it, and present its updates correctly?
+- **Coverage first.** Reuse an existing test that already covers the path. Complete only the missing part, in the existing framework.
+- **One episode A.** Synthetic inputs through the existing entry point. The fixture may satisfy the frozen rules deliberately; it is declared a technical proof with no economic meaning.
+  - Not allowed: injected scenario, call or guidance state; altered gates, readiness or timestamps; a parallel engine or new infrastructure.
+- **One discriminating check.** Before a necessary v0.6 condition is met, the product waits and proposes no available entry. Name the condition and the moment it is met. No battery of variants.
+- **Chain.** Expectation derived from admitted observations; call identity; times; API state, direction and levels; cockpit; update and conclusion of the same call; no early availability. Keep the conditional expectation distinct from entry availability.
+- **Corrections.** Bounded integration fixes only, with a regression. A problem in the frozen rules is documented and work stops before changing them.
+- **Excluded.** Owner access, real feed, acquisition, economic tests, CI queries.
+
+## Previous task — Closing the Stop/Start contract (orchestrator decision)
 Date: 2026-10-12. Status: DELIVERED — READY FOR DIRECTOR REVIEW — LIVE STOP/START CONTRACT ONLY. Studies INACTIVE; v0.6 and HDP-001 frozen. Remote CI is Owner-operated: PENDING / NOT CHECKED.
 
 ## Assignment (relayed by the Owner, 11 October 2026; expected base `bcf34ea`)

@@ -1,0 +1,140 @@
+{
+  "note": "synthetic engineering tape, technical proof without economic meaning",
+  "session_id": "live-session-20261012T073455-5f7c13",
+  "run_id": "live-20250828T0316-1eab0e",
+  "live_since": "2025-09-01T03:17:01+00:00",
+  "scenario_id": "AL-2025-09-01T03:15:00+00:00-d49a8b5618ff",
+  "call_id": "call-AL-2025-09-01T04:07:01+00:00-05a41e24819a",
+  "expectation": {
+    "first_conditional_up_at": "2025-09-01T03:45:01+00:00",
+    "scenario": {
+      "BIRTH": "2025-09-01T03:30:01+00:00",
+      "ARM": "2025-09-01T03:45:01+00:00",
+      "CONFIRM": "2025-09-01T04:02:01+00:00"
+    }
+  },
+  "discriminating_condition": {
+    "rule": "a later complete 1m close >= 100008.1 with low >= 99990",
+    "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04:03:00Z",
+    "before": {
+      "decided_at": "2025-09-01T04:06:01+00:00",
+      "bar": {
+        "c": "100000",
+        "h": "100005",
+        "l": "99990",
+        "o": "99995",
+        "t": "2025-09-01T04:05:00+00:00"
+      },
+      "served_call": null,
+      "cockpit": "WAITING"
+    },
+    "after": {
+      "decided_at": "2025-09-01T04:07:01+00:00",
+      "issue_reference": "100012",
+      "trade_1m_dependency": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04:06:00Z",
+      "cockpit": "AVAILABLE"
+    }
+  },
+  "call": {
+    "issued_at": "2025-09-01T04:07:01Z",
+    "structural_area": [
+      "99900",
+      "100049.9"
+    ],
+    "admissible_at_issue": [
+      "99900",
+      "100014.4"
+    ],
+    "target": "100700.0",
+    "stop": "99700.0"
+  },
+  "revisions": [
+    {
+      "revision": 1,
+      "at": "2025-09-01T04:07:05.750001+00:00",
+      "entry_status": "UNVERIFIED",
+      "entry_reasons": [
+        "QUOTE_STALE"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 2,
+      "at": "2025-09-01T04:08:00.500000+00:00",
+      "entry_status": "CLOSED",
+      "entry_reasons": [
+        "PRICE_OUTSIDE_STRUCTURAL_AREA",
+        "REWARD_RISK_BELOW_MINIMUM"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 3,
+      "at": "2025-09-01T04:08:05.750001+00:00",
+      "entry_status": "UNVERIFIED",
+      "entry_reasons": [
+        "QUOTE_STALE"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 4,
+      "at": "2025-09-01T04:09:00.500000+00:00",
+      "entry_status": "CLOSED",
+      "entry_reasons": [
+        "PRICE_OUTSIDE_STRUCTURAL_AREA",
+        "REWARD_RISK_BELOW_MINIMUM"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 5,
+      "at": "2025-09-01T04:09:05.750001+00:00",
+      "entry_status": "UNVERIFIED",
+      "entry_reasons": [
+        "QUOTE_STALE"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 6,
+      "at": "2025-09-01T04:10:00.500000+00:00",
+      "entry_status": "CLOSED",
+      "entry_reasons": [
+        "AT_OPPOSING_AREA",
+        "NO_ROOM_AFTER_COSTS",
+        "PRICE_OUTSIDE_STRUCTURAL_AREA"
+      ],
+      "thesis_status": "ONGOING",
+      "terminal_reason": null
+    },
+    {
+      "revision": 7,
+      "at": "2025-09-01T04:10:01+00:00",
+      "entry_status": "CLOSED",
+      "entry_reasons": [
+        "THESIS_TERMINAL"
+      ],
+      "thesis_status": "TARGET_REACHED",
+      "terminal_reason": "CERTIFIED_TARGET_CONTACT:okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T04:09:00Z"
+    }
+  ],
+  "alerts": [
+    "NEW_CALL",
+    "ENTRY_UNVERIFIED",
+    "TERMINAL"
+  ],
+  "screenshots": [
+    "episode-0-warming-up.png",
+    "episode-1-expectation-waiting.png",
+    "episode-2-entry-available.png",
+    "episode-3-update-entry-closed.png",
+    "episode-4-conclusion.png",
+    "episode-5-call-history.png"
+  ]
+}

@@ -68,13 +68,14 @@ class FakeWS:
     def __init__(self, clock: FakeClock, msgs: list[tuple[datetime, str]]) -> None:
         self.clock, self.msgs, self.sent = clock, list(msgs), []
         self.gate = threading.Event()
+        self.until: datetime | None = None  # optional hold: pushes scripted after this instant wait (stepwise episodes)
         self.quotes: FakeQuotes | None = None
 
     async def send(self, text: str) -> None:
         self.sent.append(text)
 
     async def recv(self) -> str:
-        while not self.gate.is_set():
+        while not self.gate.is_set() or (self.until is not None and self.msgs and self.msgs[0][0] > self.until):
             await asyncio.sleep(0.01)
         if not self.msgs:
             await asyncio.sleep(3600)
