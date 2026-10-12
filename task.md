@@ -1,4 +1,16 @@
-# Current task — A reaction directional efficiency: corrections to the `25d4bd3` delivery
+# Current task — A reaction directional efficiency: descriptive exploration of E, September–December 2025
+Date: 2026-10-12. Status: EXECUTOR DELIVERY — EXPLORATION EXECUTED ([summary](delivery/evidence/A-REACTION-EFFICIENCY-EXPLORATION/SUMMARY.md), [registration](delivery/evidence/A-REACTION-EFFICIENCY-EXPLORATION/REGISTRATION.md)); the Director's review is PENDING. Only this descriptive exploration is active. Product, v0.6 and HDP-001 frozen; the two future studies INACTIVE.
+
+## Assignment (orchestrator, relayed by the Owner, 12 October 2026; base `6a0f22a`), with Astra's bounded input derogation (same day)
+
+1. **Availability.** Verify the checkout and the continuous pack already acquired. No pull/fetch, no new acquisition, no Owner-stack extraction, no January–August 2026. Reuse sufficient v0.6 records, otherwise one offline processing of the existing pack with the frozen v0.6 engine; no economic evaluator, version comparison or tuning. *(The pack was only in the Owner volume: blocked, then Astra authorized copying only the pack manifest and its feed cache `fc-80221b24…`, read-only, outside Git, after verifying identity, hashes and coverage; stop on any discrepancy.)*
+2. **Registration before outcomes.** SHA and engine/rules identity; pack identity and coverage; identified script, E and origin; single cutoff = first ARM (which replaced the fixed age before this exploration); population, classes, outcomes, aggregation. Classes k = [0.25·k, 0.25·(k+1)) anchored at zero, mathematical floor, no quantiles or later changes.
+3. **Population.** Every A owner born in [2025-09-01, 2026-01-01), LONG and SHORT; one observation at the first ARM; no selection by later events; report never-armed owners, uncomputable E and every exclusion; E on the prefix known at the first ARM, with precision that creates no ties.
+4. **Comparison and outcomes.** Age in 15m bars, phase, dB/S15 class, dP/S15 class; scale frozen at birth. B, premise and horizon frozen at the cutoff; observation after the cutoff. Classes: B first, failure first, horizon fully observed without B, ambiguous, incomplete; the corrected `6a0f22a` conventions; engine terminals are annotations.
+5. **Single analysis.** Somers' D of Y on E, standard sign, same-stratum pairs, E ties excluded, Y ties in the denominator, C/D/T aggregated before the ratio; strata without Y variation reported; no pair with different E = not estimable. Before the value: population flow, contributing episodes, per-stratum C/D/T and weight, concentration and overlap. No tests, intervals or economic results.
+6. **Delivery.** Reproducible tabulation, script and manifest with causality, uniqueness, coverage and reconciliation checks; update the exposure register; a motivated conclusion among the three categories; declare R uncontrolled, approximate geometry, dependence and prior exposure. Commit and push; no CI query.
+
+## Previous task — A reaction directional efficiency: corrections to the `25d4bd3` delivery
 Date: 2026-10-12. Status: EXECUTOR DELIVERY — CORRECTIONS APPLIED ([note](delivery/A-REACTION-EFFICIENCY-DESIGN-COMPLETION.md), Corrections paragraph); the Director's review is PENDING. No real exploration authorized. Studies INACTIVE; v0.6 and HDP-001 frozen.
 
 ## Assignment (Director, relayed by the Owner, 12 October 2026; base `25d4bd3`)
