@@ -1491,3 +1491,8 @@ Assignment relayed by the Owner on 12 October 2026, after the Director's review 
   - `pair.py` → `comparison.json`, byte-identical on rerun.
   - Lint not run (ruff not installed).
 - **Status.** No rule change. The count on the 28 real cases was not run. No acquisition, Owner access, protected period or CI query. E not reopened; RETURN not modified. v0.6 and HDP-001 frozen; studies INACTIVE. README unchanged (no product behavior changed). Remote CI is Owner-operated: PENDING / NOT CHECKED.
+
+
+## Distinct second A attempt — design delivery, 12 October 2026
+
+[Design](delivery/A-SECOND-ATTEMPT-DESIGN.md) delivered by the Director after static review at `137b8af`. One successor after confirmed A V_CONTACT only, fresh whole post-failure reaction and new prospective confirmation, original impulse geometry and expiry retained; old scenario/child/call remain terminal and unchanged. Explicit new choices: discovery reservation and latch handling, post-failure reaction origin/lower-close reference, successor clocks capped at original expiry. LONG/SHORT manual sequences only; no implementation, test execution, data extraction or evaluation. Orchestrator decision pending. v0.6 and frozen studies unchanged and INACTIVE.
