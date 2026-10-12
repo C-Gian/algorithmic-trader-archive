@@ -1443,3 +1443,8 @@ The Director independently recalculated the comparison from `episodes.csv`: 359 
 The accepted conclusion is a scarce and concentrated comparison, with zero aggregate association. Opposite-signed stratum contributions cancel; this does not establish absence of association in every stratum or irrelevance of reaction character generally.
 
 **Decision: this E branch stops here. E is not promoted to an operational criterion; A remains unchanged.** No weight, filter, class widening, new cutoff, other curve summary or further period is authorized. Definitions, tools and results are retained as acquired knowledge. No new activity is activated. v0.6 and HDP-001 remain frozen; the two future studies remain INACTIVE. CI was not queried.
+
+
+## A post-confirmation expectation review — 12 October 2026
+
+Director's documentary design and static code review completed: [delivery/A-POST-CONFIRMATION-EXPECTATION-REVIEW.md](delivery/A-POST-CONFIRMATION-EXPECTATION-REVIEW.md). Existing v0.6 distinguishes structural survival, current context counterevidence, one-time progress requirement and data unavailability. A surviving CONFIRMED thesis is not fresh positive evidence. Verdict: existing capability can be made explicit within its published limits; no sufficiently motivated new aggregate support/weakening rule is proposed. The one unresolved link is renewal/revocation of support after the one-time progress check; available sources do not specify it sufficiently to change A. Manual sequences only, not engine tests or Owner outcomes. No implementation, new measure, threshold, extraction, test or CI query. v0.6 and HDP-001 frozen; studies INACTIVE. Orchestrator's final decision pending; no further activity activated.
