@@ -592,3 +592,14 @@ Director's documentary design and static code review completed: [delivery/A-POST
 ## Distinct second A attempt — design delivery, 12 October 2026
 
 [Design](delivery/A-SECOND-ATTEMPT-DESIGN.md) delivered by the Director after static review at `137b8af`. One successor after confirmed A V_CONTACT only, fresh whole post-failure reaction and new prospective confirmation, original impulse geometry and expiry retained; old scenario/child/call remain terminal and unchanged. Explicit new choices: discovery reservation and latch handling, post-failure reaction origin/lower-close reference, successor clocks capped at original expiry. LONG/SHORT manual sequences only; no implementation, test execution, data extraction or evaluation. Orchestrator decision pending. v0.6 and frozen studies unchanged and INACTIVE.
+
+
+## Subsequent closure annotation — 13 October 2026
+
+The orchestrator accepted the historical comparison delivered at `d06960d` as descriptive evidence, based on the Director's review. The pending-review statements above belong to the preserved original delivery and are superseded by this annotation. The orchestrator read SUMMARY directly, but did not recalculate the CSV or rerun the engine. The Director's CSV recount and static review remain distinct from the executor's input verification and engine processing.
+
+**Population boundary clarification.** The original conclusion's phrase “two successors expired at H0” includes the warmup successor. In the evaluation population [2025-09-01, 2026-01-01), the four successors are: **one expired at H0, two recoveries excluded for insufficient residual, and one confirmed** (no successor call). Separately, warmup contributes one successor expired at H0. No computation or original result is changed.
+
+**Decision.** v0.6-a2x is retained as an experimental candidate, not promoted; this branch is closed without adaptations or further executions. No reduction of residual time, impulse-life extension or RETURN modification is authorized. Four added reactions, one additional confirmation and three changed conditional-reading dispatches establish behavioural effects, not anticipatory correctness or usefulness. No ordinary birth was displaced in this period; this does not establish harmlessness of the reservation policy in general. Post-hoc checks retain their qualification.
+
+There is no empirical basis here for preferring the candidate to the frozen policy. Any reopening requires a separate motivated decision about the whole policy, including the cost of reservation. v0.6 and the registered studies remain unchanged and INACTIVE. No new activity is activated; CI was not queried.
