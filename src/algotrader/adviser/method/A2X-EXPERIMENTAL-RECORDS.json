@@ -1,0 +1,133 @@
+{
+  "registration": "algotrader.semantic.v2.experimental-values.a2x",
+  "registration_revision": 1,
+  "date": "2026-10-13",
+  "status": "EXPERIMENTAL_NOT_PUBLIC_NOT_A_SEMANTIC_V2_REVISION",
+  "scope": "Additive, explicitly experimental registration of the record VALUES emitted only by the EXPERIMENTAL variant v0.6-a2x (A second attempt). It is not a release, not an entry of the public semantic.v2 changelog and not a new revision: SEMANTIC_V2_REVISION stays 5, SEMANTIC_V2_EMITTED_REVISION has no entry for this model, the checked-in baseline schemas/algotrader.semantic.v2.json and every frozen contract are unchanged. This file is not part of the variant's rules manifest or register, so the v0.6 and v0.6-a2x identities (rules/register hashes, record and scenario ids) are those of 048bf2d. Publication would require a Director-approved semantic.v2 revision with its own changelog entry.",
+  "variant": {
+    "key": "v0.6-a2x",
+    "model": "btc.context-action.v0.6-a2x",
+    "rules_version": "a2x.rules.exp1",
+    "implementation": "adviser.core.v6-a2x",
+    "core_state_format": "algotrader.adviser-state.v6-a2x",
+    "runtime_format": "algotrader.adviser-runtime.v6-a2x",
+    "engine_format": "observe.stream.v7-a2x"
+  },
+  "base_contract": {
+    "schema_version": "algotrader.semantic.v2",
+    "revision": 5,
+    "kind_contracts": "KIND_CONTRACTS_V6 (= KIND_CONTRACTS_V5), unchanged: no kind, field, type or shape is added; only string values and string keys of the open dict fields (observation.values, scenario.setup) are new",
+    "public_changelog": "NOT_ENTERED",
+    "emitted_revision_map": "NO_ENTRY_FOR_THIS_MODEL"
+  },
+  "value_encoding": "Every observation value and every added setup value is an exact string or null: decimals as exact decimal strings in the real price domain (direction applied), instants as ISO-8601 UTC with +00:00 offset (the envelope keeps its Z instants), booleans as \"true\"/\"false\", counts and the cursor as decimal integer strings.",
+  "roles": {
+    "first_attempt": "The ordinary A scenario (attempt 1) whose CONFIRMED state ends TERMINAL INVALIDATED V_CONTACT; its scenario, child and call records are exactly v0.6 (no added setup key; its terminal record still says discovery_owner RELEASED, as v0.6). Its scenario_id is the impulse_id.",
+    "reservation": "Not a record kind and not a scenario: the open review of one failed impulse, published only by structure/a_second_attempt observations (decision_role A_SECOND_ATTEMPT_RESERVATION). Its internal token <impulse_id>#review is the discovery owner in the core state and appears in records only as ORDINARY_BIRTH_DEFERRED.values.reserved_by; it is never a scenario, entry-attempt, call or envelope lineage id.",
+    "successor": "The single distinct second-attempt scenario (attempt 2) of the impulse, with its own scenario_id, child and call."
+  },
+  "observation": {
+    "kind": "observation",
+    "lens": "structure",
+    "name": "a_second_attempt",
+    "decision_role": "A_SECOND_ATTEMPT_RESERVATION",
+    "envelope": "clock_time = known_at = published_at = the dispatch; event_start/event_end null; subject = lineage[0]",
+    "review_values": ["impulse_id", "direction", "impulse_A", "impulse_B", "birth_s15", "zone_halfwidth", "failed_attempt_R", "original_expiry", "opened_at", "opened_cursor", "formation_origin", "new_bars", "new_reaction_low", "new_anchor", "contrary_close_seen"],
+    "categories": {
+      "REVIEW_OPEN": {
+        "meaning": "The confirmed first attempt failed at its V before the original expiry and every admissibility condition held: the same-direction discovery slot is reserved for one second attempt (not a scenario, entry or call).",
+        "values": ["review_values", "failure"],
+        "lineage": ["impulse_id"],
+        "reasons": {}
+      },
+      "REVIEW_NOT_OPENED": {
+        "meaning": "The confirmed first attempt failed at its V but a second attempt is not admissible; v0.6 behaviour (owner released). The first unmet condition is the reason.",
+        "values": ["impulse_id", "failure", "reason", "original_expiry"],
+        "lineage": ["impulse_id"],
+        "reasons": {
+          "EVALUATION_TAIL": "the failure is in the evaluation tail",
+          "AT_OR_AFTER_ORIGINAL_EXPIRY": "tf >= H0",
+          "DISCOVERY_OWNER_ALREADY_RELEASED": "the impulse no longer held the discovery owner",
+          "DESTINATION_CONTACT_IN_FAILURE_DISPATCH": "a bar admitted in the failure dispatch reached B",
+          "PREMISE_CLOSE_AT_OR_BEYOND_A_PLUS_Z_KNOWN": "a complete 15m close at/beyond A+z known since the confirmation, that dispatch included",
+          "REQUIRED_DATA_NOT_READY": "1m or 15m readiness missing at tf",
+          "CONTEXT_OR_ADVERSE_EXPANSION": "the ordinary A gate is contrary at tf; suffix :<1h context>/<15m phase>:<expansion direction> (a non-concordant 1h context, or an EXPANSION adverse to the direction)"
+        }
+      },
+      "REVIEW_CLOSED": {
+        "meaning": "The reserved second attempt ended without a successor; the discovery slot is released and the ordinary latch applies from that dispatch.",
+        "values": ["review_values", "state", "reason"],
+        "lineage": ["impulse_id"],
+        "states": {
+          "EXPIRED": ["ORIGINAL_SETUP_DEADLINE"],
+          "UNASSESSABLE": ["REQUIRED_TRADE_1M_STALE", "REQUIRED_INPUT_STALE", "REQUIRED_GAP_15m", "REQUIRED_MONITORING_GAP", "DESTINATION_CONTACT_TIME_AMBIGUOUS"],
+          "DESTINATION_REACHED": ["DESTINATION_CONTACT"],
+          "WITHDRAWN": ["CLOSE_AT_OR_BEYOND_A_PLUS_ZONE", "CONTEXT_OR_ADVERSE_EXPANSION"],
+          "TERMINAL": ["EVALUATION_WINDOW_ENDED"]
+        },
+        "reason_format": "<code>[:<detail>]: REQUIRED_INPUT_STALE:TRADE_15M; REQUIRED_GAP_15m:<gap record id>:<status>; REQUIRED_MONITORING_GAP:<gap>; DESTINATION_CONTACT[_TIME_AMBIGUOUS]:<1m bar id>; CONTEXT_OR_ADVERSE_EXPANSION:<1h context>/<15m phase>:<expansion direction>"
+      },
+      "SUCCESSOR_ARMED": {
+        "meaning": "A fresh complete post-failure reaction qualified: the single successor of the impulse is armed (budget consumed, no third attempt). The successor's own ARM scenario record follows in the same dispatch.",
+        "values": ["review_values", "successor_id"],
+        "lineage": ["impulse_id", "successor_id"],
+        "reasons": {}
+      },
+      "ORDINARY_BIRTH_DEFERRED": {
+        "meaning": "An ordinary same-direction Q_A true while the slot is reserved (review or successor): no ordinary birth now. Published once per reservation (the counter keeps every deferral).",
+        "values": ["direction", "reserved_by", "impulse_id", "until", "ordinary_source_close"],
+        "lineage": ["impulse_id"],
+        "reasons": {}
+      },
+      "RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL": {
+        "meaning": "Ratified precision 1: a successor recovery with less than the A minimum residual before H0, recorded with its exclusion; not confirmed, not operational, no extension. The successor then ends EXPIRED.",
+        "values": ["impulse_id", "successor_id", "bar", "bar_start", "bar_end", "bar_known_at", "available_at_dispatch", "cursor", "close", "recovery_threshold", "original_expiry", "residual_seconds", "required_residual_minutes", "reason", "operational"],
+        "lineage": ["successor_id", "impulse_id"],
+        "reasons": {"INSUFFICIENT_RESIDUAL": "fixed value of values.reason; values.operational is always \"false\""}
+      }
+    }
+  },
+  "scenario": {
+    "kind": "scenario",
+    "successor_id": "A<L|S>-<anchor 15m bar start>-<hash(rules_sha256, instrument, 'A2', direction, impulse_id, anchor bar id)> (ordinary births: A<L|S>-<source bar start>-<hash(rules_sha256, instrument, 'A', direction, bar id)>)",
+    "setup_keys_added": {
+      "attempt": "\"2\" on every successor record; absent on every first-attempt (ordinary) record",
+      "impulse_id": "the first attempt's scenario_id",
+      "parent_scenario_id": "the first attempt's scenario_id (= impulse_id)",
+      "review_opened_at": "tf, the failure dispatch",
+      "formation_origin": "O, the first 15m boundary at/after tf",
+      "failed_attempt_R": "frozen R of the failed first attempt (real price domain)"
+    },
+    "renewal": "SECOND_ATTEMPT (setup.renewal of the successor; ordinary births keep FIRST_ASSESSABLE_TRUE / FALSE_AT_OR_AFTER_RELEASE_TO_TRUE)",
+    "arm_reason": "SECOND_ATTEMPT_FRESH_POST_FAILURE_REACTION",
+    "terminal_reasons_added": {"SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL": "terminal_state EXPIRED; reason <code>:<1m bar id>"},
+    "inherited": "Every other transition, reason and field of the successor is the v0.6 vocabulary (REVISE/REARM before confirmation, CONFIRM, INVALIDATED V_CONTACT, DESTINATION_REACHED, STALLED, TIME_EXPIRED, OWNER_RELEASE / EXPIRED ORIGINAL_SETUP_DEADLINE ...); original_expiry and confirmed_deadline equal H0.",
+    "lineage": ["successor_id", "impulse_id"]
+  },
+  "entry_attempt": {
+    "values_added": "none: the successor's child uses the v0.6 vocabulary; clocks.hard_deadline = H0",
+    "lineage": ["<successor_id>#entry", "successor_id"]
+  },
+  "call": {
+    "hard_deadline_origin_added": {"ORIGINAL_IMPULSE_EXPIRY": "the successor's call: hard_deadline = H0 (the impulse's original expiry), progress_check_at = issue + (H0 - issue)/2; a first-attempt call keeps STRUCTURAL_CONFIRMATION_PUBLICATION"},
+    "lineage": ["<successor_id>#entry", "successor_id"],
+    "call_revision": "unchanged v0.6 vocabulary (lineage = the call id)"
+  },
+  "synthetic_coverage": {
+    "note": "Category / category:reason-code pairs (REVIEW_CLOSED as category:state:code) exercised by the synthetic tapes of tests/test_a2x_second_attempt.py. Registered values absent here have no dedicated tape; they are reached by code paths shared with v0.6 conditions (tail, expiry, owner, readiness, 15m gap/staleness, ambiguous contact, window end).",
+    "exercised": [
+      "REVIEW_OPEN",
+      "REVIEW_NOT_OPENED:PREMISE_CLOSE_AT_OR_BEYOND_A_PLUS_Z_KNOWN",
+      "REVIEW_NOT_OPENED:CONTEXT_OR_ADVERSE_EXPANSION",
+      "REVIEW_CLOSED:EXPIRED:ORIGINAL_SETUP_DEADLINE",
+      "REVIEW_CLOSED:UNASSESSABLE:REQUIRED_TRADE_1M_STALE",
+      "REVIEW_CLOSED:UNASSESSABLE:REQUIRED_MONITORING_GAP",
+      "REVIEW_CLOSED:DESTINATION_REACHED:DESTINATION_CONTACT",
+      "REVIEW_CLOSED:WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE",
+      "REVIEW_CLOSED:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION",
+      "SUCCESSOR_ARMED",
+      "ORDINARY_BIRTH_DEFERRED",
+      "RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL:INSUFFICIENT_RESIDUAL"
+    ]
+  }
+}

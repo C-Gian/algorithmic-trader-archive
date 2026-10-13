@@ -21,7 +21,9 @@ reflection).
 
 from __future__ import annotations
 
-from adviser3_fixtures import DAY1, DAY2, D, T, a3_base, bar15, flat, minute, mirror, walk  # noqa: F401
+from datetime import timedelta
+
+from adviser3_fixtures import DAY1, DAY2, D, T, a3_base, bar15, flat, index_of, minute, mirror, walk  # noqa: F401
 from adviser5_fixtures import REF, VALID
 
 from algotrader.adviser.harness import Minute
@@ -191,3 +193,68 @@ def confirmed_time_expired() -> list:
 def confirmed_b_and_v_same_minute() -> list:
     """S1 confirmed at 04:01; the minute [04:01,04:02) reaches both B 100900 and V 99700: UNASSESSABLE, never a review."""
     return tail(a3_base() + [minute(100050, 100950, 99650, 99900)])
+
+
+# -- context gate (1h non-concordant context) and adverse 15m expansion ------------------------------------------------
+#
+# 1h: ``ctx_balanced_from_0500`` changes one day-1 15m bar so the 1h close of [20:00,21:00) is 98500 instead of 97000
+# (1h TR still 2000, s1h 2000). The nine 1h closes read by the context are then: at 04:00 97000, 98500, 97000 x5,
+# 99600, 99950 -> displacement 2950/2000 = 1.475 >= 1, efficiency 2950/5950 = 0.496 >= 0.35: UP (birth, ARM, REVISE and
+# confirmation unchanged); at 05:00 98500, 97000 x5, 99600, 99950, X -> displacement (X - 98500)/2000 < 1 for every
+# X < 100500: BALANCED, so the A gate is non-concordant from 05:00 while no 15m EXPANSION is involved. On the unmodified
+# history the same 05:00 close keeps UP ((X - 97000)/2000 >= 1.35): the control.
+#
+# 15m: the seven 15m closes of the phase at 04:45 are 100250, 100700, 100049.9, 99950, c(04:15), c(04:30), c(04:45)
+# (EXPANSION needs ER6 >= 0.55 and |displacement6| >= 1.5 S15). The 1h context stays UP (no 1h close changes it).
+
+def ctx_balanced_from_0500(ms: list) -> list:
+    """Day-1 bar [20:45,21:00) o 99000 h 99000 l 98500 c 98500 (was a 99000 -> 97000 down bar); [21:00,21:15) starts
+    there and still closes 99000 (l 97000), so every later bar is unchanged."""
+    ms = list(ms)
+    i = index_of(DAY1 + timedelta(hours=20, minutes=45))
+    ms[i:i + 15] = bar15(99000, 99000, 98500, 98500)
+    ms[i + 15:i + 30] = bar15(98500, 99000, 97000, 99000, order="LH")
+    return ms
+
+
+def failure_after_0500() -> list:
+    """Call 1 at 04:03, flat 99950 (above V 99700) to 05:04, V contact [05:04,05:05) (low 99690, close 99800): tf 05:05
+    < H0 05:30; then a walk to 100100 by 05:15 (closes above the old K 100049.9). With ``ctx_balanced_from_0500`` the
+    context is BALANCED at tf; on the plain history it is UP (05:00 displacement (99950 - 97000)/2000 = 1.475)."""
+    return tail(a3_base() + [REF, VALID] + flat(61, 99950, amp=D(0)) + [minute(99950, 99950, 99690, 99800)]
+                + walk(99800, 100100, 10))
+
+
+def frontier_failure_closing(close) -> list:
+    """Call 1 at 04:03, flat 99950 to 04:44, then the V contact minute [04:44,04:45) closing ``close``: tf = 04:45 is
+    the 15m close of [04:30,04:45) (c = close). close 98500: S15 (700 + 1450)/2 = 1075, displacement6 -1750/1075 =
+    -1.628, ER6 1750/2650 = 0.660 -> EXPANSION DOWN at tf. close 99600 (control): displacement6 -650/675, no EXPANSION.
+    Then a walk to 100100 (above the old K)."""
+    return tail(a3_base() + [REF, VALID] + flat(41, 99950, amp=D(0)) + [minute(99950, 99950, close, close)]
+                + walk(close, 100100, 10))
+
+
+def failure_bar_expansion(p) -> list:
+    """Call 1 at 04:03, flat 99950 to 04:40, V contact [04:40,04:41) (tf 04:41, O 04:45), walk down to ``p`` by 04:45:
+    the failure bar [04:30,04:45) closes p. p 98500: EXPANSION DOWN at 04:45 (as ``frontier_failure_closing(98500)``)
+    while that bar can never form the new reaction. Then [04:45,05:00) o p l p-100 h p+800 c p+750 (no contrary close),
+    [05:00,05:15) o p+750 h p+800 l p+500 c p+600 (contrary: c < previous new close; R2 = p - 100), a recovery minute
+    [05:15,05:16) closing p + 800.1 (the anchor bar's high + tick) and a walk to 100100. p 99400 (control): no
+    EXPANSION, the review stays open and the fresh reaction arms at 05:15."""
+    p = D(str(p))
+    return tail(a3_base() + [REF, VALID] + flat(37, 99950, amp=D(0)) + [minute(99950, 99950, 99690, 99700)]
+                + walk(99700, p, 4) + bar15(p, p + 800, p - 100, p + 750, order="LH")
+                + bar15(p + 750, p + 800, p + 500, p + 600) + [minute(p + 600, p + 801, p + 600, p + D("800.1"))]
+                + walk(p + D("800.1"), 100100, 10))
+
+
+def qualifying_bar_with_expansion(close, low) -> list:
+    """Failure at tf 04:04 (O 04:15), walk to 99450 by 04:15; fresh bar [04:15,04:30) o 99450 h 99500 l 99300 c 99460
+    (c > o: no contrary close); [04:30,04:45) o 99460 h 99470 l ``low`` c ``close``: contrary (c < 99460), R2 = low <
+    R1 99900 and > A+z 97200, so it qualifies the reaction. (99000, 98950): S15 675, displacement6 -1250/675 = -1.852,
+    ER6 1250/2170 = 0.576 -> EXPANSION DOWN in that same dispatch 04:45. (99300, 99250) control: displacement6
+    -950/675 = -1.407, no EXPANSION -> ARM at 04:45 (K2 99470). Then a minute [04:45,04:46) closing 99470.1 and a walk
+    to 100100."""
+    return tail(a3_base() + [REF, VALID, V_CONTACT] + walk(99950, 99450, 11)
+                + bar15(99450, 99500, 99300, 99460) + bar15(99460, 99470, low, close)
+                + [minute(close, D("99470.1"), close, D("99470.1"))] + walk(D("99470.1"), 100100, 10))

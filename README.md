@@ -165,7 +165,10 @@ An isolated implementation of the [A second-attempt design](delivery/A-SECOND-AT
   - Two behaviour-preserving hooks in `core3` (`_conf_clocks`, `_a_hard`), used at confirmation, routing and issue.
   - Identities: `btc.context-action.v0.6-a2x` / `a2x.rules.exp1`, `adviser.core.v6-a2x`, `algotrader.adviser-state.v6-a2x`, `algotrader.adviser-runtime.v6-a2x`.
   - The register is MP-005 with no new number. No report, reconciliation or Deep validation.
-- **Records.** They use the semantic.v2 revision-5 shapes. The new values (the observation `a_second_attempt`, the successor's reasons and setup keys, `ORIGINAL_IMPULSE_EXPIRY`) are not registered in the public changelog: registration is required before any publication.
+- **Records.** They use the semantic.v2 revision-5 shapes unchanged. The new values are registered additively and explicitly as experimental in [`method/A2X-EXPERIMENTAL-RECORDS.json`](src/algotrader/adviser/method/A2X-EXPERIMENTAL-RECORDS.json): the observation `a_second_attempt` (categories, value keys, reasons, lineage), the successor's setup keys, ARM and terminal reasons, renewal `SECOND_ATTEMPT` and the call origin `ORIGINAL_IMPULSE_EXPIRY`, plus which reasons have a synthetic tape.
+  - This is not a semantic.v2 revision or a public changelog entry: revision 5, the emitted-revision map and the schema baseline are unchanged.
+  - The file is outside the rules manifest and register, so the v0.6 and variant identities are unchanged.
+  - Publication would still need a Director-approved revision.
 - **Evidence.** [summary](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md).
 - **Not done.** No data evaluation, backtest or economic result.
 

@@ -1,4 +1,25 @@
-# Current task — Experimental implementation of the A second attempt (v0.6-a2x, isolated, synthetic proofs only)
+# Current task — Completion of the v0.6-a2x review (context/expansion tapes; experimental record registration)
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([summary, completion section](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md#completamento-della-review-13-ottobre-2026-base-048bf2d)); the Director's review is PENDING. The variant stays EXPERIMENTAL: not a release, not selectable, not installed. v0.6 and HDP-001 unchanged; studies INACTIVE.
+
+## Assignment (Director review completion relayed by the Owner, 13 October 2026; base `048bf2d`)
+
+1. **Context and counter-expansion.** Synthetic tapes through the ordinary entry, with no preset state, proving:
+   - a review is not opened when the A gate is contrary at the failure;
+   - an open review ends when the gate turns contrary;
+   - no successor from a bar that qualifies the reaction in the same dispatch where the context excludes it.
+
+   Cover LONG and SHORT, distinguishing a non-concordant 1h context from an adverse 15m expansion. Verify reasons, release, latch and no reopening on the later recovery. Include a restore before the change on at least one path.
+2. **Experimental records.** Document now the categories, reasons, lineage, setup keys and ORIGINAL_IMPULSE_EXPIRY introduced by the variant.
+   - Use an additive, explicitly experimental registration: do not change the frozen contracts or the v0.6 identity, and do not present the variant as a public release.
+   - Add targeted checks of serialization and of the distinction between first attempt, reservation and successor.
+3. **Checks and limits.** Rerun the variant suite and the parity checks affected by any correction; the whole suite need not be repeated without shared changes.
+   - Keep explicit: 255 DB tests not run locally; e2e not run; CI not verified. Do not present them as passed checks.
+4. **Delivery.** Update the summary with results and limits; commit and push.
+   - No pull/fetch, Owner access, real data or CI query.
+   - No methodological change, UI or activation of the variant.
+
+
+## Previous task — Experimental implementation of the A second attempt (v0.6-a2x, isolated, synthetic proofs only)
 Date: 2026-10-12. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md)); the Director's review is PENDING. Not a release, not selectable in the application, not installed in the Owner stack. v0.6 and HDP-001 unchanged; studies INACTIVE.
 
 ## Assignment (relayed by the Owner, 12 October 2026; Astra approved the design and authorized an isolated implementation with synthetic proofs only)

@@ -6,6 +6,8 @@ the tape constants in ``adviser_a2x_fixtures`` (LONG); SHORT runs are the reflec
 
 from __future__ import annotations
 
+import functools
+import hashlib
 import json
 import zlib
 from datetime import timedelta
@@ -17,6 +19,8 @@ from adviser3_fixtures import Stepper, T, delayed_events, index_of
 from test_mp004_versions import _norm  # id-token normalization shared with the v0.5/v0.6 parity tests
 from test_mp005_paths import PARITY
 
+from algotrader.adviser import contracts as sc
+from algotrader.adviser import core_a2x as a2x
 from algotrader.adviser import engine, methods
 from algotrader.adviser.harness import build_events, make_runtime, run_pure, temporal_for
 from algotrader.adviser.params import load_register
@@ -485,3 +489,358 @@ def test_other_confirmed_terminals_never_open_a_review(name, terminal, s):
     assert not a2x_obs(rx)
     kinds = tuple(sorted({e["kind"] for e in r6.journal}))
     assert _norm(rx.journal, kinds) == _norm(r6.journal, kinds)
+
+
+
+# -- context gate (1h) and adverse 15m expansion: opening, closing, same-dispatch qualification ------------------------
+#
+# Hand derivations: ``adviser_a2x_fixtures`` (context / phase section). Every contrary tape has a control differing only
+# where the gate is decided (1h: one day-1 bar; 15m: the closes building the expansion), showing what the gate stops.
+
+CTX = {  # cause -> case -> (contrary tape, control tape)
+    "1h": {"open": (lambda: fx.ctx_balanced_from_0500(fx.failure_after_0500()), fx.failure_after_0500),
+           "close": (lambda: fx.ctx_balanced_from_0500(fx.late(3, (5, 15))), lambda: fx.late(3, (5, 15))),
+           "same": (lambda: fx.ctx_balanced_from_0500(fx.late(2, (5, 0))), lambda: fx.late(2, (5, 0)))},
+    "15m": {"open": (lambda: fx.frontier_failure_closing(98500), lambda: fx.frontier_failure_closing(99600)),
+            "close": (lambda: fx.failure_bar_expansion(98500), lambda: fx.failure_bar_expansion(99400)),
+            "same": (lambda: fx.qualifying_bar_with_expansion(99000, 98950),
+                     lambda: fx.qualifying_bar_with_expansion(99300, 99250))},
+}
+CAUSES = ("1h", "15m")
+
+
+def _gate(reason, cause, s):
+    """1h: a non-concordant (BALANCED) context with no 15m EXPANSION; 15m: a concordant context with an EXPANSION
+    adverse to the direction."""
+    code, rest = reason.split(":", 1)
+    ctx, phase = rest.split("/")
+    assert code == "CONTEXT_OR_ADVERSE_EXPANSION", reason
+    if cause == "1h":
+        assert ctx == "BALANCED" and not phase.startswith("EXPANSION"), reason
+    else:
+        assert (ctx, phase) == (("UP", "EXPANSION:DOWN") if s == "L" else ("DOWN", "EXPANSION:UP")), reason
+
+
+def _when(res):
+    return [(o["env"]["clock_time"][11:19], o["category"], o["values"].get("state")) for o in a2x_obs(res)]
+
+
+def _hm(x):
+    return int(x[:2]), int(x[3:5])
+
+
+def _ownership(ms, d, times):
+    """(Q_A last, latch, discovery owner) of direction ``d`` after the dispatch at each time, v0.6 and the variant
+    (read only: nothing is placed in any state)."""
+    out = {}
+    for method in ("v0.6", X):
+        st = Stepper(ms, method=method)
+        for h, m in times:
+            st.run_until(T(h, m))
+            own = st.core.a_owner[d]
+            out[(method, f"{h:02d}:{m:02d}")] = (st.core.qa_last[d], st.core.latch[d], own and own["sid"])
+        st.finish()
+    return out
+
+
+def _released_like_v06(ms, s, s1, during, at):
+    """During the review the slot is reserved (latch NEED_FALSE: no banked false); at the closing dispatch it is
+    released and the ordinary latch reads the false Q_A observed after the release (READY), exactly as v0.6 by then."""
+    d = "1" if s == "L" else "-1"
+    own = _ownership(ms, d, [during, at])
+    dt, at_ = f"{during[0]:02d}:{during[1]:02d}", f"{at[0]:02d}:{at[1]:02d}"
+    assert own[(X, dt)] == (False, "NEED_FALSE", f"{s1}#review")
+    assert own[(X, at_)] == (False, "READY", None) == own[("v0.6", at_)]
+
+
+@pytest.mark.parametrize("cause", CAUSES)
+@pytest.mark.parametrize("s", SIDES)
+def test_a_contrary_gate_at_the_failure_never_opens_a_review(cause, s):
+    bad, ctl = CTX[cause]["open"]
+    ms = side(bad(), s)
+    r6, rx = run(ms, method="v0.6"), run(ms)
+    tf = {"1h": "05:05:00", "15m": "04:45:00"}[cause]
+    s1, s2 = ids_by_birth(rx)
+    assert steps(rx, s1)[-1] == (tf, "TERMINAL", "V_CONTACT", "INVALIDATED") and s2 is None
+    o = a2x_obs(rx)
+    assert _when(rx) == [(tf, "REVIEW_NOT_OPENED", None)]
+    assert o[0]["values"]["impulse_id"] == s1 and o[0]["values"]["original_expiry"] == "2025-09-01T05:30:00+00:00"
+    _gate(o[0]["values"]["reason"], cause, s)
+    # otherwise exactly v0.6 (owner released at tf, ordinary latch), including every later record
+    kinds = tuple(sorted({e["kind"] for e in r6.journal}))
+    strip = [e for e in rx.journal if not (e["kind"] == "observation" and e["record"]["name"] == "a_second_attempt")]
+    assert _norm(strip, kinds) == _norm(r6.journal, kinds)
+    # a later close beyond the old K (100049.9) before H0 reopens nothing and never re-confirms S1
+    k_old = px("100049.9", s)
+    later = ms[index_of(T(*_hm(tf))):index_of(T(5, 30))]
+    assert any((m.c > k_old if s == "L" else m.c < k_old) for m in later)
+    assert [x[1] for x in steps(rx, s1)].count("CONFIRM") == 1
+    # control: the same failure with the gate concordant opens the review
+    assert _when(run(side(ctl(), s)))[0] == (tf, "REVIEW_OPEN", None)
+
+
+@pytest.mark.parametrize("cause", CAUSES)
+@pytest.mark.parametrize("s", SIDES)
+def test_an_open_review_ends_when_the_gate_turns_contrary(cause, s):
+    """1h: the review opened at 04:04 waits on quiet bars; the 1h close at 05:00 turns the context BALANCED while the
+    bar [04:45,05:00) does not qualify. 15m: the review opened at 04:41; the failure bar [04:30,04:45) (never a new fact)
+    completes an adverse EXPANSION at 04:45. Then a fresh contrary reaction and its recovery follow (at 05:15 the 15m
+    gate is concordant again): nothing reopens."""
+    bad, ctl = CTX[cause]["close"]
+    ms = side(bad(), s)
+    rx = run(ms)
+    s1, s2 = ids_by_birth(rx)
+    opened, closed, bars = {"1h": ("04:04:00", "05:00:00", "2"), "15m": ("04:41:00", "04:45:00", "0")}[cause]
+    assert _when(rx) == [(opened, "REVIEW_OPEN", None), (closed, "REVIEW_CLOSED", "WITHDRAWN")]
+    v = a2x_obs(rx)[1]["values"]
+    _gate(v["reason"], cause, s)
+    assert (v["new_bars"], v["contrary_close_seen"], v["impulse_id"]) == (bars, "false", s1)
+    assert s2 is None and not [r for r in scen(rx) if r["setup"].get("attempt")]
+    assert len(rx.calls()) == 1
+    # release and ordinary latch at the closing dispatch
+    _released_like_v06(ms, s, s1, _hm(opened), _hm(closed))
+    # after the release the ordinary records (scenarios, children, calls) are exactly v0.6's
+    r6 = run(ms, method="v0.6")
+    k = ("scenario", "entry_attempt", "call", "call_revision")
+    cut = f"2025-09-01T{closed}Z"
+    assert [x for x in _norm([e for e in rx.journal if e["kind"] in k], k) if x[1] > cut] == \
+        [x for x in _norm([e for e in r6.journal if e["kind"] in k], k) if x[1] > cut]
+    # control: with the gate concordant the same later reaction arms the successor at 05:15 (its recovery at 05:16 has
+    # 14 minutes left: recorded, excluded); in the contrary tape it arms nothing
+    assert _when(run(side(ctl(), s))) == [(opened, "REVIEW_OPEN", None), ("05:15:00", "SUCCESSOR_ARMED", None),
+                                          ("05:16:00", "RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL", None)]
+    if cause == "15m":  # the reaction completing at 05:15 meets a concordant gate again: still no reopening
+        st = Stepper(ms, method=X)
+        st.run_until(T(5, 15))
+        assert st.core.context(T(5, 15)) == ("UP" if s == "L" else "DOWN") and st.core.phase_now(T(5, 15)) != "EXPANSION"
+        st.finish()
+
+
+@pytest.mark.parametrize("cause", CAUSES)
+@pytest.mark.parametrize("s", SIDES)
+def test_a_bar_qualifying_in_the_dispatch_where_the_gate_turns_contrary_arms_nothing(cause, s):
+    """1h: [04:45,05:00) (h 100050, l 99650, c 99750: contrary, R2 < R1) qualifies at 05:00, the dispatch whose 1h close
+    turns the context BALANCED. 15m: [04:30,04:45) (l 98950, c 99000 < the previous new close) qualifies at 04:45, the
+    dispatch completing an adverse EXPANSION. The gate is applied first (design §6): WITHDRAWN, no successor; the bar is
+    not even counted (the closing values still describe the earlier bars)."""
+    bad, ctl = CTX[cause]["same"]
+    ms = side(bad(), s)
+    rx = run(ms)
+    s1, s2 = ids_by_birth(rx)
+    t, bars, low = {"1h": ("05:00:00", "2", 99930), "15m": ("04:45:00", "1", 99300)}[cause]
+    assert _when(rx) == [("04:04:00", "REVIEW_OPEN", None), (t, "REVIEW_CLOSED", "WITHDRAWN")]
+    v = a2x_obs(rx)[1]["values"]
+    _gate(v["reason"], cause, s)
+    assert (v["new_bars"], v["contrary_close_seen"], D(v["new_reaction_low"])) == (bars, "false", px(low, s))
+    assert s2 is None and len(rx.calls()) == 1
+    assert not [r for r in scen(rx) if r["env"]["clock_time"] >= f"2025-09-01T{t}Z" and r["transition"] in ("ARM", "CONFIRM")]
+    _released_like_v06(ms, s, s1, (4, 30), _hm(t))
+    # control: the same bar with the gate concordant arms the successor in that dispatch
+    c = run(side(ctl(), s))
+    _, c2 = ids_by_birth(c)
+    arm = [r for r in scen(c) if r["scenario_id"] == c2][0]
+    k2, r2 = {"1h": (100050, 99650), "15m": (99470, 99250)}[cause]
+    assert (arm["env"]["clock_time"][11:19], arm["transition"], D(arm["trigger_level"]), D(arm["reaction_level"])) == (
+        t, "ARM", px(k2, s), px(r2, s))
+
+
+@pytest.mark.parametrize("cause,case,cuts,before,after", [
+    ("1h", "same", ((4, 45), (4, 59), (5, 0)), "04:59", "05:00"),
+    ("15m", "close", ((4, 41), (4, 44), (4, 45)), "04:44", "04:45")])
+@pytest.mark.parametrize("s", SIDES)
+def test_restore_before_the_gate_change_reproduces_the_uninterrupted_run(cause, case, cuts, before, after, s):
+    ms = side(CTX[cause][case][0](), s)
+    base_j, base_r, _ = _fold(ms)
+    j, r, states = _fold(ms, tuple(T(h, m) + timedelta(seconds=90) for h, m in cuts))
+    assert [e["digest"] for e in j] == [e["digest"] for e in base_j]  # no duplicate, no missing record
+    assert [x["digest"] for x in r] == [x["digest"] for x in base_r]
+    d = "1" if s == "L" else "-1"
+    st = {(k - timedelta(seconds=90)).strftime("%H:%M"): v for k, v in states.items()}
+    rv = st[before]["core"]["a2x"]["reviews"]
+    assert len(rv) == 1 and rv[0]["bars"] == {"1h": 2, "15m": 0}[cause] and not rv[0]["contrary"]
+    assert st[before]["core"]["v3"]["a_owner"][d]["reserved_for"] == rv[0]["impulse"]
+    assert st[before]["core"]["latch"][d] == "NEED_FALSE"
+    assert st[after]["core"]["a2x"]["reviews"] == [] and st[after]["core"]["v3"]["a_owner"][d] is None
+    assert st[after]["core"]["latch"][d] == "READY"
+    obs = [e["record"] for e in j if e["kind"] == "observation" and e["record"]["name"] == "a_second_attempt"]
+    assert [(o["env"]["clock_time"][11:16], o["category"], o["values"].get("state")) for o in obs][-1] == (
+        after, "REVIEW_CLOSED", "WITHDRAWN")
+    assert not [e for e in j if e["kind"] == "scenario" and e["record"]["setup"].get("attempt")]
+
+
+
+# -- experimental record registration (``method/A2X-EXPERIMENTAL-RECORDS.json``): additive, not a release ------------
+
+REG = json.loads((methods.idn.METHOD_DIR / "A2X-EXPERIMENTAL-RECORDS.json").read_text(encoding="utf-8"))
+ADDED_SETUP = set(REG["scenario"]["setup_keys_added"])
+SWEEP = {  # every variant tape of this module (LONG and SHORT); the staleness tape is added in ``_sweep``
+    "two_calls": fx.two_calls, "no_call_failure": fx.no_call_failure, "no_fresh_facts": fx.no_fresh_facts,
+    "premise_before_arm": fx.premise_before_arm, "premise_in_failure_dispatch": fx.premise_in_failure_dispatch,
+    "frontier_failure": fx.frontier_failure, "destination_in_review": fx.destination_in_review,
+    "gap_in_review": fx.gap_in_review, "third_attempt_refused": fx.third_attempt_refused,
+    "successor_child_contradicted": fx.successor_child_contradicted,
+    "reservation_defers_birth": fx.reservation_defers_birth, "old_recovery_before_arm": fx.old_recovery_before_arm,
+    "late_excluded": lambda: fx.late(1, (5, 0)), "late_30": lambda: fx.late(1, (4, 59)),
+    "late_h0": lambda: fx.late(3, (5, 29)), "late_none": lambda: fx.late(4, None),
+    **{f"{cause}_{case}_{k}": CTX[cause][case][i] for cause in CAUSES for case in CTX[cause]
+       for i, k in enumerate(("contrary", "control"))},
+}
+
+
+@functools.cache
+def _sweep() -> tuple:
+    out = []
+    for name in sorted(SWEEP):
+        for s in SIDES:
+            out.append((f"{name}/{s}", run(side(SWEEP[name](), s)).journal))
+    for s in SIDES:
+        ms = side(fx.two_calls(), s)
+        st = Stepper(ms, method=X, events=delayed_events(ms, {index_of(T(4, 20 + k)): 270 - 60 * k for k in range(5)}))
+        st.finish()
+        out.append((f"stale/{s}", st.journal))
+    return tuple(out)
+
+
+def _role_ids(journal):
+    """first-attempt ids, successor ids (from the scenario records themselves)."""
+    a = [e["record"] for e in journal if e["kind"] == "scenario" and e["record"]["family"] == "A"]
+    return ({r["scenario_id"] for r in a if "attempt" not in r["setup"]},
+            {r["scenario_id"] for r in a if r["setup"].get("attempt") == "2"})
+
+
+def test_record_registration_is_additive_experimental_and_outside_every_identity():
+    vx = methods.get(X, experimental=True)
+    assert REG["status"] == "EXPERIMENTAL_NOT_PUBLIC_NOT_A_SEMANTIC_V2_REVISION"
+    assert REG["variant"] == {"key": vx.key, "model": vx.model, "rules_version": vx.rules_version,
+                              "implementation": vx.implementation, "core_state_format": vx.core_state_format,
+                              "runtime_format": vx.runtime_format, "engine_format": vx.engine_format}
+    # the public semantic.v2 contract, its changelog, the emitted-revision map and the baseline are unchanged
+    assert REG["base_contract"]["revision"] == sc.SEMANTIC_V2_REVISION == 5 and len(sc.SEMANTIC_V2_CHANGELOG) == 5
+    assert vx.model not in sc.SEMANTIC_V2_EMITTED_REVISION and sc.KIND_CONTRACTS_V6 == sc.KIND_CONTRACTS_V5
+    baseline = (methods.idn.METHOD_DIR.parents[3] / "schemas/algotrader.semantic.v2.json").read_text(encoding="utf-8")
+    assert not any(w in baseline for w in ("a_second_attempt", "SECOND_ATTEMPT", "ORIGINAL_IMPULSE_EXPIRY", "a2x"))
+    # not part of the variant's rules manifest or register: v0.6 and the variant keep their 048bf2d identities
+    assert "A2X-EXPERIMENTAL-RECORDS.json" not in {m["file"] for m in vx.rules_manifest()}
+    assert vx.register_file.name != "A2X-EXPERIMENTAL-RECORDS.json"
+    assert vx.rules_sha256() == "08e3c2689c3ed6d02bc4eba28c539dc94a55cf29d7515db1562d1d9f8f9474e7"
+    assert vx.register_sha256() == "b4782f7da3e64227cc50dbb2aa7beb16a0c017c3c4d2e8277a215b8cfd7a1126"
+    # the code constants are the registered values
+    ob = REG["observation"]
+    assert (a2x.OBS_NAME, ob["kind"], ob["lens"], ob["decision_role"]) == (
+        ob["name"], "observation", "structure", "A_SECOND_ATTEMPT_RESERVATION")
+    assert a2x.ARM_REASON == REG["scenario"]["arm_reason"]
+    assert set(REG["scenario"]["terminal_reasons_added"]) == {a2x.EXCLUDED_REASON}
+    assert set(REG["call"]["hard_deadline_origin_added"]) == {a2x.HARD_ORIGIN}
+    assert set(a2x._new_counters()) >= {"reviews_opened", "successors_armed"}  # counters are state, not records
+
+
+def test_every_emitted_variant_value_is_registered_and_the_coverage_is_declared():
+    ob = REG["observation"]
+    covered = set()
+    for name, journal in _sweep():
+        firsts, successors = _role_ids(journal)
+        for e in journal:
+            r, kind = e["record"], e["kind"]
+            ids = [r.get("scenario_id"), r.get("call_id"), r.get("entry_attempt_id"), e["subject"], *r["env"]["lineage"]]
+            assert not any(x and "#review" in x for x in ids), (name, kind)  # the reservation is never a record id
+            if kind == "observation" and r["name"] == ob["name"]:
+                cat, v = r["category"], r["values"]
+                spec = ob["categories"][cat]
+                keys = [k for x in spec["values"] for k in (ob["review_values"] if x == "review_values" else [x])]
+                assert sorted(v) == sorted(keys), (name, cat)
+                assert all(x is None or isinstance(x, str) for x in v.values())
+                assert (r["lens"], r["decision_role"]) == (ob["lens"], ob["decision_role"])
+                assert list(r["env"]["lineage"]) == [v[k] for k in spec["lineage"]] and e["subject"] == v[spec["lineage"][0]]
+                assert v["impulse_id"] in firsts and ("successor_id" not in v or v["successor_id"] in successors)
+                assert r["env"]["event_start"] is None and r["env"]["known_at"] == r["env"]["clock_time"]
+                if cat == "REVIEW_NOT_OPENED":
+                    assert v["reason"].split(":")[0] in spec["reasons"]
+                    covered.add(f"{cat}:{v['reason'].split(':')[0]}")
+                elif cat == "REVIEW_CLOSED":
+                    assert v["reason"].split(":")[0] in spec["states"][v["state"]], (name, v["state"], v["reason"])
+                    covered.add(f"{cat}:{v['state']}:{v['reason'].split(':')[0]}")
+                elif cat == "RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL":
+                    assert (v["reason"], v["operational"]) == ("INSUFFICIENT_RESIDUAL", "false")
+                    covered.add(f"{cat}:{v['reason']}")
+                else:
+                    covered.add(cat)
+                if cat == "ORDINARY_BIRTH_DEFERRED":
+                    assert v["reserved_by"] in {f"{v['impulse_id']}#review"} | successors
+            elif kind == "scenario" and r["family"] == "A":
+                st, reason = r["setup"], (r["reason"] or "")
+                if r["scenario_id"] in successors:
+                    assert st["attempt"] == "2" and st["renewal"] == "SECOND_ATTEMPT"
+                    assert st["impulse_id"] == st["parent_scenario_id"] in firsts
+                    assert list(r["env"]["lineage"]) == [r["scenario_id"], st["impulse_id"]]
+                    assert r["original_expiry"] == r["confirmed_deadline"] or r["confirmed_deadline"] is None
+                    if reason.startswith("SECOND_ATTEMPT"):
+                        assert reason == a2x.ARM_REASON and r["transition"] == "ARM" or (
+                            reason.split(":")[0] in REG["scenario"]["terminal_reasons_added"]
+                            and r["terminal_state"] == "EXPIRED")
+                else:
+                    assert not ADDED_SETUP & set(st) and st["renewal"] != "SECOND_ATTEMPT"
+                    assert not reason.startswith("SECOND_ATTEMPT")
+            elif kind == "call":
+                succ = r["scenario_id"] in successors
+                assert (r["hard_deadline_origin"] == a2x.HARD_ORIGIN) == succ
+                assert list(r["env"]["lineage"]) == [f"{r['scenario_id']}#entry", r["scenario_id"]]
+    assert sorted(covered) == sorted(REG["synthetic_coverage"]["exercised"])  # declared coverage, nothing more
+    every = {f"REVIEW_NOT_OPENED:{k}" for k in ob["categories"]["REVIEW_NOT_OPENED"]["reasons"]} | {
+        f"REVIEW_CLOSED:{s}:{k}" for s, ks in ob["categories"]["REVIEW_CLOSED"]["states"].items() for k in ks}
+    assert covered - {"REVIEW_OPEN", "SUCCESSOR_ARMED", "ORDINARY_BIRTH_DEFERRED",
+                      "RECOVERY_EXCLUDED_INSUFFICIENT_RESIDUAL:INSUFFICIENT_RESIDUAL"} <= every
+
+
+def test_variant_records_serialize_exactly_through_the_revision_5_contracts():
+    seen = {"observation": 0, "scenario": 0, "entry_attempt": 0, "call": 0, "call_revision": 0}
+    for name, journal in _sweep():
+        _, successors = _role_ids(journal)
+        calls = {e["record"]["call_id"] for e in journal if e["kind"] == "call" and e["record"]["scenario_id"] in successors}
+        for e in journal:
+            r, kind = e["record"], e["kind"]
+            mine = (kind == "observation" and r["name"] == a2x.OBS_NAME) or r.get("scenario_id") in successors or (
+                kind == "call_revision" and r["call_id"] in calls)
+            if not mine:
+                continue
+            model = sc.KIND_CONTRACTS_V6[kind].model_validate(r)
+            assert json.loads(model.model_dump_json()) == r, (name, kind)  # exact round trip, no extra/missing field
+            assert hashlib.sha256(canonical(r)).hexdigest() == e["digest"]  # the journal digest of the same bytes
+            seen[kind] = seen.get(kind, 0) + 1
+    assert all(seen[k] for k in ("observation", "scenario", "entry_attempt", "call")), seen
+
+
+@pytest.mark.parametrize("s", SIDES)
+def test_first_attempt_reservation_and_successor_are_distinct_in_records_and_state(s):
+    ms = side(fx.two_calls(), s)
+    res = run(ms)
+    s1, s2 = ids_by_birth(res)
+    r1 = [r for r in scen(res) if r["scenario_id"] == s1]
+    r2 = [r for r in scen(res) if r["scenario_id"] == s2]
+    # first attempt: the v0.6 vocabulary only; its terminal still states the v0.6 release
+    assert all(not ADDED_SETUP & set(r["setup"]) and list(r["env"]["lineage"]) == [s1] for r in r1)
+    assert r1[-1]["transition"] == "TERMINAL" and r1[-1]["discovery_owner"] == "RELEASED"
+    # reservation: an observation in the same dispatch, linked to the impulse only; a state token, never a record id
+    rv = a2x_obs(res)[0]
+    assert (rv["category"], rv["env"]["clock_time"], list(rv["env"]["lineage"])) == (
+        "REVIEW_OPEN", r1[-1]["env"]["clock_time"], [s1])
+    st = Stepper(ms, method=X)
+    st.run_until(T(4, 20))
+    d = "1" if s == "L" else "-1"
+    assert st.core.a_owner[d] == {"sid": f"{s1}#review", "expires": "2025-09-01T05:30:00+00:00", "reserved_for": s1}
+    doc = st.core.encode()  # state codec of the reservation: exact round trip
+    assert canonical(type(st.core).decode(json.loads(canonical(doc)), st.core.cfg).encode()) == canonical(doc)
+    st.run_until(T(4, 31))
+    doc = st.core.encode()  # and of the confirmed successor (attempt lineage and frozen R1 kept)
+    sx = [x for x in doc["v3"]["scen"] if x["sid"] == s2][0]
+    assert (sx["attempt"], sx["impulse"], sx["status"], D(sx["failed_r1_t"]) * int(d)) == (2, s1, "CONFIRMED", px(99900, s))
+    assert canonical(type(st.core).decode(json.loads(canonical(doc)), st.core.cfg).encode()) == canonical(doc)
+    st.finish()
+    # successor: its own id, attempt "2", lineage (successor, impulse), its own child and call with the H0 origin
+    assert s2 != s1 and s2.startswith(f"A{s}-2025-09-01T04:15:00+00:00-")
+    assert all(r["setup"]["attempt"] == "2" and list(r["env"]["lineage"]) == [s2, s1] for r in r2)
+    c1, c2 = res.calls()
+    assert (c1["scenario_id"], c1["hard_deadline_origin"]) == (s1, "STRUCTURAL_CONFIRMATION_PUBLICATION")
+    assert (c2["scenario_id"], c2["hard_deadline_origin"]) == (s2, "ORIGINAL_IMPULSE_EXPIRY")
+    assert list(c2["env"]["lineage"]) == [f"{s2}#entry", s2]
+    ent = [e["record"] for e in res.journal if e["kind"] == "entry_attempt" and e["record"]["scenario_id"] == s2]
+    assert ent and all(list(x["env"]["lineage"]) == [f"{s2}#entry", s2] for x in ent)
