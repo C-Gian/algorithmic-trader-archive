@@ -141,4 +141,8 @@ A lifecycle DESTINATION_REACHED after an engine confirmation that is not DESTINA
 
 ## Amendments
 
-None at registration.
+1. **Base correction, 13 October 2026, after the registration commit `501393c` and before any tabulation.**
+   - **Error.** The header names the base `d06960d`. The checkout given by the Owner was actually at `9bd8c0a`.
+   - **Why.** It held three Director documentation commits after `d06960d` (`3992050`, `eeca812`, `9bd8c0a`: A2X closure annotations in SUMMARY, STATE and task).
+   - **Impact.** These commits change no product file, input, script or definition. The registration content is unaffected, and `501393c` is a normal descendant of `9bd8c0a`.
+   - **What had been seen.** No result of this study had been seen.
