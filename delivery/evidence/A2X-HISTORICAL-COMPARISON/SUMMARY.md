@@ -152,3 +152,14 @@ Deferred birth, unmatched birth, chain difference and one-sided call have **no o
   - v0.6-a2x journal `7e181e91…8ec9`, trace `a799691d…085e`.
 - **Input copy:** unchanged since 12 October (exposure register row 11).
 - **Exposure:** register row 14.
+
+
+## Subsequent closure annotation — 13 October 2026
+
+The orchestrator accepted the historical comparison delivered at `d06960d` as descriptive evidence, based on the Director's review. The pending-review statements above belong to the preserved original delivery and are superseded by this annotation. The orchestrator read SUMMARY directly, but did not recalculate the CSV or rerun the engine. The Director's CSV recount and static review remain distinct from the executor's input verification and engine processing.
+
+**Population boundary clarification.** The original conclusion's phrase “two successors expired at H0” includes the warmup successor. In the evaluation population [2025-09-01, 2026-01-01), the four successors are: **one expired at H0, two recoveries excluded for insufficient residual, and one confirmed** (no successor call). Separately, warmup contributes one successor expired at H0. No computation or original result is changed.
+
+**Decision.** v0.6-a2x is retained as an experimental candidate, not promoted; this branch is closed without adaptations or further executions. No reduction of residual time, impulse-life extension or RETURN modification is authorized. Four added reactions, one additional confirmation and three changed conditional-reading dispatches establish behavioural effects, not anticipatory correctness or usefulness. No ordinary birth was displaced in this period; this does not establish harmlessness of the reservation policy in general. Post-hoc checks retain their qualification.
+
+There is no empirical basis here for preferring the candidate to the frozen policy. Any reopening requires a separate motivated decision about the whole policy, including the cost of reservation. v0.6 and the registered studies remain unchanged and INACTIVE. No new activity is activated; CI was not queried.
