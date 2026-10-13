@@ -1,0 +1,29 @@
+{
+ "checks": {
+  "12 Oct journal sha256 = committed manifest": true,
+  "12 Oct trade bars sha256 = committed manifest": true,
+  "13 Oct v0.6 journal sha256 = committed manifest": true,
+  "method v0.6, same pack/cache/feed, no evaluator, every event, finish 06:05Z": true,
+  "rules/register identity = frozen v0.6": true,
+  "journal complete: entries, kinds and last chain = manifest": true,
+  "trade bars complete: 226,445 observations, 0 non-observations (= manifest)": true
+ },
+ "all_pass": true,
+ "journal_entries": 34507,
+ "journal_counts": {
+  "market_view": 8193,
+  "observation": 8014,
+  "landmark": 15231,
+  "scenario": 2003,
+  "entry_attempt": 1002,
+  "call": 1,
+  "material_change": 11,
+  "call_revision": 52
+ },
+ "trade_bars": 226445,
+ "trade_non_observations": 0,
+ "sources": {
+  "12oct": "C:\\Users\\Gian\\AppData\\Local\\Temp\\claude\\C--Projects-algorithmic-trader\\0d87e1fc-8ffd-4ce5-9229-8db539690c86\\scratchpad\\run",
+  "13oct": "C:\\Users\\Gian\\AppData\\Local\\Temp\\claude\\C--Projects-algorithmic-trader\\48191428-4a2d-4237-ad3d-1276e3d29bb3\\scratchpad\\run_v06"
+ }
+}

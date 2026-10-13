@@ -1,0 +1,167 @@
+{
+ "purpose": "re-verification of the local input copy for the v0.6 A/B/C expectation historical check (no outcome read)",
+ "reused_copy": "the copy made on 2026-10-12 for the A reaction E exploration, kept outside Git in that session's scratchpad; not recopied",
+ "provenance": {
+  "source": "Owner Docker volume mounted at /data/market in container algotrader-api-1 (read-only use)",
+  "copied": [
+   "/data/market/packs/pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e/manifest.json",
+   "/data/market/feedcache/fc-80221b24abf3a50b764cc873f4a70cc709847a6b/"
+  ],
+  "method": "docker cp (source unchanged); destination: session scratchpad outside Git",
+  "copied_at_utc": "2026-10-12T15:41:53Z",
+  "authorization": "Astra bounded derogation relayed by the Owner, 12 October 2026",
+  "prior_consultation": "2026-10-12, before the derogation: docker exec on algotrader-api-1 listed /data/market and /data/market/packs, hashed the pack manifest and printed its metadata (capabilities, coverage counts, windows, identities, sources); then listed the cache directory and printed the feed cache_id/manifest hash. No price, run record or DB was read."
+ },
+ "pack": {
+  "pack_id": "pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e",
+  "manifest_sha256": "1bec1f1575306d4444969569675e28bfdc9dac60e2d6f461b283871362221f92",
+  "preset_id": "btc-2025-09-to-2025-12-continuous-init35d-v1",
+  "preset_sha256": "fabd1c55535a1f13e0fe7cdd30e217886e229063987015e4a7fbf64a0c952dbc",
+  "status": "READY",
+  "clock_end": "2026-01-01T06:05:00Z",
+  "windows": {
+   "initialization": [
+    "2025-07-28T00:00:00Z",
+    "2025-09-01T00:00:00Z"
+   ],
+   "evaluation": [
+    "2025-09-01T00:00:00Z",
+    "2026-01-01T00:00:00Z"
+   ],
+   "tail": [
+    "2026-01-01T00:00:00Z",
+    "2026-01-01T06:05:00Z"
+   ]
+  },
+  "limitations": [
+   "funding completeness unproven: future outcome reporting is PRICE_NET_ONLY (TOTAL_NET_UNAVAILABLE)",
+   "instrument definition is a retrieval-time snapshot assumed for the whole window (approximation)"
+  ]
+ },
+ "feed_cache": {
+  "cache_id": "fc-80221b24abf3a50b764cc873f4a70cc709847a6b",
+  "manifest_sha256": "95478a50a732dffe5d8c46a6b1ca23288246a3ce01aaf537f0b64e2e7cef76fa",
+  "content_identity": "feedcontent.v1:f2cf8790b5f12a11c550f707d5f3c25f96358f92febf09db246e8f261de2f028",
+  "ordered_event_hash": "3bf8e47b018058808d2aafbf397c74cd01880f3a182ce4f6148f07f422ee393d",
+  "ordered_event_hash_recomputed": "3bf8e47b018058808d2aafbf397c74cd01880f3a182ce4f6148f07f422ee393d",
+  "final_prefix_commitment": "afad3a521f22065b79214b7e1d3a90e65f10fae9918d8392348d21f034c58acc",
+  "event_count": 679335,
+  "event_counts": {
+   "index_bar_1m/bar_observation": 226445,
+   "mark_bar_1m/bar_observation": 226445,
+   "trade_bar_1m/bar_observation": 226445
+  },
+  "partitions": 136,
+  "partition_bytes": 49133103,
+  "availability_policy": "feed.modeled.v1(bar+PT0S,funding+PT0S)"
+ },
+ "coverage": [
+  {
+   "family": "trade_bar_1m",
+   "window": "initialization",
+   "start": "2025-07-28T00:00:00Z",
+   "end": "2025-09-01T00:00:00Z",
+   "expected_minutes": 50400,
+   "observed_minutes": 50400,
+   "complete": true
+  },
+  {
+   "family": "trade_bar_1m",
+   "window": "evaluation",
+   "start": "2025-09-01T00:00:00Z",
+   "end": "2026-01-01T00:00:00Z",
+   "expected_minutes": 175680,
+   "observed_minutes": 175680,
+   "complete": true
+  },
+  {
+   "family": "trade_bar_1m",
+   "window": "tail",
+   "start": "2026-01-01T00:00:00Z",
+   "end": "2026-01-01T06:05:00Z",
+   "expected_minutes": 365,
+   "observed_minutes": 365,
+   "complete": true
+  },
+  {
+   "family": "mark_bar_1m",
+   "window": "initialization",
+   "start": "2025-07-28T00:00:00Z",
+   "end": "2025-09-01T00:00:00Z",
+   "expected_minutes": 50400,
+   "observed_minutes": 50400,
+   "complete": true
+  },
+  {
+   "family": "mark_bar_1m",
+   "window": "evaluation",
+   "start": "2025-09-01T00:00:00Z",
+   "end": "2026-01-01T00:00:00Z",
+   "expected_minutes": 175680,
+   "observed_minutes": 175680,
+   "complete": true
+  },
+  {
+   "family": "mark_bar_1m",
+   "window": "tail",
+   "start": "2026-01-01T00:00:00Z",
+   "end": "2026-01-01T06:05:00Z",
+   "expected_minutes": 365,
+   "observed_minutes": 365,
+   "complete": true
+  },
+  {
+   "family": "index_bar_1m",
+   "window": "initialization",
+   "start": "2025-07-28T00:00:00Z",
+   "end": "2025-09-01T00:00:00Z",
+   "expected_minutes": 50400,
+   "observed_minutes": 50400,
+   "complete": true
+  },
+  {
+   "family": "index_bar_1m",
+   "window": "evaluation",
+   "start": "2025-09-01T00:00:00Z",
+   "end": "2026-01-01T00:00:00Z",
+   "expected_minutes": 175680,
+   "observed_minutes": 175680,
+   "complete": true
+  },
+  {
+   "family": "index_bar_1m",
+   "window": "tail",
+   "start": "2026-01-01T00:00:00Z",
+   "end": "2026-01-01T06:05:00Z",
+   "expected_minutes": 365,
+   "observed_minutes": 365,
+   "complete": true
+  }
+ ],
+ "other_event_kinds": {},
+ "bad_partitions": [],
+ "checks": {
+  "pack_manifest_sha256_equals_registered": true,
+  "pack_id_field": true,
+  "pack_body_rehashes_to_id": true,
+  "pack_manifest_schema_valid": true,
+  "pack_names_this_cache": true,
+  "cache_manifest_sha256_equals_pack_pin": true,
+  "cache_identity_rederives": true,
+  "feed_content_identity_equals_pack": true,
+  "feed_ordered_event_hash_equals_pack": true,
+  "feed_event_count_equals_pack": true,
+  "cache_directory_holds_exactly_the_manifest_files": true,
+  "exclusions_file_sha256": true,
+  "every_partition_sha256_size_count_and_commitment": true,
+  "ordered_event_hash_recomputed_equals_manifest": true,
+  "events_read_equal_event_count": true,
+  "coverage_complete_every_family_and_window": true,
+  "no_quality_gap_or_other_event": true,
+  "no_event_outside_the_three_windows": true,
+  "no_duplicate_minute": true,
+  "pack_coverage_rows_agree": true,
+  "pack_windows_equal_authorized": true
+ },
+ "all_checks_pass": true
+}
