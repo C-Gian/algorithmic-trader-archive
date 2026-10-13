@@ -146,3 +146,15 @@ A lifecycle DESTINATION_REACHED after an engine confirmation that is not DESTINA
    - **Why.** It held three Director documentation commits after `d06960d` (`3992050`, `eeca812`, `9bd8c0a`: A2X closure annotations in SUMMARY, STATE and task).
    - **Impact.** These commits change no product file, input, script or definition. The registration content is unaffected, and `501393c` is a normal descendant of `9bd8c0a`.
    - **What had been seen.** No result of this study had been seen.
+2. **Antecedent-text check parsing, 13 October 2026, after the first tabulation run.**
+   - **Defect.** The first run reported one failing check: "antecedent text = trigger + tick and invalidation". The number regex took the "1" of "complete **1m** close" as the threshold, for all 241 evaluable observations.
+   - **What had been seen.** Only that failure and four antecedent texts with their K/V. No outcome table or category had been read.
+   - **Change.** The check now reads the two levels after "close >=/<=" and "low >/high <". No definition, rule, cutoff, outcome or table changed.
+   - **New sha256:** in SUMMARY.
+3. **Life bound applied to a later market activation, 13 October 2026, AFTER the outcome tables had been seen.**
+   - **Defect.** While reconciling activations (29) against engine same-level confirmations (28), one A observation (LONG, cutoff 2025-12-02T05:30Z) showed the engine WITHDRAWN at 06:00, while the market crossed K0 + tick only at 06:41. `bound()` labelled it SCENARIO_ENDED_AFTER_ACTIVATION, with an activation after the scenario's end.
+   - **Rule (unchanged).** §3 already says the life bound applies "before activation" when the scenario ends first.
+   - **Change.** The code now treats an activation at or after the engine terminal as not having happened within the life: it gives ANTECEDENT_NEVER_ACTIVATED:SCENARIO_ENDED and clears the activation. One self-test case and one causality check are added (activation before the resolution and the engine terminal).
+   - **Effect.** Three observations move category. The rerun showed the same case for one C (evaluation) and one A (warmup) observation, besides the A one that revealed it. Nothing else changes.
+   - **Checked afterwards.** Original activations now equal the engine's same-level, same-time confirmations: A 28, B 4, C 12. The one remaining warmup A difference is a legitimate activation of K0 after an engine REVISE (counted with revision before resolution).
+   - **Disclosure.** This correction was made with the results visible.

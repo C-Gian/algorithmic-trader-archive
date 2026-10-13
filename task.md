@@ -1,4 +1,44 @@
-# Current task — Descriptive historical comparison v0.6 / v0.6-a2x (September–December 2025 pack)
+# Current task — Historical check of the v0.6 A/B/C expectations (September–December 2025)
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([design registered before tabulation](delivery/evidence/V06-EXPECTATION-HISTORICAL-CHECK/DESIGN.md) at `501393c`, three declared amendments; [summary](delivery/evidence/V06-EXPECTATION-HISTORICAL-CHECK/SUMMARY.md)); the Director's review is PENDING. Only this descriptive historical study is active. v0.6 frozen; E and a2x closed; future studies INACTIVE.
+
+## Assignment (relayed by the Owner, 13 October 2026; Astra authorized design, registration and execution as one step)
+
+**Question.** At the first publication of a new conditional expectation, what follow-up does its narrative destination find, respecting the antecedent, the invalidation and the scenario's life?
+
+1. **Inputs and limits.**
+   - September–December 2025, [2025-09-01, 2026-01-01).
+   - Reuse the v0.6 baseline journal, the traces and the verified pack copy outside the Owner stack, with the authorized warmup and tail. Verify identity, hashes and completeness before use.
+   - No new replay, acquisition or Owner access. No a2x, E, tuning or economic evaluator.
+   - Report a limit if the artifacts do not suffice.
+2. **Design, registered and committed before tabulation**, derived from the v0.6 specifications and code, for A/B/C.
+   - **Cutoff.** One observation per scenario, at the first publication of a sufficiently defined conditional thesis. Motivate the moment per family. Do not pick CONFIRM automatically: antecedents never activated stay visible.
+   - **View presence.** Distinguish the scenario record's existence from its presence in the MarketView (principal, alternative or WATCH). A WATCH hypothesis is not a confirmed direction.
+   - **Original promise.** Direction, antecedent, destination, invalidation and expiry actually knowable at the cutoff. No later reference used as original. NOT_EVALUABLE with a reason when an essential element is missing; no invented levels, horizons or rules.
+   - **Revisions.** How changes of anchor, invalidation, antecedent and expiry after confirmation are recorded; the original history stays immutable. Distinguish the check under the original promise, a revision that substantially changes its conditions, and the follow-up of the effective lifecycle. Do not credit the original promise with a result made possible only by revised levels or times.
+   - **Outcomes.** Reconcilable categories: destination reached, invalidation, expiry without destination, other terminals, antecedent never activated, ambiguity, insufficient data, not evaluable.
+     - Fix the precedences and the relation between antecedent activation and destination contact: a B reached before confirmation does not demonstrate continuation after confirmation.
+     - No contact after the terminal recovers a success.
+     - The narrative destination and the call target stay distinct.
+     - Respect the existing availability, collisions and time edges.
+   - **Population and denominators.**
+     - Every A/B/C scenario born in the window; warmup-origin states apart.
+     - Report hypotheses never published as expectations, abstentions and unavailability, with an explicit counting unit.
+     - Journal record counts are not durations or independent observations.
+     - A/B/C separately: no aggregate percentage, no search for favourable subgroups.
+3. **Execution and delivery.**
+   - Tabulate from existing artifacts only, after registration. Reconcile per family: hypotheses → published expectations → evaluable / not evaluable → activation / revisions → outcomes, with reasons.
+   - Link calls only to distinguish expectation from proposal: no assumed executed entry, no economic calculation.
+   - Deliver:
+     - the registered design and the input/script identities;
+     - the reconciled table per family;
+     - the per-scenario detail with cutoff, promise and revisions;
+     - a summary of what is evaluable, the descriptive check, and the adviser capabilities left unjudged.
+   - Verify causality, uniqueness, coverage and reproducibility. Definitions are not changed after results; necessary corrections are declared as amendments.
+   - A reaching frequency does not demonstrate predictive capability or information beyond the geometry. No artificial comparison or new parameter.
+   - Update exposures, STATE and task, with the Director review pending. Commit and push; no pull/fetch or CI query.
+
+
+## Previous task — Descriptive historical comparison v0.6 / v0.6-a2x (September–December 2025 pack)
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([design registered before execution](delivery/evidence/A2X-HISTORICAL-COMPARISON/DESIGN.md) at `306a0b9`; [summary](delivery/evidence/A2X-HISTORICAL-COMPARISON/SUMMARY.md)); the Director's review is PENDING. Only this descriptive assignment is active. No economic evaluation. v0.6, HDP-001 and future studies frozen and INACTIVE; the variant stays EXPERIMENTAL, not installed.
 
 ## Assignment (relayed by the Owner, 13 October 2026; Astra accepted the technical closure at `5b7f00e` and authorized this comparison)

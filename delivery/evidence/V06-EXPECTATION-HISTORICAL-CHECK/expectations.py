@@ -45,6 +45,7 @@ MIN = timedelta(minutes=1)
 Q15 = timedelta(minutes=15)
 CODE_SEG = re.compile(r"^[A-Z][A-Za-z0-9_]*$")
 NUM = re.compile(r"-?\d+(?:\.\d+)?")
+ANTE = re.compile(r"close [<>]= (-?\d+(?:\.\d+)?) with (?:low >|high <) (-?\d+(?:\.\d+)?)")
 
 
 def dt(s: str) -> datetime:
@@ -196,10 +197,13 @@ def bound(res: dict, term: str | None, term_t: str | None) -> dict:
         er = engine_rank(term)
         if er > res["rank"] or (er == res["rank"] and ENGINE_KIND.get(term) == res["kind"]):
             return res
-    pre = res["activated_at"] is None
+    # amendment 3: an activation at or after the scenario's end never happened within its life (an engine terminal
+    # at the activation dispatch precedes it: terminals are processed before confirmations)
+    pre = res["activated_at"] is None or res["activated_at"] >= term_t
     return {"category": "ANTECEDENT_NEVER_ACTIVATED" if pre else "SCENARIO_ENDED_AFTER_ACTIVATION",
             "detail": f"SCENARIO_ENDED:{term}", "t": term_t, "rank": engine_rank(term),
-            "activated_at": res["activated_at"], "kind": "ENGINE", "unbounded": res["category"] + ":" + res["detail"]}
+            "activated_at": None if pre else res["activated_at"], "kind": "ENGINE",
+            "unbounded": res["category"] + ":" + res["detail"]}
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -280,9 +284,9 @@ def observe(journal: list[dict], mk: Market) -> list[dict]:
             obs["original"] = {"category": "NOT_EVALUABLE", "detail": "MISSING:" + ",".join(missing), "t": None}
             out.append(obs)
             continue
-        thr = NUM.findall(arm["antecedent"])
-        obs["antecedent_text_consistent"] = bool(thr) and Decimal(thr[0]) == Decimal(arm["trigger_level"]) + d * TICK \
-            and Decimal(thr[1]) == Decimal(arm["invalidation_level"])
+        thr = ANTE.search(arm["antecedent"])  # amendment 2: the levels after the comparison signs ("1m" is not one)
+        obs["antecedent_text_consistent"] = bool(thr) and Decimal(thr.group(1)) == Decimal(arm["trigger_level"]) \
+            + d * TICK and Decimal(thr.group(2)) == Decimal(arm["invalidation_level"])
         res = classify(mk, d, fam, dt(c), Decimal(arm["trigger_level"]), Decimal(arm["invalidation_level"]),
                        Decimal(arm["destination"]), Decimal(promise["premise_level"]), dt(arm["original_expiry"]))
         obs["original_unbounded"] = dict(res)
@@ -373,6 +377,11 @@ def checks(obs: list[dict], journal: list[dict], mk: Market) -> dict:
         o["original"]["t"] is None or o["original"]["t"] >= o["cutoff"] for o in pub)
     c["causality: activation after the cutoff and before the original expiry"] = all(
         o["original"].get("activated_at") is None or o["cutoff"] < o["original"]["activated_at"] < o["promise"]["original_expiry"]
+        for o in pub if o["original"]["category"] != "NOT_EVALUABLE")
+    c["causality (amendment 3): every activation precedes the resolution and the engine terminal"] = all(
+        o["original"].get("activated_at") is None or (
+            o["original"]["activated_at"] <= o["original"]["t"]
+            and (o["engine_terminal_at"] is None or o["original"]["activated_at"] < o["engine_terminal_at"]))
         for o in pub if o["original"]["category"] != "NOT_EVALUABLE")
     chk = [o["deadline_rule_check"] for o in pub if "deadline_rule_check" in o]
     c["registered hard horizon = engine confirmed_deadline when activation = engine confirmation"] = all(chk) and bool(chk)
@@ -525,6 +534,9 @@ def selftest() -> None:
           bound(res, "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION", "2025-09-01T12:00:00Z")["category"] == "DESTINATION_REACHED")
     check("life bound: a later engine terminal does not matter",
           bound(res, "INVALIDATED:V_CONTACT", "2025-09-01T12:30:00Z")["category"] == "DESTINATION_REACHED")
+    b = bound(res, "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION", "2025-09-01T10:45:00Z")
+    check("life bound (amendment 3): a scenario ended before the market activation -> never activated, no activation",
+          (b["category"], b["activated_at"]) == ("ANTECEDENT_NEVER_ACTIVATED", None))
 
     # integration on the synthetic engine tape two_calls (tests/adviser_a2x_fixtures.py), hand-derived:
     # S1 ARM 03:45 K0 100700 V0 99800 B 100900; REVISE 04:00 (K 100049.9, V 99700); engine CONFIRM 04:01 (close 100050

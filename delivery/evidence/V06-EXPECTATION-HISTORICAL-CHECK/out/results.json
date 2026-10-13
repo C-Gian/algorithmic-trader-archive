@@ -1,0 +1,419 @@
+{
+ "all_checks_pass": true,
+ "checks": {
+  "antecedent text = trigger + tick and invalidation (every evaluable)": true,
+  "causality (amendment 3): every activation precedes the resolution and the engine terminal": true,
+  "causality: activation after the cutoff and before the original expiry": true,
+  "causality: resolution at or after the cutoff": true,
+  "coverage: contiguous minutes from first to last": true,
+  "coverage: no missing trade minute": true,
+  "every A cutoff = its destination-monitoring origin (first ARM)": true,
+  "every scenario's first record is BIRTH": true,
+  "no birth in the tail": true,
+  "one observation per scenario id": true,
+  "registered hard horizon = engine confirmed_deadline when activation = engine confirmation": true
+ },
+ "hard_horizons_minutes": {
+  "A": 240,
+  "B": 360,
+  "C": 120
+ },
+ "tables": {
+  "evaluation": {
+   "A": {
+    "calls": 1,
+    "engine_confirmation_vs_original": {
+     "REVISED_LEVELS": 61,
+     "SAME_LEVELS_SAME_TIME": 28
+    },
+    "engine_confirmed": 89,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 78,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+     "INVALIDATED:V_CONTACT": 28,
+     "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 12,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 33
+    },
+    "evaluable": 161,
+    "hypotheses_born": 359,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 37,
+    "never_published_as_expectation": 198,
+    "never_published_by_end": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 9
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 28,
+    "original_outcome": {
+     "ANTECEDENT_NEVER_ACTIVATED": 133,
+     "DESTINATION_REACHED": 17,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 9,
+     "SCENARIO_ENDED_AFTER_ACTIVATION": 1
+    },
+    "original_outcome_detail": {
+     "ANTECEDENT_NEVER_ACTIVATED:DESTINATION_BEFORE_ACTIVATION": 19,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_EXPIRY": 1,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_INVALIDATION_CONTACT": 112,
+     "ANTECEDENT_NEVER_ACTIVATED:SCENARIO_ENDED:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 1,
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 17,
+     "EXPIRED_WITHOUT_DESTINATION:HARD_HORIZON_AFTER_ACTIVATION": 1,
+     "INVALIDATED:V_CONTACT": 9,
+     "SCENARIO_ENDED_AFTER_ACTIVATION:SCENARIO_ENDED:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1
+    },
+    "original_outcome_with_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 9
+    },
+    "original_outcome_without_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 124,
+     "DESTINATION_REACHED": 17,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 9,
+     "SCENARIO_ENDED_AFTER_ACTIVATION": 1
+    },
+    "published_expectations": 161,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 9,
+    "revision_transitions_after_cutoff": {
+     "ANCHOR_LOST": 179,
+     "REARM": 143,
+     "REVISE": 22
+    },
+    "scenarios_with_a_call": 1,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "ALTERNATIVE": 1,
+     "PRINCIPAL": 160
+    },
+    "view_row_when_absent": {}
+   },
+   "B": {
+    "calls": 0,
+    "engine_confirmation_vs_original": {
+     "SAME_LEVELS_SAME_TIME": 4
+    },
+    "engine_confirmed": 4,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+     "INVALIDATED:V_CONTACT": 3,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1
+    },
+    "evaluable": 6,
+    "hypotheses_born": 44,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 0,
+    "never_published_as_expectation": 38,
+    "never_published_by_end": {
+     "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 7,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 13,
+     "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 4,
+     "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 14
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 4,
+    "original_outcome": {
+     "ANTECEDENT_NEVER_ACTIVATED": 2,
+     "DESTINATION_REACHED": 2,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 1
+    },
+    "original_outcome_detail": {
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_INVALIDATION_CONTACT": 2,
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+     "EXPIRED_WITHOUT_DESTINATION:HARD_HORIZON_AFTER_ACTIVATION": 1,
+     "INVALIDATED:V_CONTACT": 1
+    },
+    "original_outcome_with_revision_before_resolution": {},
+    "original_outcome_without_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 2,
+     "DESTINATION_REACHED": 2,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 1
+    },
+    "published_expectations": 6,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 0,
+    "revision_transitions_after_cutoff": {},
+    "scenarios_with_a_call": 0,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "ALTERNATIVE": 1,
+     "PRINCIPAL": 5
+    },
+    "view_row_when_absent": {}
+   },
+   "C": {
+    "calls": 0,
+    "engine_confirmation_vs_original": {
+     "SAME_LEVELS_SAME_TIME": 12
+    },
+    "engine_confirmed": 12,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 5,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+     "INVALIDATED:V_CONTACT": 7,
+     "PRICE_PREMISE_FAILED:<id>": 1,
+     "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2
+    },
+    "evaluable": 18,
+    "hypotheses_born": 37,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 0,
+    "never_published_as_expectation": 19,
+    "never_published_by_end": {
+     "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 6,
+     "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 7,
+     "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:DOWN": 2,
+     "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 4
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 12,
+    "original_outcome": {
+     "ANTECEDENT_NEVER_ACTIVATED": 6,
+     "DESTINATION_REACHED": 4,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 5,
+     "SCENARIO_ENDED_AFTER_ACTIVATION": 2
+    },
+    "original_outcome_detail": {
+     "ANTECEDENT_NEVER_ACTIVATED:DESTINATION_BEFORE_ACTIVATION": 1,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_EXPIRY": 1,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_INVALIDATION_CONTACT": 2,
+     "ANTECEDENT_NEVER_ACTIVATED:SCENARIO_ENDED:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2,
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 4,
+     "EXPIRED_WITHOUT_DESTINATION:HARD_HORIZON_AFTER_ACTIVATION": 1,
+     "INVALIDATED:V_CONTACT": 5,
+     "SCENARIO_ENDED_AFTER_ACTIVATION:SCENARIO_ENDED:PRICE_PREMISE_FAILED:<id>": 1,
+     "SCENARIO_ENDED_AFTER_ACTIVATION:SCENARIO_ENDED:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1
+    },
+    "original_outcome_with_revision_before_resolution": {},
+    "original_outcome_without_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 6,
+     "DESTINATION_REACHED": 4,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 5,
+     "SCENARIO_ENDED_AFTER_ACTIVATION": 2
+    },
+    "published_expectations": 18,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 0,
+    "revision_transitions_after_cutoff": {},
+    "scenarios_with_a_call": 0,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "PRINCIPAL": 18
+    },
+    "view_row_when_absent": {}
+   }
+  },
+  "warmup": {
+   "A": {
+    "calls": 0,
+    "engine_confirmation_vs_original": {
+     "REVISED_LEVELS": 19,
+     "SAME_LEVELS_SAME_TIME": 5
+    },
+    "engine_confirmed": 24,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 15,
+     "INVALIDATED:V_CONTACT": 14,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 14
+    },
+    "evaluable": 45,
+    "hypotheses_born": 106,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 5,
+    "never_published_as_expectation": 61,
+    "never_published_by_end": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 60,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 1
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 6,
+    "original_outcome": {
+     "ANTECEDENT_NEVER_ACTIVATED": 39,
+     "DESTINATION_REACHED": 4,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 1
+    },
+    "original_outcome_detail": {
+     "ANTECEDENT_NEVER_ACTIVATED:DESTINATION_BEFORE_ACTIVATION": 5,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_INVALIDATION_CONTACT": 33,
+     "ANTECEDENT_NEVER_ACTIVATED:SCENARIO_ENDED:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 1,
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 4,
+     "EXPIRED_WITHOUT_DESTINATION:HARD_HORIZON_AFTER_ACTIVATION": 1,
+     "INVALIDATED:V_CONTACT": 1
+    },
+    "original_outcome_with_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 5,
+     "INVALIDATED": 1
+    },
+    "original_outcome_without_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 34,
+     "DESTINATION_REACHED": 4,
+     "EXPIRED_WITHOUT_DESTINATION": 1
+    },
+    "published_expectations": 45,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 6,
+    "revision_transitions_after_cutoff": {
+     "ANCHOR_LOST": 51,
+     "REARM": 37,
+     "REVISE": 9
+    },
+    "scenarios_with_a_call": 0,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "PRINCIPAL": 45
+    },
+    "view_row_when_absent": {}
+   },
+   "B": {
+    "calls": 0,
+    "engine_confirmation_vs_original": {
+     "SAME_LEVELS_SAME_TIME": 3
+    },
+    "engine_confirmed": 3,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 3
+    },
+    "evaluable": 3,
+    "hypotheses_born": 13,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 0,
+    "never_published_as_expectation": 10,
+    "never_published_by_end": {
+     "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 1,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+     "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 2,
+     "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 6
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 3,
+    "original_outcome": {
+     "DESTINATION_REACHED": 3
+    },
+    "original_outcome_detail": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 3
+    },
+    "original_outcome_with_revision_before_resolution": {},
+    "original_outcome_without_revision_before_resolution": {
+     "DESTINATION_REACHED": 3
+    },
+    "published_expectations": 3,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 0,
+    "revision_transitions_after_cutoff": {},
+    "scenarios_with_a_call": 0,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "PRINCIPAL": 3
+    },
+    "view_row_when_absent": {}
+   },
+   "C": {
+    "calls": 0,
+    "engine_confirmation_vs_original": {
+     "SAME_LEVELS_SAME_TIME": 6
+    },
+    "engine_confirmed": 6,
+    "engine_lifecycle_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 4,
+     "INVALIDATED:V_CONTACT": 3,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1
+    },
+    "evaluable": 8,
+    "hypotheses_born": 12,
+    "lifecycle_destination_after_engine_confirmation_but_not_under_original": 0,
+    "never_published_as_expectation": 4,
+    "never_published_by_end": {
+     "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 1,
+     "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 2,
+     "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 1
+    },
+    "not_evaluable": {},
+    "original_antecedent_activated": 6,
+    "original_outcome": {
+     "ANTECEDENT_NEVER_ACTIVATED": 2,
+     "DESTINATION_REACHED": 3,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 2
+    },
+    "original_outcome_detail": {
+     "ANTECEDENT_NEVER_ACTIVATED:DESTINATION_BEFORE_ACTIVATION": 1,
+     "ANTECEDENT_NEVER_ACTIVATED:ORIGINAL_INVALIDATION_CONTACT": 1,
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 3,
+     "EXPIRED_WITHOUT_DESTINATION:HARD_HORIZON_AFTER_ACTIVATION": 1,
+     "INVALIDATED:V_CONTACT": 2
+    },
+    "original_outcome_with_revision_before_resolution": {},
+    "original_outcome_without_revision_before_resolution": {
+     "ANTECEDENT_NEVER_ACTIVATED": 2,
+     "DESTINATION_REACHED": 3,
+     "EXPIRED_WITHOUT_DESTINATION": 1,
+     "INVALIDATED": 2
+    },
+    "published_expectations": 8,
+    "reconciliation": {
+     "activated >= post-activation outcomes": true,
+     "born = never_published + published": true,
+     "evaluable = sum(original_outcome)": true,
+     "evaluable = without + with revision": true,
+     "published = not_evaluable + evaluable": true,
+     "published = sum(view roles)": true
+    },
+    "revised_before_resolution": 0,
+    "revision_transitions_after_cutoff": {},
+    "scenarios_with_a_call": 0,
+    "unit": "scenario (one observation per scenario, at its first published ARM)",
+    "view_role_at_cutoff": {
+     "PRINCIPAL": 8
+    },
+    "view_row_when_absent": {}
+   }
+  }
+ },
+ "tick": "0.1",
+ "window": [
+  "2025-09-01T00:00:00Z",
+  "2026-01-01T00:00:00Z"
+ ]
+}
