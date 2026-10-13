@@ -56,6 +56,17 @@ class AdviserCoreTDC(AdviserCoreV6):
         watch = [s for s in active if s.status == "WATCH" or self.trigger_reaches_destination(s)]
         return strong, watch
 
+    def _watch_only_reason(self, watch: list[Scen]) -> str:
+        """With an incompatible ARMED scenario among them, the hypotheses are described as observed hypotheses
+        without current directional support, each with its actual status; with WATCH hypotheses only, the v0.6
+        sentence is kept unchanged."""
+        if not any(self.trigger_reaches_destination(s) for s in watch):
+            return super()._watch_only_reason(watch)
+        items = ", ".join(f"{s.family} {dname(s.d)} {s.status}"
+                          + (" (recovery condition incompatible with its destination)"
+                             if self.trigger_reaches_destination(s) else "") for s in watch)
+        return f"observed hypotheses without current directional support: {items} (not a forecast, not a call)"
+
     def _view_notes(self, active: list[Scen]) -> list[str]:
         return [f"{s.family} {dname(s.d)} {NOTE}: {self._antecedent(s)}" for s in active
                 if self.trigger_reaches_destination(s)]

@@ -48,3 +48,9 @@
 | Register | `TDC-PARAMETERS.json` = the MP-005 register with identity and status changed, plus the categorical section `trigger_destination_compatibility`. **No new number** |
 
 Shared code: one behaviour-preserving hook in `core3.compute_view` (`_view_support`, `_view_notes`). For v0.3 to v0.6 and v0.6-a2x it returns exactly the previous lists, as shown by the existing byte pins.
+
+## Addendum — WATCH_ONLY wording (13 October 2026, on `b7c1733`)
+
+When the observed hypotheses of a WATCH_ONLY reading include an incompatible ARMED scenario, the reason no longer claims that only WATCH scenarios are present. It reads: `observed hypotheses without current directional support: <family> <direction> <status>[ (recovery condition incompatible with its destination)], … (not a forecast, not a call)`. Each hypothesis keeps its actual status, WATCH or ARMED, and the specific incompatibility reason line is kept.
+
+With WATCH hypotheses only, the v0.6 sentence is unchanged. The criterion, classification, levels, terminals and operational policy are unchanged. The shared hook `core3._watch_only_reason` returns the v0.6 text byte for byte for every other version.

@@ -181,6 +181,7 @@ v0.6 plus the correction authorized after the Director's [semantic review](deliv
   - the MarketView lists the scenario with the observed hypotheses (`watch`, status still ARMED), not as principal or alternative, and adds one reason line;
   - other scenarios are evaluated as in v0.6;
   - compatibility is re-evaluated at each publication (REVISE/REARM/ANCHOR_LOST), and earlier records are never rewritten.
+  - when a WATCH_ONLY reading includes an incompatible ARMED scenario, the reason says "observed hypotheses without current directional support" and lists each hypothesis with its actual status, WATCH or ARMED. With WATCH hypotheses only, the v0.6 sentence is kept.
 - **Unchanged.** Recognition, levels, ids, revisions, deadlines, terminals, confirmation, child, selection, slot, conflicts and calls. The MarketView is read by no operational step.
 - **Implementation.**
   - `adviser/core_tdc.py` (one criterion function) and `runtime_tdc.py`.

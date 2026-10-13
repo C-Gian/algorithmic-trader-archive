@@ -1,4 +1,24 @@
-# Current task — Trigger/destination compatibility correction, implemented as EXPERIMENTAL v0.6-tdc
+# Current task — v0.6-tdc ordinary completion: WATCH_ONLY reason with an incompatible ARMED scenario
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([rules addendum](delivery/A-TRIGGER-DESTINATION-CORRECTION.md#addendum--watch_only-wording-13-october-2026-on-b7c1733)); the Director's review is PENDING. Not a release, not selectable, not installed. v0.6 and the registered studies frozen and INACTIVE.
+
+## Assignment (relayed by the Owner, 13 October 2026; base `b7c1733`)
+
+When WATCH_ONLY includes an incompatible ARMED scenario, the reason must not claim that only WATCH scenarios are present.
+
+1. **Correction, in the variant's engine only.**
+   - Describe observed hypotheses without current directional support.
+   - Keep and state the actual WATCH/ARMED statuses.
+   - Keep the specific incompatibility reason.
+2. **Unchanged.** The criterion, classification, levels, terminals and operational policy. The text and outputs of the frozen v0.6 are preserved too.
+3. **Discriminating checks:**
+   - an incompatible ARMED scenario only;
+   - WATCH and an incompatible ARMED scenario together;
+   - WATCH only;
+   - another valid scenario present.
+4. **Delivery.** Rerun the tdc suite and the relevant parity checks; update the delivery; commit and push. No pull/fetch, real data, Owner installation or CI.
+
+
+## Previous task — Trigger/destination compatibility correction, implemented as EXPERIMENTAL v0.6-tdc
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([rules and authorization](delivery/A-TRIGGER-DESTINATION-CORRECTION.md); Director [semantic review](delivery/A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md)); the Director's review is PENDING. Not a release, not selectable, not installed; no automatic promotion. v0.6 and the registered studies frozen and INACTIVE.
 
 ## Assignment (relayed by the Owner, 13 October 2026; review and authorization after `f2e22ac`)

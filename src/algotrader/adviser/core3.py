@@ -1707,6 +1707,11 @@ class AdviserCoreV3(AdviserCore):
         """Additional view reasons of a later version (none here)."""
         return []
 
+    def _watch_only_reason(self, watch: list[Scen]) -> str:
+        """The WATCH_ONLY reason over the observed hypotheses (a later version may word it differently)."""
+        return ("only conditional WATCH hypotheses: " + ", ".join(f"{s.family} {dname(s.d)}" for s in watch)
+                + " (not a forecast, not a call)")
+
     def compute_view(self, t: datetime) -> dict:
         ctx = self.context(t)
         ph = self.phase_now(t)
@@ -1742,8 +1747,7 @@ class AdviserCoreV3(AdviserCore):
                 counter.append(f"1h observed context now {ctx}")
         elif watch:
             row, exp = "WATCH_ONLY", "UNCERTAIN"
-            reasons.append("only conditional WATCH hypotheses: " + ", ".join(
-                f"{s.family} {dname(s.d)}" for s in watch) + " (not a forecast, not a call)")
+            reasons.append(self._watch_only_reason(watch))
         elif ctx == "BALANCED" and ph in ("COMPRESSION", "ROTATION"):
             row, exp = "BALANCED_RANGE", "BALANCED"
             reasons.append("balanced 1h context in " + ph.lower() + (

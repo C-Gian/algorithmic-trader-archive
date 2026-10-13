@@ -209,12 +209,77 @@ def test_a_valid_scenario_keeps_supporting_while_an_incompatible_one_is_excluded
     assert len(rx.calls()) == len(r6.calls()) == 1  # S1's call, identical (operational parity below)
 
 
+# -- the WATCH_ONLY reason never claims WATCH-only states when an incompatible ARMED scenario is among them -----------
+
+OBSERVED = "observed hypotheses without current directional support: "
+V06_WATCH = "only conditional WATCH hypotheses: "
+INC = " ARMED (recovery condition incompatible with its destination)"
+
+
+def _dname(s):
+    return "LONG" if s == "L" else "SHORT"
+
+
+@pytest.mark.parametrize("s", SIDES)
+def test_watch_only_reason_with_only_an_incompatible_armed_scenario(s):
+    rx, r6 = run(side(fx.hold(fx.H_AT), s)), run(side(fx.hold(fx.H_AT), s), "v0.6")
+    v = view_at(rx, "03:45")
+    assert v["table_row"] == "WATCH_ONLY" and [w["status"] for w in v["watch"]] == ["ARMED"]
+    assert v["reasons"][0] == f"{OBSERVED}A {_dname(s)}{INC} (not a forecast, not a call)"
+    assert not any(r.startswith(V06_WATCH) for r in v["reasons"])
+    assert any(r.startswith(f"A {_dname(s)} armed, not counted as directional support: {INCOMPATIBLE}") for r in v["reasons"])
+    assert view_at(r6, "03:45")["table_row"] == "CONDITIONAL_SCENARIO"  # v0.6 untouched
+
+
+@pytest.mark.parametrize("s", SIDES)
+def test_watch_only_reason_with_watch_and_incompatible_armed_together(s):
+    """``watch_and_incompatible``: A ARM at 08:45 (K = B_A, incompatible) while the B hypothesis born at 08:30 is
+    still WATCH (its retest window ends at 09:30): both listed with their actual states."""
+    ms = side(fx.watch_and_incompatible(), s)
+    rx, r6 = run(ms), run(ms, "v0.6")
+    for hm in ("08:45", "09:15"):
+        v = view_at(rx, hm)
+        assert [(w["family"], w["status"]) for w in v["watch"]] == [("A", "ARMED"), ("B", "WATCH")]
+        assert v["reasons"][0] == f"{OBSERVED}A {_dname(s)}{INC}, B {_dname(s)} WATCH (not a forecast, not a call)"
+        assert not any(r.startswith(V06_WATCH) for r in v["reasons"])
+        assert any(r.startswith(f"A {_dname(s)} armed, not counted as directional support: {INCOMPATIBLE}")
+                   for r in v["reasons"])
+        v6 = view_at(r6, hm)  # v0.6 still reads the impossible A as its principal
+        assert (v6["table_row"], v6["expected_direction"]) == ("CONDITIONAL_SCENARIO", "UP" if s == "L" else "DOWN")
+
+
+@pytest.mark.parametrize("s", SIDES)
+def test_watch_only_reason_with_watch_hypotheses_only_is_the_v06_sentence(s):
+    """No incompatible scenario: the v0.6 sentence and record, byte for byte (two WATCH at 08:30; one WATCH at 03:30)."""
+    for ms, hm, names in ((side(fx.watch_and_incompatible(), s), "08:30", ["A", "B"]), (side(fx.hold(fx.H_AT), s), "03:30", ["A"])):
+        rx, r6 = run(ms), run(ms, "v0.6")
+        v, v6 = view_at(rx, hm), view_at(r6, hm)
+        assert v["env"]["clock_time"] == v6["env"]["clock_time"] == f"2025-09-01T{hm}:00Z"
+        assert [w["status"] for w in v["watch"]] == ["WATCH"] * len(names)
+        assert v["reasons"] == v6["reasons"] == [V06_WATCH + ", ".join(f"{f} {_dname(s)}" for f in names)
+                                                 + " (not a forecast, not a call)"]
+        at = v["env"]["clock_time"]  # the whole published record, ids normalized over each full journal
+        assert [x for x in _norm(rx.journal, ("market_view",)) if x[1] == at] ==             [x for x in _norm(r6.journal, ("market_view",)) if x[1] == at]
+
+
+@pytest.mark.parametrize("s", SIDES)
+def test_reasons_with_another_valid_scenario_present_and_after_it_ends(s):
+    ms = side(fx.valid_and_incompatible(), s)
+    rx, r6 = run(ms), run(ms, "v0.6")
+    v, v6 = view_at(rx, "07:45"), view_at(r6, "07:45")
+    assert v["table_row"] == "CONDITIONAL_SCENARIO" and v["reasons"][0] == v6["reasons"][0]  # the valid principal's line
+    assert not any(r.startswith((OBSERVED, V06_WATCH)) for r in v["reasons"])
+    assert any(r.startswith(f"A {_dname(s)} armed, not counted as directional support: {INCOMPATIBLE}") for r in v["reasons"])
+    v = view_at(rx, "08:01")  # the valid one ended: only the incompatible ARMED scenario remains
+    assert v["reasons"][0] == f"{OBSERVED}A {_dname(s)}{INC} (not a forecast, not a call)"
+
+
 # -- operational parity: every tape (new and the 75 pinned v0.3-v0.6 tapes) ---------------------------------------------
 
 NEW = {"hold_before": lambda: fx.hold(fx.H_BEFORE), "hold_at": lambda: fx.hold(fx.H_AT),
        "hold_beyond": lambda: fx.hold(fx.H_BEYOND), "reach_at": lambda: fx.reach_threshold(fx.H_AT),
        "reach_before": lambda: fx.reach_threshold(fx.H_BEFORE), "revision": fx.revision_restores,
-       "valid_and_incompatible": fx.valid_and_incompatible}
+       "valid_and_incompatible": fx.valid_and_incompatible, "watch_and_incompatible": fx.watch_and_incompatible}
 ALL = {**{f"new_{k}_{s}": (lambda f, s: lambda: side(f(), s))(f, s) for k, f in NEW.items() for s in SIDES}, **PARITY}
 
 

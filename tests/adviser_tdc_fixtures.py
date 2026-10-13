@@ -77,3 +77,32 @@ def valid_and_incompatible() -> list:
 
 def short(ms: list) -> list:
     return mirror(ms)
+
+
+def watch_and_incompatible() -> list:
+    """A B LONG WATCH hypothesis together with an incompatible ARMED A LONG (``adviser_fixtures.Path``; P0 100000).
+
+    Day 1 oscillates (15m TR 15, BALANCED); day 2 rises +1/min from 00:00 to 04:00 (1h context UP from 04:00) to
+    L = 100240; twelve 15m bars cycle L -> L+10 -> L+20 -> L+30 -> ... (TR 10), then five bars around the middle
+    (TR <= 6): COMPRESSION, box [100240, 100270] born at 08:15 (S15 10, z 1). The breakout bar [08:15,08:30) closes
+    L+45 = 100285 > U+z: B LONG born WATCH (destination 100300) and, in the same dispatch, an A LONG birth (Q_A true;
+    B_A = 100285). The bar [08:30,08:45) opens at 100285 (= B_A, its high), dips to 100274 (> U+z: no B retest;
+    < B_A - 0.25 S15) and closes 100278 (lower close): A ARM at 08:45 with K = 100285 = B_A -> T = 100285.1 > B_A,
+    incompatible, while B is still WATCH (retest window 4 bars: B EXPIRED at 09:30). Then flat +-0.5."""
+    from adviser_fixtures import Path
+
+    p = Path()
+    p.oscillate(24, amp=60)
+    p.step(240, 1)
+    low = p.last
+    seq = [1, 2, 3, 2, 1, 0]
+    for i in range(12):
+        p.to(low + D(30) * seq[i % 6] / 3, 15)
+    mid = low + D(15)
+    p.to(mid, 15)
+    for i in range(4):
+        p.to(mid + (D(6) if i % 2 == 0 else 0), 15)
+    p.to(low + 45, 15).to(low + 34, 10).to(low + 38, 5)
+    for i in range(300):
+        p.step(1, D("0.5") if i % 2 == 0 else D("-0.5"))
+    return p.minutes()
