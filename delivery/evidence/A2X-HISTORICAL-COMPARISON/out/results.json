@@ -1,0 +1,1797 @@
+{
+ "all_checks_pass": true,
+ "bc": {
+  "v0.6": {
+   "evaluation": {
+    "B": {
+     "births": 44,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 4
+     },
+     "confirmed": 4,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 2,
+      "CONFIRMED": 4,
+      "NO_ARM": 38
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+      "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 7,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 13,
+      "INVALIDATED:V_CONTACT": 3,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 4,
+      "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 14
+     }
+    },
+    "C": {
+     "births": 37,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:AT_OPPOSING_AREA": 1,
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 5,
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 6
+     },
+     "confirmed": 12,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 6,
+      "CONFIRMED": 12,
+      "NO_ARM": 19
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 5,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+      "INVALIDATED:V_CONTACT": 7,
+      "PRICE_PREMISE_FAILED:<id>": 1,
+      "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 6,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 7,
+      "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:DOWN": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 4
+     }
+    }
+   },
+   "warmup": {
+    "B": {
+     "births": 13,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 3
+     },
+     "confirmed": 3,
+     "stage": {
+      "CONFIRMED": 3,
+      "NO_ARM": 10
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 3,
+      "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 1,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 2,
+      "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 6
+     }
+    },
+    "C": {
+     "births": 12,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 2,
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 4
+     },
+     "confirmed": 6,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 2,
+      "CONFIRMED": 6,
+      "NO_ARM": 4
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 4,
+      "INVALIDATED:V_CONTACT": 3,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 1
+     }
+    }
+   }
+  },
+  "v0.6-a2x": {
+   "evaluation": {
+    "B": {
+     "births": 44,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 4
+     },
+     "confirmed": 4,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 2,
+      "CONFIRMED": 4,
+      "NO_ARM": 38
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+      "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 7,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 13,
+      "INVALIDATED:V_CONTACT": 3,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 4,
+      "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 14
+     }
+    },
+    "C": {
+     "births": 37,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:AT_OPPOSING_AREA": 1,
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 5,
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 6
+     },
+     "confirmed": 12,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 6,
+      "CONFIRMED": 12,
+      "NO_ARM": 19
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 5,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+      "INVALIDATED:V_CONTACT": 7,
+      "PRICE_PREMISE_FAILED:<id>": 1,
+      "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 6,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 7,
+      "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:DOWN": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 4
+     }
+    }
+   },
+   "warmup": {
+    "B": {
+     "births": 13,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 3
+     },
+     "confirmed": 3,
+     "stage": {
+      "CONFIRMED": 3,
+      "NO_ARM": 10
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 3,
+      "EXPIRED:BOX_RETIRED:BOX_EXPIRY": 1,
+      "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH:DOWN": 2,
+      "WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 6
+     }
+    },
+    "C": {
+     "births": 12,
+     "calls": 0,
+     "child": {
+      "NOT_ISSUED:NO_ROOM_AFTER_COSTS": 2,
+      "NOT_ISSUED:REWARD_RISK_BELOW_MINIMUM": 4
+     },
+     "confirmed": 6,
+     "stage": {
+      "ARMED_NOT_CONFIRMED": 2,
+      "CONFIRMED": 6,
+      "NO_ARM": 4
+     },
+     "terminal": {
+      "DESTINATION_REACHED:DESTINATION_CONTACT": 4,
+      "INVALIDATED:V_CONTACT": 3,
+      "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:DOWN": 1,
+      "WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH:UP": 2,
+      "WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH:UP": 1
+     }
+    }
+   }
+  }
+ },
+ "calls": {
+  "common": 1,
+  "v0.6": 1,
+  "v0.6-a2x": 1
+ },
+ "checks": {
+  "a2x: at most one successor per impulse": true,
+  "a2x: every V failure after confirmation has a review record (evaluation)": true,
+  "a2x: every V failure after confirmation has a review record (warmup)": true,
+  "a2x: every published deferral names the reserving first attempt or successor": true,
+  "a2x: every review observation names an existing first attempt": true,
+  "a2x: every successor linked by lineage to a confirmed first attempt failed at V, with its review records": true,
+  "matching: every pair is one-to-one": true,
+  "matching: matched + unmatched + non-unique + no-key = births (a2x)": true,
+  "matching: matched + unmatched + non-unique + no-key = births (v0.6)": true,
+  "matching: no non-unique key, no scenario without key": true,
+  "runs: both applied every event of the cache": true,
+  "runs: journal and trace files equal their manifest hashes": true,
+  "runs: methods v0.6 / v0.6-a2x, no evaluator": true,
+  "runs: same build, pack, cache and feed": true,
+  "runs: same clock end 2026-01-01T06:05Z": true,
+  "runs: same final input commitment": true,
+  "runs: same temporal commitment (same market flow)": true,
+  "v0.6-a2x: every scenario has trace facts consistent with its first record": true,
+  "v0.6-a2x: no BIRTH in the tail": true,
+  "v0.6-a2x: one traced birth step per 15m close of the evaluation window and direction": true,
+  "v0.6-a2x: trace scenario ids = journal scenario ids": true,
+  "v0.6: every scenario has trace facts consistent with its first record": true,
+  "v0.6: no BIRTH in the tail": true,
+  "v0.6: no variant observation or attempt key": true,
+  "v0.6: one traced birth step per 15m close of the evaluation window and direction": true,
+  "v0.6: trace scenario ids = journal scenario ids": true
+ },
+ "divergence_counts": {
+  "REVIEW_CLOSED_WITHOUT_SUCCESSOR": 17,
+  "REVIEW_NOT_OPENED": 20,
+  "SUCCESSOR_ADDED": 5
+ },
+ "divergences": [
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-01T23:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "075e0da0d1fc4e08",
+    "sid": "AS-2025-08-01T22:45:00+00:00-f4edb913151b",
+    "window": "warmup"
+   },
+   "family": "A",
+   "recovery_excluded_at": [],
+   "review_opened": "2025-08-02T00:28:00Z",
+   "successor": "AS-2025-08-02T00:30:00+00:00-803e83ab9182",
+   "successor_summary": {
+    "calls": 0,
+    "child": null,
+    "confirmed_at": null,
+    "stage": "ARMED_NOT_CONFIRMED",
+    "terminal": "EXPIRED:ORIGINAL_SETUP_DEADLINE",
+    "terminal_at": "2025-08-02T01:00:00Z",
+    "v_failure_after_confirmation": false
+   },
+   "t": "2025-08-02T00:45:00Z",
+   "type": "SUCCESSOR_ADDED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-01T23:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "075e0da0d1fc4e08",
+    "sid": "AS-2025-08-01T22:45:00+00:00-d113575c9e2a",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-07T03:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "ec13154c71609ff5",
+    "sid": "AS-2025-08-07T02:45:00+00:00-cd427c1ce5fa",
+    "window": "warmup"
+   },
+   "closed": {
+    "reason": "DESTINATION_CONTACT",
+    "state": "DESTINATION_REACHED",
+    "t": "2025-08-07T04:38:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-08-07T04:10:00Z",
+   "t": "2025-08-07T04:38:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-08-07T03:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "ec13154c71609ff5",
+    "sid": "AS-2025-08-07T02:45:00+00:00-5fe4bdc196d8",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-10T00:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "bd51498b200c2d1d",
+    "sid": "AS-2025-08-09T23:45:00+00:00-dc608bbcea0f",
+    "window": "warmup"
+   },
+   "closed": {
+    "reason": "CLOSE_AT_OR_BEYOND_A_PLUS_ZONE",
+    "state": "WITHDRAWN",
+    "t": "2025-08-10T01:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-08-10T00:42:00Z",
+   "t": "2025-08-10T01:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-08-10T00:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "bd51498b200c2d1d",
+    "sid": "AS-2025-08-09T23:45:00+00:00-bf8800affe1f",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-11T05:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "92b223b478ab11cc",
+    "sid": "AL-2025-08-11T05:00:00+00:00-64c8de341c1c",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-11T07:40:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-11T05:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "92b223b478ab11cc",
+    "sid": "AL-2025-08-11T05:00:00+00:00-a82eb5b1f240",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-11T20:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "3a27d99518495956",
+    "sid": "AS-2025-08-11T20:00:00+00:00-c2ebc166eb91",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+   "t": "2025-08-11T21:16:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-11T20:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "3a27d99518495956",
+    "sid": "AS-2025-08-11T20:00:00+00:00-dbc6bb619092",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-12T10:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "84d9809bdc637821",
+    "sid": "AS-2025-08-12T10:00:00+00:00-431b9b14d421",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-12T12:31:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-12T10:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "84d9809bdc637821",
+    "sid": "AS-2025-08-12T10:00:00+00:00-1c253e2c0e2f",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-15T06:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "1bc6a58cd1c0b558",
+    "sid": "AL-2025-08-15T06:30:00+00:00-d99c868016db",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-15T09:28:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-15T06:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "1bc6a58cd1c0b558",
+    "sid": "AL-2025-08-15T06:30:00+00:00-214dface3411",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-17T09:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "d89cdeb40b03f17d",
+    "sid": "AL-2025-08-17T09:30:00+00:00-4da55d47643e",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-17T12:57:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-17T09:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "d89cdeb40b03f17d",
+    "sid": "AL-2025-08-17T09:30:00+00:00-d8d75211b222",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-17T19:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "26362d2e8e3ad9a1",
+    "sid": "AS-2025-08-17T18:45:00+00:00-fbbdb4ab8d64",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-17T21:47:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-17T19:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "26362d2e8e3ad9a1",
+    "sid": "AS-2025-08-17T18:45:00+00:00-69cee4c36bbf",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-20T23:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "1f8b225ce8191038",
+    "sid": "AL-2025-08-20T22:45:00+00:00-4826e163591c",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+   "t": "2025-08-21T00:03:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-20T23:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "1f8b225ce8191038",
+    "sid": "AL-2025-08-20T22:45:00+00:00-9d6ea5ce4c41",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-24T20:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "654a82de6ce4da97",
+    "sid": "AS-2025-08-24T19:45:00+00:00-a0170c014bdf",
+    "window": "warmup"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-08-24T22:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-08-24T21:33:00Z",
+   "t": "2025-08-24T22:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-08-24T20:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "654a82de6ce4da97",
+    "sid": "AS-2025-08-24T19:45:00+00:00-632e03ab1163",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-26T23:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "b4f9ba88a17a32a9",
+    "sid": "AL-2025-08-26T23:00:00+00:00-7b0383edc980",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+   "t": "2025-08-27T00:45:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-26T23:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "b4f9ba88a17a32a9",
+    "sid": "AL-2025-08-26T23:00:00+00:00-dc92989d6aae",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-28T07:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "0a186c6f2e7f77c1",
+    "sid": "AL-2025-08-28T07:00:00+00:00-c291579cec44",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-08-28T09:21:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-28T07:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "0a186c6f2e7f77c1",
+    "sid": "AL-2025-08-28T07:00:00+00:00-b7587cb93677",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-08-30T02:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "7e894c93e77af799",
+    "sid": "AS-2025-08-30T01:45:00+00:00-6ed353d04042",
+    "window": "warmup"
+   },
+   "family": "A",
+   "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+   "t": "2025-08-30T03:09:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-08-30T02:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "7e894c93e77af799",
+    "sid": "AS-2025-08-30T01:45:00+00:00-716566e788c6",
+    "window": "warmup"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-03T14:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "46e49c7512acdfa9",
+    "sid": "AL-2025-09-03T14:30:00+00:00-5cc94df65a3e",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-09-03T16:45:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-03T16:44:00Z",
+   "t": "2025-09-03T16:45:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-03T14:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "46e49c7512acdfa9",
+    "sid": "AL-2025-09-03T14:30:00+00:00-8cef7f98ee10",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-07T14:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "0cbf8333a454a7cf",
+    "sid": "AL-2025-09-07T14:30:00+00:00-2768e30cb919",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-09-07T17:10:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-09-07T14:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "0cbf8333a454a7cf",
+    "sid": "AL-2025-09-07T14:30:00+00:00-b78c8e6ee4cb",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-08T15:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "9306da8bd02c37cb",
+    "sid": "AL-2025-09-08T15:15:00+00:00-6874c5397371",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-09-08T17:52:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-09-08T15:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "9306da8bd02c37cb",
+    "sid": "AL-2025-09-08T15:15:00+00:00-9eee04ab3f4e",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-09T16:30:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "a332f7e3c57be2dd",
+    "sid": "AS-2025-09-09T16:15:00+00:00-70c82f8acabc",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "recovery_excluded_at": [
+    "2025-09-09T18:12:00Z"
+   ],
+   "review_opened": "2025-09-09T17:05:00Z",
+   "successor": "AS-2025-09-09T17:30:00+00:00-a8af9a65a0e7",
+   "successor_summary": {
+    "calls": 0,
+    "child": null,
+    "confirmed_at": null,
+    "stage": "ARMED_NOT_CONFIRMED",
+    "terminal": "EXPIRED:SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL",
+    "terminal_at": "2025-09-09T18:12:00Z",
+    "v_failure_after_confirmation": false
+   },
+   "t": "2025-09-09T17:45:00Z",
+   "type": "SUCCESSOR_ADDED",
+   "v0.6_counterpart": {
+    "birth": "2025-09-09T16:30:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "a332f7e3c57be2dd",
+    "sid": "AS-2025-09-09T16:15:00+00:00-ed8fb1e2c08b",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-11T04:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "26edd893ed7c1972",
+    "sid": "AL-2025-09-11T03:45:00+00:00-203d6d646e2a",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+    "state": "WITHDRAWN",
+    "t": "2025-09-11T05:30:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-11T05:21:00Z",
+   "t": "2025-09-11T05:30:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-11T04:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "26edd893ed7c1972",
+    "sid": "AL-2025-09-11T03:45:00+00:00-3cf07460e7d9",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-13T17:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "818362038d8ac025",
+    "sid": "AS-2025-09-13T16:45:00+00:00-a7e418787dc2",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+    "state": "WITHDRAWN",
+    "t": "2025-09-13T18:45:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-13T18:28:00Z",
+   "t": "2025-09-13T18:45:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-13T17:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "818362038d8ac025",
+    "sid": "AS-2025-09-13T16:45:00+00:00-2818a1d2f0ea",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-14T22:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "e5f18ba5c9bd5c64",
+    "sid": "AL-2025-09-14T21:45:00+00:00-9fd09c7d9d55",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CLOSE_AT_OR_BEYOND_A_PLUS_ZONE",
+    "state": "WITHDRAWN",
+    "t": "2025-09-14T23:15:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-14T23:09:00Z",
+   "t": "2025-09-14T23:15:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-14T22:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "e5f18ba5c9bd5c64",
+    "sid": "AL-2025-09-14T21:45:00+00:00-33a8371dc1ad",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-18T01:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "858975e7c66e66eb",
+    "sid": "AL-2025-09-18T01:30:00+00:00-8788c16ba421",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "DESTINATION_CONTACT",
+    "state": "DESTINATION_REACHED",
+    "t": "2025-09-18T02:53:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-18T02:24:00Z",
+   "t": "2025-09-18T02:53:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-18T01:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "858975e7c66e66eb",
+    "sid": "AL-2025-09-18T01:30:00+00:00-98fdf1ad6314",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-20T08:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "ed09a7281eccc0e7",
+    "sid": "AL-2025-09-20T07:45:00+00:00-d58ff76eed60",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+    "state": "WITHDRAWN",
+    "t": "2025-09-20T09:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-20T08:52:00Z",
+   "t": "2025-09-20T09:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-20T08:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "ed09a7281eccc0e7",
+    "sid": "AL-2025-09-20T07:45:00+00:00-8f753ae8b01d",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-24T17:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "2da2385dbcd8651c",
+    "sid": "AL-2025-09-24T17:30:00+00:00-0f6473399174",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+   "t": "2025-09-24T19:30:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-09-24T17:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "2da2385dbcd8651c",
+    "sid": "AL-2025-09-24T17:30:00+00:00-84f88c3599af",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-25T23:45:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "805904cd9e994212",
+    "sid": "AS-2025-09-25T23:30:00+00:00-b3d1288fb329",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+    "state": "WITHDRAWN",
+    "t": "2025-09-26T01:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-26T00:53:00Z",
+   "t": "2025-09-26T01:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-25T23:45:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "805904cd9e994212",
+    "sid": "AS-2025-09-25T23:30:00+00:00-78d58b5b529b",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-09-28T16:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "398b7d70e77cc693",
+    "sid": "AL-2025-09-28T16:30:00+00:00-6c5c78b39f71",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-09-28T18:45:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-09-28T18:11:00Z",
+   "t": "2025-09-28T18:45:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-09-28T16:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "398b7d70e77cc693",
+    "sid": "AL-2025-09-28T16:30:00+00:00-d70e79ad369c",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-10-19T18:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "eb1582391cd7d871",
+    "sid": "AL-2025-10-19T18:15:00+00:00-89da223cd3f4",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-10-19T21:13:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-10-19T18:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "eb1582391cd7d871",
+    "sid": "AL-2025-10-19T18:15:00+00:00-4120fe1c86fa",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-10-24T05:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "055b70c3b154a748",
+    "sid": "AL-2025-10-24T04:45:00+00:00-6f57502577ce",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-10-24T07:46:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-10-24T05:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "055b70c3b154a748",
+    "sid": "AL-2025-10-24T04:45:00+00:00-bc2655663154",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-02T08:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "ec2e8e71f3ccceb8",
+    "sid": "AL-2025-11-02T07:45:00+00:00-011b39df0848",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-11-02T10:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-11-02T09:42:00Z",
+   "t": "2025-11-02T10:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-11-02T08:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "ec2e8e71f3ccceb8",
+    "sid": "AL-2025-11-02T07:45:00+00:00-e66ea6a5cc7c",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-17T20:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "35816edd12bd8f44",
+    "sid": "AS-2025-11-17T20:00:00+00:00-2b1203478f55",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-11-17T22:43:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-11-17T20:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "35816edd12bd8f44",
+    "sid": "AS-2025-11-17T20:00:00+00:00-e838b610fe76",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-20T02:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "719fe448ad86462b",
+    "sid": "AL-2025-11-20T02:15:00+00:00-6b490f8ec637",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-11-20T04:30:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-11-20T04:18:00Z",
+   "t": "2025-11-20T04:30:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-11-20T02:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "719fe448ad86462b",
+    "sid": "AL-2025-11-20T02:15:00+00:00-115e2ded6be8",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-23T04:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "853baf1b81dfd2be",
+    "sid": "AL-2025-11-23T04:30:00+00:00-38f2d7b14eaf",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-11-23T06:52:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-11-23T04:45:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "853baf1b81dfd2be",
+    "sid": "AL-2025-11-23T04:30:00+00:00-39d43e29d4e1",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-24T21:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "62b37c156d0c07ec",
+    "sid": "AL-2025-11-24T21:00:00+00:00-f1c48b56c226",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "recovery_excluded_at": [],
+   "review_opened": "2025-11-24T21:45:00Z",
+   "successor": "AL-2025-11-24T21:45:00+00:00-4814a49e3dbc",
+   "successor_summary": {
+    "calls": 0,
+    "child": "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS",
+    "confirmed_at": "2025-11-24T22:03:00Z",
+    "stage": "CONFIRMED",
+    "terminal": "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE",
+    "terminal_at": "2025-11-24T22:39:00Z",
+    "v_failure_after_confirmation": false
+   },
+   "t": "2025-11-24T22:00:00Z",
+   "type": "SUCCESSOR_ADDED",
+   "v0.6_counterpart": {
+    "birth": "2025-11-24T21:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "62b37c156d0c07ec",
+    "sid": "AL-2025-11-24T21:00:00+00:00-800f46ff1884",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-11-26T22:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "fefee4a37405a95f",
+    "sid": "AL-2025-11-26T22:00:00+00:00-37291fb6d000",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-11-27T00:15:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-11-27T00:14:00Z",
+   "t": "2025-11-27T00:15:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-11-26T22:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "fefee4a37405a95f",
+    "sid": "AL-2025-11-26T22:00:00+00:00-be5f83465de9",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-01T05:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "885a1fad68b30ebb",
+    "sid": "AS-2025-12-01T05:00:00+00:00-0f9c5458df6c",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "recovery_excluded_at": [
+    "2025-12-01T07:09:00Z"
+   ],
+   "review_opened": "2025-12-01T06:01:00Z",
+   "successor": "AS-2025-12-01T06:30:00+00:00-c3a3bc872ccc",
+   "successor_summary": {
+    "calls": 0,
+    "child": null,
+    "confirmed_at": null,
+    "stage": "ARMED_NOT_CONFIRMED",
+    "terminal": "EXPIRED:SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL",
+    "terminal_at": "2025-12-01T07:09:00Z",
+    "v_failure_after_confirmation": false
+   },
+   "t": "2025-12-01T06:45:00Z",
+   "type": "SUCCESSOR_ADDED",
+   "v0.6_counterpart": {
+    "birth": "2025-12-01T05:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "885a1fad68b30ebb",
+    "sid": "AS-2025-12-01T05:00:00+00:00-2e862614151e",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-01T16:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "85595f8b5ca91cd9",
+    "sid": "AS-2025-12-01T16:00:00+00:00-0a6b483a25a2",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-12-01T18:15:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-12-01T16:15:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "85595f8b5ca91cd9",
+    "sid": "AS-2025-12-01T16:00:00+00:00-a58fffcd3000",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-05T10:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "f2ca5b796d632e3f",
+    "sid": "AS-2025-12-05T09:45:00+00:00-a1534e540c9e",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "ORIGINAL_SETUP_DEADLINE",
+    "state": "EXPIRED",
+    "t": "2025-12-05T12:00:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-12-05T11:09:00Z",
+   "t": "2025-12-05T12:00:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-12-05T10:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "f2ca5b796d632e3f",
+    "sid": "AS-2025-12-05T09:45:00+00:00-c2aec707c245",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-08T09:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "2e9922c14d2f1f76",
+    "sid": "AL-2025-12-08T09:00:00+00:00-900da8a389a3",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-12-08T12:10:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-12-08T09:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "2e9922c14d2f1f76",
+    "sid": "AL-2025-12-08T09:00:00+00:00-e318f4f2e741",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-15T05:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "faed1048a0f07494",
+    "sid": "AL-2025-12-15T05:15:00+00:00-471630298f2c",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "DESTINATION_CONTACT",
+    "state": "DESTINATION_REACHED",
+    "t": "2025-12-15T06:51:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-12-15T06:13:00Z",
+   "t": "2025-12-15T06:51:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-12-15T05:30:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "faed1048a0f07494",
+    "sid": "AL-2025-12-15T05:15:00+00:00-bcd97ebaaf0c",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-19T18:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "baf77ce2185d1590",
+    "sid": "AS-2025-12-19T17:45:00+00:00-e3ba0710bffb",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "recovery_excluded_at": [],
+   "review_opened": "2025-12-19T19:20:00Z",
+   "successor": "AS-2025-12-19T19:30:00+00:00-8985ec2b37ef",
+   "successor_summary": {
+    "calls": 0,
+    "child": null,
+    "confirmed_at": null,
+    "stage": "ARMED_NOT_CONFIRMED",
+    "terminal": "EXPIRED:ORIGINAL_SETUP_DEADLINE",
+    "terminal_at": "2025-12-19T20:00:00Z",
+    "v_failure_after_confirmation": false
+   },
+   "t": "2025-12-19T19:45:00Z",
+   "type": "SUCCESSOR_ADDED",
+   "v0.6_counterpart": {
+    "birth": "2025-12-19T18:00:00Z",
+    "direction": "SHORT",
+    "family": "A",
+    "key": "baf77ce2185d1590",
+    "sid": "AS-2025-12-19T17:45:00+00:00-b8646f8607d0",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-25T16:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "8e68f115efbf76af",
+    "sid": "AL-2025-12-25T15:45:00+00:00-6bd4dfd22c98",
+    "window": "evaluation"
+   },
+   "closed": {
+    "reason": "CONTEXT_OR_ADVERSE_EXPANSION",
+    "state": "WITHDRAWN",
+    "t": "2025-12-25T17:15:00Z"
+   },
+   "family": "A",
+   "review_opened": "2025-12-25T16:51:00Z",
+   "t": "2025-12-25T17:15:00Z",
+   "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+   "v0.6_counterpart": {
+    "birth": "2025-12-25T16:00:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "8e68f115efbf76af",
+    "sid": "AL-2025-12-25T15:45:00+00:00-ca270ec328f8",
+    "window": "evaluation"
+   }
+  },
+  {
+   "a2x_impulse": {
+    "birth": "2025-12-28T00:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "5bd0cbb1e72a7148",
+    "sid": "AL-2025-12-28T00:00:00+00:00-2e8c51add3ac",
+    "window": "evaluation"
+   },
+   "family": "A",
+   "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+   "t": "2025-12-28T04:01:00Z",
+   "type": "REVIEW_NOT_OPENED",
+   "v0.6_counterpart": {
+    "birth": "2025-12-28T00:15:00Z",
+    "direction": "LONG",
+    "family": "A",
+    "key": "5bd0cbb1e72a7148",
+    "sid": "AL-2025-12-28T00:00:00+00:00-1cd95c7aed60",
+    "window": "evaluation"
+   }
+  }
+ ],
+ "examples": {
+  "REVIEW_CLOSED_WITHOUT_SUCCESSOR": {
+   "divergence": {
+    "a2x_impulse": {
+     "birth": "2025-08-07T03:00:00Z",
+     "direction": "SHORT",
+     "family": "A",
+     "key": "ec13154c71609ff5",
+     "sid": "AS-2025-08-07T02:45:00+00:00-cd427c1ce5fa",
+     "window": "warmup"
+    },
+    "closed": {
+     "reason": "DESTINATION_CONTACT",
+     "state": "DESTINATION_REACHED",
+     "t": "2025-08-07T04:38:00Z"
+    },
+    "family": "A",
+    "review_opened": "2025-08-07T04:10:00Z",
+    "t": "2025-08-07T04:38:00Z",
+    "type": "REVIEW_CLOSED_WITHOUT_SUCCESSOR",
+    "v0.6_counterpart": {
+     "birth": "2025-08-07T03:00:00Z",
+     "direction": "SHORT",
+     "family": "A",
+     "key": "ec13154c71609ff5",
+     "sid": "AS-2025-08-07T02:45:00+00:00-5fe4bdc196d8",
+     "window": "warmup"
+    }
+   },
+   "v0.6": [
+    "2025-08-07T03:00:00Z scenario AS-2025-08-07T02:45:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=114360",
+    "2025-08-07T03:30:00Z scenario AS-2025-08-07T02:45:00+00:00-* ARM  K=114399.8 V=114533.945 R=114522.8 B=114360",
+    "2025-08-07T03:34:00Z scenario AS-2025-08-07T02:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=114360",
+    "2025-08-07T03:45:00Z scenario AS-2025-08-07T02:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=114476.5 V=114559.345 R=114548.2 B=114360",
+    "2025-08-07T03:48:00Z scenario AS-2025-08-07T02:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=114360",
+    "2025-08-07T04:00:00Z scenario AS-2025-08-07T02:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=114500.1 V=114585.045 R=114573.9 B=114360",
+    "2025-08-07T04:01:00Z scenario AS-2025-08-07T02:45:00+00:00-* CONFIRM <id> K=114500.1 V=114585.045 R=114573.9 B=114360",
+    "2025-08-07T04:01:00Z entry TERMINAL TERMINAL NO_ECONOMIC_RETURN_REGION",
+    "2025-08-07T04:10:00Z scenario AS-2025-08-07T02:45:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=114500.1 V=114585.045 R=114573.9 B=114360"
+   ],
+   "v0.6-a2x": [
+    "2025-08-07T03:00:00Z scenario AS-2025-08-07T02:45:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=114360",
+    "2025-08-07T03:30:00Z scenario AS-2025-08-07T02:45:00+00:00-* ARM  K=114399.8 V=114533.945 R=114522.8 B=114360",
+    "2025-08-07T03:34:00Z scenario AS-2025-08-07T02:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=114360",
+    "2025-08-07T03:45:00Z scenario AS-2025-08-07T02:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=114476.5 V=114559.345 R=114548.2 B=114360",
+    "2025-08-07T03:48:00Z scenario AS-2025-08-07T02:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=114360",
+    "2025-08-07T04:00:00Z scenario AS-2025-08-07T02:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=114500.1 V=114585.045 R=114573.9 B=114360",
+    "2025-08-07T04:01:00Z scenario AS-2025-08-07T02:45:00+00:00-* CONFIRM <id> K=114500.1 V=114585.045 R=114573.9 B=114360",
+    "2025-08-07T04:01:00Z entry TERMINAL TERMINAL NO_ECONOMIC_RETURN_REGION",
+    "2025-08-07T04:10:00Z scenario AS-2025-08-07T02:45:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=114500.1 V=114585.045 R=114573.9 B=114360",
+    "2025-08-07T04:10:00Z obs REVIEW_OPEN",
+    "2025-08-07T04:38:00Z obs REVIEW_CLOSED DESTINATION_CONTACT DESTINATION_REACHED"
+   ]
+  },
+  "REVIEW_NOT_OPENED": {
+   "divergence": {
+    "a2x_impulse": {
+     "birth": "2025-08-11T05:15:00Z",
+     "direction": "LONG",
+     "family": "A",
+     "key": "92b223b478ab11cc",
+     "sid": "AL-2025-08-11T05:00:00+00:00-64c8de341c1c",
+     "window": "warmup"
+    },
+    "family": "A",
+    "reason": "AT_OR_AFTER_ORIGINAL_EXPIRY",
+    "t": "2025-08-11T07:40:00Z",
+    "type": "REVIEW_NOT_OPENED",
+    "v0.6_counterpart": {
+     "birth": "2025-08-11T05:15:00Z",
+     "direction": "LONG",
+     "family": "A",
+     "key": "92b223b478ab11cc",
+     "sid": "AL-2025-08-11T05:00:00+00:00-a82eb5b1f240",
+     "window": "warmup"
+    }
+   },
+   "v0.6": [
+    "2025-08-11T05:15:00Z scenario AL-2025-08-11T05:00:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=122348",
+    "2025-08-11T05:30:00Z scenario AL-2025-08-11T05:00:00+00:00-* ARM  K=122308.9 V=121789.77 R=121822.2 B=122348",
+    "2025-08-11T06:00:00Z scenario AL-2025-08-11T05:00:00+00:00-* REVISE LOWER_CLEAN_REACTION_REANCHOR K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T06:34:00Z scenario AL-2025-08-11T05:00:00+00:00-* CONFIRM <id> K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T06:34:00Z entry WAIT_OPEN WAIT_PRICE IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+    "2025-08-11T06:35:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:39:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:41:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:43:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:45:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:55:00Z entry TERMINAL TERMINAL PRE_ENTRY_TARGET_CONTACT",
+    "2025-08-11T07:15:00Z scenario AL-2025-08-11T05:00:00+00:00-* OWNER_RELEASE ORIGINAL_SETUP_EXPIRY K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T07:40:00Z scenario AL-2025-08-11T05:00:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=122193.5 V=121784.27 R=121816.7 B=122348"
+   ],
+   "v0.6-a2x": [
+    "2025-08-11T05:15:00Z scenario AL-2025-08-11T05:00:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=122348",
+    "2025-08-11T05:30:00Z scenario AL-2025-08-11T05:00:00+00:00-* ARM  K=122308.9 V=121789.77 R=121822.2 B=122348",
+    "2025-08-11T06:00:00Z scenario AL-2025-08-11T05:00:00+00:00-* REVISE LOWER_CLEAN_REACTION_REANCHOR K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T06:34:00Z scenario AL-2025-08-11T05:00:00+00:00-* CONFIRM <id> K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T06:34:00Z entry WAIT_OPEN WAIT_PRICE IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+    "2025-08-11T06:35:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:39:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:41:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:43:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:45:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-11T06:55:00Z entry TERMINAL TERMINAL PRE_ENTRY_TARGET_CONTACT",
+    "2025-08-11T07:15:00Z scenario AL-2025-08-11T05:00:00+00:00-* OWNER_RELEASE ORIGINAL_SETUP_EXPIRY K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T07:40:00Z scenario AL-2025-08-11T05:00:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=122193.5 V=121784.27 R=121816.7 B=122348",
+    "2025-08-11T07:40:00Z obs REVIEW_NOT_OPENED AT_OR_AFTER_ORIGINAL_EXPIRY"
+   ]
+  },
+  "SUCCESSOR_ADDED": {
+   "divergence": {
+    "a2x_impulse": {
+     "birth": "2025-08-01T23:00:00Z",
+     "direction": "SHORT",
+     "family": "A",
+     "key": "075e0da0d1fc4e08",
+     "sid": "AS-2025-08-01T22:45:00+00:00-f4edb913151b",
+     "window": "warmup"
+    },
+    "family": "A",
+    "recovery_excluded_at": [],
+    "review_opened": "2025-08-02T00:28:00Z",
+    "successor": "AS-2025-08-02T00:30:00+00:00-803e83ab9182",
+    "successor_summary": {
+     "calls": 0,
+     "child": null,
+     "confirmed_at": null,
+     "stage": "ARMED_NOT_CONFIRMED",
+     "terminal": "EXPIRED:ORIGINAL_SETUP_DEADLINE",
+     "terminal_at": "2025-08-02T01:00:00Z",
+     "v_failure_after_confirmation": false
+    },
+    "t": "2025-08-02T00:45:00Z",
+    "type": "SUCCESSOR_ADDED",
+    "v0.6_counterpart": {
+     "birth": "2025-08-01T23:00:00Z",
+     "direction": "SHORT",
+     "family": "A",
+     "key": "075e0da0d1fc4e08",
+     "sid": "AS-2025-08-01T22:45:00+00:00-d113575c9e2a",
+     "window": "warmup"
+    }
+   },
+   "v0.6": [
+    "2025-08-01T23:00:00Z scenario AS-2025-08-01T22:45:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=112676.6",
+    "2025-08-01T23:15:00Z scenario AS-2025-08-01T22:45:00+00:00-* ARM  K=112862.1 V=113357.70 R=113312.3 B=112676.6",
+    "2025-08-01T23:22:00Z scenario AS-2025-08-01T22:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=112676.6",
+    "2025-08-01T23:30:00Z scenario AS-2025-08-01T22:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=113181.8 V=113555.00 R=113509.6 B=112676.6",
+    "2025-08-02T00:05:00Z scenario AS-2025-08-01T22:45:00+00:00-* CONFIRM <id> K=113181.8 V=113555.00 R=113509.6 B=112676.6",
+    "2025-08-02T00:05:00Z entry WAIT_OPEN WAIT_PRICE IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+    "2025-08-02T00:06:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-02T00:16:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-02T00:16:00Z entry RESPONSE_REFERENCE WAIT_RESPONSE <id>",
+    "2025-08-02T00:16:00Z entry TERMINAL TERMINAL INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS",
+    "2025-08-02T00:28:00Z scenario AS-2025-08-01T22:45:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=113181.8 V=113555.00 R=113509.6 B=112676.6"
+   ],
+   "v0.6-a2x": [
+    "2025-08-01T23:00:00Z scenario AS-2025-08-01T22:45:00+00:00-* BIRTH FALSE_AT_OR_AFTER_RELEASE_TO_TRUE K=None V=None R=None B=112676.6",
+    "2025-08-01T23:15:00Z scenario AS-2025-08-01T22:45:00+00:00-* ARM  K=112862.1 V=113357.70 R=113312.3 B=112676.6",
+    "2025-08-01T23:22:00Z scenario AS-2025-08-01T22:45:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=112676.6",
+    "2025-08-01T23:30:00Z scenario AS-2025-08-01T22:45:00+00:00-* REARM NEW_COMPLETE_STRICTLY_DEEPER_CLEAN_REACTION K=113181.8 V=113555.00 R=113509.6 B=112676.6",
+    "2025-08-02T00:05:00Z scenario AS-2025-08-01T22:45:00+00:00-* CONFIRM <id> K=113181.8 V=113555.00 R=113509.6 B=112676.6",
+    "2025-08-02T00:05:00Z entry WAIT_OPEN WAIT_PRICE IMMEDIATE_ECONOMIC_FAILURE_RETURN_CORRIDOR_USABLE",
+    "2025-08-02T00:06:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-02T00:16:00Z entry BLOCKERS WAIT_PRICE ",
+    "2025-08-02T00:16:00Z entry RESPONSE_REFERENCE WAIT_RESPONSE <id>",
+    "2025-08-02T00:16:00Z entry TERMINAL TERMINAL INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS",
+    "2025-08-02T00:28:00Z scenario AS-2025-08-01T22:45:00+00:00-* TERMINAL V_CONTACT INVALIDATED K=113181.8 V=113555.00 R=113509.6 B=112676.6",
+    "2025-08-02T00:28:00Z obs REVIEW_OPEN",
+    "2025-08-02T00:45:00Z obs SUCCESSOR_ARMED",
+    "2025-08-02T00:45:00Z scenario AS-2025-08-02T00:30:00+00:00-* ARM SECOND_ATTEMPT_FRESH_POST_FAILURE_REACTION K=113389.5 V=113703.80 R=113658.4 B=112676.6",
+    "2025-08-02T00:51:00Z scenario AS-2025-08-02T00:30:00+00:00-* ANCHOR_LOST V_CONTACT K=None V=None R=None B=112676.6",
+    "2025-08-02T01:00:00Z scenario AS-2025-08-02T00:30:00+00:00-* OWNER_RELEASE ORIGINAL_SETUP_EXPIRY K=None V=None R=None B=112676.6",
+    "2025-08-02T01:00:00Z scenario AS-2025-08-02T00:30:00+00:00-* TERMINAL ORIGINAL_SETUP_DEADLINE EXPIRED K=None V=None R=None B=112676.6",
+    "2025-08-02T01:00:00Z entry TERMINAL TERMINAL SCENARIO_TERMINAL:EXPIRED:ORIGINAL_SETUP_DEADLINE"
+   ]
+  }
+ },
+ "flow": {
+  "v0.6": {
+   "evaluation": {
+    "armed_not_confirmed": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 24,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 12,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 33
+    },
+    "calls_first_attempt": 1,
+    "calls_successor": 0,
+    "confirmed": 89,
+    "confirmed_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 54,
+     "INVALIDATED:V_CONTACT": 28,
+     "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4
+    },
+    "failures_without_review_record": 28,
+    "first_attempt_child": {
+     "ISSUED": 1,
+     "NOT_ISSUED:AT_OPPOSING_AREA": 7,
+     "NOT_ISSUED:CONTEXT_FORBIDDEN_PREISSUE": 4,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 3,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 9,
+     "NOT_ISSUED:NO_ECONOMIC_RETURN_REGION": 22,
+     "NOT_ISSUED:ORIGINAL_SETUP_DEADLINE": 8,
+     "NOT_ISSUED:PRE_ENTRY_TARGET_CONTACT": 18,
+     "NOT_ISSUED:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 15,
+     "NOT_ISSUED:SCENARIO_TERMINAL:INVALIDATED:V_CONTACT": 2
+    },
+    "impulses": 359,
+    "no_arm": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 9
+    },
+    "reconciliation": {
+     "calls_first_attempt = ISSUED": true,
+     "calls_successor = ISSUED": true,
+     "confirmed = sum(confirmed_terminal)": true,
+     "confirmed = sum(first_attempt_child)": true,
+     "impulses = no_arm + armed_not_confirmed + confirmed": true,
+     "opened = closed + successors + open_at_end": true,
+     "successor_confirmed = sum(successor_child)": true,
+     "successors = not_confirmed + confirmed": true,
+     "v_failures = opened + not_opened + without_record": true
+    },
+    "review_closed_without_successor": {},
+    "review_not_opened": {},
+    "review_open_at_end": 0,
+    "review_opened_admissible": 0,
+    "successor_child": {},
+    "successor_confirmed": 0,
+    "successor_confirmed_terminal": {},
+    "successor_not_confirmed": {},
+    "successor_recovery_excluded": 0,
+    "successors_armed": 0,
+    "v_failures_after_confirmation": 28
+   },
+   "warmup": {
+    "armed_not_confirmed": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 6,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 14
+    },
+    "calls_first_attempt": 0,
+    "calls_successor": 0,
+    "confirmed": 24,
+    "confirmed_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 9,
+     "INVALIDATED:V_CONTACT": 14,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1
+    },
+    "failures_without_review_record": 14,
+    "first_attempt_child": {
+     "NOT_ISSUED:AT_OPPOSING_AREA": 2,
+     "NOT_ISSUED:CONTEXT_FORBIDDEN_PREISSUE": 3,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 1,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 3,
+     "NOT_ISSUED:NO_ECONOMIC_RETURN_REGION": 9,
+     "NOT_ISSUED:ORIGINAL_SETUP_DEADLINE": 1,
+     "NOT_ISSUED:PRE_ENTRY_TARGET_CONTACT": 4,
+     "NOT_ISSUED:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 1
+    },
+    "impulses": 106,
+    "no_arm": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 60,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 1
+    },
+    "reconciliation": {
+     "calls_first_attempt = ISSUED": true,
+     "calls_successor = ISSUED": true,
+     "confirmed = sum(confirmed_terminal)": true,
+     "confirmed = sum(first_attempt_child)": true,
+     "impulses = no_arm + armed_not_confirmed + confirmed": true,
+     "opened = closed + successors + open_at_end": true,
+     "successor_confirmed = sum(successor_child)": true,
+     "successors = not_confirmed + confirmed": true,
+     "v_failures = opened + not_opened + without_record": true
+    },
+    "review_closed_without_successor": {},
+    "review_not_opened": {},
+    "review_open_at_end": 0,
+    "review_opened_admissible": 0,
+    "successor_child": {},
+    "successor_confirmed": 0,
+    "successor_confirmed_terminal": {},
+    "successor_not_confirmed": {},
+    "successor_recovery_excluded": 0,
+    "successors_armed": 0,
+    "v_failures_after_confirmation": 14
+   }
+  },
+  "v0.6-a2x": {
+   "evaluation": {
+    "armed_not_confirmed": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 24,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 12,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 33
+    },
+    "calls_first_attempt": 1,
+    "calls_successor": 0,
+    "confirmed": 89,
+    "confirmed_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 54,
+     "INVALIDATED:V_CONTACT": 28,
+     "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4
+    },
+    "failures_without_review_record": 0,
+    "first_attempt_child": {
+     "ISSUED": 1,
+     "NOT_ISSUED:AT_OPPOSING_AREA": 7,
+     "NOT_ISSUED:CONTEXT_FORBIDDEN_PREISSUE": 4,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 3,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 9,
+     "NOT_ISSUED:NO_ECONOMIC_RETURN_REGION": 22,
+     "NOT_ISSUED:ORIGINAL_SETUP_DEADLINE": 8,
+     "NOT_ISSUED:PRE_ENTRY_TARGET_CONTACT": 18,
+     "NOT_ISSUED:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 15,
+     "NOT_ISSUED:SCENARIO_TERMINAL:INVALIDATED:V_CONTACT": 2
+    },
+    "impulses": 359,
+    "no_arm": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 9
+    },
+    "reconciliation": {
+     "calls_first_attempt = ISSUED": true,
+     "calls_successor = ISSUED": true,
+     "confirmed = sum(confirmed_terminal)": true,
+     "confirmed = sum(first_attempt_child)": true,
+     "impulses = no_arm + armed_not_confirmed + confirmed": true,
+     "opened = closed + successors + open_at_end": true,
+     "successor_confirmed = sum(successor_child)": true,
+     "successors = not_confirmed + confirmed": true,
+     "v_failures = opened + not_opened + without_record": true
+    },
+    "review_closed_without_successor": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 6,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 5
+    },
+    "review_not_opened": {
+     "AT_OR_AFTER_ORIGINAL_EXPIRY": 9,
+     "CONTEXT_OR_ADVERSE_EXPANSION": 1
+    },
+    "review_open_at_end": 0,
+    "review_opened_admissible": 18,
+    "successor_child": {
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 1
+    },
+    "successor_confirmed": 1,
+    "successor_confirmed_terminal": {
+     "STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1
+    },
+    "successor_not_confirmed": {
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+     "EXPIRED:SECOND_ATTEMPT_RECOVERY_WITH_INSUFFICIENT_RESIDUAL": 2
+    },
+    "successor_recovery_excluded": 2,
+    "successors_armed": 4,
+    "v_failures_after_confirmation": 28
+   },
+   "warmup": {
+    "armed_not_confirmed": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 6,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 14
+    },
+    "calls_first_attempt": 0,
+    "calls_successor": 0,
+    "confirmed": 24,
+    "confirmed_terminal": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 9,
+     "INVALIDATED:V_CONTACT": 14,
+     "TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1
+    },
+    "failures_without_review_record": 0,
+    "first_attempt_child": {
+     "NOT_ISSUED:AT_OPPOSING_AREA": 2,
+     "NOT_ISSUED:CONTEXT_FORBIDDEN_PREISSUE": 3,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 1,
+     "NOT_ISSUED:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 3,
+     "NOT_ISSUED:NO_ECONOMIC_RETURN_REGION": 9,
+     "NOT_ISSUED:ORIGINAL_SETUP_DEADLINE": 1,
+     "NOT_ISSUED:PRE_ENTRY_TARGET_CONTACT": 4,
+     "NOT_ISSUED:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 1
+    },
+    "impulses": 106,
+    "no_arm": {
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 60,
+     "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 1
+    },
+    "reconciliation": {
+     "calls_first_attempt = ISSUED": true,
+     "calls_successor = ISSUED": true,
+     "confirmed = sum(confirmed_terminal)": true,
+     "confirmed = sum(first_attempt_child)": true,
+     "impulses = no_arm + armed_not_confirmed + confirmed": true,
+     "opened = closed + successors + open_at_end": true,
+     "successor_confirmed = sum(successor_child)": true,
+     "successors = not_confirmed + confirmed": true,
+     "v_failures = opened + not_opened + without_record": true
+    },
+    "review_closed_without_successor": {
+     "DESTINATION_REACHED:DESTINATION_CONTACT": 1,
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+     "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1
+    },
+    "review_not_opened": {
+     "AT_OR_AFTER_ORIGINAL_EXPIRY": 6,
+     "CONTEXT_OR_ADVERSE_EXPANSION": 4
+    },
+    "review_open_at_end": 0,
+    "review_opened_admissible": 4,
+    "successor_child": {},
+    "successor_confirmed": 0,
+    "successor_confirmed_terminal": {},
+    "successor_not_confirmed": {
+     "EXPIRED:ORIGINAL_SETUP_DEADLINE": 1
+    },
+    "successor_recovery_excluded": 0,
+    "successors_armed": 1,
+    "v_failures_after_confirmation": 14
+   }
+  }
+ },
+ "matching": {
+  "by_family_window_chain": {
+   "A|evaluation|IDENTICAL": 359,
+   "A|warmup|IDENTICAL": 106,
+   "B|evaluation|IDENTICAL": 44,
+   "B|warmup|IDENTICAL": 13,
+   "C|evaluation|IDENTICAL": 37,
+   "C|warmup|IDENTICAL": 12
+  },
+  "no_key": {
+   "v0.6": [],
+   "v0.6-a2x": []
+  },
+  "non_unique": {
+   "v0.6": [],
+   "v0.6-a2x": []
+  },
+  "pairs": 571,
+  "unmatched_a2x": 0,
+  "unmatched_v06": 0
+ },
+ "other_records": {
+  "landmark": {
+   "dispatches_with_difference": 0,
+   "first_difference_at": null,
+   "only_a2x": 0,
+   "only_v0.6": 0,
+   "v0.6": 11982,
+   "v0.6-a2x": 11982
+  },
+  "market_view": {
+   "dispatches_with_difference": 40,
+   "first_difference_at": "2025-09-03T16:44:00Z",
+   "only_a2x": 40,
+   "only_v0.6": 29,
+   "v0.6": 6375,
+   "v0.6-a2x": 6386
+  },
+  "material_change": {
+   "dispatches_with_difference": 0,
+   "first_difference_at": null,
+   "only_a2x": 0,
+   "only_v0.6": 0,
+   "v0.6": 11,
+   "v0.6-a2x": 11
+  },
+  "observation": {
+   "dispatches_with_difference": 0,
+   "first_difference_at": null,
+   "only_a2x": 0,
+   "only_v0.6": 0,
+   "v0.6": 6212,
+   "v0.6-a2x": 6212
+  }
+ },
+ "unmatched_birth_causes": {},
+ "window": [
+  "2025-09-01T00:00:00Z",
+  "2026-01-01T00:00:00Z"
+ ]
+}

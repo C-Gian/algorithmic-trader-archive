@@ -163,4 +163,16 @@ v0.6 shows its V failures with "not applicable" for admissibility.
 
 ## Amendments
 
-None at registration.
+1. **`crosscheck_baseline.py`, 13 October 2026, after both engine processings and before any tabulation.**
+   - **Defect.** The first cross-check stopped at entry 19,673, the one v0.6 call record. The only differing field was `record.actionability.env.method.build`: a call carries a nested envelope with the build, which the script did not remove.
+   - **Change.** The script now removes the `build` of every envelope's `method`, nested ones included. Nothing else changed.
+   - **Result.** 34,507 entries identical.
+   - **What had been seen.** Only that difference report: no comparison result, variant record or tabulation.
+   - **New sha256:** `6f212b6ecf62d8a289482a3fc4c362a341ba95034e8ec8a5c9488aa78b109927`.
+2. **`post_hoc.py`, 13 October 2026, AFTER the registered tabulation had been seen.**
+   - **Why.** That tabulation showed two effects it does not characterize: 40 market-view dispatches that differ, and no birth difference at all.
+   - **What it adds.** Post-hoc descriptions only, from the saved journals and traces:
+     - whether each differing view dispatch lies inside a variant reservation interval, and which view fields differ;
+     - at which 15m closes the two policies' traced latch or slot state differs, and whether Q_A was true there.
+   - **Status.** It is not part of the registered design, changes no registered output, and is labelled post-hoc wherever it is cited.
+   - **sha256:** `fcec466289fd6a3b4e2c7bbd528509684c7f846124b3070408f5ef8d23b46d41`.

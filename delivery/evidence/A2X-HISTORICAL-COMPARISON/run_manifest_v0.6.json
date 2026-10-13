@@ -1,0 +1,336 @@
+{
+ "purpose": "single offline v0.6 processing of the pack for the v0.6 / v0.6-a2x descriptive comparison (no evaluator; passive trace)",
+ "pack_id": "pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e",
+ "pack_manifest_sha256": "1bec1f1575306d4444969569675e28bfdc9dac60e2d6f461b283871362221f92",
+ "cache_id": "fc-80221b24abf3a50b764cc873f4a70cc709847a6b",
+ "cache_manifest_sha256": "95478a50a732dffe5d8c46a6b1ca23288246a3ce01aaf537f0b64e2e7cef76fa",
+ "feed_content_identity": "feedcontent.v1:f2cf8790b5f12a11c550f707d5f3c25f96358f92febf09db246e8f261de2f028",
+ "build": "306a0b9a6007c153b438e2ab6d87568270233330",
+ "method": "v0.6",
+ "engine": {
+  "temporal": {
+   "contract": "algotrader.temporal.v1",
+   "contract_revision": 1,
+   "engine": "temporal.engine.v1",
+   "state_format": "algotrader.temporal-state.v1",
+   "profile": {
+    "profile_id": "temporal.utc-horizons.v1",
+    "horizons": [
+     "15m",
+     "1h",
+     "4h",
+     "1d",
+     "1w",
+     "1mo"
+    ],
+    "retention": {
+     "15m": 96,
+     "1h": 72,
+     "4h": 42,
+     "1d": 31,
+     "1w": 8,
+     "1mo": 3
+    },
+    "closure_allowance": "PT0S",
+    "max_open_intervals": 3,
+    "clock_policy": "temporal.clock.modeled-complete-prefix.v1",
+    "seal_policy_id": "temporal.seal-no-revision.v1",
+    "dependencies": [
+     {
+      "name": "mp001.trade.15m",
+      "family": "trade_bar_1m",
+      "horizon": "15m",
+      "required_complete": 25,
+      "freshness_allowance": "PT20M",
+      "optional": false
+     },
+     {
+      "name": "mp001.trade.1h",
+      "family": "trade_bar_1m",
+      "horizon": "1h",
+      "required_complete": 21,
+      "freshness_allowance": "PT1H15M",
+      "optional": false
+     },
+     {
+      "name": "mp001.trade.4h",
+      "family": "trade_bar_1m",
+      "horizon": "4h",
+      "required_complete": 1,
+      "freshness_allowance": "PT5H",
+      "optional": true
+     },
+     {
+      "name": "mp001.trade.1d",
+      "family": "trade_bar_1m",
+      "horizon": "1d",
+      "required_complete": 1,
+      "freshness_allowance": "P1DT2H",
+      "optional": true
+     },
+     {
+      "name": "mp001.trade.1w",
+      "family": "trade_bar_1m",
+      "horizon": "1w",
+      "required_complete": 1,
+      "freshness_allowance": "P8D",
+      "optional": true
+     },
+     {
+      "name": "mp001.trade.1mo",
+      "family": "trade_bar_1m",
+      "horizon": "1mo",
+      "required_complete": 1,
+      "freshness_allowance": "P32D",
+      "optional": true
+     }
+    ],
+    "deadlines": [],
+    "clock_end": null,
+    "labels": [
+     "TEMPORAL_SUBSTRATE_ONLY",
+     "NO_ADVISER",
+     "NO_INTERPRETATION"
+    ]
+   },
+   "fingerprint": "ae8e7ee852dd676c66f2d4c3711027254e6a0dc79fb49d5f2d85e6bea1ce3ecf",
+   "clock_policy": "temporal.clock.modeled-complete-prefix.v1",
+   "seal_policy": "temporal.seal-no-revision.v1",
+   "clock_end": "2026-01-01T06:05:00+00:00",
+   "labels": [
+    "TEMPORAL_SUBSTRATE_ONLY",
+    "NO_ADVISER",
+    "NO_INTERPRETATION"
+   ]
+  },
+  "adviser": {
+   "format": "algotrader.adviser-runtime.v6",
+   "method": "v0.6",
+   "engine_format": "observe.stream.v7",
+   "identity": {
+    "model": "btc.context-action.v0.6",
+    "rules_version": "mp005.rules.v0.6",
+    "rules_sha256": "57bf2309990d5085326f62fae9e6a88808b1de566a837995341910692e832e66",
+    "register_sha256": "98ef101e4c23fbdfee80b2e1f0adf61eea92aeb8665db777bb8582b0ae4c5bda",
+    "implementation": "adviser.core.v6",
+    "capability_profile": {
+     "execution": "HISTORICAL_BASE",
+     "calendar": "NONE_UNKNOWN",
+     "dislocation": "ENABLE_WHERE_SUPPORTED",
+     "incident_tape": "NOT_COVERED",
+     "funding_outcomes": "PRICE_NET_ONLY",
+     "horizon_inputs": "R2_COMPLETE_MINUTE_DERIVED_UTC_HORIZONS",
+     "late_policy": "temporal.seal-no-revision.v1",
+     "origin": "HISTORICAL_MODELED"
+    },
+    "capability_profile_sha256": "7c86833734da7258f62f8f7569b2a74253867e4b82e5b537907749f910220296",
+    "pins": {
+     "pack_id": "pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e",
+     "instrument": "BTC-USDT-SWAP",
+     "feed_content_identity": "feedcontent.v1:f2cf8790b5f12a11c550f707d5f3c25f96358f92febf09db246e8f261de2f028",
+     "availability_policy_id": "feed.modeled.v1(bar+PT0S,funding+PT0S)",
+     "clock_policy": "temporal.clock.modeled-complete-prefix.v1",
+     "tick": "0.1",
+     "channels": {
+      "funding": "okx/BTC-USDT-SWAP/funding_settlement",
+      "index": "okx/BTC-USDT/index_bar_1m",
+      "mark": "okx/BTC-USDT-SWAP/mark_bar_1m",
+      "trade": "okx/BTC-USDT-SWAP/trade_bar_1m"
+     },
+     "evaluation": [
+      "2025-09-01T00:00:00+00:00",
+      "2026-01-01T00:00:00+00:00"
+     ],
+     "clock_end": "2026-01-01T06:05:00Z"
+    },
+    "build": "306a0b9a6007c153b438e2ab6d87568270233330",
+    "identity_sha256": "00902bd40791d76ae8d9aff7a006e2979cdf80361385456682a909c79e39d72e"
+   },
+   "profile": {
+    "execution": "HISTORICAL_BASE",
+    "calendar": "NONE_UNKNOWN",
+    "dislocation": "ENABLE_WHERE_SUPPORTED",
+    "incident_tape": "NOT_COVERED",
+    "funding_outcomes": "PRICE_NET_ONLY",
+    "horizon_inputs": "R2_COMPLETE_MINUTE_DERIVED_UTC_HORIZONS",
+    "late_policy": "temporal.seal-no-revision.v1",
+    "origin": "HISTORICAL_MODELED"
+   },
+   "tick": "0.1",
+   "channels": {
+    "funding": "okx/BTC-USDT-SWAP/funding_settlement",
+    "index": "okx/BTC-USDT/index_bar_1m",
+    "mark": "okx/BTC-USDT-SWAP/mark_bar_1m",
+    "trade": "okx/BTC-USDT-SWAP/trade_bar_1m"
+   },
+   "eval_start": "2025-09-01T00:00:00+00:00",
+   "eval_end": "2026-01-01T00:00:00+00:00",
+   "warmup_start": "2025-07-28T00:00:00+00:00",
+   "tail_end": "2026-01-01T06:05:00+00:00",
+   "clock_end": "2026-01-01T06:05:00Z",
+   "clock_policy": "temporal.clock.modeled-complete-prefix.v1",
+   "evaluator": {
+    "format": "algotrader.adviser-evaluation.v1",
+    "implementation": "adviser.evaluator.v3",
+    "profiles": {
+     "PRIMARY": {
+      "profile_id": "mp002.evaluation.primary.v1",
+      "entry_delay_seconds": 60,
+      "exit_delay_seconds": 60,
+      "boundary_alignment": "UTC_CEIL_MINUTE",
+      "opening_condition": "PREOPEN_EVIDENCE_PLUS_OWN_OPEN_GEOMETRY_NO_FUTURE_HLC",
+      "fee_per_leg": "0.0005",
+      "allowance_per_leg": "0.0002",
+      "adequacy_envelope_bps": "14",
+      "funding": "PRICE_NET_ONLY",
+      "exit_mode": "GUIDANCE",
+      "notional_unit": "N0=1 abstract USDT reporting unit; q=N0/E constant; not a human size"
+     },
+     "ENTRY_DELAY_0": {
+      "profile_id": "mp002.evaluation.entry_delay_0.v1",
+      "entry_delay_seconds": 0,
+      "exit_delay_seconds": 60,
+      "boundary_alignment": "UTC_CEIL_MINUTE",
+      "opening_condition": "PREOPEN_EVIDENCE_PLUS_OWN_OPEN_GEOMETRY_NO_FUTURE_HLC",
+      "fee_per_leg": "0.0005",
+      "allowance_per_leg": "0.0002",
+      "adequacy_envelope_bps": "14",
+      "funding": "PRICE_NET_ONLY",
+      "exit_mode": "GUIDANCE",
+      "notional_unit": "N0=1 abstract USDT reporting unit; q=N0/E constant; not a human size"
+     },
+     "ENTRY_DELAY_120": {
+      "profile_id": "mp002.evaluation.entry_delay_120.v1",
+      "entry_delay_seconds": 120,
+      "exit_delay_seconds": 60,
+      "boundary_alignment": "UTC_CEIL_MINUTE",
+      "opening_condition": "PREOPEN_EVIDENCE_PLUS_OWN_OPEN_GEOMETRY_NO_FUTURE_HLC",
+      "fee_per_leg": "0.0005",
+      "allowance_per_leg": "0.0002",
+      "adequacy_envelope_bps": "14",
+      "funding": "PRICE_NET_ONLY",
+      "exit_mode": "GUIDANCE",
+      "notional_unit": "N0=1 abstract USDT reporting unit; q=N0/E constant; not a human size"
+     },
+     "HORIZON_ONLY": {
+      "profile_id": "mp002.evaluation.horizon_only.v1",
+      "entry_delay_seconds": 60,
+      "exit_delay_seconds": 60,
+      "boundary_alignment": "UTC_CEIL_MINUTE",
+      "opening_condition": "PREOPEN_EVIDENCE_PLUS_OWN_OPEN_GEOMETRY_NO_FUTURE_HLC",
+      "fee_per_leg": "0.0005",
+      "allowance_per_leg": "0.0002",
+      "adequacy_envelope_bps": "14",
+      "funding": "PRICE_NET_ONLY",
+      "exit_mode": "HORIZON_ONLY",
+      "notional_unit": "N0=1 abstract USDT reporting unit; q=N0/E constant; not a human size"
+     }
+    },
+    "stress_allowance_per_leg": "0.0005",
+    "exit_delay_sensitivities": "NOT_IMPLEMENTED_SECONDARY",
+    "view_sampling": "EVERY_UTC_HOUR_AFTER_DISPATCH_UPDATES",
+    "horizons_hours": [
+     1,
+     4
+    ],
+    "horizon_baseline_deadline": "A_FROZEN_CONFIRMATION_PLUS_4H_BC_FROZEN_EXISTING_HARD_DEADLINE",
+    "wait_price": "NO_PATH_NO_NO_ENTRY_PSEUDO_TRADE",
+    "coverage_loss": "CENSOR_FROM_FIRST_MISSING_INTERVAL",
+    "sha256": "85504d5843e144d0b86a0ee3e693c064f4d7f64e7928c1e54fb9c9e9f308615c"
+   },
+   "origin": "HISTORICAL_MODELED",
+   "build": "306a0b9a6007c153b438e2ab6d87568270233330",
+   "funding_completeness": "EMPTY_UNKNOWN",
+   "labels": [
+    "ADVISER_EVALUATION",
+    "HYPOTHETICAL_OUTCOMES_SEPARATE",
+    "NO_ORDERS_NO_SIZING"
+   ],
+   "initialization": {
+    "policy": "REGISTERED_EXPLICIT_INITIALIZATION",
+    "preset_id": "btc-2025-09-to-2025-12-continuous-init35d-v1",
+    "preset_sha256": "fabd1c55535a1f13e0fe7cdd30e217886e229063987015e4a7fbf64a0c952dbc",
+    "start": "2025-07-28T00:00:00+00:00",
+    "end": "2025-09-01T00:00:00+00:00",
+    "hours": 840,
+    "evaluated": false,
+    "coverage": [
+     {
+      "expected_slots": 50400,
+      "family": "trade_bar_1m",
+      "missing": 0,
+      "reasons": {},
+      "rejected": 0,
+      "valid": 50400,
+      "window": "warmup"
+     },
+     {
+      "expected_slots": 50400,
+      "family": "mark_bar_1m",
+      "missing": 0,
+      "reasons": {},
+      "rejected": 0,
+      "valid": 50400,
+      "window": "warmup"
+     },
+     {
+      "expected_slots": 50400,
+      "family": "index_bar_1m",
+      "missing": 0,
+      "reasons": {},
+      "rejected": 0,
+      "valid": 50400,
+      "window": "warmup"
+     },
+     {
+      "expected_slots": null,
+      "family": "funding_settlement",
+      "missing": 0,
+      "reasons": {},
+      "rejected": 0,
+      "valid": 0,
+      "window": "warmup"
+     }
+    ],
+    "continuity": "ONE_RUN_ONE_EVALUATION_START_TRANSITION_NO_MONTHLY_RESET_OR_FINISH"
+   }
+  }
+ },
+ "evaluator": null,
+ "events_applied": 679335,
+ "final_input_commitment": "afad3a521f22065b79214b7e1d3a90e65f10fae9918d8392348d21f034c58acc",
+ "temporal_commitment": "243e4f2b5d6a1b81229475d3013c429134574738b837530ef6b0276787b277cd",
+ "adviser_commitment": {
+  "professional_seq": 925785,
+  "factual_cursor": 679335,
+  "clock": "2026-01-01T06:05:00+00:00",
+  "journal_seq": 34507,
+  "journal_chain": "e8121350aeb9d68155a6fb6584b6ae4b920c158205b1378b96c1c6d6378a7772",
+  "evaluation_seq": null,
+  "evaluation_chain": null
+ },
+ "clock_end": "2026-01-01T06:05:00Z",
+ "journal_counts": {
+  "call": 1,
+  "call_revision": 52,
+  "entry_attempt": 1002,
+  "landmark": 15231,
+  "market_view": 8193,
+  "material_change": 11,
+  "observation": 8014,
+  "scenario": 2003
+ },
+ "journal_entries": 34507,
+ "journal_last_chain": "e8121350aeb9d68155a6fb6584b6ae4b920c158205b1378b96c1c6d6378a7772",
+ "trace_counts": {
+  "qa": 30142,
+  "scenario_first": 571
+ },
+ "a2x_counters": null,
+ "outputs_outside_git": {
+  "journal.jsonl.gz": "21020ce66d985f9f04483ad26ba9e4dec3af20e3fc157c26a94dfb277e0d2577",
+  "trace.jsonl.gz": "a39a1bbbc2549d2603a032e8499d504d0e37976490f64271c74d02901da007c9"
+ },
+ "elapsed_seconds": 361.0,
+ "python": "3.14.7"
+}

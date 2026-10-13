@@ -1,8 +1,8 @@
 """Descriptive historical comparison v0.6 / v0.6-a2x: the new v0.6 journal against the 12 October v0.6 journal.
 
 Same pack, rules and register; different build (6a0f22a then, this registration's commit now) and the passive trace now.
-Every journal entry is compared in order after removing only ``record.env.method.build`` and the entry's ``digest`` and
-``chain`` (they hash the build). Prints the counts and the first difference, if any; writes nothing else.
+Every journal entry is compared in order after removing only the ``build`` of every envelope's ``method`` (top-level and nested,
+amendment 1) and the entry's ``digest`` and ``chain`` (they hash the build). Prints the counts and the first difference, if any; writes nothing else.
 
   .venv/Scripts/python.exe delivery/evidence/A2X-HISTORICAL-COMPARISON/crosscheck_baseline.py <old_journal.jsonl.gz> <new_journal.jsonl.gz>
 """
@@ -14,12 +14,21 @@ import json
 import sys
 
 
+def _no_build(x):
+    """Amendment 1: the build is removed from EVERY envelope (a call's nested actionability envelope carries it too)."""
+    if isinstance(x, dict):
+        return {k: (_no_build({kk: vv for kk, vv in v.items() if kk != "build"}) if k == "method" and isinstance(v, dict)
+                    else _no_build(v)) for k, v in x.items()}
+    if isinstance(x, list):
+        return [_no_build(v) for v in x]
+    return x
+
+
 def strip(line: str) -> dict:
     e = json.loads(line)
     e.pop("digest", None)
     e.pop("chain", None)
-    e["record"]["env"]["method"].pop("build", None)
-    return e
+    return _no_build(e)
 
 
 def main(old: str, new: str) -> None:

@@ -1,4 +1,42 @@
-# Current task — Completion of the v0.6-a2x review (context/expansion tapes; experimental record registration)
+# Current task — Descriptive historical comparison v0.6 / v0.6-a2x (September–December 2025 pack)
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([design registered before execution](delivery/evidence/A2X-HISTORICAL-COMPARISON/DESIGN.md) at `306a0b9`; [summary](delivery/evidence/A2X-HISTORICAL-COMPARISON/SUMMARY.md)); the Director's review is PENDING. Only this descriptive assignment is active. No economic evaluation. v0.6, HDP-001 and future studies frozen and INACTIVE; the variant stays EXPERIMENTAL, not installed.
+
+## Assignment (relayed by the Owner, 13 October 2026; Astra accepted the technical closure at `5b7f00e` and authorized this comparison)
+
+1. **Input.** Reuse only the already verified Sep–Dec 2025 pack copy outside the Owner stack.
+   - Re-verify the manifest, cache association, hashes and coverage, with the authorized initialization and tail.
+   - Report a block if it is missing or differs. No new copy from the Owner volume, no acquisition.
+2. **Register before execution.** Save and commit a short design:
+   - the full identities of pack, engines, rules, registers and scripts;
+   - the same flow, availability, warmup and boundaries;
+   - the population: every A impulse born in [2025-09-01, 2026-01-01) in each policy;
+   - warmup states reported separately;
+   - the definitions of counts, matching and example choice.
+3. **Matching.**
+   - IDs, time proximity or outcome are not evidence that two scenarios are the same impulse.
+   - Primary key, fixed beforehand: direction + the complete ordered impulse sources + the original A/B geometry, scale and zone. Normalize only rules-identity differences.
+   - A match must be unique; otherwise keep the episodes distinct.
+   - A successor links to its impulse by lineage, not to a nearby baseline birth.
+   - "Deferred birth" needs a demonstrated link; otherwise "unmatched birth". Document beforehand how these cases are verified.
+4. **Execution.** Two complete frozen policies: A/B/C, selection, slot and ordinary conflicts active; no economic evaluator.
+   - Reuse the baseline only if its journal, identity and completeness suffice. Otherwise one offline v0.6 processing plus one of the variant on the same pack is authorized.
+   - No parameter changes after results.
+5. **Delivery.**
+   - A reconciled table per policy: impulses → admissible/excluded failures → reviews → successors / closures without successor → confirmations → call / non-issue, with reasons. Include impulses that never confirm; distinguish first attempt and successor. A published call is not an executed entry.
+   - A divergence register: common events, added successors, ordinary births absent or delayed with a demonstrated link, unmatched differences and the consequences on selection; the B/C effects observed, without a general diagnosis of their rules. Give a record and a verifiable cause for each attribution. After a divergence, do not attribute every difference to the reservation alone.
+   - A few illustrative sequences: the first chronological occurrence per divergence type, criterion registered beforehand. No choice by favourable outcome, no search for later recoveries.
+   - A conclusion: what the variant adds and what ordinary behaviour it sacrifices, with attribution limits. More calls do not mean improvement.
+6. **Checks.**
+   - Reconcile counts, uniqueness, lineage, matching, boundaries and completeness.
+   - Verify that the tabulation reproduces without repeating the engine processing.
+   - Record exposure and artifact provenance.
+   - Update STATE and task, separating delivery from the pending review.
+   - Commit and push; report SHA, checks and limits.
+   - No pull/fetch or CI query.
+   - No tuning, profit, minimum call threshold, Owner data, protected period, or product change/installation.
+
+
+## Previous task — Completion of the v0.6-a2x review (context/expansion tapes; experimental record registration)
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([summary, completion section](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md#completamento-della-review-13-ottobre-2026-base-048bf2d)); the Director's review is PENDING. The variant stays EXPERIMENTAL: not a release, not selectable, not installed. v0.6 and HDP-001 unchanged; studies INACTIVE.
 
 ## Assignment (Director review completion relayed by the Owner, 13 October 2026; base `048bf2d`)

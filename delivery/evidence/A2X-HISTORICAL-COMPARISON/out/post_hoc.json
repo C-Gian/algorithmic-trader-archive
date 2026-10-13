@@ -1,0 +1,49 @@
+{
+ "amendment": 2,
+ "birth_step_state": {
+  "LONG": {
+   "by_state_pair": {
+    "same": 11693,
+    "v0.6 NEED_FALSE/free vs a2x NEED_FALSE/reserved": 6,
+    "v0.6 READY/free vs a2x NEED_FALSE/free": 6,
+    "v0.6 READY/free vs a2x NEED_FALSE/reserved": 7
+   },
+   "differing_dispatches_outside_reservation_intervals": [
+    "2025-09-18T03:00:00Z",
+    "2025-11-24T22:45:00Z",
+    "2025-12-15T07:00:00Z"
+   ],
+   "qa_true_at_a_differing_dispatch": []
+  },
+  "SHORT": {
+   "by_state_pair": {
+    "same": 11693,
+    "v0.6 NEED_FALSE/free vs a2x NEED_FALSE/reserved": 5,
+    "v0.6 READY/free vs a2x NEED_FALSE/free": 5,
+    "v0.6 READY/free vs a2x NEED_FALSE/reserved": 9
+   },
+   "differing_dispatches_outside_reservation_intervals": [
+    "2025-09-09T18:15:00Z",
+    "2025-12-01T07:15:00Z"
+   ],
+   "qa_true_at_a_differing_dispatch": []
+  }
+ },
+ "market_views": {
+  "differing_top_level_fields": {
+   "<different number of views in the dispatch>": 11,
+   "conditional": 3,
+   "expected_direction": 3,
+   "horizon_minutes": 3,
+   "principal": 3,
+   "reasons": 29,
+   "table_row": 3
+  },
+  "dispatches_with_difference": 40,
+  "inside_a_reservation_interval": 40,
+  "outside": []
+ },
+ "post_hoc": true,
+ "reservation_intervals": 22,
+ "reservation_intervals_in_evaluation": 18
+}
