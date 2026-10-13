@@ -1647,3 +1647,12 @@ Authorized by Astra as one step (design, registration, execution), relayed by th
   - Not run: DB tests, e2e and CI (no product change).
 - **Exposure.** Register row 15.
 - **Status.** v0.6 frozen; E and a2x closed; future studies INACTIVE.
+
+
+## Subsequent closure and semantic-review annotation — 13 October 2026
+
+The orchestrator accepted the historical check delivered at `41f9edf` as a description of the first published expectation, not a conclusive evaluation of the complete adviser. This annotation supersedes the original pending-review status while preserving the registration, executor delivery and amendments. The Director independently recounted the committed scenario table and statically reviewed the classifier; input integrity and engine processing remain executor evidence. The orchestrator read SUMMARY, without rerunning the classifier or CSV computation.
+
+The 112 losses of original V are not 112 lost trades or failures of the complete scenario. The 37 destinations after revised confirmations cannot be credited to the original formulation. The 17 destinations among 28 original activations describe an activation-selected population. Revision utility remains unjudged. The post-result life-bound correction remains disclosed.
+
+The authorized follow-up static review is complete: [A trigger/destination semantic review](delivery/A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md). Verdict: the current ARMED sentence contradicts the contact-before-confirmation rules when its actual directional threshold, including tick, is at or beyond B. A minimum publication correction is proposed, not implemented; decision pending. No engine run, price-path search, extraction, acquisition, economic evaluation or CI query. v0.6 frozen; E and a2x closed; future studies INACTIVE.
