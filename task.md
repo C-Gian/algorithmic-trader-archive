@@ -1,4 +1,42 @@
-# Current task — Historical check of the v0.6 A/B/C expectations (September–December 2025)
+# Current task — Trigger/destination compatibility correction, implemented as EXPERIMENTAL v0.6-tdc
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([rules and authorization](delivery/A-TRIGGER-DESTINATION-CORRECTION.md); Director [semantic review](delivery/A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md)); the Director's review is PENDING. Not a release, not selectable, not installed; no automatic promotion. v0.6 and the registered studies frozen and INACTIVE.
+
+## Assignment (relayed by the Owner, 13 October 2026; review and authorization after `f2e22ac`)
+
+Implement the authorized trigger/destination correction in a version distinct from the frozen v0.6. Check the checkout and the repository instructions first; no pull or fetch.
+
+1. **Goal.** When the effective confirmation threshold is at or beyond the destination B in the directional domain:
+   - publish a faithful explanation of the incompatibility;
+   - exclude that scenario from MarketView directional support while the incompatibility lasts.
+
+   This changes the analytic reading, not only the text.
+2. **Implementation.**
+   - Identify the version separately, reusing the existing mechanism, without a2x.
+   - Compute compatibility in the engine with Decimal, direction, and the effective tick and trigger_ticks. In q the compatible condition requires Tq < Bq.
+   - Use the same criterion for the explanation and for the MarketView; no parallel deduction in the frontend.
+   - Evaluate other scenarios normally: an incompatible scenario must not force UNCERTAIN while a valid directional support remains.
+   - Re-evaluate at new revision publications without rewriting earlier ones.
+3. **Preserve.**
+   - Recognition, levels, scenario identities, revisions, deadlines, terminals, child and call.
+   - No early termination, moved B, lowered trigger or changed operational selection.
+   - Check the MarketView/selection link first; if the two effects cannot be separated without changing the operational policy, stop and describe the conflict.
+4. **Discriminating synthetic proofs** through the ordinary entry, with no preset state:
+   - LONG and SHORT with the threshold before B, exactly at B and beyond, including the one-tick borders;
+   - a revision that makes the condition compatible, with support restored only by the new publication;
+   - another valid scenario present;
+   - terminals and history preserved, with no retroactive confirmation;
+   - a coherent checkpoint/restore;
+   - frozen v0.6 parity;
+   - operational trace comparison: no unintended difference in selection, child or call.
+
+   Use the existing framework; check the presentation path if needed to show the published motivation, without new frontend rules.
+5. **Delivery.**
+   - Record the authorization and the identities; update STATE, task and the relevant documentation; commit and push.
+   - Report the actual analytic differences, the evidence of operational preservation, the checks and limits, and the final SHA.
+   - No real data, historical replay, acquisition, Owner access or installation, economic evaluator or CI query. No automatic promotion.
+
+
+## Previous task — Historical check of the v0.6 A/B/C expectations (September–December 2025)
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([design registered before tabulation](delivery/evidence/V06-EXPECTATION-HISTORICAL-CHECK/DESIGN.md) at `501393c`, three declared amendments; [summary](delivery/evidence/V06-EXPECTATION-HISTORICAL-CHECK/SUMMARY.md)); the Director's review is PENDING. Only this descriptive historical study is active. v0.6 frozen; E and a2x closed; future studies INACTIVE.
 
 ## Assignment (relayed by the Owner, 13 October 2026; Astra authorized design, registration and execution as one step)

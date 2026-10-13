@@ -183,6 +183,10 @@ def _runtime_cls(rel: methods.Release):
         from .runtime_a2x import AdviserRuntimeA2X
 
         return AdviserRuntimeA2X, AdviserRuntimeA2X.CORE_CLS
+    if rel.key == "v0.6-tdc":  # EXPERIMENTAL (explicit selection only)
+        from .runtime_tdc import AdviserRuntimeTDC
+
+        return AdviserRuntimeTDC, AdviserRuntimeTDC.CORE_CLS
     from .core3 import AdviserCoreV3
     from .runtime3 import AdviserRuntimeV3
 

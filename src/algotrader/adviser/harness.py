@@ -195,7 +195,7 @@ def make_runtime(*, tick=Decimal("0.1"), eval_start=None, eval_end=None, evaluat
                  clock_policy: str = ClockPolicy.MODELED_COMPLETE_PREFIX.value, sample_views: bool = True,
                  funding_mode: str | None = None, method: str = "v0.2", params=None) -> AdviserRuntime:
     """``method`` selects the packaged release (v0.2 baseline / v0.3 MP-002 / v0.4 MP-003 / v0.5 MP-004 / v0.6 MP-005), or
-    by its explicit key the EXPERIMENTAL v0.6-a2x variant (test paths only); ``params`` overrides the typed register
+    by its explicit key an EXPERIMENTAL variant (v0.6-a2x, v0.6-tdc; test paths only); ``params`` overrides the typed register
     for engineering fixtures only (e.g. a different cost envelope to test cost invariance)."""
     from . import methods
 
@@ -222,9 +222,10 @@ def make_runtime(*, tick=Decimal("0.1"), eval_start=None, eval_end=None, evaluat
         ev = EvaluatorV3(p, D(tick), eval_start=eval_start, eval_end=eval_end,
                          funding_mode=funding_mode or profile.funding_outcomes.value, sample_views=sample_views)
     from .runtime_a2x import AdviserRuntimeA2X
+    from .runtime_tdc import AdviserRuntimeTDC
 
     rt_cls = {"v0.4": AdviserRuntimeV4, "v0.5": AdviserRuntimeV5, "v0.6": AdviserRuntimeV6,
-              "v0.6-a2x": AdviserRuntimeA2X}.get(rel.key, AdviserRuntimeV3)
+              "v0.6-a2x": AdviserRuntimeA2X, "v0.6-tdc": AdviserRuntimeTDC}.get(rel.key, AdviserRuntimeV3)
     return rt_cls(rt_cls.CORE_CLS(cfg), ev)
 
 

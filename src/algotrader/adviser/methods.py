@@ -235,7 +235,31 @@ V06_A2X = Release(
                ("INHERITED_MP002_RULES", idn.METHOD_DIR / "MP-002-SCENARIO-CONFIRMATION-ENTRY-PROPOSAL.md"),
                ("INHERITED_MP002_DISPOSITION", idn.METHOD_DIR / "MP-002-DIRECTOR-DISPOSITION.md"),
                ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
-EXPERIMENTAL: dict[str, Release] = {V06_A2X.key: V06_A2X}
+V06_TDC = Release(
+    key="v0.6-tdc", label="EXPERIMENTAL v0.6-tdc — trigger/destination compatibility of the A antecedent (not a release)",
+    status="EXPERIMENTAL_ISOLATED_SYNTHETIC_ONLY", status_label="experimental, synthetic proofs only, not installable",
+    purpose=("A-TRIGGER-DESTINATION-CORRECTION (authorized after f2e22ac on the Director's semantic review): v0.6, plus "
+             "when an ARMED A scenario's effective confirmation threshold (K + tick x trigger ticks, direction-"
+             "transformed) is at or beyond its destination B, the published antecedent states that the condition cannot "
+             "confirm a continuation toward B under the current levels and the MarketView does not count the scenario "
+             "as directional support until a later publication makes it compatible. Operational policy unchanged."),
+    model="btc.context-action.v0.6-tdc", rules_version="tdc.rules.exp1",
+    rules_file=idn.METHOD_DIR / "A-TRIGGER-DESTINATION-CORRECTION.md",
+    register_file=idn.METHOD_DIR / "TDC-PARAMETERS.json",
+    implementation="adviser.core.v6-tdc", evaluator_implementation="adviser.evaluator.v3",
+    core_state_format="algotrader.adviser-state.v6-tdc", runtime_format="algotrader.adviser-runtime.v6-tdc",
+    evaluator_state_format="algotrader.adviser-evaluation-state.v2", engine_format="observe.stream.v7-tdc",
+    report_version="NONE_EXPERIMENTAL", reconciliation_version="NONE_EXPERIMENTAL", deep_version="NONE_EXPERIMENTAL",
+    inherited=(("DIRECTOR_SEMANTIC_REVIEW", idn.METHOD_DIR / "A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md"),
+               ("BASE_MP005_RULES", idn.METHOD_DIR / "MP-005-V06-INITIAL-RESPONSE-INCOMPATIBILITY.md"),
+               ("BASE_MP005_CLOSURE", idn.METHOD_DIR / "MP-005-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP004_RULES", idn.METHOD_DIR / "MP-004-V05-RETURN-RESPONSE.md"),
+               ("INHERITED_MP004_CLOSURE", idn.METHOD_DIR / "MP-004-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP003_RULES", idn.METHOD_DIR / "MP-003-A-REACTION-ANCHOR-DISPOSITION.md"),
+               ("INHERITED_MP002_RULES", idn.METHOD_DIR / "MP-002-SCENARIO-CONFIRMATION-ENTRY-PROPOSAL.md"),
+               ("INHERITED_MP002_DISPOSITION", idn.METHOD_DIR / "MP-002-DIRECTOR-DISPOSITION.md"),
+               ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
+EXPERIMENTAL: dict[str, Release] = {V06_A2X.key: V06_A2X, V06_TDC.key: V06_TDC}
 # MP-002 structural-scenario lineage (scenario/entry_attempt kinds); v0.5/v0.6 inherit the v0.4 anchors
 SCENARIO_METHODS = frozenset({"v0.3", "v0.4", "v0.5", "v0.6"})
 ANCHOR_METHODS = frozenset({"v0.4", "v0.5", "v0.6"})  # MP-003 pre-confirmation A anchor epochs

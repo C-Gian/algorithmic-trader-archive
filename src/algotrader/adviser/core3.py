@@ -1698,13 +1698,21 @@ class AdviserCoreV3(AdviserCore):
                 "destination": s.dest_t * s.d if s.dest_t is not None else None, "destination_type": s.dest_type,
                 "confirmed_at": s.conf_at}
 
+    def _view_support(self, active: list[Scen]) -> tuple[list[Scen], list[Scen]]:
+        """(directional support, observed hypotheses) of the MarketView, in view order: armed/confirmed scenarios
+        support a direction, WATCH ones are hypotheses (a later version may classify differently)."""
+        return [s for s in active if s.status in ("ARMED", "CONFIRMED")], [s for s in active if s.status == "WATCH"]
+
+    def _view_notes(self, active: list[Scen]) -> list[str]:
+        """Additional view reasons of a later version (none here)."""
+        return []
+
     def compute_view(self, t: datetime) -> dict:
         ctx = self.context(t)
         ph = self.phase_now(t)
         order = lambda s: (FAM_RANK[s.family], s.born_at, s.sid)  # noqa: E731
         active = sorted(self.scen.values(), key=order)
-        strong = [s for s in active if s.status in ("ARMED", "CONFIRMED")]
-        watch = [s for s in active if s.status == "WATCH"]
+        strong, watch = self._view_support(active)
         dirs = {s.d for s in strong}
         principal = None
         alts: list[dict] = []
@@ -1743,6 +1751,7 @@ class AdviserCoreV3(AdviserCore):
         else:
             row, exp = "NO_QUALIFIED_STRUCTURE", "UNCERTAIN"
             reasons.append(f"observed {ctx}/{ph}; missing antecedent: no born A impulse or compression box scenario")
+        reasons += self._view_notes(active)
         hz = None
         if principal is not None:
             e = self.p.expected(principal["family"])

@@ -172,6 +172,23 @@ An isolated implementation of the [A second-attempt design](delivery/A-SECOND-AT
 - **Evidence.** [summary](delivery/evidence/A-SECOND-ATTEMPT-IMPLEMENTATION/SUMMARY.md).
 - **Not done.** No data evaluation, backtest or economic result.
 
+## EXPERIMENTAL v0.6-tdc — trigger/destination compatibility (not a release; synthetic proofs only; not in the application)
+
+v0.6 plus the correction authorized after the Director's [semantic review](delivery/A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md) ([rules](delivery/A-TRIGGER-DESTINATION-CORRECTION.md)). It does not contain v0.6-a2x. Like v0.6-a2x, it is selectable only explicitly in test paths (`methods.get("v0.6-tdc", experimental=True)`). It is never listed, never the default and not installed.
+
+- **Rule.** For an ARMED A scenario, with q = d × price and the effective threshold Tq = d·K + tick × trigger ticks, the recovery condition is compatible only when Tq < Bq. When Tq ≥ Bq:
+  - the published antecedent states that the required close is at or beyond the destination, so it cannot confirm a continuation toward it under the current levels;
+  - the MarketView lists the scenario with the observed hypotheses (`watch`, status still ARMED), not as principal or alternative, and adds one reason line;
+  - other scenarios are evaluated as in v0.6;
+  - compatibility is re-evaluated at each publication (REVISE/REARM/ANCHOR_LOST), and earlier records are never rewritten.
+- **Unchanged.** Recognition, levels, ids, revisions, deadlines, terminals, confirmation, child, selection, slot, conflicts and calls. The MarketView is read by no operational step.
+- **Implementation.**
+  - `adviser/core_tdc.py` (one criterion function) and `runtime_tdc.py`.
+  - One behaviour-preserving hook in `core3.compute_view` (`_view_support`, `_view_notes`).
+  - Identities `btc.context-action.v0.6-tdc` / `tdc.rules.exp1`, `adviser.core.v6-tdc`, `algotrader.adviser-state.v6-tdc`, `algotrader.adviser-runtime.v6-tdc`; register MP-005 with no new number.
+- **Presentation.** The frontend shows the published reasons and antecedent unchanged; no frontend rule was added.
+- **Not done.** No real data, replay or economic evaluation.
+
 ## HDP-001 verification executor (offline study tool; study INACTIVE)
 
 `scripts/hdp001_verify.py` applies the frozen HDP-001 protocol to verified local `marketdata.v1` datasets.
