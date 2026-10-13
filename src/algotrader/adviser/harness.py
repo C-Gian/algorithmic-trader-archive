@@ -222,10 +222,12 @@ def make_runtime(*, tick=Decimal("0.1"), eval_start=None, eval_end=None, evaluat
         ev = EvaluatorV3(p, D(tick), eval_start=eval_start, eval_end=eval_end,
                          funding_mode=funding_mode or profile.funding_outcomes.value, sample_views=sample_views)
     from .runtime_a2x import AdviserRuntimeA2X
+    from .runtime7 import AdviserRuntimeV7
     from .runtime_tdc import AdviserRuntimeTDC
 
     rt_cls = {"v0.4": AdviserRuntimeV4, "v0.5": AdviserRuntimeV5, "v0.6": AdviserRuntimeV6,
-              "v0.6-a2x": AdviserRuntimeA2X, "v0.6-tdc": AdviserRuntimeTDC}.get(rel.key, AdviserRuntimeV3)
+              "v0.6-a2x": AdviserRuntimeA2X, "v0.6-tdc": AdviserRuntimeTDC,
+              "v0.7": AdviserRuntimeV7}.get(rel.key, AdviserRuntimeV3)
     return rt_cls(rt_cls.CORE_CLS(cfg), ev)
 
 

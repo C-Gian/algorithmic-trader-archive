@@ -1,4 +1,38 @@
-# Current task — v0.6-tdc ordinary completion: WATCH_ONLY reason with an incompatible ARMED scenario
+# Current task — Integrate the tdc correction as product version v0.7
+Date: 2026-10-13. Status: EXECUTOR DELIVERY ([release](delivery/V07-TRIGGER-DESTINATION-RELEASE.md), [integration evidence](delivery/evidence/V07-INTEGRATION/NOTE.md)); the Director's review is separate and PENDING. v0.6, the variants and the registered studies are unchanged and INACTIVE.
+
+## Assignment (relayed by the Owner, 13 October 2026; orchestrator authorization; approved reference `57fa14e`)
+
+Integrate only the tdc correction as a new product version. Read the repository instructions and verify the checkout; no pull or fetch.
+
+1. **Identity and isolation.**
+   - A distinct, traceable product version linked to the approved tdc correction.
+   - Keep the experimental variant and its evidence.
+   - No a2x and no other methodological change.
+   - v0.6 stays selectable, with unchanged identity and behaviour; the default method does not change.
+   - No implicit migration of runs or checkpoints: restore only under a compatible identity.
+2. **Integration.** Make the version available in the relevant ordinary app paths, reusing registration, persistence, API and selectors. In the cockpit, present the engine's reasons in Italian:
+   - the scenario is recognized but its current condition is incompatible;
+   - that scenario gives no directional support;
+   - any other valid scenarios;
+   - support is restored only by the publication of a compatible revision.
+
+   The frontend translates published content and does not compute the incompatibility from prices or levels. Keep the actual states, history and earlier reasons. No general restyling.
+3. **Integrated synthetic acceptance.** Use the existing framework and an isolated database, along the real path engine → persistence → API → cockpit. Inputs come from the ordinary entry with normal initialization and readiness; no scenario, call or guidance is inserted by hand. Cover:
+   - LONG and SHORT;
+   - an effective threshold exactly at B;
+   - another valid scenario present;
+   - a revision that makes the condition compatible, with support only from the new publication;
+   - restore, identity and history without duplication;
+   - a cockpit reload;
+   - isolation from the frozen v0.6.
+
+   Reuse the available synthetic proofs for the borders before and beyond B. Verify calls, operational selection and terminals: the change must affect only the explanation and the MarketView, with no unintended operational effect. Run the relevant regressions, the DB/E2E tests involved and the web build with typecheck. Report a semantic conflict without widening the rules; handle technical corrections autonomously.
+4. **Delivery.** Record the authorization, version and identities. Update README, STATE and task. Provide compact evidence of the integrated path and a few clearly labelled synthetic screenshots. Report the checks run, limits and final SHA. Commit and push; the Director's review is separate.
+5. **Excluded.** Installation in or access to the Owner stack, real data, acquisition, historical replay, tuning, economic study, CI query and starting the frozen studies.
+
+
+## Previous task — v0.6-tdc ordinary completion: WATCH_ONLY reason with an incompatible ARMED scenario
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([rules addendum](delivery/A-TRIGGER-DESTINATION-CORRECTION.md#addendum--watch_only-wording-13-october-2026-on-b7c1733)); the Director's review is PENDING. Not a release, not selectable, not installed. v0.6 and the registered studies frozen and INACTIVE.
 
 ## Assignment (relayed by the Owner, 13 October 2026; base `b7c1733`)

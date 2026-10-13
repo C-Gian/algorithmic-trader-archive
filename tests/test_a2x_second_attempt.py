@@ -73,7 +73,7 @@ def test_variant_identity_is_separate_explicit_and_not_selectable():
     with pytest.raises(methods.UnknownMethod):
         methods.get(X)  # every application path (API, controls, jobs, live) calls get() without the flag
     assert X not in methods.RELEASES and X not in {m["method"] for m in methods.selectable()}
-    assert methods.DEFAULT == "v0.2" and set(methods.RELEASES) == {"v0.2", "v0.3", "v0.4", "v0.5", "v0.6"}
+    assert methods.DEFAULT == "v0.2" and set(methods.RELEASES) == {"v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7"}
     for f in ("model", "rules_version", "implementation", "core_state_format", "runtime_format", "engine_format"):
         assert getattr(vx, f) != getattr(v6, f), f
     assert vx.rules_sha256() != v6.rules_sha256() and vx.register_sha256() != v6.register_sha256()
@@ -715,7 +715,8 @@ def test_record_registration_is_additive_experimental_and_outside_every_identity
                               "implementation": vx.implementation, "core_state_format": vx.core_state_format,
                               "runtime_format": vx.runtime_format, "engine_format": vx.engine_format}
     # the public semantic.v2 contract, its changelog, the emitted-revision map and the baseline are unchanged
-    assert REG["base_contract"]["revision"] == sc.SEMANTIC_V2_REVISION == 5 and len(sc.SEMANTIC_V2_CHANGELOG) == 5
+    assert REG["base_contract"]["revision"] == sc.SEMANTIC_V2_CHANGELOG[4][0] == 5  # the variant emits revision 5
+    assert sc.SEMANTIC_V2_REVISION == 6 and sc.SEMANTIC_V2_CHANGELOG[5][0] == 6  # r6 = the v0.7 product version
     assert vx.model not in sc.SEMANTIC_V2_EMITTED_REVISION and sc.KIND_CONTRACTS_V6 == sc.KIND_CONTRACTS_V5
     baseline = (methods.idn.METHOD_DIR.parents[3] / "schemas/algotrader.semantic.v2.json").read_text(encoding="utf-8")
     assert not any(w in baseline for w in ("a_second_attempt", "SECOND_ATTEMPT", "ORIGINAL_IMPULSE_EXPIRY", "a2x"))

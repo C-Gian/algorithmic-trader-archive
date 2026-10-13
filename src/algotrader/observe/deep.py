@@ -132,6 +132,13 @@ SCOPE_ADVISER_V6 = SCOPE_ADVISER_V5 + (
     "response incompatibility terminal (reason, base and its diagnostic F/C0/A0/J0 sets) published in the reference "
     "dispatch, and the restorable state carries the scenario's ended-entry record. Stored bytes are re-hashed on "
     "launch and every resume. It shares the reducer implementation: not an independent trading or method validation.")
+VALIDATOR_VERSION_ADVISER_V7 = "11"
+SCOPE_ADVISER_V7 = SCOPE_ADVISER_V6 + (
+    " Version 11 (v0.7 adviser runs, engine observe.stream.v8) applies the same comparisons to the pinned v0.7 "
+    "release: the shadow fold re-executes the packaged v0.7 rules manifest/register identity (a different pinned "
+    "method fails explicitly); the stored scenario and MarketView records additionally carry the published "
+    "trigger/destination compatibility. Stored bytes are re-hashed on launch and every resume. It shares the reducer "
+    "implementation: not an independent trading or method validation.")
 TERMINAL_KEYS = ("aggregate_chain", "sealed_commitment", "dispatch_commitment", "dispatch_seq", "clock_time")
 
 
@@ -183,7 +190,7 @@ def create_deep_validation(conn, replay_id: str) -> str:
     temporal = bool(eng.get("temporal"))
     adviser = bool(eng.get("adviser"))
     method = (eng.get("adviser") or {}).get("method") if adviser else None
-    v3, v4, v5, v6 = method == "v0.3", method == "v0.4", method == "v0.5", method == "v0.6"
+    v3, v4, v5, v6, v7 = method == "v0.3", method == "v0.4", method == "v0.5", method == "v0.6", method == "v0.7"
     pin = terminal_pin(row) if temporal else None
     finish = None
     if adviser and row["status"] == "completed":
@@ -194,12 +201,12 @@ def create_deep_validation(conn, replay_id: str) -> str:
             "run_status_at_launch": row["status"], "cache_id": eng["cache_id"],
             "cache_manifest_sha256": eng["cache_manifest_sha256"], "state_format": eng["state_format"],
             "validator": VALIDATOR_ID,
-            "validator_version": (VALIDATOR_VERSION_ADVISER_V6 if v6 else VALIDATOR_VERSION_ADVISER_V5 if v5 else
+            "validator_version": (VALIDATOR_VERSION_ADVISER_V7 if v7 else VALIDATOR_VERSION_ADVISER_V6 if v6 else VALIDATOR_VERSION_ADVISER_V5 if v5 else
                                   VALIDATOR_VERSION_ADVISER_V4 if v4 else VALIDATOR_VERSION_ADVISER_V3 if v3 else
                                   VALIDATOR_VERSION_ADVISER if adviser else
                                   VALIDATOR_VERSION_TEMPORAL if temporal else VALIDATOR_VERSION),
             "mode": "canonical-cache-only",
-            "scope": (SCOPE_ADVISER_V6 if v6 else SCOPE_ADVISER_V5 if v5 else SCOPE_ADVISER_V4 if v4 else SCOPE_ADVISER_V3 if v3 else
+            "scope": (SCOPE_ADVISER_V7 if v7 else SCOPE_ADVISER_V6 if v6 else SCOPE_ADVISER_V5 if v5 else SCOPE_ADVISER_V4 if v4 else SCOPE_ADVISER_V3 if v3 else
                       SCOPE_ADVISER if adviser else
                       SCOPE_TEMPORAL if temporal
                       else SCOPE), "temporal": temporal,

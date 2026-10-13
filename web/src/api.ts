@@ -857,7 +857,7 @@ export interface Evaluation {
 }
 
 export interface AdviserMethodPin {
-  method: "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6" | string; label: string; status: string; model: string; pinned_at_preparation: boolean;
+  method: "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6" | "v0.7" | string; label: string; status: string; model: string; pinned_at_preparation: boolean;
   status_label?: string; economic_usefulness?: string;
 }
 
@@ -929,6 +929,10 @@ export interface AdviserSection {
   /** adviser.report.v2 (v0.2) or adviser.report.v3 (MP-002 v0.3: registered funnel/denominators). */
   report_version?: string;
   method?: { method: string; model: string; status: string; status_label?: string; economic_usefulness?: string };
+  /** adviser.report.v7 (v0.7): counts of the published trigger/destination compatibility (records only). */
+  trigger_destination?: { incompatible_publications: number; scenarios_with_an_incompatible_publication: number;
+                          market_views_without_support_from_an_armed_scenario: number;
+                          restored_by_a_compatible_revision: number; note: string };
   /** adviser.report.v4 (MP-003 v0.4): pre-confirmation anchor diagnostics (owner level vs event level). */
   anchors?: AnchorDiagnostics;
   /** adviser.report.v5/v6 (MP-004 v0.5, MP-005 v0.6): A RETURN response accounting (MP-004 §7), total and monthly;
@@ -1121,7 +1125,7 @@ export const evalApi = {
   start: (chunkId: string, speed: number, paused: boolean) =>
     req<Evaluation>(E, { method: "POST", body: JSON.stringify({ chunk_id: chunkId, speed, paused }) }),
   startPack: (packId: string, speed: number, paused: boolean, acknowledge: boolean,
-              runType: "observation_only" | "adviser_evaluation" = "observation_only", method?: "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6") =>
+              runType: "observation_only" | "adviser_evaluation" = "observation_only", method?: "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6" | "v0.7") =>
     req<Evaluation>(E, { method: "POST", body: JSON.stringify({ pack_id: packId, speed, paused, acknowledge_limitations: acknowledge,
                                                               run_type: runType,
                                                               ...(runType === "adviser_evaluation" && method ? { method } : {}) }) }),

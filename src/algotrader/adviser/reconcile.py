@@ -26,7 +26,8 @@ from decimal import Decimal
 from typing import Any
 
 from ..feed.ordering import canonical
-from .contracts import KIND_CONTRACTS, KIND_CONTRACTS_V3, KIND_CONTRACTS_V4, KIND_CONTRACTS_V5, KIND_CONTRACTS_V6
+from .contracts import (KIND_CONTRACTS, KIND_CONTRACTS_V3, KIND_CONTRACTS_V4, KIND_CONTRACTS_V5, KIND_CONTRACTS_V6,
+                        KIND_CONTRACTS_V7)
 from .core import INITIAL_JOURNAL
 from .evaluator import INITIAL_RECORDS
 
@@ -70,6 +71,13 @@ SCOPE_V9 = (" Version 9 (WP-015 MP-005 v0.6 adviser runs, engine observe.stream.
             "matching response outcome; and, recomputed from each stored reference record's own H0/L0, tick, effective "
             "corridor and historical economic region, the terminal occurs exactly when F meets no usable price (base "
             "CORRIDOR when F misses the corridor). PASS remains runtime integrity, not profit or forecast quality.")
+SCOPE_V10 = (" Version 10 (v0.7 adviser runs, engine observe.stream.v8) applies every version-9 check unchanged to the "
+             "pinned v0.7 release (rules manifest: the v0.7 release delta, the approved trigger/destination correction "
+             "and the Director's semantic review, then every inherited v0.6 text, register, runtime and engine format) "
+             "and additionally checks the published trigger/destination compatibility: every A scenario record whose "
+             "antecedent states the incompatibility has, in its own published levels, a threshold (trigger + tick x "
+             "trigger ticks, direction-transformed) at or beyond its destination, and no such statement accompanies a "
+             "compatible level. PASS remains runtime integrity, not profit or forecast quality.")
 
 
 def _chain(rows: list[dict], initial: str) -> tuple[list[str], str | None]:
@@ -101,8 +109,8 @@ def checks(check, *, status: str, ranges: list[dict], terminal: dict | None, cur
     summary: dict[str, Any] = {"identity": engine["adviser"]["identity"], "journal_records": len(journal),
                                "evaluation_records": len(records)}
     method = engine["adviser"].get("method")
-    v3 = method in ("v0.3", "v0.4", "v0.5", "v0.6")  # MP-002 scenario lineage (v0.4-v0.6 inherit it)
-    kinds = (KIND_CONTRACTS_V6 if method == "v0.6" else KIND_CONTRACTS_V5 if method == "v0.5" else
+    v3 = method in ("v0.3", "v0.4", "v0.5", "v0.6", "v0.7")  # MP-002 scenario lineage (v0.4-v0.7 inherit it)
+    kinds = (KIND_CONTRACTS_V7 if method == "v0.7" else KIND_CONTRACTS_V6 if method == "v0.6" else KIND_CONTRACTS_V5 if method == "v0.5" else
              KIND_CONTRACTS_V4 if method == "v0.4" else KIND_CONTRACTS_V3 if v3 else KIND_CONTRACTS)
     if v3:
         summary["method"] = method
@@ -262,11 +270,13 @@ def checks(check, *, status: str, ranges: list[dict], terminal: dict | None, cur
     lp += [f"attempt {a} ended without a birth" for a in ends if a not in births]
     if v3:
         lp += _v3_lineage(journal, calls)
-    if method in ("v0.4", "v0.5", "v0.6"):
+    if method in ("v0.4", "v0.5", "v0.6", "v0.7"):
         lp += _v4_anchor_lineage(journal)
-    if method in ("v0.5", "v0.6"):
+    if method in ("v0.5", "v0.6", "v0.7"):
         lp += _v5_response_lineage(journal)
-    if method == "v0.6":
+    if method == "v0.7":
+        lp += _v7_trigger_destination(journal, Decimal(engine["adviser"]["tick"]))
+    if method in ("v0.6", "v0.7"):
         hist = ((engine["adviser"].get("profile") or {}).get("execution") or "HISTORICAL_BASE") == "HISTORICAL_BASE"
         lp += _v6_initial_compatibility(journal, hist)
     check("adviser_lineage_immutability", not lp, "; ".join(lp[:5]) or
@@ -314,6 +324,31 @@ def _v4_anchor_lineage(journal: list[dict]) -> list[str]:
             st.update(status="CONFIRMED", confirmed=True)
         if st["origin"] is not None and tr != "ARM" and                 (rec["destination_monitoring_from"], rec["destination_monitoring_cursor"]) != st["origin"]:
             lp.append(f"scenario {sid} destination monitoring origin changed at {tr}")
+    return lp
+
+
+TD_INCOMPATIBLE = "current recovery condition incompatible with its destination"
+
+
+def _v7_trigger_destination(journal: list[dict], tick: Decimal) -> list[str]:
+    """v0.7: a published incompatibility statement iff the record's own threshold is at or beyond its destination."""
+    from .methods import RELEASES
+
+    step = tick * RELEASES["v0.7"].params().trigger_ticks
+    lp: list[str] = []
+    for e in journal:
+        r = e["record"]
+        if e["kind"] != "scenario" or r.get("family") != "A" or r.get("status") != "ARMED":
+            continue
+        if r.get("trigger_level") is None or r.get("destination") is None:
+            continue
+        d = 1 if r["direction"] == "LONG" else -1
+        incompatible = d * Decimal(r["trigger_level"]) + step >= d * Decimal(r["destination"])
+        stated = str(r.get("antecedent") or "").startswith(TD_INCOMPATIBLE)
+        if incompatible != stated:
+            lp.append(f"scenario {r['scenario_id']} {r['transition']}: published compatibility statement "
+                      f"{'present' if stated else 'absent'} with threshold {'at/beyond' if incompatible else 'before'} "
+                      "its destination")
     return lp
 
 

@@ -150,6 +150,28 @@ v0.6 is v0.5 with ONE named addition ([MP-005](delivery/MP-005-V06-INITIAL-RESPO
 - **Reports and UI**: report v6 = report v5 + the `INITIAL_RESPONSE_INCOMPATIBLE` count as a **subset of X** (never added again), by base, direction and WAIT-open month, ratio over P (zero denominator undefined), with the declared loss of later C/R classifications (no counterfactual) in JSON, Markdown and Copy report for chat. The 20-owner RETURN convention is NOT_APPLICABLE. The Workbench and the live cockpit offer v0.6 with its status and purpose before Start; an ended entry attempt is shown as *entry attempt ended — scenario not invalidated*, distinct from an invalidated scenario; the read-only comparison adds the MP-005 limitation and the subset row (default pair v0.5/v0.6 when both exist).
 - **Limits**: synthetic fixtures only (the MP-005 §8/§9 rows checked literally through the pinned functions, reachable tapes on the MP-002 base path); no Owner run, replay on real data or economic comparison; usefulness unknown.
 
+## Candidate v0.7 — trigger/destination compatibility (selectable; engineering review pending)
+
+v0.7 is the approved tdc correction (`57fa14e`) as a product version ([release](delivery/V07-TRIGGER-DESTINATION-RELEASE.md)). It is v0.6 plus one rule: when an armed A scenario's current recovery condition (its trigger plus one tick, direction-transformed) is already at or beyond its destination:
+- the engine publishes that it cannot confirm a continuation toward that destination;
+- the market reading does not count the scenario as directional support until a later revision publishes a compatible condition.
+
+**Unchanged from v0.6:** calls, entries, selection and terminals.
+
+**Where it appears:** v0.7 is selectable in the Historical Workbench and in the live cockpit, and the default stays v0.2. The cockpit explains in Italian:
+- the incompatible condition;
+- the absence of support from that scenario;
+- whether another valid scenario supports the reading;
+- a restoration by revision.
+
+It translates the engine's published reasons and its `trigger_destination` verdict, and never computes it.
+
+**Identities:** core/state/runtime v7, engine `observe.stream.v8`, report v7, reconciliation 10, Deep 11; semantic.v2 r6, observe.v1 r10.
+
+**No migration:** a v0.7 run or state never continues under another method.
+
+**Not done:** usefulness and economics are unvalidated; synthetic proofs only.
+
 ## EXPERIMENTAL v0.6-a2x — second A attempt (not a release; synthetic proofs only; not in the application)
 
 An isolated implementation of the [A second-attempt design](delivery/A-SECOND-ATTEMPT-DESIGN.md) (design `b20919e`, ratification `3705fd0`) for synthetic proofs. It is **not** a selectable method: the Workbench, the live cockpit, the API, controls and jobs never list or accept it, it is never the default, and it is not installed in the Owner stack. Only test paths select it explicitly (`methods.get("v0.6-a2x", experimental=True)`, `harness.run_pure(..., method="v0.6-a2x")`).

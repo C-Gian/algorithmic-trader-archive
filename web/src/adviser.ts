@@ -4,8 +4,8 @@
 export type Expected = "UP" | "DOWN" | "BALANCED" | "UNCERTAIN" | "UNAVAILABLE";
 
 /** Packaged adviser releases selectable before Start (stored runs always show their pinned method). */
-export type AdviserMethod = "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6";
-export const METHODS: readonly AdviserMethod[] = ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6"];
+export type AdviserMethod = "v0.2" | "v0.3" | "v0.4" | "v0.5" | "v0.6" | "v0.7";
+export const METHODS: readonly AdviserMethod[] = ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7"];
 
 export interface ScenarioView {
   scenario_id: string;
@@ -61,10 +61,21 @@ export interface ScenarioState {
   observing?: { text: string; lost_anchor: Record<string, string | null> | null; original_expiry: string };
   /** v0.6: the entry attempt ended (INITIAL_RESPONSE_INCOMPATIBLE) while the scenario stays alive. */
   entry_ended?: EntryEnded;
+  /** v0.7: the ENGINE's trigger/destination verdict for an A scenario with a current trigger (never recomputed here). */
+  trigger_destination?: TriggerDestination;
+}
+
+/** v0.7: published by the engine; the UI only translates it. */
+export interface TriggerDestination {
+  compatible: boolean; supports_direction: boolean; threshold: string; destination: string;
+  previous_anchor_incompatible: boolean | null; restored_by_revision: boolean; revision_published_at: string | null;
 }
 
 /** One plain phrase per structural scenario state: observation, active anchor, confirmed wait - never "enter now". */
 export function scenarioPhrase(s: ScenarioState): { tone: "info" | "warn" | "neutral" | "brand"; text: string } {
+  if (s.trigger_destination && !s.trigger_destination.compatible) {
+    return { tone: "neutral", text: "Armed, but its current condition would already reach the destination — not directional support (not a call)" };
+  }
   if (s.observing) return { tone: "neutral", text: "Scenario under observation; waiting for a new completed reaction" };
   if (s.waiting?.phase === "WAIT_RESPONSE") {
     return { tone: "info", text: "Confirmed — return reference prepared; waiting for a local recovery (not a call)" };
@@ -305,6 +316,7 @@ export const METHOD_TEXT: Record<string, string> = {
   "v0.4": "Candidate v0.4 — reaction anchor may be replaced before confirmation",
   "v0.5": "Candidate v0.5 — RETURN waits for a local recovery",
   "v0.6": "Candidate v0.6 — RETURN reference ends early when its confirmation is already impossible",
+  "v0.7": "Candidate v0.7 — an A condition that would already reach its destination is not counted as directional support",
 };
 
 /** Release status shown beside a method choice (economic usefulness is unvalidated for every version). */
@@ -314,11 +326,12 @@ export const METHOD_STATUS: Record<string, { tone: "pos" | "info" | "warn"; text
   "v0.4": { tone: "warn", text: "Engineering review pending" },
   "v0.5": { tone: "warn", text: "Engineering review pending" },
   "v0.6": { tone: "warn", text: "Engineering review pending" },
+  "v0.7": { tone: "warn", text: "Engineering review pending" },
 };
 
 /** Short method identity shown on pins and results (never the current default). */
 export const METHOD_PIN: Record<string, string> = {
-  "v0.2": "MP-001 v0.2", "v0.3": "MP-002 v0.3", "v0.4": "MP-003 v0.4", "v0.5": "MP-004 v0.5", "v0.6": "MP-005 v0.6",
+  "v0.2": "MP-001 v0.2", "v0.3": "MP-002 v0.3", "v0.4": "MP-003 v0.4", "v0.5": "MP-004 v0.5", "v0.6": "MP-005 v0.6", "v0.7": "tdc v0.7",
 };
 
 export const METHOD_PURPOSE: Record<string, string> = {
@@ -327,6 +340,7 @@ export const METHOD_PURPOSE: Record<string, string> = {
   "v0.4": "MP-003: before confirmation, a touch of the reaction stop invalidates only that reaction anchor; the same scenario waits for a newer, deeper completed reaction. Everything after confirmation is unchanged from v0.3.",
   "v0.5": "MP-004: in the A RETURN wait the first usable return no longer issues a call; it fixes one reference bar, and a call can only follow a later completed 1-minute close beyond that bar's favourable extreme without breaking its other extreme (first recovery evaluated once). Everything else is v0.4.",
   "v0.6": "MP-005: as v0.5, but right after the RETURN reference is fixed the entry attempt ends at once when no confirming close beyond it could lie in the usable corridor (historical and live) or, historically, in the fixed-cost economic region. Only the entry attempt ends — the scenario is not invalidated. Everything else is v0.5.",
+  "v0.7": "As v0.6, but when an armed A scenario's current recovery condition (its trigger plus one tick) is already at or beyond its destination, the engine says it cannot confirm a continuation toward that destination and the market reading does not count it as directional support until a later revision publishes a compatible condition. Calls, entries, selection and terminals are unchanged from v0.6.",
 };
 
 export const THESIS_TEXT: Record<string, string> = {

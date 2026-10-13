@@ -1,0 +1,42 @@
+{
+  "note": "synthetic engineering tape, technical proof without economic meaning",
+  "run_v07": "live-20250828T0316-b8e74c",
+  "scenario_records_live": [
+    [
+      "03:30:01",
+      "BIRTH",
+      false
+    ],
+    [
+      "03:45:01",
+      "ARM",
+      true
+    ],
+    [
+      "04:00:01",
+      "REVISE",
+      false
+    ],
+    [
+      "04:06:01",
+      "CONFIRM",
+      false
+    ]
+  ],
+  "calls_v07": 0,
+  "restore": {
+    "same_run": true,
+    "records_before_stop": 240,
+    "records_after_restart": 252,
+    "duplicates": 0
+  },
+  "v06_isolation": {
+    "run": "live-20250828T0411-069144",
+    "reset": "METHOD_CHANGED:v0.7->v0.6"
+  },
+  "screenshots": [
+    "v07-1-long-incompatible-no-support.png",
+    "v07-2-long-restored-by-revision.png",
+    "v07-3-long-after-restore.png"
+  ]
+}

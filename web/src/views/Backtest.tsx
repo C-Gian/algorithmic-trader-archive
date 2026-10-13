@@ -946,9 +946,9 @@ function ComparePanel({ items }: { items: Evaluation[] | null }) {
     // completed reports are read; nothing is launched or rebuilt.
     const latest = (m: string) => advisers.find((e) => e.method?.method === m)?.evaluation_id;
     if (picked) return;
-    const pair = ([["v0.5", "v0.6"], ["v0.4", "v0.5"], ["v0.3", "v0.4"], ["v0.2", "v0.3"]] as const)
+    const pair = ([["v0.6", "v0.7"], ["v0.5", "v0.6"], ["v0.4", "v0.5"], ["v0.3", "v0.4"], ["v0.2", "v0.3"]] as const)
       .find(([x, y]) => latest(x) && latest(y))
-      ?? (latest("v0.6") ? ["v0.5", "v0.6"] : latest("v0.5") ? ["v0.4", "v0.5"] : latest("v0.4") ? ["v0.3", "v0.4"]
+      ?? (latest("v0.7") ? ["v0.6", "v0.7"] : latest("v0.6") ? ["v0.5", "v0.6"] : latest("v0.5") ? ["v0.4", "v0.5"] : latest("v0.4") ? ["v0.3", "v0.4"]
         : ["v0.2", "v0.3"]);
     setA(latest(pair[0]) ?? "");
     setB(latest(pair[1]) ?? "");

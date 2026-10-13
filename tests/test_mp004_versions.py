@@ -123,7 +123,7 @@ def test_semantic_revision_4_records_validate_and_old_kinds_are_unchanged():
     assert sc.KIND_CONTRACTS_V5["scenario"] is sc.ScenarioStateV4  # anchors inherited unchanged
     assert sc.KIND_CONTRACTS_V4["entry_attempt"] is sc.EntryAttempt  # v0.4 records keep their revision-2 contract
     # WP-015 bumps the revision to 5 (v0.6 values only); v0.5 still emits revision 4
-    assert sc.SEMANTIC_V2_REVISION == 5 and sc.SEMANTIC_V2_EMITTED_REVISION["btc.context-action.v0.5"] == 4
+    assert sc.SEMANTIC_V2_REVISION == 6 and sc.SEMANTIC_V2_EMITTED_REVISION["btc.context-action.v0.5"] == 4
     # the response provenance is never an economic or account field of the structural scenario records
     scen = [e["record"] for e in res.journal if e["kind"] == "scenario"]
     assert not [k for r in scen for k in r if k == "response"]

@@ -69,7 +69,7 @@ def test_variant_identity_is_separate_explicit_not_selectable_and_contains_no_a2
     with pytest.raises(methods.UnknownMethod):
         methods.get(X)  # every application path calls get() without the flag
     assert X not in methods.RELEASES and X not in {m["method"] for m in methods.selectable()}
-    assert methods.DEFAULT == "v0.2" and set(methods.RELEASES) == {"v0.2", "v0.3", "v0.4", "v0.5", "v0.6"}
+    assert methods.DEFAULT == "v0.2" and set(methods.RELEASES) == {"v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7"}
     for f in ("model", "rules_version", "implementation", "core_state_format", "runtime_format", "engine_format"):
         assert getattr(vx, f) != getattr(v6, f), f
     # the frozen v0.6 identity is unchanged (references registered for the A v0.6 studies)

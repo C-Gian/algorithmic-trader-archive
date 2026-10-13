@@ -126,11 +126,11 @@ function V5Responses({ a }: { a: AdviserSection }) {
   if (!x) return null;
   const t = x.total;
   const n = t.not_issuable;
-  const v6 = a.method?.method === "v0.6";
+  const v6 = a.method?.method === "v0.6" || a.method?.method === "v0.7";  // v0.7 keeps the MP-005 accounting
   return (
     <div className="stack" data-testid="adv-v5-responses">
       <div className="adv-section-title">{v6
-        ? "Candidate v0.6 — RETURN reference, early end when confirmation is impossible (MP-004 §7 with MP-005 §6)"
+        ? `Candidate ${a.method?.method} — RETURN reference, early end when confirmation is impossible (MP-004 §7 with MP-005 §6)`
         : "Candidate v0.5 — RETURN reference then local recovery (MP-004 §7)"}</div>
       <div className="adv-metrics">
         <Metric label="References prepared" value={`${t.counts.P} / ${t.counts.W}`} testid="adv-v5-prepared"
@@ -228,10 +228,19 @@ export function AdviserSummary({ a }: { a: AdviserSection }) {
           {a.diagnosis.map((d) => <div key={d}>{d}</div>)}
         </Notice>
       )}
-      {["adviser.report.v3", "adviser.report.v4", "adviser.report.v5", "adviser.report.v6"].includes(a.report_version ?? "")
+      {["adviser.report.v3", "adviser.report.v4", "adviser.report.v5", "adviser.report.v6", "adviser.report.v7"].includes(a.report_version ?? "")
         && <V3Funnel a={a} />}
-      {["adviser.report.v4", "adviser.report.v5", "adviser.report.v6"].includes(a.report_version ?? "") && <V4Anchors a={a} />}
-      {["adviser.report.v5", "adviser.report.v6"].includes(a.report_version ?? "") && <V5Responses a={a} />}
+      {["adviser.report.v4", "adviser.report.v5", "adviser.report.v6", "adviser.report.v7"].includes(a.report_version ?? "") && <V4Anchors a={a} />}
+      {["adviser.report.v5", "adviser.report.v6", "adviser.report.v7"].includes(a.report_version ?? "") && <V5Responses a={a} />}
+      {a.trigger_destination && (
+        <div className="stack" data-testid="adv-v7-trigger-destination">
+          <div className="adv-section-title">Candidate v0.7 — trigger/destination compatibility (published records only)</div>
+          <div className="small-text">Incompatible publications {a.trigger_destination.incompatible_publications}
+            {" "}· scenarios concerned {a.trigger_destination.scenarios_with_an_incompatible_publication}
+            {" "}· readings without support from an armed scenario {a.trigger_destination.market_views_without_support_from_an_armed_scenario}
+            {" "}· support restored by a compatible revision {a.trigger_destination.restored_by_a_compatible_revision}</div>
+          <div className="small-text muted">{a.trigger_destination.note}</div>
+        </div>)}
       <div className="adv-section-title">{a.report_version === "adviser.report.v2" || !a.report_version ? "Candidate funnel" : "Scenario funnel"}</div>
       <div className="funnel" data-testid="adv-funnel">
         <span className="step">births {Object.values(a.funnel.births).reduce((x, y) => x + y, 0)}</span>›

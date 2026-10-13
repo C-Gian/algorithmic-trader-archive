@@ -21,9 +21,16 @@ from decimal import Decimal
 from typing import Any
 
 COMPARISON_VERSION = "adviser.comparison.v1"  # shape unchanged; roles/limitations/anchors are additive keys
-SCENARIO_METHODS = ("v0.3", "v0.4", "v0.5", "v0.6")
-ANCHOR_METHODS = ("v0.4", "v0.5", "v0.6")
-RESPONSE_METHODS = ("v0.5", "v0.6")
+SCENARIO_METHODS = ("v0.3", "v0.4", "v0.5", "v0.6", "v0.7")
+ANCHOR_METHODS = ("v0.4", "v0.5", "v0.6", "v0.7")
+RESPONSE_METHODS = ("v0.5", "v0.6", "v0.7")
+TDC_LIMITATION = {
+    "id": "V07_TRIGGER_DESTINATION_COMPATIBILITY_DELTA",
+    "text": ("v0.7 differs from v0.6 only in the published explanation and the market reading: an armed A scenario "
+             "whose current recovery condition (trigger plus one tick) is already at or beyond its destination is "
+             "published as incompatible and is not counted as directional support until a later revision publishes a "
+             "compatible condition. Calls, entries, selection and terminals are identical by construction; a "
+             "different market-reading count shows no forecast or economic improvement.")}
 MP005_LIMITATION = {
     "id": "V06_MP005_INITIAL_RESPONSE_INCOMPATIBILITY_DELTA",
     "text": ("v0.6 differs from v0.5 only at the A RETURN reference preparation: when no confirming close beyond the "
@@ -181,7 +188,7 @@ def _summary(x: dict) -> dict[str, Any]:
                                 "not_issuable_primary_reason":
                                     ((resp.get("total") or {}).get("not_issuable") or {}).get("primary_reason"),
                                 "cutoff": resp.get("cutoff"), "cohort": RESPONSE_COHORT}
-            if x["method"] == "v0.6":
+            if x["method"] in ("v0.6", "v0.7"):
                 inc = (resp.get("total") or {}).get("initial_incompatibility") or {}
                 out["responses"]["initial_incompatibility"] = {
                     "count": inc.get("count"), "by_base": inc.get("by_base"), "ratio_over_P": inc.get("ratio_over_P"),
@@ -236,15 +243,17 @@ def build(a: dict, b: dict) -> dict[str, Any]:
                               "validated. More calls are not improvement by themselves."}
     methods = {a["method"], b["method"]}
     limitations = [DISLOCATION_LIMITATION] if "v0.2" in methods and methods & set(SCENARIO_METHODS) else []
-    if "v0.4" in methods and len(methods) > 1 and not methods & {"v0.5", "v0.6"}:
+    if "v0.4" in methods and len(methods) > 1 and not methods & {"v0.5", "v0.6", "v0.7"}:
         limitations.append(MP003_LIMITATION)
-    if methods & {"v0.5", "v0.6"} and len(methods) > 1:
+    if methods & {"v0.5", "v0.6", "v0.7"} and len(methods) > 1:
         if methods & {"v0.2", "v0.3"}:
             limitations.append(MP003_LIMITATION)
         if methods & {"v0.2", "v0.3", "v0.4"}:
             limitations.append(MP004_LIMITATION)
-        if "v0.6" in methods:
+        if methods & {"v0.6", "v0.7"} and methods - {"v0.6", "v0.7"}:  # only one side carries MP-005
             limitations.append(MP005_LIMITATION)
+        if "v0.7" in methods:
+            limitations.append(TDC_LIMITATION)
     return {"comparison_version": COMPARISON_VERSION, "a": sa, "b": sb, "comparability": comp,
             "roles": {"baseline": {"slot": "A", "method": a["method"], "evaluation_id": a["evaluation_id"]},
                       "candidate": {"slot": "B", "method": b["method"], "evaluation_id": b["evaluation_id"]}},
@@ -262,7 +271,8 @@ def build(a: dict, b: dict) -> dict[str, Any]:
                       "candidate): every rule difference between the two pinned releases acts together (v0.2 -> v0.3: "
                       "structural lifecycle, clocks, the RETURN entry and the dislocation-veto correction; v0.3 -> "
                       "v0.4: the pre-confirmation A anchor domain; v0.4 -> v0.5: the A RETURN local reference and "
-                      "recovery; v0.5 -> v0.6: the initial response incompatibility terminal), so the difference is not a per-rule or per-call attribution. Hypothetical "
+                      "recovery; v0.5 -> v0.6: the initial response incompatibility terminal; v0.6 -> v0.7: the trigger/destination "
+                      "compatibility of the published reading only), so the difference is not a per-rule or per-call attribution. Hypothetical "
                       "normalized one-unit paths; no orders, sizing or account.")}
 
 

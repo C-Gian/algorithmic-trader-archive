@@ -208,7 +208,33 @@ V06 = Release(
                ("INHERITED_MP002_DISPOSITION", idn.METHOD_DIR / "MP-002-DIRECTOR-DISPOSITION.md"),
                ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
 
-RELEASES: dict[str, Release] = {r.key: r for r in (V02, V03, V04, V05, V06)}
+V07 = Release(
+    key="v0.7", label="Candidate v0.7 — an A condition that would already reach its destination is not counted as directional support",
+    status="ENGINEERING_REVIEW_PENDING", status_label="engineering review pending",
+    purpose=("The trigger/destination compatibility correction approved at 57fa14e, as a product version: v0.6, plus when "
+             "an armed A scenario's current recovery condition (its trigger plus one tick) is already at or beyond its "
+             "destination, the published explanation says it cannot confirm a continuation toward that destination and "
+             "the market reading does not count it as directional support until a later revision publishes a compatible "
+             "condition. Calls, entries, selection and terminals are unchanged from v0.6."),
+    model="btc.context-action.v0.7", rules_version="tdc.rules.v0.7",
+    rules_file=idn.METHOD_DIR / "V07-TRIGGER-DESTINATION-RELEASE.md",
+    register_file=idn.METHOD_DIR / "V07-PARAMETERS.json",
+    implementation="adviser.core.v7", evaluator_implementation="adviser.evaluator.v3",
+    core_state_format="algotrader.adviser-state.v7", runtime_format="algotrader.adviser-runtime.v7",
+    evaluator_state_format="algotrader.adviser-evaluation-state.v2", engine_format="observe.stream.v8",
+    report_version="adviser.report.v7", reconciliation_version="10", deep_version="11",
+    inherited=(("RULES_TDC_CORRECTION", idn.METHOD_DIR / "A-TRIGGER-DESTINATION-CORRECTION.md"),
+               ("DIRECTOR_SEMANTIC_REVIEW", idn.METHOD_DIR / "A-TRIGGER-DESTINATION-SEMANTIC-REVIEW.md"),
+               ("BASE_MP005_RULES", idn.METHOD_DIR / "MP-005-V06-INITIAL-RESPONSE-INCOMPATIBILITY.md"),
+               ("BASE_MP005_CLOSURE", idn.METHOD_DIR / "MP-005-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP004_RULES", idn.METHOD_DIR / "MP-004-V05-RETURN-RESPONSE.md"),
+               ("INHERITED_MP004_CLOSURE", idn.METHOD_DIR / "MP-004-DIRECTOR-CLOSURE.md"),
+               ("INHERITED_MP003_RULES", idn.METHOD_DIR / "MP-003-A-REACTION-ANCHOR-DISPOSITION.md"),
+               ("INHERITED_MP002_RULES", idn.METHOD_DIR / "MP-002-SCENARIO-CONFIRMATION-ENTRY-PROPOSAL.md"),
+               ("INHERITED_MP002_DISPOSITION", idn.METHOD_DIR / "MP-002-DIRECTOR-DISPOSITION.md"),
+               ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
+
+RELEASES: dict[str, Release] = {r.key: r for r in (V02, V03, V04, V05, V06, V07)}
 
 # EXPERIMENTAL variants: never a release, never the default, never listed by ``selectable`` (the application cannot
 # offer or launch them: ``get`` refuses them unless the caller selects them explicitly with ``experimental=True``).
@@ -261,10 +287,11 @@ V06_TDC = Release(
                ("INHERITED_MP001_RULES", idn.METHOD_DIR / "MP-001-INTEGRATED-METHOD-PROPOSAL.md")))
 EXPERIMENTAL: dict[str, Release] = {V06_A2X.key: V06_A2X, V06_TDC.key: V06_TDC}
 # MP-002 structural-scenario lineage (scenario/entry_attempt kinds); v0.5/v0.6 inherit the v0.4 anchors
-SCENARIO_METHODS = frozenset({"v0.3", "v0.4", "v0.5", "v0.6"})
-ANCHOR_METHODS = frozenset({"v0.4", "v0.5", "v0.6"})  # MP-003 pre-confirmation A anchor epochs
-RESPONSE_METHODS = frozenset({"v0.5", "v0.6"})  # MP-004 A RETURN local reference / recovery
-INITIAL_COMPATIBILITY_METHODS = frozenset({"v0.6"})  # MP-005 initial response incompatibility
+SCENARIO_METHODS = frozenset({"v0.3", "v0.4", "v0.5", "v0.6", "v0.7"})
+ANCHOR_METHODS = frozenset({"v0.4", "v0.5", "v0.6", "v0.7"})  # MP-003 pre-confirmation A anchor epochs
+RESPONSE_METHODS = frozenset({"v0.5", "v0.6", "v0.7"})  # MP-004 A RETURN local reference / recovery
+INITIAL_COMPATIBILITY_METHODS = frozenset({"v0.6", "v0.7"})  # MP-005 initial response incompatibility
+TRIGGER_DESTINATION_METHODS = frozenset({"v0.7"})  # the approved tdc correction (v0.7 product version)
 BY_MODEL: dict[str, Release] = {r.model: r for r in RELEASES.values()}
 
 

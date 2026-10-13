@@ -59,7 +59,7 @@ def test_v06_pack_evaluation_equals_the_pure_fold_with_reconciliation_v9(databas
     assert "Version 9 (WP-015" in v["scope"] and "Version 8 (WP-014" in v["scope"]
     names = {c["name"]: c["passed"] for c in v["checks"]}
     assert names["adviser_method_binding"] and names["adviser_lineage_immutability"] and names["adviser_finish_rederived"]
-    assert row["manifest"]["adviser"]["method"] == "v0.6" and row["manifest"]["schema_revision"] == 9
+    assert row["manifest"]["adviser"]["method"] == "v0.6" and row["manifest"]["schema_revision"] == 10
     pure = _pure()
     dj = journal(database_url, rid)
     assert [(e["kind"], _strip(e["record"])) for e in dj] == [(e["kind"], _strip(e["record"])) for e in pure.journal]
@@ -179,7 +179,7 @@ def test_paired_v05_v06_evaluations_reports_and_read_only_comparison(database_ur
     root, art, pack = _prepared(database_url, tmp_path, monkeypatch, MINS)
     api = TestClient(create_app(database_url, art, web_dist=tmp_path / "no-ui", data_root=root))
     listed = api.get("/api/adviser/methods").json()
-    assert [m["method"] for m in listed["methods"]] == ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6"]
+    assert [m["method"] for m in listed["methods"]] == ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7"]
     six = listed["methods"][4]
     assert six["status"] == "ENGINEERING_REVIEW_PENDING" and six["label"].startswith("Candidate v0.6")
     assert six["economic_usefulness"] == "UNVALIDATED" and six["rules_manifest"][0]["file"].startswith("MP-005")

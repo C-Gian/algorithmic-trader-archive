@@ -96,7 +96,7 @@ def test_a_changed_closure_or_inherited_text_changes_the_v06_behaviour_identity(
 def test_identity_matrix_and_numerical_register_preservation():
     v6 = V06
     assert methods.DEFAULT == "v0.2"
-    assert [r["method"] for r in methods.selectable()] == ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6"]
+    assert [r["method"] for r in methods.selectable()] == ["v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7"]
     assert (v6.model, v6.rules_version, v6.implementation, v6.evaluator_implementation, v6.core_state_format,
             v6.runtime_format, v6.evaluator_state_format, v6.engine_format, v6.report_version,
             v6.reconciliation_version, v6.deep_version, v6.status) == (
@@ -122,8 +122,8 @@ def test_identity_matrix_and_numerical_register_preservation():
         "terminal_reason": "INITIAL_RESPONSE_INCOMPATIBLE", "terminal_bases": ["CORRIDOR", "HISTORICAL_ECONOMICS"],
         "primary_base_when_concurrent": "CORRIDOR_OTHER_ANNOTATED_ONE_TERMINAL",
         "response_outcome": "INITIAL_RESPONSE_INCOMPATIBLE"}
-    assert len({methods.get(k).register_sha256() for k in methods.RELEASES}) == 5
-    assert methods.RESPONSE_METHODS == {"v0.5", "v0.6"} and methods.INITIAL_COMPATIBILITY_METHODS == {"v0.6"}
+    assert len({methods.get(k).register_sha256() for k in methods.RELEASES}) == 6  # + v0.7
+    assert methods.RESPONSE_METHODS == {"v0.5", "v0.6", "v0.7"} and methods.INITIAL_COMPATIBILITY_METHODS == {"v0.6", "v0.7"}
 
 
 def test_semantic_revision_5_values_validate_with_the_revision_4_contracts():
@@ -131,7 +131,7 @@ def test_semantic_revision_5_values_validate_with_the_revision_4_contracts():
     for e in res.journal:
         sc.KIND_CONTRACTS_V6[e["kind"]].model_validate(e["record"])
     assert sc.KIND_CONTRACTS_V6 == sc.KIND_CONTRACTS_V5 and sc.KIND_CONTRACTS_V6 is not sc.KIND_CONTRACTS_V5
-    assert sc.SEMANTIC_V2_REVISION == 5 and sc.SEMANTIC_V2_EMITTED_REVISION["btc.context-action.v0.6"] == 5
+    assert sc.SEMANTIC_V2_REVISION == 6 and sc.SEMANTIC_V2_EMITTED_REVISION["btc.context-action.v0.6"] == 5
     assert sc.SEMANTIC_V2_EMITTED_REVISION["btc.context-action.v0.5"] == 4
     assert any(str(e["record"].get("reason") or "").startswith(REASON) for e in res.journal)
 

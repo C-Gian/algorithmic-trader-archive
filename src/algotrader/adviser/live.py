@@ -164,6 +164,10 @@ def live_config(compat: dict, build: str | None, method: str = "v0.2") -> Advise
 
 def _rt_classes(cfg: AdviserConfig):
     """(runtime class, core class) of the method pinned in a live configuration."""
+    if cfg.method.model == "btc.context-action.v0.7":
+        from .runtime7 import AdviserRuntimeV7
+
+        return AdviserRuntimeV7, AdviserRuntimeV7.CORE_CLS
     if cfg.method.model == "btc.context-action.v0.6":
         from .runtime6 import AdviserRuntimeV6
 

@@ -50,8 +50,10 @@ ENGINE_FORMAT_V4 = "observe.stream.v4"  # WP-011 MP-002 v0.3 adviser evaluations
 ENGINE_FORMAT_V5 = "observe.stream.v5"  # WP-012 MP-003 v0.4 adviser evaluations: + algotrader.adviser-runtime.v4
 ENGINE_FORMAT_V6 = "observe.stream.v6"  # WP-014 MP-004 v0.5 adviser evaluations: + algotrader.adviser-runtime.v5
 ENGINE_FORMAT_V7 = "observe.stream.v7"  # WP-015 MP-005 v0.6 adviser evaluations: + algotrader.adviser-runtime.v6
+ENGINE_FORMAT_V8 = "observe.stream.v8"  # v0.7 (tdc) adviser evaluations: + algotrader.adviser-runtime.v7
 STREAM_ENGINE_FORMATS = frozenset({ENGINE_FORMAT_V1, ENGINE_FORMAT, ENGINE_FORMAT_V3, ENGINE_FORMAT_V4,
-                                   ENGINE_FORMAT_V5, ENGINE_FORMAT_V6, ENGINE_FORMAT_V7})
+                                   ENGINE_FORMAT_V5, ENGINE_FORMAT_V6, ENGINE_FORMAT_V7,
+                                   ENGINE_FORMAT_V8})
 
 
 class StateError(Exception):

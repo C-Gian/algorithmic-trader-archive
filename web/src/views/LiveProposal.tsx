@@ -84,6 +84,19 @@ export function proposalState(v: LiveView | null): { key: string; text: string; 
 }
 
 /** What the principal scenario still needs, from its recorded state; null when the system states nothing. */
+/** v0.7: the engine's published trigger/destination verdict in plain Italian (the UI never computes it). */
+function incompatibleIt(td: NonNullable<ScenarioState["trigger_destination"]>): string {
+  return `Scenario riconosciuto, ma la condizione attuale (una chiusura a ${fmtPrice(td.threshold)}) è già alla destinazione `
+    + `${fmtPrice(td.destination)} o oltre: la toccherebbe prima, quindi non può confermare una continuazione verso di essa `
+    + "con i livelli attuali. Non sostiene la direzione; può tornare valido solo se il sistema pubblica una revisione "
+    + "compatibile (non è promessa).";
+}
+
+function restoredIt(td: NonNullable<ScenarioState["trigger_destination"]>): string {
+  return `La condizione è stata rivista${td.revision_published_at ? ` alle ${fmtTime(td.revision_published_at)}` : ""}: `
+    + "quella precedente era incompatibile con la destinazione; lo scenario sostiene la direzione solo da questa nuova pubblicazione.";
+}
+
 function condition(p: ScenarioView, s: ScenarioState | undefined): string | null {
   if (s?.entry_ended) return "Il tentativo d'ingresso di questo scenario si è concluso senza call; lo scenario non è invalidato.";
   if (s?.observing) return "Scenario in osservazione: serve una nuova reazione completa del prezzo.";
@@ -95,8 +108,13 @@ function condition(p: ScenarioView, s: ScenarioState | undefined): string | null
       ? `Scenario confermato: serve un ritorno del prezzo nel corridoio ${fmtPrice(s.waiting.corridor[0])} – ${fmtPrice(s.waiting.corridor[1])}.`
       : "Scenario confermato: nessun corridoio di ritorno residuo.";
   }
+  const td = s?.trigger_destination;
+  if (td && !td.compatible) return incompatibleIt(td);
   const status = s?.status ?? p.status ?? "ARMED";
   const k = s?.trigger_level ?? p.trigger_level;
+  if (status === "ARMED" && k && td?.restored_by_revision) {
+    return `Serve l'innesco: una chiusura oltre ${fmtPrice(k)}. ${restoredIt(td)}`;
+  }
   if (status === "ARMED" && k) return `Serve l'innesco: una chiusura oltre ${fmtPrice(k)}.`;
   if (status === "WATCH") return "Si osserva una possibile reazione: nessun innesco ancora definito.";
   return null;
@@ -437,6 +455,19 @@ export function readingReasonIt(r: string): string | null {
   if (/^the ongoing call is opposed by a valid armed scenario$/.test(r)) {
     return "La call in corso ha contro uno scenario armato valido.";
   }
+  if ((m = r.match(/^observed hypotheses without current directional support: (.+) \(not a forecast, not a call\)$/))) {
+    const items = m[1].split(/, (?=[ABC] (?:LONG|SHORT) )/).map((x) => {
+      const it = x.match(/^([ABC]) (LONG|SHORT) (WATCH|ARMED|CONFIRMED)( \(recovery condition incompatible with its destination\))?$/);
+      if (!it) return x;
+      return `${it[2]} ${it[1]} ${STATUS_IT[it[3]] ?? it[3]}${it[4] ? " con condizione incompatibile con la destinazione" : ""}`;
+    });
+    return `Ci sono solo ipotesi osservate senza sostegno direzionale attuale: ${items.join(", ")}. Non sono una previsione né una call.`;
+  }
+  if ((m = r.match(/^([ABC]) (LONG|SHORT) armed, not counted as directional support: current recovery condition incompatible with its destination: the required complete 1m close (>=|<=) (\S+) is at or beyond the destination ([^,\s]+),/))) {
+    return `Lo scenario ${m[2]} ${m[1]} è riconosciuto, ma la sua condizione attuale (chiusura a 1 minuto ${m[3] === ">=" ? "≥" : "≤"} `
+      + `${fmtPrice(m[4])}) è già alla destinazione ${fmtPrice(m[5])} o oltre: non può confermare una continuazione verso di essa `
+      + "con i livelli attuali, quindi non conta come sostegno direzionale.";
+  }
   if (/^only conditional WATCH hypotheses: /.test(r)) {
     return "Ci sono solo ipotesi in osservazione: non sono una previsione né una call.";
   }
@@ -490,6 +521,8 @@ export function MarketReading({ v }: { v: LiveView | null }) {
   const ongoingCall = !!v?.call || !!mv?.ongoing_call_id;
   const noScenario = !p && others.length === 0 && listsKnown && !ongoingCall;
   const noRevisionEvent = !p && others.length === 0;
+  const incompatible = (states ?? []).filter((s) => s.trigger_destination && !s.trigger_destination.compatible);
+  const restored = ps?.trigger_destination?.restored_by_revision ? ps.trigger_destination : null;
   return (
     <section className="decision-market" data-testid="live-market-reading">
       <div className="market-head">
@@ -515,6 +548,14 @@ export function MarketReading({ v }: { v: LiveView | null }) {
             {mv && <span className="muted small-text">· {ROW_IT[mv.table_row] ?? humanize(mv.table_row)}</span>}
           </div>
           {mv && <p className="small-text" data-testid="live-conclusion">{CONCLUSION_IT[d] ?? `Lettura non riconosciuta (${d}).`}</p>}
+          {mv && incompatible.length > 0 && (
+            <p className="small-text" data-testid="live-incompatible">
+              {incompatible.map((s) => `Scenario ${s.direction} ${s.family}: ${incompatibleIt(s.trigger_destination!)}`).join(" ")}{" "}
+              {p ? `Un altro scenario valido (${p.direction} ${p.family}) sostiene questa lettura.`
+                : "Nessun altro scenario sostiene ora una direzione."}
+            </p>)}
+          {mv && restored && (
+            <p className="small-text" data-testid="live-restored">Scenario {p!.direction} {p!.family}: {restoredIt(restored)}</p>)}
           {mv && (
             <p className="small-text" data-testid="live-reason">
               {reasons.length === 0 ? "Il sistema non ha registrato una motivazione testuale per questa lettura."

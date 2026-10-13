@@ -45,6 +45,7 @@ ENGINE_FORMAT_V4 = "observe.stream.v4"  # factual + temporal + algotrader.advise
 ENGINE_FORMAT_V5 = "observe.stream.v5"  # factual + temporal + algotrader.adviser-runtime.v4 (MP-003 v0.4)
 ENGINE_FORMAT_V6 = "observe.stream.v6"  # factual + temporal + algotrader.adviser-runtime.v5 (MP-004 v0.5)
 ENGINE_FORMAT_V7 = "observe.stream.v7"  # factual + temporal + algotrader.adviser-runtime.v6 (MP-005 v0.6)
+ENGINE_FORMAT_V8 = "observe.stream.v8"  # factual + temporal + algotrader.adviser-runtime.v7 (tdc v0.7)
 
 
 class AdviserStateError(Exception):
@@ -179,6 +180,10 @@ def _runtime_cls(rel: methods.Release):
         from .runtime6 import AdviserRuntimeV6
 
         return AdviserRuntimeV6, AdviserRuntimeV6.CORE_CLS
+    if rel.key == "v0.7":
+        from .runtime7 import AdviserRuntimeV7
+
+        return AdviserRuntimeV7, AdviserRuntimeV7.CORE_CLS
     if rel.key == "v0.6-a2x":  # EXPERIMENTAL (explicit selection only)
         from .runtime_a2x import AdviserRuntimeA2X
 

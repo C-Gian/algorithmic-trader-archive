@@ -28,7 +28,7 @@ from pydantic import BaseModel, ConfigDict
 
 SEMANTIC_V2_VERSION = "algotrader.semantic.v2"
 SEMANTIC_V2_STATUS = "PROVISIONAL"
-SEMANTIC_V2_REVISION = 5
+SEMANTIC_V2_REVISION = 6
 SEMANTIC_V2_CHANGELOG: tuple[tuple[int, str, str], ...] = (
     (1, "2026-10-04", "Initial provisional advisory baseline (WP-009): Observation, Landmark, PhaseState, "
                       "EventContext/EventResponse, MarketView, Scenario, CandidatePlan, Actionability, AdviserCall, "
@@ -68,10 +68,20 @@ SEMANTIC_V2_CHANGELOG: tuple[tuple[int, str, str], ...] = (
                       "(diagnostic bases; exact decimal strings or null). Revision-1..4 records, their bytes and "
                       "readers are unchanged; v0.2-v0.5 runs never emit the new values (per-method emitted revision: "
                       "v0.2 -> 1, v0.3 -> 2, v0.4 -> 3, v0.5 -> 4, v0.6 -> 5)."),
+    (6, "2026-10-13", "Adviser v0.7 btc.context-action.v0.7 (trigger/destination compatibility; values/semantics only; no "
+                      "kind, field, type or shape change): v0.7 emits the revision-5 contracts unchanged "
+                      "(KIND_CONTRACTS_V7 = KIND_CONTRACTS_V6). For an ARMED A scenario whose effective threshold "
+                      "(K + tick x trigger ticks, direction-transformed) is at or beyond its destination, the scenario "
+                      "'antecedent' states the incompatibility and the MarketView lists it in 'watch' with status ARMED "
+                      "(observed hypothesis, not directional support), with the reason line '<family> <direction> armed, "
+                      "not counted as directional support: <antecedent>'; a WATCH_ONLY reading that includes it opens with "
+                      "'observed hypotheses without current directional support: ...'. Revision-1..5 records, their bytes "
+                      "and readers are unchanged; v0.2-v0.6 runs never emit the new semantics (per-method emitted "
+                      "revision: v0.2 -> 1, v0.3 -> 2, v0.4 -> 3, v0.5 -> 4, v0.6 -> 5, v0.7 -> 6)."),
 )
 SEMANTIC_V2_EMITTED_REVISION = {"btc.context-action.v0.2": 1, "btc.context-action.v0.3": 2,
                                 "btc.context-action.v0.4": 3, "btc.context-action.v0.5": 4,
-                                "btc.context-action.v0.6": 5}
+                                "btc.context-action.v0.6": 5, "btc.context-action.v0.7": 6}
 
 
 class Record(BaseModel):
@@ -470,7 +480,9 @@ KIND_CONTRACTS_V3: dict[str, type[Record]] = {  # kinds emitted by v0.3 (no 'can
 KIND_CONTRACTS_V4: dict[str, type[Record]] = {**KIND_CONTRACTS_V3, "scenario": ScenarioStateV4}  # v0.4 (revision 3)
 KIND_CONTRACTS_V5: dict[str, type[Record]] = {**KIND_CONTRACTS_V4, "entry_attempt": EntryAttemptV5}  # v0.5 (revision 4)
 KIND_CONTRACTS_V6: dict[str, type[Record]] = dict(KIND_CONTRACTS_V5)  # v0.6 (revision 5: new values only)
+KIND_CONTRACTS_V7: dict[str, type[Record]] = dict(KIND_CONTRACTS_V6)  # v0.7 (revision 6: values/semantics only)
 
 __all__ = ["SEMANTIC_V2_VERSION", "SEMANTIC_V2_REVISION", "PUBLIC_CONTRACTS", "KIND_CONTRACTS", "Origin", "Direction",
-           "Family", "KIND_CONTRACTS_V3", "KIND_CONTRACTS_V4", "KIND_CONTRACTS_V5", "KIND_CONTRACTS_V6"]
+           "Family", "KIND_CONTRACTS_V3", "KIND_CONTRACTS_V4", "KIND_CONTRACTS_V5", "KIND_CONTRACTS_V6",
+           "KIND_CONTRACTS_V7"]
 _ = Decimal  # exact decimal strings in JSON mode
