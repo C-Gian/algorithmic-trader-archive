@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { adviserApi, CallView, LiveView, reasonText, ScenarioState, ScenarioView } from "../adviser";
+import { adviserApi, CallView, LiveView, MarketViewDoc, reasonText, ScenarioState, ScenarioView } from "../adviser";
 import { fmtLocal, fmtPrice, fmtTime, humanize } from "../lib/format";
 import { Icon } from "../ui/Icon";
 import { Badge, cx, Tone } from "../ui/primitives";
@@ -90,6 +90,25 @@ function incompatibleIt(td: NonNullable<ScenarioState["trigger_destination"]>): 
     + `${fmtPrice(td.destination)} o oltre: la toccherebbe prima, quindi non può confermare una continuazione verso di essa `
     + "con i livelli attuali. Non sostiene la direzione; può tornare valido solo se il sistema pubblica una revisione "
     + "compatibile (non è promessa).";
+}
+
+/** v0.7: what the published MarketView says beside incompatible scenarios - its own row and principal only, never
+ * deduced from an absent principal; null when the row states nothing to translate here. */
+function incompatibleReadingIt(mv: MarketViewDoc, incompatible: ScenarioState[]): string | null {
+  const p = mv.principal;
+  switch (mv.table_row) {
+    case "CONDITIONAL_SCENARIO":
+      return p && !incompatible.some((s) => s.scenario_id === p.scenario_id)
+        ? `Un altro scenario (${p.direction} ${p.family}) sostiene la lettura corrente.` : null;
+    case "OPPOSING_SCENARIOS":
+      return "Esistono sostegni direzionali opposti: la lettura non indica una direzione unica.";
+    case "REQUIRED_CONTEXT_UNAVAILABLE":
+      return "Il sistema non può pubblicare una lettura direzionale corrente.";
+    case "WATCH_ONLY":
+      return "Nella lettura pubblicata non c'è un'aspettativa direzionale sostenuta.";
+    default:
+      return null;
+  }
 }
 
 function restoredIt(td: NonNullable<ScenarioState["trigger_destination"]>): string {
@@ -522,6 +541,7 @@ export function MarketReading({ v }: { v: LiveView | null }) {
   const noScenario = !p && others.length === 0 && listsKnown && !ongoingCall;
   const noRevisionEvent = !p && others.length === 0;
   const incompatible = (states ?? []).filter((s) => s.trigger_destination && !s.trigger_destination.compatible);
+  const incompatibleReading = mv && incompatible.length > 0 ? incompatibleReadingIt(mv, incompatible) : null;
   const restored = ps?.trigger_destination?.restored_by_revision ? ps.trigger_destination : null;
   return (
     <section className="decision-market" data-testid="live-market-reading">
@@ -550,9 +570,8 @@ export function MarketReading({ v }: { v: LiveView | null }) {
           {mv && <p className="small-text" data-testid="live-conclusion">{CONCLUSION_IT[d] ?? `Lettura non riconosciuta (${d}).`}</p>}
           {mv && incompatible.length > 0 && (
             <p className="small-text" data-testid="live-incompatible">
-              {incompatible.map((s) => `Scenario ${s.direction} ${s.family}: ${incompatibleIt(s.trigger_destination!)}`).join(" ")}{" "}
-              {p ? `Un altro scenario valido (${p.direction} ${p.family}) sostiene questa lettura.`
-                : "Nessun altro scenario sostiene ora una direzione."}
+              {incompatible.map((s) => `Scenario ${s.direction} ${s.family}: ${incompatibleIt(s.trigger_destination!)}`).join(" ")}
+              {incompatibleReading && ` ${incompatibleReading}`}
             </p>)}
           {mv && restored && (
             <p className="small-text" data-testid="live-restored">Scenario {p!.direction} {p!.family}: {restoredIt(restored)}</p>)}

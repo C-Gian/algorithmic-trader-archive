@@ -1,6 +1,6 @@
 {
   "note": "synthetic engineering tape, technical proof without economic meaning",
-  "run_v07": "live-20250828T0316-b8e74c",
+  "run_v07": "live-20250828T0316-06d456",
   "scenario_records_live": [
     [
       "03:30:01",
@@ -31,7 +31,7 @@
     "duplicates": 0
   },
   "v06_isolation": {
-    "run": "live-20250828T0411-069144",
+    "run": "live-20250828T0411-1c365f",
     "reset": "METHOD_CHANGED:v0.7->v0.6"
   },
   "screenshots": [

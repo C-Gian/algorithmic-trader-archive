@@ -12,10 +12,15 @@ is WHEN scripted pushes are released (``FakeWS.until``). The tick borders before
    v0.7 restores the same run without duplicating its history; Start v0.6 opens a new epoch (METHOD_CHANGED) and never
    rewrites the v0.7 records.
 2. SHORT ``hold(H_AT)``: effective threshold exactly at B.
-3. LONG ``valid_and_incompatible``: another valid (confirmed) scenario present keeps the directional reading."""
+3. LONG ``valid_and_incompatible``: another valid (confirmed) scenario present keeps the directional reading.
+4. EXCEPTION - translation test only, not an integrated engine proof: from the real SHORT view, PREPARED MarketView
+   variants (CONDITIONAL_SCENARIO with principal, OPPOSING_SCENARIOS, REQUIRED_CONTEXT_UNAVAILABLE, WATCH_ONLY) check that
+   the note beside an incompatible scenario repeats the published reading and never deduces one from an absent principal."""
 
 from __future__ import annotations
 
+import copy
+import json
 import sys
 from datetime import datetime, timedelta
 
@@ -122,7 +127,8 @@ def test_v07_long_incompatible_then_restored_by_revision_reload_restore_and_v06_
             expect(inc).to_contain_text("Scenario riconosciuto, ma la condizione attuale")
             expect(inc).to_contain_text("è già alla destinazione 100.900 o oltre")
             expect(inc).to_contain_text("Non sostiene la direzione")
-            expect(inc).to_contain_text("Nessun altro scenario sostiene ora una direzione.")
+            expect(inc).to_contain_text("Nella lettura pubblicata non c'è un'aspettativa direzionale sostenuta.")
+            expect(inc).not_to_contain_text("Nessun altro scenario")
             expect(page.get_by_test_id("live-reason")).to_contain_text("senza sostegno direzionale attuale")
             expect(page.get_by_test_id("live-reason")).to_contain_text("non conta come sostegno direzionale")
             expect(page.get_by_test_id("live-restored")).to_have_count(0)
@@ -251,9 +257,73 @@ def test_v07_another_valid_scenario_keeps_the_directional_reading(stack, browser
         assert [w["status"] for w in mv["watch"]] == ["ARMED"] and mv["alternatives"] == []
         page.goto(f"{stack.base}/#market")
         expect(page.get_by_test_id("live-expected")).to_have_text("Rialzo", timeout=15_000)
-        expect(page.get_by_test_id("live-incompatible")).to_contain_text("Un altro scenario valido (LONG A) sostiene questa lettura.")
+        expect(page.get_by_test_id("live-incompatible")).to_contain_text("Un altro scenario (LONG A) sostiene la lettura corrente.")
         page.screenshot(path=str(evidence_dir / "v07-5-long-valid-scenario-present.png"), full_page=True)
         assert not errors, errors
     finally:
         ctx.close()
         ep.stop()
+
+
+def test_v07_incompatible_note_translates_only_the_published_reading(stack, browser, evidence_dir):  # noqa: F811
+    """TRANSLATION TEST, NOT AN INTEGRATED ENGINE PROOF. The base payload is the real v0.7 live view of the SHORT
+    ``hold(H_AT)`` tape at 03:45 (incompatible SHORT A, WATCH_ONLY); the worker is then stopped and the cockpit is
+    served PREPARED variants that change only ``market_view.table_row``/``expected_direction``/``principal``. They prove
+    that the note beside an incompatible scenario repeats the published MarketView and never deduces "no other support"
+    from an absent principal; they do not claim the engine publishes these combinations on this tape."""
+    ep = Episode(stack, fx.short(fx.hold(fx.H_AT)), START)
+    try:
+        with connect(ep.url) as c:
+            ep.run(lv.start_session(c, "http://x", "v0.7"), fx.T(3, 50))
+        base = ep.at(fx.T(3, 45))
+    finally:
+        ep.stop()
+    mv0 = base["view"]["market_view"]
+    assert (mv0["table_row"], mv0["principal"]) == ("WATCH_ONLY", None)
+    other = {"scenario_id": "prepared-other", "family": "B", "direction": "LONG", "status": "ARMED",
+             "trigger_level": "100500", "destination": "101200", "invalidation_level": "99800"}
+
+    def prepared(**mv) -> dict:
+        p = copy.deepcopy(base)
+        p["view"]["market_view"].update(mv)
+        return p
+
+    cases = [  # (served body, expected direction label, sentence that must appear)
+        (base, "Incerta", "Nella lettura pubblicata non c'è un'aspettativa direzionale sostenuta."),
+        (prepared(table_row="CONDITIONAL_SCENARIO", expected_direction="UP", conditional=True, principal=other),
+         "Rialzo", "Un altro scenario (LONG B) sostiene la lettura corrente."),
+        (prepared(table_row="OPPOSING_SCENARIOS", expected_direction="UNCERTAIN", principal=None),
+         "Incerta", "Esistono sostegni direzionali opposti: la lettura non indica una direzione unica."),
+        (prepared(table_row="REQUIRED_CONTEXT_UNAVAILABLE", expected_direction="UNAVAILABLE", principal=None),
+         "Non disponibile", "Il sistema non può pubblicare una lettura direzionale corrente."),
+    ]
+    sentences = [c[2] for c in cases]
+    cur = {"body": base}
+    ctx, page, errors = _page(browser)
+    try:
+        page.route("**/api/adviser/live", lambda r: r.fulfill(status=200, body=json.dumps(cur["body"]),
+                                                              headers={"content-type": "application/json"}))
+        page.goto(f"{stack.base}/#market")
+        for body, label, sentence in cases:
+            cur["body"] = body
+            page.reload()
+            expect(page.get_by_test_id("live-expected")).to_have_text(label, timeout=15_000)
+            inc = page.get_by_test_id("live-incompatible")
+            expect(inc).to_contain_text("Scenario SHORT A: Scenario riconosciuto")
+            expect(inc).to_contain_text(sentence)
+            for s in sentences:
+                if s != sentence:
+                    expect(inc).not_to_contain_text(s)
+            expect(inc).not_to_contain_text("Nessun altro scenario")
+        # a CONDITIONAL_SCENARIO row without a published principal states nothing beyond the scenario itself
+        cur["body"] = prepared(table_row="CONDITIONAL_SCENARIO", expected_direction="UP", conditional=True, principal=None)
+        page.reload()
+        expect(page.get_by_test_id("live-expected")).to_have_text("Rialzo", timeout=15_000)
+        inc = page.get_by_test_id("live-incompatible")
+        expect(inc).to_contain_text("Scenario SHORT A: Scenario riconosciuto")
+        for s in sentences:
+            expect(inc).not_to_contain_text(s)
+        expect(inc).not_to_contain_text("Nessun altro scenario")
+        assert not errors, errors
+    finally:
+        ctx.close()

@@ -161,7 +161,7 @@ v0.7 is the approved tdc correction (`57fa14e`) as a product version ([release](
 **Where it appears:** v0.7 is selectable in the Historical Workbench and in the live cockpit, and the default stays v0.2. The cockpit explains in Italian:
 - the incompatible condition;
 - the absence of support from that scenario;
-- whether another valid scenario supports the reading;
+- what the published MarketView says beside it, from its row only: another scenario supports the current reading (CONDITIONAL_SCENARIO with a principal), opposing directional supports with no single direction (OPPOSING_SCENARIOS), no current directional reading can be published (REQUIRED_CONTEXT_UNAVAILABLE), or no supported directional expectation in the published reading (WATCH_ONLY). An absent principal is never read as "no other scenario supports a direction"; other rows add nothing;
 - a restoration by revision.
 
 It translates the engine's published reasons and its `trigger_destination` verdict, and never computes it.

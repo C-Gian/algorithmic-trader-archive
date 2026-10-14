@@ -1754,3 +1754,8 @@ Orchestrator authorization relayed by the Owner on 13 October 2026. Release: [V0
   - The opposing case is only a white-box supplement.
   - The live call is compared through the identical waiting child; the calls themselves are compared in the DB pack runs.
 - **Status.** Not installed in the Owner stack. v0.6, HDP-001 and the registered studies are frozen and INACTIVE.
+- **Correction after the static review of `1930a27` (14 October 2026, presentation only).**
+  - The cockpit sentence beside an incompatible scenario no longer deduces "no other scenario supports a direction" from an absent principal. It repeats the published MarketView only: CONDITIONAL_SCENARIO with a principal, OPPOSING_SCENARIOS, REQUIRED_CONTEXT_UNAVAILABLE and WATCH_ONLY each have their own sentence; other rows add nothing.
+  - Engine, contracts and policy are unchanged.
+  - Checks: `tests/e2e/test_v07_live_e2e.py` 4 passed. This includes a new translation test on PREPARED MarketView variants, declared as such and not an engine proof. Screenshots were regenerated, and web typecheck and build pass.
+  - Not rerun: the full suite and the other E2E files. CI: PENDING / NOT CHECKED. Details: [V07-INTEGRATION/NOTE.md](delivery/evidence/V07-INTEGRATION/NOTE.md).
