@@ -44,3 +44,15 @@
 - **Separation.** Results are reported separately from September–December 2025, with no aggregate chosen after the result, no subgroup, no alternative horizon and no tuning.
 - **Already known.** Earlier results on September–December 2025 are known.
 - **Exposure.** Exposure of the replication period is **not completely documented** ([preliminary report](A-CONFIRMED-DIRECTION-REPLICATION-PRELIMINARY.md)).
+
+## Later annotation — extension to the offline v0.7 economic evaluation (14 October 2026)
+
+The text above is the original authorization, unchanged. Astra's instruction, relayed by the Owner on 14 October 2026 (the historical study of the complete v0.7 policy on the two available packs), **extends** this authorization:
+- **What is now authorized:** **one offline v0.7 adviser evaluation with the ordinary economic evaluator** on the prepared pack `pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4`. It covers the complete A/B/C policy with revisions, conflicts, selection, calls and protections, and no a2x content.
+- **Separation.** Reported separately from September–December 2025.
+- **Unchanged:**
+  - the preset stays `offline_only`: excluded from the Workbench, with app preparation and app starts refused;
+  - only minimal adaptations dedicated to the authorized offline path are admitted, without general bypasses;
+  - no new acquisition, alternative entry, tuning or other period.
+- **Already completed:** the earlier probe replication is complete and unchanged.
+- **Registration:** `delivery/evidence/V07-HISTORICAL-POLICY-STUDY/REGISTRATION.md`.

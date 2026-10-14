@@ -1,4 +1,38 @@
-# Current task — From A confirmation to entry opportunity, September–December 2025 (v0.6, reconstruction)
+# Current task — Historical study of the complete v0.7 policy on January–April 2025 and September–December 2025
+Date: 2026-10-14. Status: REGISTERED before computation ([registration](delivery/evidence/V07-HISTORICAL-POLICY-STUDY/REGISTRATION.md)); runs and tabulation follow. The Director's review is separate.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+1. **Scope.** One study of the complete ordinary v0.7 policy (A/B/C, revisions, conflicts, selection, calls and protections; no a2x) on the two available packs. The periods are kept separate.
+2. **Register and commit before the computation:**
+   - full SHA and exact v0.7 identity;
+   - evaluator identity, historical profile and PRIMARY delay;
+   - pack identities and hashes;
+   - initialization, continuity, evaluation window and tail;
+   - scenario and call cohorts and boundary treatment;
+   - included costs, ambiguity, insufficient data and undeterminable results;
+   - the primary result and reconciliation conventions.
+
+   Conventions are never adapted after outcomes are seen.
+3. **January–April.** Record with a later annotation the extension to the offline v0.7 economic evaluation, preserving the earlier history. The preset stays excluded from the Workbench, app starts stay blocked, and only minimal offline-path adaptations are allowed.
+4. **Per period.** Reconcile scenario → call → modelled entry or NO_ENTRY → outcome.
+   - Revisions are not independent opportunities; A/B/C are reported separately.
+   - **Primary result** = the normalized sum of PRIMARY paths, net of included costs. PRICE_NET_ONLY; not a return on Owner capital.
+   - No call and NO_ENTRY are not successes; undeterminable results are not zero (determined subtotal and reasons only).
+   - No aggregation across periods.
+5. **Targeted checks** on identity, boundaries, costs, PRIMARY and reconciliation. No full suite.
+6. **Delivery.** A short synthesis:
+   - per-period and per-family path;
+   - primary result and coverage;
+   - limits of the modelled execution and of earlier exposure;
+   - precise problems;
+   - a recommendation on the candidate.
+
+   Technical problems are kept distinct from methodological choices. The policy is never changed to improve a balance.
+7. **Excluded.** New acquisition, Owner installation, alternative entry, tuning, other periods. v0.6, HDP-001 and the prospective studies unchanged and INACTIVE. No pull/fetch, no unverified CI claim.
+
+
+## Previous task — From A confirmation to entry opportunity, September–December 2025 (v0.6, reconstruction)
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMATION-OPPORTUNITY-PATHS/SUMMARY.md)); the Director's review is separate and PENDING. E, a2x and the confirmed-direction comparison are closed (later annotations on their deliveries). v0.6 unchanged; future studies INACTIVE.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
