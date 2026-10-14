@@ -103,4 +103,38 @@ No interpolation, source substitution or silent correction. If gaps prevent the 
 
 ## 7. Input identities (added after acquisition, before processing)
 
-*To be completed and committed before the engine runs.*
+Acquired and prepared 2026-10-14 10:58 → 11:37Z by the ordinary job `pack-job-20261014T105836-68903c` (corpus worker, disposable DB `replica2025`, data root in the session scratchpad, base URL `https://www.okx.com`). Verified by [`verify_pack_inputs.py`](verify_pack_inputs.py) → [`inputs_verification.json`](inputs_verification.json): **10/10 checks pass**.
+
+**Pack:**
+- `pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4`, status **READY**;
+- manifest SHA-256 `b7f4ddb885a6e60fe5418ded18c141ea33ef2552eca13a60ca2e0094a74c5e7c` (= its trusted receipt);
+- preset SHA-256 `d2c8b5bc4deae93898249d3f5e190ad69dccbaa7848e258111d590bf8be6cd30`;
+- classification `REGISTERED_STUDY_WINDOW` + `HISTORICAL_REPLICATION`, `certified_uncontaminated` false;
+- clock end 2025-05-01T06:05:00Z.
+
+**Feed cache:**
+- `fc-200b0433840be874609b2ff2b39f2f4f9b42250b`, manifest SHA-256 `f1b114b3d125f716e5b93bec889c16a45918be1b9c74fef75c35b74474c7e40a`;
+- content identity `feedcontent.v1:a0142cae7699d138f488335fe9509d6bfc26abd6b1589317d6cfd62dea6e12b0`;
+- 670695 events: trade, mark and index 1m bar observations, 223565 each;
+- availability `feed.modeled.v1(bar+PT0S,funding+PT0S)`.
+
+**Coverage.** Trade, mark and index 1m are complete in every window: warmup 50,400, evaluation 172,800, tail 365 slots, with 0 missing and 0 rejected. Overlap: 0 conflicts, 0 identical collapses, 0 overlapping slots. Readiness preview at 2025-01-01: 3,360 contiguous complete 15m bars, 840 1h bars, 61 matched mark/index minutes.
+
+**Funding.** 0 funding rows in every source dataset: the public `funding-rate-history` returned none for this period. The pack carries the ordinary limitation "funding completeness unproven: … PRICE_NET_ONLY". This is the same condition as the September–December reference pack, whose feed also held 0 funding events (679,335 = 3 × 226,445 bar events). Funding feeds no v0.6 professional record and is not used. Nothing was interpolated, substituted or corrected.
+
+**Sources** (OKX public endpoints `/api/v5/market/history-candles`, `history-mark-price-candles`, `history-index-candles`, `/api/v5/public/funding-rate-history`; every dataset passes the ordinary full `verify`, quality clean, no duplicate or conflict finding):
+
+| Dataset | Slice | Retrieval started | Manifest SHA-256 | Quality |
+|---|---|---|---|---|
+| `okx-btc-usdt-swap-1m-20241127T0000-20241201T0000-f83211857887` | 2024-11-27T00:00:00Z → 2024-12-01T00:00:00Z | 2026-10-14T10:58:43.178749Z | `5574d4e820e81f91ed2b2edd18ef2bad6d87a540d4009f38cb0cf444e590ec1a` | clean |
+| `okx-btc-usdt-swap-1m-20241201T0000-20250101T0000-fd3a9c6bdd12` | 2024-12-01T00:00:00Z → 2025-01-01T00:00:00Z | 2026-10-14T10:59:38.080233Z | `0ad10d00ce7416e91178a1fb2514e5e2c29664317e0206ba90dbd8f065bf9b75` | clean |
+| `okx-btc-usdt-swap-1m-20250101T0000-20250201T0000-39eda1bd9c38` | 2025-01-01T00:00:00Z → 2025-02-01T00:00:00Z | 2026-10-14T11:06:37.453437Z | `d072d6c17e4792c1dc9bbab0b6cfff37d03026eacd51611356e3bbe30c75fe6d` | clean |
+| `okx-btc-usdt-swap-1m-20250201T0000-20250301T0000-0ebb92ecf9f0` | 2025-02-01T00:00:00Z → 2025-03-01T00:00:00Z | 2026-10-14T11:13:27.421296Z | `1856e74fe079844baafe6f429b85945648770911101914d099f2d575225e88a2` | clean |
+| `okx-btc-usdt-swap-1m-20250301T0000-20250401T0000-7a389c3cf848` | 2025-03-01T00:00:00Z → 2025-04-01T00:00:00Z | 2026-10-14T11:19:50.723686Z | `2f813ac6537641f8c4c7f997342e18843b23b9c9c952158c6a87cdb8dbeb6ace` | clean |
+| `okx-btc-usdt-swap-1m-20250401T0000-20250501T0000-9b10103db3c4` | 2025-04-01T00:00:00Z → 2025-05-01T00:00:00Z | 2026-10-14T11:26:47.041792Z | `95d6e11ad54278732f0ae3f67d2d1a4db56011102081b2821092c83adb21f052` | clean |
+| `okx-btc-usdt-swap-1m-20250501T0000-20250501T0605-f1d0904d1396` | 2025-05-01T00:00:00Z → 2025-05-01T06:05:00Z | 2026-10-14T11:33:30.324911Z | `8deb1fb854c5b254d64266f1791a63a468db316a7f0d2a71da5e5ad360089273` | clean |
+
+**Run arguments fixed now:**
+- pack `pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4`;
+- expected manifest SHA-256 `b7f4ddb885a6e60fe5418ded18c141ea33ef2552eca13a60ca2e0094a74c5e7c`;
+- build = this commit.

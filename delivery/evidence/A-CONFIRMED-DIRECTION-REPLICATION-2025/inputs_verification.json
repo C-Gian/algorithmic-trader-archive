@@ -1,0 +1,810 @@
+{
+ "checks": {
+  "pack opened through its trusted receipt (bytes, id, schema, provenance)": true,
+  "preset = the registered offline-only historical study preset": true,
+  "classification: REGISTERED_STUDY_WINDOW, HISTORICAL_REPLICATION, never certified uncontaminated": true,
+  "windows exactly as registered; requested and clock end = tail end 2025-05-01T06:05Z": true,
+  "trade/mark/index 1m: every slot valid in every window (0 missing, 0 rejected)": true,
+  "no conflict between sources (overlap conflicts 0)": true,
+  "every source dataset passes the ordinary full verification (hashes, rows)": true,
+  "source manifests on disk = the pack's pinned source manifests": true,
+  "provenance: OKX public endpoints only": true,
+  "pack feed cache opens with its pinned manifest hash; content identity and event count match": true
+ },
+ "all_pass": true,
+ "pack": {
+  "pack_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+  "manifest_sha256": "b7f4ddb885a6e60fe5418ded18c141ea33ef2552eca13a60ca2e0094a74c5e7c",
+  "receipt_manifest_sha256": "b7f4ddb885a6e60fe5418ded18c141ea33ef2552eca13a60ca2e0094a74c5e7c",
+  "status": "READY",
+  "limitations": [
+   "funding completeness unproven: future outcome reporting is PRICE_NET_ONLY (TOTAL_NET_UNAVAILABLE)",
+   "instrument definition is a retrieval-time snapshot assumed for the whole window (approximation)"
+  ],
+  "preset_sha256": "d2c8b5bc4deae93898249d3f5e190ad69dccbaa7848e258111d590bf8be6cd30",
+  "windows": {
+   "convention": "UTC half-open [start, end), whole minutes; only the evaluation window is ever scored",
+   "evaluation": {
+    "end": "2025-05-01T00:00:00+00:00",
+    "minutes": 172800,
+    "scored": true,
+    "start": "2025-01-01T00:00:00+00:00"
+   },
+   "initialization": {
+    "end": "2025-01-01T00:00:00+00:00",
+    "evaluated": false,
+    "hours": 840,
+    "minutes": 50400,
+    "note": "Registered initialization window: market context only. Calls, outcomes and diagnostics inside it are never evaluated; it builds the method's existing dependencies (scales and landmarks) before the evaluation starts.",
+    "policy": "REGISTERED_EXPLICIT_INITIALIZATION",
+    "start": "2024-11-27T00:00:00+00:00"
+   },
+   "requested": {
+    "end": "2025-05-01T06:05:00+00:00",
+    "start": "2024-11-27T00:00:00+00:00"
+   },
+   "tail": {
+    "end": "2025-05-01T06:05:00+00:00",
+    "minutes": 365,
+    "scored": false,
+    "start": "2025-05-01T00:00:00+00:00"
+   },
+   "warmup": {
+    "end": "2025-01-01T00:00:00+00:00",
+    "minutes": 50400,
+    "scored": false,
+    "start": "2024-11-27T00:00:00+00:00"
+   }
+  },
+  "clock_end": "2025-05-01T06:05:00Z",
+  "evidence_classes": {
+   "certified_uncontaminated": false,
+   "label": "REGISTERED_STUDY_WINDOW",
+   "method": "v0.6",
+   "note": "Registered historical replication window on past, already exposed data outside the development and protected periods; its exposure is not completely documented, and data preparation and integrity checks never certify uncontaminated evidence.",
+   "portions": [],
+   "run_type": "adviser_evaluation",
+   "study_id": "A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025",
+   "study_kind": "HISTORICAL_REPLICATION"
+  },
+  "coverage": [
+   {
+    "expected_slots": 50400,
+    "family": "trade_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": 172800,
+    "family": "trade_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 172800,
+    "window": "evaluation"
+   },
+   {
+    "expected_slots": 365,
+    "family": "trade_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 365,
+    "window": "tail"
+   },
+   {
+    "expected_slots": 50400,
+    "family": "mark_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": 172800,
+    "family": "mark_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 172800,
+    "window": "evaluation"
+   },
+   {
+    "expected_slots": 365,
+    "family": "mark_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 365,
+    "window": "tail"
+   },
+   {
+    "expected_slots": 50400,
+    "family": "index_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": 172800,
+    "family": "index_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 172800,
+    "window": "evaluation"
+   },
+   {
+    "expected_slots": 365,
+    "family": "index_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 365,
+    "window": "tail"
+   },
+   {
+    "expected_slots": null,
+    "family": "funding_settlement",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 0,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": null,
+    "family": "funding_settlement",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 0,
+    "window": "evaluation"
+   },
+   {
+    "expected_slots": null,
+    "family": "funding_settlement",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 0,
+    "window": "tail"
+   }
+  ],
+  "overlap": {
+   "conflicts": 0,
+   "gap_replaced_by_valid": 0,
+   "identical_collapsed": 0,
+   "overlapping_slots": 0,
+   "provenance_file": null,
+   "provenance_sha256": null
+  },
+  "input_readiness_preview": {
+   "at": "2025-01-01T00:00:00Z",
+   "label": "input readiness preview \u2014 no adviser",
+   "matched_mark_index_minutes_before_evaluation": 61,
+   "matched_reference_desired_by_mp001": 60,
+   "note": "counts of complete input bars available before the evaluation start; no adviser predicate is implemented or evaluated, and R2 demonstration readiness is not relabelled as the method",
+   "trade_15m_contiguous_complete": 3360,
+   "trade_15m_required_by_mp001": 25,
+   "trade_1h_contiguous_complete": 840,
+   "trade_1h_required_by_mp001": 21
+  }
+ },
+ "feed": {
+  "cache_id": "fc-200b0433840be874609b2ff2b39f2f4f9b42250b",
+  "cache_manifest_sha256": "f1b114b3d125f716e5b93bec889c16a45918be1b9c74fef75c35b74474c7e40a",
+  "content_identity": "feedcontent.v1:a0142cae7699d138f488335fe9509d6bfc26abd6b1589317d6cfd62dea6e12b0",
+  "event_count": 670695,
+  "event_counts": {
+   "index_bar_1m/bar_observation": 223565,
+   "mark_bar_1m/bar_observation": 223565,
+   "trade_bar_1m/bar_observation": 223565
+  },
+  "availability_policy_id": "feed.modeled.v1(bar+PT0S,funding+PT0S)"
+ },
+ "datasets": [
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20241127T0000-20241201T0000-f83211857887",
+   "slice": [
+    "2024-11-27T00:00:00Z",
+    "2024-12-01T00:00:00Z"
+   ],
+   "request": [
+    "2024-11-27T00:00:00Z",
+    "2024-12-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "5574d4e820e81f91ed2b2edd18ef2bad6d87a540d4009f38cb0cf444e590ec1a",
+   "manifest_sha256_on_disk": "5574d4e820e81f91ed2b2edd18ef2bad6d87a540d4009f38cb0cf444e590ec1a",
+   "cache_id": "fc-49507a9156adde5e25101abf2785886906f65726",
+   "cache_manifest_sha256": "2ae9202da5a027d9bcbe860867f46eaa327b7c73c9da87aa531f5186b88307ec",
+   "retrieval_started_at": "2026-10-14T10:58:43.178749Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 5760,
+     "expected_rows": 5760,
+     "missing_rows": 0,
+     "first_time": "2024-11-27T00:00:00Z",
+     "last_time": "2024-11-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 5760,
+     "expected_rows": 5760,
+     "missing_rows": 0,
+     "first_time": "2024-11-27T00:00:00Z",
+     "last_time": "2024-11-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 5760,
+     "expected_rows": 5760,
+     "missing_rows": 0,
+     "first_time": "2024-11-27T00:00:00Z",
+     "last_time": "2024-11-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20241201T0000-20250101T0000-fd3a9c6bdd12",
+   "slice": [
+    "2024-12-01T00:00:00Z",
+    "2025-01-01T00:00:00Z"
+   ],
+   "request": [
+    "2024-12-01T00:00:00Z",
+    "2025-01-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "0ad10d00ce7416e91178a1fb2514e5e2c29664317e0206ba90dbd8f065bf9b75",
+   "manifest_sha256_on_disk": "0ad10d00ce7416e91178a1fb2514e5e2c29664317e0206ba90dbd8f065bf9b75",
+   "cache_id": "fc-08cccd3ae5e80c88421029518b457abf65d4e1ed",
+   "cache_manifest_sha256": "cc378d9a81f930f0fd16154c45ca2b1f906003e2d1b88bd0521acffd403f59d4",
+   "retrieval_started_at": "2026-10-14T10:59:38.080233Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2024-12-01T00:00:00Z",
+     "last_time": "2024-12-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2024-12-01T00:00:00Z",
+     "last_time": "2024-12-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2024-12-01T00:00:00Z",
+     "last_time": "2024-12-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20250101T0000-20250201T0000-39eda1bd9c38",
+   "slice": [
+    "2025-01-01T00:00:00Z",
+    "2025-02-01T00:00:00Z"
+   ],
+   "request": [
+    "2025-01-01T00:00:00Z",
+    "2025-02-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "d072d6c17e4792c1dc9bbab0b6cfff37d03026eacd51611356e3bbe30c75fe6d",
+   "manifest_sha256_on_disk": "d072d6c17e4792c1dc9bbab0b6cfff37d03026eacd51611356e3bbe30c75fe6d",
+   "cache_id": "fc-2124e0b4f5555512228275c3a8b818f7800d82b8",
+   "cache_manifest_sha256": "2f7b992fc926229604ca34bdf14062204a35247cca4803083f61a3c1d6601365",
+   "retrieval_started_at": "2026-10-14T11:06:37.453437Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-01-01T00:00:00Z",
+     "last_time": "2025-01-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-01-01T00:00:00Z",
+     "last_time": "2025-01-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-01-01T00:00:00Z",
+     "last_time": "2025-01-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20250201T0000-20250301T0000-0ebb92ecf9f0",
+   "slice": [
+    "2025-02-01T00:00:00Z",
+    "2025-03-01T00:00:00Z"
+   ],
+   "request": [
+    "2025-02-01T00:00:00Z",
+    "2025-03-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "1856e74fe079844baafe6f429b85945648770911101914d099f2d575225e88a2",
+   "manifest_sha256_on_disk": "1856e74fe079844baafe6f429b85945648770911101914d099f2d575225e88a2",
+   "cache_id": "fc-92a3fc7b467664ca005c38a28bc158213eb10225",
+   "cache_manifest_sha256": "9cb3458418db27c92bebd9d6229d5fed559664a7774bd52c45f1ae764734be8d",
+   "retrieval_started_at": "2026-10-14T11:13:27.421296Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 40320,
+     "expected_rows": 40320,
+     "missing_rows": 0,
+     "first_time": "2025-02-01T00:00:00Z",
+     "last_time": "2025-02-28T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 40320,
+     "expected_rows": 40320,
+     "missing_rows": 0,
+     "first_time": "2025-02-01T00:00:00Z",
+     "last_time": "2025-02-28T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 40320,
+     "expected_rows": 40320,
+     "missing_rows": 0,
+     "first_time": "2025-02-01T00:00:00Z",
+     "last_time": "2025-02-28T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20250301T0000-20250401T0000-7a389c3cf848",
+   "slice": [
+    "2025-03-01T00:00:00Z",
+    "2025-04-01T00:00:00Z"
+   ],
+   "request": [
+    "2025-03-01T00:00:00Z",
+    "2025-04-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "2f813ac6537641f8c4c7f997342e18843b23b9c9c952158c6a87cdb8dbeb6ace",
+   "manifest_sha256_on_disk": "2f813ac6537641f8c4c7f997342e18843b23b9c9c952158c6a87cdb8dbeb6ace",
+   "cache_id": "fc-933eff4a60c47374e2c58b61f808a62864de3a7f",
+   "cache_manifest_sha256": "6cae6d6790a18a7bde53bdf5156708d3e5a3dd578708de582018e127411346a9",
+   "retrieval_started_at": "2026-10-14T11:19:50.723686Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-03-01T00:00:00Z",
+     "last_time": "2025-03-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-03-01T00:00:00Z",
+     "last_time": "2025-03-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 44640,
+     "expected_rows": 44640,
+     "missing_rows": 0,
+     "first_time": "2025-03-01T00:00:00Z",
+     "last_time": "2025-03-31T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20250401T0000-20250501T0000-9b10103db3c4",
+   "slice": [
+    "2025-04-01T00:00:00Z",
+    "2025-05-01T00:00:00Z"
+   ],
+   "request": [
+    "2025-04-01T00:00:00Z",
+    "2025-05-01T00:00:00Z"
+   ],
+   "source_manifest_sha256": "95d6e11ad54278732f0ae3f67d2d1a4db56011102081b2821092c83adb21f052",
+   "manifest_sha256_on_disk": "95d6e11ad54278732f0ae3f67d2d1a4db56011102081b2821092c83adb21f052",
+   "cache_id": "fc-87b88ca8d9da179886981633ca2df083f7609f99",
+   "cache_manifest_sha256": "20b30bd558ab8db3dc1f535f988e2708f25054f9a3b3f4227405197f8c2037b8",
+   "retrieval_started_at": "2026-10-14T11:26:47.041792Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 43200,
+     "expected_rows": 43200,
+     "missing_rows": 0,
+     "first_time": "2025-04-01T00:00:00Z",
+     "last_time": "2025-04-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 43200,
+     "expected_rows": 43200,
+     "missing_rows": 0,
+     "first_time": "2025-04-01T00:00:00Z",
+     "last_time": "2025-04-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 43200,
+     "expected_rows": 43200,
+     "missing_rows": 0,
+     "first_time": "2025-04-01T00:00:00Z",
+     "last_time": "2025-04-30T23:59:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  },
+  {
+   "dataset_id": "okx-btc-usdt-swap-1m-20250501T0000-20250501T0605-f1d0904d1396",
+   "slice": [
+    "2025-05-01T00:00:00Z",
+    "2025-05-01T06:05:00Z"
+   ],
+   "request": [
+    "2025-05-01T00:00:00Z",
+    "2025-05-01T06:05:00Z"
+   ],
+   "source_manifest_sha256": "8deb1fb854c5b254d64266f1791a63a468db316a7f0d2a71da5e5ad360089273",
+   "manifest_sha256_on_disk": "8deb1fb854c5b254d64266f1791a63a468db316a7f0d2a71da5e5ad360089273",
+   "cache_id": "fc-1a8b19e4a557aea18d3f618dd117f60fbe77691b",
+   "cache_manifest_sha256": "4b97a94b54e98527c6edbbe65c3f4bdfc791ea04eb351870bc9403c2697e09b5",
+   "retrieval_started_at": "2026-10-14T11:33:30.324911Z",
+   "endpoints": [
+    "/api/v5/market/history-candles",
+    "/api/v5/market/history-index-candles",
+    "/api/v5/market/history-mark-price-candles",
+    "/api/v5/public/funding-rate-history"
+   ],
+   "source": "okx",
+   "verify_problems": [],
+   "quality_status": "clean",
+   "quality_families": [
+    {
+     "family": "trade_candles_1m",
+     "status": "clean",
+     "rows": 365,
+     "expected_rows": 365,
+     "missing_rows": 0,
+     "first_time": "2025-05-01T00:00:00Z",
+     "last_time": "2025-05-01T06:04:00Z",
+     "gaps": []
+    },
+    {
+     "family": "mark_candles_1m",
+     "status": "clean",
+     "rows": 365,
+     "expected_rows": 365,
+     "missing_rows": 0,
+     "first_time": "2025-05-01T00:00:00Z",
+     "last_time": "2025-05-01T06:04:00Z",
+     "gaps": []
+    },
+    {
+     "family": "index_candles_1m",
+     "status": "clean",
+     "rows": 365,
+     "expected_rows": 365,
+     "missing_rows": 0,
+     "first_time": "2025-05-01T00:00:00Z",
+     "last_time": "2025-05-01T06:04:00Z",
+     "gaps": []
+    },
+    {
+     "family": "funding_rates",
+     "status": "clean",
+     "rows": 0,
+     "expected_rows": null,
+     "missing_rows": null,
+     "first_time": null,
+     "last_time": null,
+     "gaps": []
+    }
+   ],
+   "quality_findings": [
+    {
+     "family": "instrument",
+     "check": "instrument_validated",
+     "severity": "info",
+     "count": 1,
+     "detail": "BTC-USDT-SWAP: SWAP linear, 1 contract = 0.01 BTC, settled in USDT, index BTC-USDT",
+     "examples": []
+    },
+    {
+     "family": "funding_rates",
+     "check": "funding_events",
+     "severity": "info",
+     "count": 0,
+     "detail": "funding events recorded (not applied to any account)",
+     "examples": []
+    }
+   ]
+  }
+ ],
+ "data_root": "C:\\Users\\Gian\\AppData\\Local\\Temp\\claude\\C--Projects-algorithmic-trader\\50606868-0845-43b8-a3df-fba3b892d3e5\\scratchpad\\replica\\data"
+}
