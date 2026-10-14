@@ -133,8 +133,12 @@ def run(label: str, run_dir: Path, v06: Path) -> tuple[dict, list[dict]]:
     c["no call issued in the tail"] = not any(x["issue_window"] == "tail" for x in rows)
     # ---- v0.6 parity of calls on the same pack -------------------------------------------------------------------
     v06 = [e for e in load_gz(v06) if e["kind"] == "call"]
-    key = lambda r: (r["call_id"], r["issued_at"], r["family"], r["direction"])  # noqa: E731
-    c["v0.7 calls identical to the v0.6 calls of the same pack (id, issue time, family, direction)"] = (
+
+    def key(r: dict) -> tuple:  # amendment 2: method-independent (ids embed the method's rules hash)
+        return (r["issued_at"], r["family"], r["direction"], r["scenario_id"].rsplit("-", 1)[0], str(r.get("target")),
+                str(r.get("invalidation")), json.dumps(r.get("structural_area")), r.get("hard_deadline"))
+    c["v0.7 calls identical to the v0.6 calls of the same pack (issue time, family, direction, origin impulse, "
+      "target, invalidation, structural area, hard deadline)"] = (
         sorted(key(e["record"]) for e in v06) == sorted(key(e["record"]) for e in calls.values()))
     # ---- funnel per family and primary result ---------------------------------------------------------------------
     fam = {}
@@ -165,7 +169,7 @@ def run(label: str, run_dir: Path, v06: Path) -> tuple[dict, list[dict]]:
                "complete": not undet, "sum_price_net_closed": str(total),
                "result": (str(total) if not undet else f"SUBTOTAL_ONLY {total} (undetermined paths: "
                           + ", ".join(f"{x['call_id']} {x['primary_status']}" for x in undet) + ")")}
-    rp = ((report.get("outcomes") or {}).get("PRIMARY")) or {}
+    rp = (((report.get("outcomes") or {}).get("variants") or {}).get("PRIMARY")) or {}  # amendment 1: report path
     c["report v7 PRIMARY section = this tabulation (paths, no entry, closed sum)"] = (
         rp.get("paths") == len(allc) and rp.get("no_entry") == primary["no_entry"]
         and Decimal(rp.get("sum_price_net") or "0") == total)

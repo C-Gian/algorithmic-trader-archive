@@ -1,0 +1,115 @@
+{
+ "all_pass": true,
+ "calls_outside_evaluation": [
+  "call-AS-2024-11-28T04:47:00+00:00-74fe43b0fd60",
+  "call-AS-2024-12-01T04:02:00+00:00-9dbd3cd70c4d",
+  "call-AS-2024-12-05T23:07:00+00:00-2d366f0f8273"
+ ],
+ "checks": {
+  "PRIMARY: entry at/after ceil-minute(issue + 60 s); profile entry/exit delay 60 s": true,
+  "costs: gross, fees (5 bps/leg) and allowances (2 bps/leg) recomputed from the fills; net = gross - fees - allowances": true,
+  "engine identity = frozen v0.7; evaluator = registered": true,
+  "every journal record carries adviser.core.v7": true,
+  "exactly one PRIMARY path per evaluation-window call; none for calls outside the window": true,
+  "no call issued in the tail": true,
+  "outputs = the hashes recorded in the run manifest": true,
+  "reconciliation: calls = closed + no entry + undetermined": true,
+  "report v7 PRIMARY section = this tabulation (paths, no entry, closed sum)": true,
+  "v0.7 calls identical to the v0.6 calls of the same pack (issue time, family, direction, origin impulse, target, invalidation, structural area, hard deadline)": true
+ },
+ "families": {
+  "A": {
+   "armed": 167,
+   "call_revisions_not_opportunities": 44,
+   "calls_issued_in_evaluation": 3,
+   "closed_exit_classes": {
+    "GUIDANCE_TIME_EXPIRED": 1,
+    "TARGET": 1
+   },
+   "closed_sum_price_net": "0.003541558976419914551359684285",
+   "confirmed_engine_admissible": 88,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 2,
+   "primary_status": {
+    "CLOSED": 2,
+    "NO_ENTRY": 1
+   },
+   "scenarios_born_in_evaluation": 376
+  },
+  "B": {
+   "armed": 6,
+   "call_revisions_not_opportunities": 4,
+   "calls_issued_in_evaluation": 1,
+   "closed_exit_classes": {
+    "STOP": 1
+   },
+   "closed_sum_price_net": "-0.002577777847834562304475892935",
+   "confirmed_engine_admissible": 5,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 1,
+   "primary_status": {
+    "CLOSED": 1
+   },
+   "scenarios_born_in_evaluation": 33
+  },
+  "C": {
+   "armed": 19,
+   "call_revisions_not_opportunities": 0,
+   "calls_issued_in_evaluation": 0,
+   "closed_exit_classes": {},
+   "closed_sum_price_net": "0",
+   "confirmed_engine_admissible": 16,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 0,
+   "primary_status": {},
+   "scenarios_born_in_evaluation": 32
+  }
+ },
+ "label": "jan-apr-2025",
+ "primary": {
+  "calls": 4,
+  "closed": 3,
+  "complete": true,
+  "costs_included": "fees 0.0005 x (1 + X/E) and allowances 0.0002 x (1 + X/E) per path (5 + 2 bps/leg)",
+  "funding": "PRICE_NET_ONLY (funding coverage EMPTY_UNKNOWN); total_net unavailable",
+  "no_entry": 1,
+  "result": "0.0009637811285853522468837913501",
+  "sum_price_net_closed": "0.0009637811285853522468837913501",
+  "undetermined": {
+   "AMBIGUOUS": 0,
+   "CENSORED": 0,
+   "UNRESOLVED": 0
+  },
+  "unit": "normalized one-unit hypothetical paths (N0 = 1 abstract USDT reporting unit, q = 1/E); sum of per-path price_net fractions; not a return on Owner capital, not compounded"
+ },
+ "report_primary": {
+  "ambiguous": 0,
+  "censored": 0,
+  "no_entry": 1,
+  "paths": 4,
+  "stop_exits": 1,
+  "sum_price_net": "0.0009637811285853522468837913501",
+  "sum_stress_price_net": "-0.0008373410612661985039845223709",
+  "target_exits": 1,
+  "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+  "unresolved": 0
+ },
+ "run": {
+  "build": "13268640168468c6b30a42140a1e2b81582de2df",
+  "cache_id": "fc-200b0433840be874609b2ff2b39f2f4f9b42250b",
+  "elapsed_seconds": 366.4,
+  "events_applied": 670695,
+  "feed_content_identity": "feedcontent.v1:a0142cae7699d138f488335fe9509d6bfc26abd6b1589317d6cfd62dea6e12b0",
+  "journal_entries": 33910,
+  "pack_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+  "pack_manifest_sha256": "b7f4ddb885a6e60fe5418ded18c141ea33ef2552eca13a60ca2e0094a74c5e7c",
+  "records": 2896
+ },
+ "windows": {
+  "clock_end": "2025-05-01T06:05:00Z",
+  "eval_end": "2025-05-01T00:00:00+00:00",
+  "eval_start": "2025-01-01T00:00:00+00:00",
+  "tail_end": "2025-05-01T06:05:00+00:00",
+  "warmup_start": "2024-11-27T00:00:00+00:00"
+ }
+}

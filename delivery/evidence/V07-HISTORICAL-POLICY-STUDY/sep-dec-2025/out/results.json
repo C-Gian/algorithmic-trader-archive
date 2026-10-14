@@ -1,0 +1,105 @@
+{
+ "all_pass": true,
+ "calls_outside_evaluation": [],
+ "checks": {
+  "PRIMARY: entry at/after ceil-minute(issue + 60 s); profile entry/exit delay 60 s": true,
+  "costs: gross, fees (5 bps/leg) and allowances (2 bps/leg) recomputed from the fills; net = gross - fees - allowances": true,
+  "engine identity = frozen v0.7; evaluator = registered": true,
+  "every journal record carries adviser.core.v7": true,
+  "exactly one PRIMARY path per evaluation-window call; none for calls outside the window": true,
+  "no call issued in the tail": true,
+  "outputs = the hashes recorded in the run manifest": true,
+  "reconciliation: calls = closed + no entry + undetermined": true,
+  "report v7 PRIMARY section = this tabulation (paths, no entry, closed sum)": true,
+  "v0.7 calls identical to the v0.6 calls of the same pack (issue time, family, direction, origin impulse, target, invalidation, structural area, hard deadline)": true
+ },
+ "families": {
+  "A": {
+   "armed": 161,
+   "call_revisions_not_opportunities": 52,
+   "calls_issued_in_evaluation": 1,
+   "closed_exit_classes": {
+    "GUIDANCE_TIME_EXPIRED": 1
+   },
+   "closed_sum_price_net": "0.001008815215741288428017315836",
+   "confirmed_engine_admissible": 89,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 1,
+   "primary_status": {
+    "CLOSED": 1
+   },
+   "scenarios_born_in_evaluation": 359
+  },
+  "B": {
+   "armed": 6,
+   "call_revisions_not_opportunities": 0,
+   "calls_issued_in_evaluation": 0,
+   "closed_exit_classes": {},
+   "closed_sum_price_net": "0",
+   "confirmed_engine_admissible": 4,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 0,
+   "primary_status": {},
+   "scenarios_born_in_evaluation": 44
+  },
+  "C": {
+   "armed": 18,
+   "call_revisions_not_opportunities": 0,
+   "calls_issued_in_evaluation": 0,
+   "closed_exit_classes": {},
+   "closed_sum_price_net": "0",
+   "confirmed_engine_admissible": 12,
+   "of_which_scenario_born_before_evaluation": 0,
+   "primary_entered": 0,
+   "primary_status": {},
+   "scenarios_born_in_evaluation": 37
+  }
+ },
+ "label": "sep-dec-2025",
+ "primary": {
+  "calls": 1,
+  "closed": 1,
+  "complete": true,
+  "costs_included": "fees 0.0005 x (1 + X/E) and allowances 0.0002 x (1 + X/E) per path (5 + 2 bps/leg)",
+  "funding": "PRICE_NET_ONLY (funding coverage EMPTY_UNKNOWN); total_net unavailable",
+  "no_entry": 0,
+  "result": "0.001008815215741288428017315836",
+  "sum_price_net_closed": "0.001008815215741288428017315836",
+  "undetermined": {
+   "AMBIGUOUS": 0,
+   "CENSORED": 0,
+   "UNRESOLVED": 0
+  },
+  "unit": "normalized one-unit hypothetical paths (N0 = 1 abstract USDT reporting unit, q = 1/E); sum of per-path price_net fractions; not a return on Owner capital, not compounded"
+ },
+ "report_primary": {
+  "ambiguous": 0,
+  "censored": 0,
+  "no_entry": 0,
+  "paths": 1,
+  "stop_exits": 0,
+  "sum_price_net": "0.001008815215741288428017315836",
+  "sum_stress_price_net": "0.0004080920649710268583901716403",
+  "target_exits": 0,
+  "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+  "unresolved": 0
+ },
+ "run": {
+  "build": "13268640168468c6b30a42140a1e2b81582de2df",
+  "cache_id": "fc-80221b24abf3a50b764cc873f4a70cc709847a6b",
+  "elapsed_seconds": 351.5,
+  "events_applied": 679335,
+  "feed_content_identity": "feedcontent.v1:f2cf8790b5f12a11c550f707d5f3c25f96358f92febf09db246e8f261de2f028",
+  "journal_entries": 34475,
+  "pack_id": "pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e",
+  "pack_manifest_sha256": "1bec1f1575306d4444969569675e28bfdc9dac60e2d6f461b283871362221f92",
+  "records": 2932
+ },
+ "windows": {
+  "clock_end": "2026-01-01T06:05:00Z",
+  "eval_end": "2026-01-01T00:00:00+00:00",
+  "eval_start": "2025-09-01T00:00:00+00:00",
+  "tail_end": "2026-01-01T06:05:00+00:00",
+  "warmup_start": "2025-07-28T00:00:00+00:00"
+ }
+}

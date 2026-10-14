@@ -1,5 +1,5 @@
 # Current task — Historical study of the complete v0.7 policy on January–April 2025 and September–December 2025
-Date: 2026-10-14. Status: REGISTERED before computation ([registration](delivery/evidence/V07-HISTORICAL-POLICY-STUDY/REGISTRATION.md)); runs and tabulation follow. The Director's review is separate.
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/V07-HISTORICAL-POLICY-STUDY/SUMMARY.md)); registered at `1326864` before computation; two verification-script amendments declared. The Director's review is separate.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
 

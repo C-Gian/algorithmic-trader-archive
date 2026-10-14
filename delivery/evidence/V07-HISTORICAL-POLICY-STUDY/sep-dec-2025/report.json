@@ -1,0 +1,2901 @@
+{
+ "anchors": {
+  "calls_after_replacement": 1,
+  "events": {
+   "ambiguous_anchors": 0,
+   "anchor_losses": 179,
+   "certified_contacts": 179,
+   "loss_reasons": {
+    "V_CONTACT": 179
+   },
+   "replacements": 143,
+   "supersessions_without_contact": 22
+  },
+  "note": "Owner-level counts are distinct structural A scenario ids (one owner re-anchoring several times is one owner, not several observations); event-level counts are journal transitions. Only records published inside the evaluation window count; owners born in warmup are reported separately. A dead anchor is never re-tested, so repeated contacts cannot inflate the counts.",
+  "owners": {
+   "confirmed_after_replacement": 61,
+   "lost_anchor": 111,
+   "lost_anchor_warmup_origin": 0,
+   "rearmed_by_replacement": 99,
+   "structural_terminal_without_replacement": 36
+  },
+  "terminals_without_replacement": {
+   "DESTINATION_REACHED:DESTINATION_CONTACT": 3,
+   "WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 12,
+   "WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 21
+  }
+ },
+ "boundary_effect": {
+  "evaluation_end": {
+   "active_scenarios": [],
+   "at": "2026-01-01T00:00:00+00:00",
+   "open_call": null
+  },
+  "evaluation_start": {
+   "at": "2025-09-01T00:00:00+00:00",
+   "cleared": {
+    "box_kept": null,
+    "box_token": "READY",
+    "call": null,
+    "entry_attempts": [],
+    "latch": {
+     "-1": "READY",
+     "1": "READY"
+    },
+    "scenarios_kept_as_warmup_context": []
+   },
+   "note": "structural warmup scenarios remain labelled context; their pending entry attempts were removed",
+   "warmup_calls": 0
+  }
+ },
+ "by_family_mode": {
+  "A_IMMEDIATE": {
+   "calls": 1,
+   "entered": 1,
+   "no_entry": 0,
+   "other_closed": 1,
+   "stop": 0,
+   "sum_price_net": "0.001008815215741288428017315836",
+   "target": 0,
+   "unresolved_or_censored_or_ambiguous": 0
+  }
+ },
+ "calls": {
+  "by_family": {
+   "A_LONG": 1
+  },
+  "by_family_mode": {
+   "A_IMMEDIATE": 1
+  },
+  "count": 1,
+  "entry_available_minutes": {
+   "max": "17.0000",
+   "median": "17.0000",
+   "min": "17.0000",
+   "n": "1",
+   "p25": "17.0000",
+   "p75": "17.0000"
+  },
+  "entry_reopens": 4,
+  "list": [
+   {
+    "call_id": "call-AL-2025-10-26T23:34:00+00:00-83c238c49bda",
+    "direction": "LONG",
+    "entry_available_minutes": "17",
+    "entry_reopens": 4,
+    "family": "A",
+    "gain_bps": "99.424170527199412913972874321879862024312412139976",
+    "hard_deadline": "2025-10-27T03:34:00Z",
+    "issue_reference": "114599.9",
+    "issued_at": "2025-10-26T23:34:00Z",
+    "limiting_age_minutes": "34",
+    "limiting_landmark": "IMPULSE_B",
+    "risk_bps": "25.340336248111909347215835266871960621257086611768",
+    "stop": "114309.5",
+    "structural_area": [
+     "114546.1",
+     "114653.7"
+    ],
+    "target": "115739.3",
+    "target_type": "LANDMARK",
+    "terminal": "TIME_EXPIRED",
+    "terminal_at": "2025-10-27T03:34:00Z",
+    "terminal_reason": "HARD_DEADLINE"
+   }
+  ],
+  "longest_no_call_interval_hours": "1584.433333333333333333333333",
+  "per_assessable_week": "0.06",
+  "per_evaluated_week": "0.06",
+  "terminal": {
+   "TIME_EXPIRED": 1
+  },
+  "warmup_calls_not_scored": 0
+ },
+ "conclusion": {
+  "text": "v0.7 results are reported for Director diagnosis; no registered evidence criterion applies. v0.7 changes the explanation and the market reading only (an A condition that would already reach its destination is not counted as directional support); calls, entries, selection and terminals are those of v0.6, so a v0.6/v0.7 comparison on the same pack must show identical calls.",
+  "verdict": "REPORTED_FOR_DIRECTOR_REVIEW"
+ },
+ "condition_durations": {
+  "active_at_last_commit": [
+   "ANY_COMMON_BLOCKER",
+   "NO_ARMED_SCENARIO",
+   "TRADE_15M_NOT_READY",
+   "TRADE_1H_NOT_READY"
+  ],
+  "available": true,
+  "conditions": {
+   "ANY_COMMON_BLOCKER": {
+    "fraction_of_covered": "0.0001",
+    "minutes": "22.00",
+    "onsets": 4
+   },
+   "CONFIRMED_SCENARIO_ACTIVE": {
+    "fraction_of_covered": "0.0308",
+    "minutes": "5403.00",
+    "onsets": 105
+   },
+   "DISLOCATION_TRADE_INDEX": {
+    "fraction_of_covered": "0.0001",
+    "minutes": "22.00",
+    "onsets": 4
+   },
+   "DISLOCATION_TRADE_MARK": {
+    "fraction_of_covered": "0.0000",
+    "minutes": "3.00",
+    "onsets": 2
+   },
+   "ISSUABLE_IF_TRIGGERED": {
+    "fraction_of_covered": "0.9985",
+    "minutes": "175418.00",
+    "onsets": 0
+   },
+   "NO_ARMED_SCENARIO": {
+    "fraction_of_covered": "0.9723",
+    "minutes": "170810.00",
+    "onsets": 326
+   },
+   "PRIORITY_COMPETITION": {
+    "fraction_of_covered": "0.0000",
+    "minutes": "3.00",
+    "onsets": 1
+   },
+   "SLOT_OCCUPIED": {
+    "fraction_of_covered": "0.0014",
+    "minutes": "240.00",
+    "onsets": 1
+   },
+   "WAITING_FOR_USABLE_PRICE": {
+    "fraction_of_covered": "0.0073",
+    "minutes": "1287.00",
+    "onsets": 57
+   }
+  },
+  "covered_minutes": "175680.00",
+  "note": "overlapping durations (a minute counts toward every condition holding then; ANY_COMMON_BLOCKER = union of the common blockers); onsets count separate episodes, not elapsed time; ISSUABLE_IF_TRIGGERED = no common blocker and slot free"
+ },
+ "coverage": {
+  "assessable_minutes": 175680,
+  "assessable_weeks": "17.429",
+  "capabilities": {
+   "calendar": "NONE_UNKNOWN",
+   "dislocation": "ENABLE_WHERE_SUPPORTED",
+   "execution": "HISTORICAL_BASE",
+   "funding_outcomes": "PRICE_NET_ONLY",
+   "incidents": "NOT_COVERED",
+   "oi_liquidations_depth_flow": "NOT_COVERED",
+   "predictive_cycles": "NOT_COVERED (observed phase only)",
+   "quotes": "NOT_COVERED (historical)"
+  },
+  "covered_minutes": 175680,
+  "evaluation_minutes": 175680,
+  "unavailable_minutes": 0,
+  "view_row_minutes": {
+   "BALANCED_RANGE": 37539,
+   "CONDITIONAL_SCENARIO": 8531,
+   "NO_QUALIFIED_STRUCTURE": 120112,
+   "WATCH_ONLY": 9498
+  }
+ },
+ "diagnosis": [
+  "A_DESTINATION_BEFORE_CONFIRMATION: 24 armed A scenario(s) ended at the narrative destination before confirmation (no call; closed rule, not relaxed)",
+  "NO_LOCAL_RECOVERY_OBSERVED: 12 reference(s) prepared, 0 contradicted, 12 initially incompatible (subset of X), 12 ended by another cause in total (X), 0 still waiting"
+ ],
+ "funnel": {
+  "a_confirmations": 89,
+  "a_denominators": {
+   "D_geometrically_evaluable": 82,
+   "N_initially_empty_corridor_or_fixed_k_economics": 24,
+   "N_over_D": "0.2927",
+   "N_over_D_above_half": false,
+   "excluded": {
+    "INSIDE_ZONE": 7
+   },
+   "note": "D = distinct structurally confirmed A owners with valid R/K/V/T/scale/price at confirmation (IMMEDIATE included); N = D rows with an empty R-K corridor or empty fixed-K (historical 14 bps) economics at that cutoff. Exclusions are separate, never assumed empty. N/D>0.5 is a preregistered selected-domain diagnostic for Director review, not proof about timeframes."
+  },
+  "a_destination_before_confirmation": {
+   "by_direction": {
+    "LONG": 11,
+    "SHORT": 13
+   },
+   "count": 24,
+   "examples": [
+    {
+     "armed_at": "2025-09-01T19:15:00Z",
+     "at": "2025-09-01T19:25:00Z",
+     "destination": "109244.6",
+     "direction": "LONG",
+     "reason": "DESTINATION_CONTACT:okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-01T19:24:00Z",
+     "scenario_id": "AL-2025-09-01T18:45:00+00:00-8d300aec6989",
+     "trigger_level": "109263.8"
+    },
+    {
+     "armed_at": "2025-09-12T19:45:00Z",
+     "at": "2025-09-12T19:54:00Z",
+     "destination": "116520",
+     "direction": "LONG",
+     "reason": "DESTINATION_CONTACT:okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-12T19:53:00Z",
+     "scenario_id": "AL-2025-09-12T19:15:00+00:00-89c880f34a0e",
+     "trigger_level": "116499.2"
+    },
+    {
+     "armed_at": "2025-09-17T04:15:00Z",
+     "at": "2025-09-17T04:17:00Z",
+     "destination": "116300.1",
+     "direction": "SHORT",
+     "reason": "DESTINATION_CONTACT:okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-17T04:16:00Z",
+     "scenario_id": "AS-2025-09-17T03:45:00+00:00-fc8279a24aa5",
+     "trigger_level": "116305.2"
+    }
+   ],
+   "note": "A scenarios whose narrative destination was contacted after arm and before any confirmation (MP-002 \u00a73 literal after-arm destination precedence; reachable when K >= the frozen impulse B): ended DESTINATION_REACHED with no confirmation or call. Diagnostic only; K and destination rules are unchanged."
+  },
+  "a_return_calls": 0,
+  "a_return_owners_entered_primary_60s": 0,
+  "a_routing": {
+   "IMMEDIATE_ISSUED": 1,
+   "RETURN_WAIT": 57,
+   "TERMINAL:AT_OPPOSING_AREA": 7,
+   "TERMINAL:NO_ECONOMIC_RETURN_REGION": 22,
+   "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 2
+  },
+  "arms": {
+   "A_LONG": 89,
+   "A_SHORT": 72,
+   "B_LONG": 4,
+   "B_SHORT": 2,
+   "C_LONG": 9,
+   "C_SHORT": 9
+  },
+  "births": {
+   "A_LONG": 187,
+   "A_SHORT": 172,
+   "B_LONG": 24,
+   "B_SHORT": 20,
+   "C_LONG": 16,
+   "C_SHORT": 21
+  },
+  "conflicted": 0,
+  "end_reasons": {
+   "A:DESTINATION_REACHED:DESTINATION_CONTACT": 78,
+   "A:EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+   "A:EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+   "A:INVALIDATED:V_CONTACT": 28,
+   "A:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+   "A:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4,
+   "A:WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 13,
+   "A:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 42,
+   "B:DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+   "B:EXPIRED:BOX_RETIRED": 7,
+   "B:EXPIRED:ORIGINAL_SETUP_DEADLINE": 13,
+   "B:INVALIDATED:V_CONTACT": 3,
+   "B:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+   "B:WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH": 4,
+   "B:WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 14,
+   "C:DESTINATION_REACHED:DESTINATION_CONTACT": 5,
+   "C:EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+   "C:INVALIDATED:V_CONTACT": 7,
+   "C:PRICE_PREMISE_FAILED:15M_CLOSE_BEYOND_PREMISE": 1,
+   "C:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1,
+   "C:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+   "C:WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH": 13,
+   "C:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2,
+   "C:WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH": 6
+  },
+  "ends": {},
+  "evidence_threshold": {
+   "note": "The earlier MP-002 reporting convention (20 distinct A RETURN owners entered at PRIMARY 60 s) belongs to the v0.3/v0.4 registrations and is NOT_APPLICABLE to v0.5 and v0.6; the count stays descriptive and no substitute criterion is registered.",
+   "observed": 0,
+   "registered_minimum_distinct_owners": null,
+   "status": "NOT_APPLICABLE"
+  },
+  "guidance_retired_by_scenario_terminal": 0,
+  "issued": 1,
+  "issued_by_family_mode": {
+   "A_IMMEDIATE": 1
+  },
+  "priority": 0,
+  "rejection_blockers": {
+   "AT_OPPOSING_AREA": 8,
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR": 34,
+   "INITIAL_RESPONSE_INCOMPATIBLE": 12,
+   "NO_ROOM_AFTER_COSTS": 53,
+   "PRE_ENTRY_TARGET_CONTACT": 5,
+   "REWARD_RISK_BELOW_MINIMUM": 26,
+   "SCENARIO_TERMINAL": 336
+  },
+  "scenario_terminals": {
+   "A:DESTINATION_REACHED:DESTINATION_CONTACT": 78,
+   "A:EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+   "A:EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+   "A:INVALIDATED:V_CONTACT": 28,
+   "A:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 3,
+   "A:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 4,
+   "A:WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 13,
+   "A:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 42,
+   "B:DESTINATION_REACHED:DESTINATION_CONTACT": 2,
+   "B:EXPIRED:BOX_RETIRED": 7,
+   "B:EXPIRED:ORIGINAL_SETUP_DEADLINE": 13,
+   "B:INVALIDATED:V_CONTACT": 3,
+   "B:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+   "B:WITHDRAWN:CONTEXT_FORBIDDEN_AT_BIRTH": 4,
+   "B:WITHDRAWN:RETURNED_INSIDE_BEFORE_RETEST": 14,
+   "C:DESTINATION_REACHED:DESTINATION_CONTACT": 5,
+   "C:EXPIRED:ORIGINAL_SETUP_DEADLINE": 1,
+   "C:INVALIDATED:V_CONTACT": 7,
+   "C:PRICE_PREMISE_FAILED:15M_CLOSE_BEYOND_PREMISE": 1,
+   "C:STALLED:SCENARIO_PROGRESS_BELOW_HALF_SCALE": 1,
+   "C:TIME_EXPIRED:CONFIRMED_HARD_DEADLINE": 1,
+   "C:WITHDRAWN:CONTEXT_NOT_BALANCED_AT_BIRTH": 13,
+   "C:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 2,
+   "C:WITHDRAWN:DIRECTIONAL_EXPANSION_AT_BIRTH": 6
+  },
+  "scenario_transitions": {
+   "A_LONG:ANCHOR_LOST": 96,
+   "A_LONG:ARM": 89,
+   "A_LONG:BIRTH": 187,
+   "A_LONG:CONFIRM": 54,
+   "A_LONG:OWNER_RELEASE": 21,
+   "A_LONG:REARM": 80,
+   "A_LONG:REVISE": 9,
+   "A_LONG:TERMINAL": 187,
+   "A_SHORT:ANCHOR_LOST": 83,
+   "A_SHORT:ARM": 72,
+   "A_SHORT:BIRTH": 172,
+   "A_SHORT:CONFIRM": 35,
+   "A_SHORT:OWNER_RELEASE": 11,
+   "A_SHORT:REARM": 63,
+   "A_SHORT:REVISE": 13,
+   "A_SHORT:TERMINAL": 172,
+   "B_LONG:ARM": 4,
+   "B_LONG:BIRTH": 24,
+   "B_LONG:CONFIRM": 2,
+   "B_LONG:TERMINAL": 24,
+   "B_SHORT:ARM": 2,
+   "B_SHORT:BIRTH": 20,
+   "B_SHORT:CONFIRM": 2,
+   "B_SHORT:TERMINAL": 20,
+   "C_LONG:ARM": 9,
+   "C_LONG:BIRTH": 16,
+   "C_LONG:CONFIRM": 6,
+   "C_LONG:TERMINAL": 16,
+   "C_SHORT:ARM": 9,
+   "C_SHORT:BIRTH": 21,
+   "C_SHORT:CONFIRM": 6,
+   "C_SHORT:TERMINAL": 21
+  },
+  "slot_occupied": 0,
+  "slot_priority_minutes": {
+   "CONFLICTED_ARMED": "0.00",
+   "PRIORITY_COMPETITION": "3.00",
+   "SLOT_OCCUPIED": "240.00",
+   "SLOT_OCCUPIED_WITH_ARMED": "0.00"
+  },
+  "trigger_evaluations": 105,
+  "waiting": {
+   "CAP_REVISIONS": 7,
+   "blocker_observations": {
+    "BLOCKED_BY_ZONE": 1,
+    "CLOSE_OUTSIDE_RETURN_CORRIDOR": 183,
+    "NO_ROOM_AFTER_COSTS": 86,
+    "OVERLAPPING_BLOCKER_SETS": 181,
+    "REWARD_RISK_BELOW_MINIMUM": 187
+   },
+   "endings": {
+    "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 4,
+    "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 12,
+    "TERMINAL:ORIGINAL_SETUP_DEADLINE": 8,
+    "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 16,
+    "TERMINAL:SCENARIO_TERMINAL": 17
+   },
+   "observed_usable_return": 12,
+   "opened": 57,
+   "usable_return_meaning": "v0.5: the usable return bar prepares the local reference (P); it never issues"
+  },
+  "warmup_context_scenarios": 131
+ },
+ "gates": {},
+ "gates_note": "v0.7 gate statistics are in the entry_attempt records (unchanged from v0.6)",
+ "identity": {
+  "capability_profile": {
+   "calendar": "NONE_UNKNOWN",
+   "dislocation": "ENABLE_WHERE_SUPPORTED",
+   "execution": "HISTORICAL_BASE",
+   "funding_outcomes": "PRICE_NET_ONLY",
+   "horizon_inputs": "R2_COMPLETE_MINUTE_DERIVED_UTC_HORIZONS",
+   "incident_tape": "NOT_COVERED",
+   "late_policy": "temporal.seal-no-revision.v1",
+   "origin": "HISTORICAL_MODELED"
+  },
+  "capability_profile_sha256": "7c86833734da7258f62f8f7569b2a74253867e4b82e5b537907749f910220296",
+  "evaluator_sha256": "85504d5843e144d0b86a0ee3e693c064f4d7f64e7928c1e54fb9c9e9f308615c",
+  "identity_sha256": "55d76c99c3a1c00089588d289b20dbbf5a487d20dfc8302a012af7e3d066ee4c",
+  "implementation": "adviser.core.v7",
+  "model": "btc.context-action.v0.7",
+  "register_sha256": "8525ec74e2ccbaf0834137312c05aff59bae4714a76221d9f42b426ea7d5569c",
+  "rules_sha256": "1f3704f4453bc3ab7528e9de916d05d64e2e0955c0ef81170c26694bf719b39f",
+  "rules_version": "tdc.rules.v0.7"
+ },
+ "initial_context": {
+  "evaluation_start": "2025-09-01T00:00:00+00:00",
+  "initialization": {
+   "end": "2025-09-01T00:00:00+00:00",
+   "evaluated": false,
+   "hours": 840,
+   "policy": "REGISTERED_EXPLICIT_INITIALIZATION",
+   "preset_id": "btc-2025-09-to-2025-12-continuous-init35d-v1",
+   "start": "2025-07-28T00:00:00+00:00"
+  },
+  "initialization_coverage": [
+   {
+    "expected_slots": 50400,
+    "family": "trade_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": 50400,
+    "family": "mark_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": 50400,
+    "family": "index_bar_1m",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 50400,
+    "window": "warmup"
+   },
+   {
+    "expected_slots": null,
+    "family": "funding_settlement",
+    "missing": 0,
+    "reasons": {},
+    "rejected": 0,
+    "valid": 0,
+    "window": "warmup"
+   }
+  ],
+  "initialization_trade_complete": true,
+  "landmarks": {
+   "PIVOTS_15M": {
+    "active_at_start": 6,
+    "earliest_extremum": "2025-07-28T01:15:00Z",
+    "ever_built": 888,
+    "memory_completeness": "NOT_CERTIFIED",
+    "memory_window": [
+     "2025-08-31T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "memory_window_data": "COVERED",
+    "memory_window_inside_initialization": true,
+    "state": "BUILT",
+    "state_at_start": {
+     "ACTIVE": 6,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T01:45:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T04:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T08:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T08:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T09:45:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T10:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T13:00:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T15:15:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T15:30:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T16:45:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T18:30:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T22:30:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T23:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T23:15:00+00:00": 1,
+     "RETIRED:AGE": 864
+    }
+   },
+   "PIVOTS_1H": {
+    "active_at_start": 13,
+    "earliest_extremum": "2025-07-28T02:00:00Z",
+    "ever_built": 233,
+    "memory_completeness": "NOT_CERTIFIED",
+    "memory_window": [
+     "2025-08-25T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "memory_window_data": "COVERED",
+    "memory_window_inside_initialization": true,
+    "state": "BUILT",
+    "state_at_start": {
+     "ACTIVE": 13,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-25T06:30:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-25T20:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-26T00:30:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-26T11:30:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-26T18:30:00+00:00": 3,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-27T07:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-27T14:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-27T18:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-28T04:30:00+00:00": 3,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-28T06:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T01:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T07:00:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T07:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T13:45:00+00:00": 3,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T14:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-29T20:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-30T04:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-30T08:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-30T15:15:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-30T15:30:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T00:30:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T10:00:00+00:00": 2,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T13:00:00+00:00": 1,
+     "BROKEN:15M_CLOSE_BEYOND_FAR_EDGE:okx/BTC-USDT-SWAP/trade_bar_1m/15m/2025-08-31T18:30:00+00:00": 1,
+     "RETIRED:AGE": 186
+    }
+   },
+   "PREV_1D_HIGH": {
+    "covers_required_period": true,
+    "ever_built": 35,
+    "landmark_id": "lm-prev1d-H-2025-09-01T00:00:00+00:00-415cbcd05f6d",
+    "price": "109436.2",
+    "required_period": [
+     "2025-08-31T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1d/2025-08-31T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   },
+   "PREV_1D_LOW": {
+    "covers_required_period": true,
+    "ever_built": 35,
+    "landmark_id": "lm-prev1d-L-2025-09-01T00:00:00+00:00-dccd1b411e33",
+    "price": "108000.8",
+    "required_period": [
+     "2025-08-31T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1d/2025-08-31T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   },
+   "PREV_1MO_HIGH": {
+    "covers_required_period": true,
+    "ever_built": 1,
+    "landmark_id": "lm-prev1mo-H-2025-09-01T00:00:00+00:00-eaa7a0700d7b",
+    "price": "124590",
+    "required_period": [
+     "2025-08-01T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1mo/2025-08-01T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   },
+   "PREV_1MO_LOW": {
+    "covers_required_period": true,
+    "ever_built": 1,
+    "landmark_id": "lm-prev1mo-L-2025-09-01T00:00:00+00:00-719a309d1191",
+    "price": "107276.5",
+    "required_period": [
+     "2025-08-01T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1mo/2025-08-01T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   },
+   "PREV_1W_HIGH": {
+    "covers_required_period": true,
+    "ever_built": 5,
+    "landmark_id": "lm-prev1w-H-2025-09-01T00:00:00+00:00-836a0a8b0d4d",
+    "price": "113611.2",
+    "required_period": [
+     "2025-08-25T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1w/2025-08-25T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   },
+   "PREV_1W_LOW": {
+    "covers_required_period": true,
+    "ever_built": 5,
+    "landmark_id": "lm-prev1w-L-2025-09-01T00:00:00+00:00-b6b9b1197007",
+    "price": "107276.5",
+    "required_period": [
+     "2025-08-25T00:00:00+00:00",
+     "2025-09-01T00:00:00+00:00"
+    ],
+    "source_ids": [
+     "okx/BTC-USDT-SWAP/trade_bar_1m/1w/2025-08-25T00:00:00+00:00"
+    ],
+    "state": "BUILT_ACTIVE",
+    "status_reason": null
+   }
+  },
+  "note": "Facts at the evaluation start (records published at that dispatch included). 'Never built' and 'insufficient data' are kept apart from levels built and then legitimately broken, expired or retired. Pivot memory completeness is NOT certified: formation, publication, breaking, retirement and the per-horizon cap are not reconstructed. The initialization is never evaluated.",
+  "readiness": {
+   "at_evaluation_start": {
+    "trade.15m": "READY",
+    "trade.1h": "READY",
+    "trade.1m": "READY"
+   },
+   "first_ready": {
+    "trade.15m": "2025-07-28T06:15:00+00:00",
+    "trade.1h": "2025-07-28T21:00:00+00:00",
+    "trade.1m": "2025-07-28T00:01:00+00:00"
+   },
+   "observed_since": "2025-07-28T21:00:00+00:00"
+  },
+  "required_periods": {
+   "pivot_15m_memory": {
+    "data": "COVERED",
+    "end": "2025-09-01T00:00:00+00:00",
+    "inside_initialization": true,
+    "start": "2025-08-31T00:00:00+00:00"
+   },
+   "pivot_1h_memory": {
+    "data": "COVERED",
+    "end": "2025-09-01T00:00:00+00:00",
+    "inside_initialization": true,
+    "start": "2025-08-25T00:00:00+00:00"
+   },
+   "previous_day": {
+    "data": "COVERED",
+    "end": "2025-09-01T00:00:00+00:00",
+    "inside_initialization": true,
+    "start": "2025-08-31T00:00:00+00:00"
+   },
+   "previous_month": {
+    "data": "COVERED",
+    "end": "2025-09-01T00:00:00+00:00",
+    "inside_initialization": true,
+    "start": "2025-08-01T00:00:00+00:00"
+   },
+   "previous_week": {
+    "data": "COVERED",
+    "end": "2025-09-01T00:00:00+00:00",
+    "inside_initialization": true,
+    "start": "2025-08-25T00:00:00+00:00"
+   }
+  }
+ },
+ "launch_pins": {
+  "build": "13268640168468c6b30a42140a1e2b81582de2df",
+  "capability_profile": {
+   "calendar": "NONE_UNKNOWN",
+   "dislocation": "ENABLE_WHERE_SUPPORTED",
+   "execution": "HISTORICAL_BASE",
+   "funding_outcomes": "PRICE_NET_ONLY",
+   "horizon_inputs": "R2_COMPLETE_MINUTE_DERIVED_UTC_HORIZONS",
+   "incident_tape": "NOT_COVERED",
+   "late_policy": "temporal.seal-no-revision.v1",
+   "origin": "HISTORICAL_MODELED"
+  },
+  "capability_profile_sha256": "7c86833734da7258f62f8f7569b2a74253867e4b82e5b537907749f910220296",
+  "channels": {
+   "funding": "okx/BTC-USDT-SWAP/funding_settlement",
+   "index": "okx/BTC-USDT/index_bar_1m",
+   "mark": "okx/BTC-USDT-SWAP/mark_bar_1m",
+   "trade": "okx/BTC-USDT-SWAP/trade_bar_1m"
+  },
+  "clock_policy": "temporal.clock.modeled-complete-prefix.v1",
+  "costs": {
+   "ENTRY_DELAY_0": {
+    "adequacy_envelope_bps": "14",
+    "allowance_per_leg": "0.0002",
+    "entry_delay_seconds": 0,
+    "exit_delay_seconds": 60,
+    "exit_mode": "GUIDANCE",
+    "fee_per_leg": "0.0005",
+    "funding": "PRICE_NET_ONLY"
+   },
+   "ENTRY_DELAY_120": {
+    "adequacy_envelope_bps": "14",
+    "allowance_per_leg": "0.0002",
+    "entry_delay_seconds": 120,
+    "exit_delay_seconds": 60,
+    "exit_mode": "GUIDANCE",
+    "fee_per_leg": "0.0005",
+    "funding": "PRICE_NET_ONLY"
+   },
+   "HORIZON_ONLY": {
+    "adequacy_envelope_bps": "14",
+    "allowance_per_leg": "0.0002",
+    "entry_delay_seconds": 60,
+    "exit_delay_seconds": 60,
+    "exit_mode": "HORIZON_ONLY",
+    "fee_per_leg": "0.0005",
+    "funding": "PRICE_NET_ONLY"
+   },
+   "PRIMARY": {
+    "adequacy_envelope_bps": "14",
+    "allowance_per_leg": "0.0002",
+    "entry_delay_seconds": 60,
+    "exit_delay_seconds": 60,
+    "exit_mode": "GUIDANCE",
+    "fee_per_leg": "0.0005",
+    "funding": "PRICE_NET_ONLY"
+   }
+  },
+  "evaluator_format": "algotrader.adviser-evaluation.v1",
+  "evaluator_sha256": "85504d5843e144d0b86a0ee3e693c064f4d7f64e7928c1e54fb9c9e9f308615c",
+  "feed_content_identity": "feedcontent.v1:f2cf8790b5f12a11c550f707d5f3c25f96358f92febf09db246e8f261de2f028",
+  "identity_sha256": "55d76c99c3a1c00089588d289b20dbbf5a487d20dfc8302a012af7e3d066ee4c",
+  "implementation": "adviser.core.v7",
+  "method": "v0.7",
+  "model": "btc.context-action.v0.7",
+  "pack_id": "pack-1ae7d36c20adbde0a468a7e0f6d8750a9951aa8e",
+  "primary_entry_delay_seconds": 60,
+  "primary_is_60s": true,
+  "register_sha256": "8525ec74e2ccbaf0834137312c05aff59bae4714a76221d9f42b426ea7d5569c",
+  "rules_sha256": "1f3704f4453bc3ab7528e9de916d05d64e2e0955c0ef81170c26694bf719b39f",
+  "rules_version": "tdc.rules.v0.7",
+  "runtime_format": "algotrader.adviser-runtime.v7",
+  "tick": "0.1",
+  "windows": {
+   "clock_end": "2026-01-01T06:05:00Z",
+   "evaluation": [
+    "2025-09-01T00:00:00+00:00",
+    "2026-01-01T00:00:00+00:00"
+   ],
+   "initialization_start": "2025-07-28T00:00:00+00:00",
+   "tail_end": "2026-01-01T06:05:00+00:00"
+  }
+ },
+ "limiting_landmarks": {},
+ "method": {
+  "economic_usefulness": "UNVALIDATED",
+  "method": "v0.7",
+  "model": "btc.context-action.v0.7",
+  "status": "ENGINEERING_REVIEW_PENDING",
+  "status_label": "engineering review pending"
+ },
+ "outcomes": {
+  "note": "normalized one-unit hypothetical paths (N0=1, q=1/E); not a fill, account or size; PRICE_NET_ONLY - total net with funding unavailable unless coverage is proven",
+  "variants": {
+   "ENTRY_DELAY_0": {
+    "ambiguous": 0,
+    "ambiguous_bounds": [],
+    "censored": 0,
+    "exit_class": {
+     "GUIDANCE_TIME_EXPIRED": 1
+    },
+    "guidance_exits": 1,
+    "held_minutes_distribution": {
+     "max": "241.0000",
+     "median": "241.0000",
+     "min": "241.0000",
+     "n": "1",
+     "p25": "241.0000",
+     "p75": "241.0000"
+    },
+    "mean_price_net": "0.001214226888505138311639015392",
+    "no_entry": 0,
+    "nonpositive_price_net": 0,
+    "paths": 1,
+    "positive_price_net": 1,
+    "price_net_bps_distribution": {
+     "max": "12.1423",
+     "median": "12.1423",
+     "min": "12.1423",
+     "n": "1",
+     "p25": "12.1423",
+     "p75": "12.1423"
+    },
+    "status": {
+     "CLOSED": 1
+    },
+    "stop_exits": 0,
+    "sum_gross": "0.002616058129195575214289017704",
+    "sum_price_net": "0.001214226888505138311639015392",
+    "sum_stress_price_net": null,
+    "target_exits": 0,
+    "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+    "unresolved": 0
+   },
+   "ENTRY_DELAY_120": {
+    "ambiguous": 0,
+    "ambiguous_bounds": [],
+    "censored": 0,
+    "exit_class": {
+     "GUIDANCE_TIME_EXPIRED": 1
+    },
+    "guidance_exits": 1,
+    "held_minutes_distribution": {
+     "max": "238.0000",
+     "median": "238.0000",
+     "min": "238.0000",
+     "n": "1",
+     "p25": "238.0000",
+     "p75": "238.0000"
+    },
+    "mean_price_net": "0.001452085182595853986159006465",
+    "no_entry": 0,
+    "nonpositive_price_net": 0,
+    "paths": 1,
+    "positive_price_net": 1,
+    "price_net_bps_distribution": {
+     "max": "14.5209",
+     "median": "14.5209",
+     "min": "14.5209",
+     "n": "1",
+     "p25": "14.5209",
+     "p75": "14.5209"
+    },
+    "status": {
+     "CLOSED": 1
+    },
+    "stop_exits": 0,
+    "sum_gross": "0.002854083040724361038886226824",
+    "sum_price_net": "0.001452085182595853986159006465",
+    "sum_stress_price_net": null,
+    "target_exits": 0,
+    "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+    "unresolved": 0
+   },
+   "HORIZON_ONLY": {
+    "ambiguous": 0,
+    "ambiguous_bounds": [],
+    "censored": 0,
+    "exit_class": {
+     "HORIZON_EXIT": 1
+    },
+    "guidance_exits": 0,
+    "held_minutes_distribution": {
+     "max": "240.0000",
+     "median": "240.0000",
+     "min": "240.0000",
+     "n": "1",
+     "p25": "240.0000",
+     "p75": "240.0000"
+    },
+    "mean_price_net": "0.001008815215741288428017315836",
+    "no_entry": 0,
+    "nonpositive_price_net": 0,
+    "paths": 1,
+    "positive_price_net": 1,
+    "price_net_bps_distribution": {
+     "max": "10.0882",
+     "median": "10.0882",
+     "min": "10.0882",
+     "n": "1",
+     "p25": "10.0882",
+     "p75": "10.0882"
+    },
+    "status": {
+     "CLOSED": 1
+    },
+    "stop_exits": 0,
+    "sum_gross": "0.002410502567538565423813985626",
+    "sum_price_net": "0.001008815215741288428017315836",
+    "sum_stress_price_net": null,
+    "target_exits": 0,
+    "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+    "unresolved": 0
+   },
+   "PRIMARY": {
+    "ambiguous": 0,
+    "ambiguous_bounds": [],
+    "censored": 0,
+    "exit_class": {
+     "GUIDANCE_TIME_EXPIRED": 1
+    },
+    "guidance_exits": 1,
+    "held_minutes_distribution": {
+     "max": "240.0000",
+     "median": "240.0000",
+     "min": "240.0000",
+     "n": "1",
+     "p25": "240.0000",
+     "p75": "240.0000"
+    },
+    "mean_price_net": "0.001008815215741288428017315836",
+    "no_entry": 0,
+    "nonpositive_price_net": 0,
+    "paths": 1,
+    "positive_price_net": 1,
+    "price_net_bps_distribution": {
+     "max": "10.0882",
+     "median": "10.0882",
+     "min": "10.0882",
+     "n": "1",
+     "p25": "10.0882",
+     "p75": "10.0882"
+    },
+    "status": {
+     "CLOSED": 1
+    },
+    "stop_exits": 0,
+    "sum_gross": "0.002410502567538565423813985626",
+    "sum_price_net": "0.001008815215741288428017315836",
+    "sum_stress_price_net": "0.0004080920649710268583901716403",
+    "target_exits": 0,
+    "total_net": "UNAVAILABLE (PRICE_NET_ONLY: funding completeness unproven)",
+    "unresolved": 0
+   }
+  }
+ },
+ "periods": {
+  "attribution": "calls -> month of issue, followed to their outcome after the month ends (never counted twice); confirmations/scenario transitions -> month of publication; WAITs -> month opened, with their ending wherever it falls; coverage -> minutes inside the month; view samples -> sample time (their 1h/4h endpoint may fall in the next month)",
+  "censoring": "paths still open at the clock end are CENSORED/UNRESOLVED and kept visible; tail data are never scored",
+  "denominators": "each section uses its own denominator: evaluation minutes, view samples, A confirmations, opened WAITs and issued calls are different populations",
+  "months": {
+   "2025-09": {
+    "a_D": 24,
+    "a_N": 13,
+    "a_confirmations": 25,
+    "a_routing": {
+     "RETURN_WAIT": 11,
+     "TERMINAL:AT_OPPOSING_AREA": 1,
+     "TERMINAL:NO_ECONOMIC_RETURN_REGION": 13
+    },
+    "calls": {
+     "by_family_mode": {},
+     "call_ids": [],
+     "guidance_outcome": {},
+     "issued": 0,
+     "ongoing_at_last_commit": 0,
+     "resolved_after_period_end": 0
+    },
+    "coverage": {
+     "assessable_minutes": 43200,
+     "covered_minutes": 43200,
+     "minutes": 43200,
+     "unavailable_minutes": 0,
+     "view_row_minutes": {
+      "BALANCED_RANGE": 8915,
+      "CONDITIONAL_SCENARIO": 1848,
+      "NO_QUALIFIED_STRUCTURE": 30251,
+      "WATCH_ONLY": 2186
+     }
+    },
+    "end": "2025-10-01T00:00:00+00:00",
+    "hypothetical": {
+     "ENTRY_DELAY_0": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "ENTRY_DELAY_120": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "HORIZON_ONLY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "PRIMARY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     }
+    },
+    "market_view_samples": {
+     "1h": {
+      "directional_matching_sign": 12,
+      "directional_scored": 34,
+      "endpoint_unavailable": 0
+     },
+     "4h": {
+      "directional_matching_sign": 14,
+      "directional_scored": 34,
+      "endpoint_unavailable": 0
+     },
+     "by_view": {
+      "BALANCED": 159,
+      "DOWN": 10,
+      "UNCERTAIN": 527,
+      "UP": 24
+     },
+     "samples": 720
+    },
+    "scenario_transitions": {
+     "A_ANCHOR_LOST": 38,
+     "A_ARM": 37,
+     "A_BIRTH": 84,
+     "A_CONFIRM": 25,
+     "A_OWNER_RELEASE": 6,
+     "A_REARM": 33,
+     "A_REVISE": 4,
+     "A_TERMINAL": 84,
+     "B_ARM": 3,
+     "B_BIRTH": 12,
+     "B_CONFIRM": 1,
+     "B_TERMINAL": 12,
+     "C_ARM": 6,
+     "C_BIRTH": 12,
+     "C_CONFIRM": 5,
+     "C_TERMINAL": 12
+    },
+    "start": "2025-09-01T00:00:00+00:00",
+    "waits": {
+     "ended_after_period_end": 0,
+     "endings": {
+      "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 1,
+      "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 3,
+      "TERMINAL:ORIGINAL_SETUP_DEADLINE": 2,
+      "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 2,
+      "TERMINAL:SCENARIO_TERMINAL": 3
+     },
+     "observed_usable_return": 3,
+     "opened": 11
+    }
+   },
+   "2025-10": {
+    "a_D": 18,
+    "a_N": 3,
+    "a_confirmations": 19,
+    "a_routing": {
+     "IMMEDIATE_ISSUED": 1,
+     "RETURN_WAIT": 14,
+     "TERMINAL:AT_OPPOSING_AREA": 1,
+     "TERMINAL:NO_ECONOMIC_RETURN_REGION": 2,
+     "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 1
+    },
+    "calls": {
+     "by_family_mode": {
+      "A_IMMEDIATE": 1
+     },
+     "call_ids": [
+      "call-AL-2025-10-26T23:34:00+00:00-83c238c49bda"
+     ],
+     "guidance_outcome": {
+      "TIME_EXPIRED": 1
+     },
+     "issued": 1,
+     "ongoing_at_last_commit": 0,
+     "resolved_after_period_end": 0
+    },
+    "coverage": {
+     "assessable_minutes": 44640,
+     "covered_minutes": 44640,
+     "minutes": 44640,
+     "unavailable_minutes": 0,
+     "view_row_minutes": {
+      "BALANCED_RANGE": 9383,
+      "CONDITIONAL_SCENARIO": 2465,
+      "NO_QUALIFIED_STRUCTURE": 30304,
+      "WATCH_ONLY": 2488
+     }
+    },
+    "end": "2025-11-01T00:00:00+00:00",
+    "hypothetical": {
+     "ENTRY_DELAY_0": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 1,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 1,
+      "economic_result_observed": true,
+      "exit_class": {
+       "GUIDANCE_TIME_EXPIRED": 1
+      },
+      "exits_after_period_end": 0,
+      "expected_pairs": 1,
+      "other_status": {},
+      "paths": 1,
+      "records_available": 1,
+      "status": {
+       "CLOSED": 1
+      },
+      "sum_population": {
+       "closed_with_price_net": 1,
+       "expected_pairs": 1,
+       "records_available": 1
+      },
+      "sum_price_net_normalized": "0.0012142268885051383116390153918109876186628435103663",
+      "sum_price_net_pct_presentation": "0.121"
+     },
+     "ENTRY_DELAY_120": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 1,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 1,
+      "economic_result_observed": true,
+      "exit_class": {
+       "GUIDANCE_TIME_EXPIRED": 1
+      },
+      "exits_after_period_end": 0,
+      "expected_pairs": 1,
+      "other_status": {},
+      "paths": 1,
+      "records_available": 1,
+      "status": {
+       "CLOSED": 1
+      },
+      "sum_population": {
+       "closed_with_price_net": 1,
+       "expected_pairs": 1,
+       "records_available": 1
+      },
+      "sum_price_net_normalized": "0.0014520851825958539861590064648908509618783532202296",
+      "sum_price_net_pct_presentation": "0.145"
+     },
+     "HORIZON_ONLY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 1,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 1,
+      "economic_result_observed": true,
+      "exit_class": {
+       "HORIZON_EXIT": 1
+      },
+      "exits_after_period_end": 0,
+      "expected_pairs": 1,
+      "other_status": {},
+      "paths": 1,
+      "records_available": 1,
+      "status": {
+       "CLOSED": 1
+      },
+      "sum_population": {
+       "closed_with_price_net": 1,
+       "expected_pairs": 1,
+       "records_available": 1
+      },
+      "sum_price_net_normalized": "0.0010088152157412884280173158360334800747491349933667",
+      "sum_price_net_pct_presentation": "0.101"
+     },
+     "PRIMARY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 1,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 1,
+      "economic_result_observed": true,
+      "exit_class": {
+       "GUIDANCE_TIME_EXPIRED": 1
+      },
+      "exits_after_period_end": 0,
+      "expected_pairs": 1,
+      "other_status": {},
+      "paths": 1,
+      "records_available": 1,
+      "status": {
+       "CLOSED": 1
+      },
+      "sum_population": {
+       "closed_with_price_net": 1,
+       "expected_pairs": 1,
+       "records_available": 1
+      },
+      "sum_price_net_normalized": "0.0010088152157412884280173158360334800747491349933667",
+      "sum_price_net_pct_presentation": "0.101"
+     }
+    },
+    "market_view_samples": {
+     "1h": {
+      "directional_matching_sign": 24,
+      "directional_scored": 39,
+      "endpoint_unavailable": 0
+     },
+     "4h": {
+      "directional_matching_sign": 27,
+      "directional_scored": 39,
+      "endpoint_unavailable": 0
+     },
+     "by_view": {
+      "BALANCED": 163,
+      "DOWN": 21,
+      "UNCERTAIN": 542,
+      "UP": 18
+     },
+     "samples": 744
+    },
+    "scenario_transitions": {
+     "A_ANCHOR_LOST": 55,
+     "A_ARM": 42,
+     "A_BIRTH": 89,
+     "A_CONFIRM": 19,
+     "A_OWNER_RELEASE": 9,
+     "A_REARM": 44,
+     "A_REVISE": 6,
+     "A_TERMINAL": 89,
+     "B_ARM": 3,
+     "B_BIRTH": 13,
+     "B_CONFIRM": 3,
+     "B_TERMINAL": 13,
+     "C_ARM": 5,
+     "C_BIRTH": 12,
+     "C_CONFIRM": 2,
+     "C_TERMINAL": 12
+    },
+    "start": "2025-10-01T00:00:00+00:00",
+    "waits": {
+     "ended_after_period_end": 0,
+     "endings": {
+      "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 3,
+      "TERMINAL:ORIGINAL_SETUP_DEADLINE": 2,
+      "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 4,
+      "TERMINAL:SCENARIO_TERMINAL": 5
+     },
+     "observed_usable_return": 3,
+     "opened": 14
+    }
+   },
+   "2025-11": {
+    "a_D": 19,
+    "a_N": 3,
+    "a_confirmations": 20,
+    "a_routing": {
+     "RETURN_WAIT": 16,
+     "TERMINAL:AT_OPPOSING_AREA": 1,
+     "TERMINAL:NO_ECONOMIC_RETURN_REGION": 3
+    },
+    "calls": {
+     "by_family_mode": {},
+     "call_ids": [],
+     "guidance_outcome": {},
+     "issued": 0,
+     "ongoing_at_last_commit": 0,
+     "resolved_after_period_end": 0
+    },
+    "coverage": {
+     "assessable_minutes": 43200,
+     "covered_minutes": 43200,
+     "minutes": 43200,
+     "unavailable_minutes": 0,
+     "view_row_minutes": {
+      "BALANCED_RANGE": 8750,
+      "CONDITIONAL_SCENARIO": 1628,
+      "NO_QUALIFIED_STRUCTURE": 30328,
+      "WATCH_ONLY": 2494
+     }
+    },
+    "end": "2025-12-01T00:00:00+00:00",
+    "hypothetical": {
+     "ENTRY_DELAY_0": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "ENTRY_DELAY_120": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "HORIZON_ONLY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "PRIMARY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     }
+    },
+    "market_view_samples": {
+     "1h": {
+      "directional_matching_sign": 13,
+      "directional_scored": 29,
+      "endpoint_unavailable": 0
+     },
+     "4h": {
+      "directional_matching_sign": 13,
+      "directional_scored": 29,
+      "endpoint_unavailable": 0
+     },
+     "by_view": {
+      "BALANCED": 159,
+      "DOWN": 15,
+      "UNCERTAIN": 532,
+      "UP": 14
+     },
+     "samples": 720
+    },
+    "scenario_transitions": {
+     "A_ANCHOR_LOST": 37,
+     "A_ARM": 39,
+     "A_BIRTH": 94,
+     "A_CONFIRM": 20,
+     "A_OWNER_RELEASE": 5,
+     "A_REARM": 27,
+     "A_REVISE": 8,
+     "A_TERMINAL": 94,
+     "B_BIRTH": 12,
+     "B_TERMINAL": 12,
+     "C_ARM": 4,
+     "C_BIRTH": 7,
+     "C_CONFIRM": 3,
+     "C_TERMINAL": 7
+    },
+    "start": "2025-11-01T00:00:00+00:00",
+    "waits": {
+     "ended_after_period_end": 0,
+     "endings": {
+      "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 2,
+      "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 2,
+      "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 5,
+      "TERMINAL:SCENARIO_TERMINAL": 7
+     },
+     "observed_usable_return": 2,
+     "opened": 16
+    }
+   },
+   "2025-12": {
+    "a_D": 21,
+    "a_N": 5,
+    "a_confirmations": 25,
+    "a_routing": {
+     "RETURN_WAIT": 16,
+     "TERMINAL:AT_OPPOSING_AREA": 4,
+     "TERMINAL:NO_ECONOMIC_RETURN_REGION": 4,
+     "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 1
+    },
+    "calls": {
+     "by_family_mode": {},
+     "call_ids": [],
+     "guidance_outcome": {},
+     "issued": 0,
+     "ongoing_at_last_commit": 0,
+     "resolved_after_period_end": 0
+    },
+    "coverage": {
+     "assessable_minutes": 44640,
+     "covered_minutes": 44640,
+     "minutes": 44640,
+     "unavailable_minutes": 0,
+     "view_row_minutes": {
+      "BALANCED_RANGE": 10491,
+      "CONDITIONAL_SCENARIO": 2590,
+      "NO_QUALIFIED_STRUCTURE": 29229,
+      "WATCH_ONLY": 2330
+     }
+    },
+    "end": "2026-01-01T00:00:00+00:00",
+    "hypothetical": {
+     "ENTRY_DELAY_0": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "ENTRY_DELAY_120": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "HORIZON_ONLY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     },
+     "PRIMARY": {
+      "awaiting_meaning": null,
+      "awaiting_terminal_record": 0,
+      "by_status": {
+       "AMBIGUOUS": 0,
+       "CENSORED": 0,
+       "CLOSED": 0,
+       "NO_ENTRY": 0,
+       "UNRESOLVED": 0
+      },
+      "censored_or_unresolved": 0,
+      "closed_with_price_net": 0,
+      "economic_result_observed": false,
+      "exit_class": {},
+      "exits_after_period_end": 0,
+      "expected_pairs": 0,
+      "other_status": {},
+      "paths": 0,
+      "records_available": 0,
+      "status": {},
+      "sum_population": {
+       "closed_with_price_net": 0,
+       "expected_pairs": 0,
+       "records_available": 0
+      },
+      "sum_price_net_normalized": "0",
+      "sum_price_net_pct_presentation": "0.000"
+     }
+    },
+    "market_view_samples": {
+     "1h": {
+      "directional_matching_sign": 25,
+      "directional_scored": 51,
+      "endpoint_unavailable": 0
+     },
+     "4h": {
+      "directional_matching_sign": 23,
+      "directional_scored": 51,
+      "endpoint_unavailable": 0
+     },
+     "by_view": {
+      "BALANCED": 174,
+      "DOWN": 18,
+      "UNCERTAIN": 519,
+      "UP": 33
+     },
+     "samples": 744
+    },
+    "scenario_transitions": {
+     "A_ANCHOR_LOST": 49,
+     "A_ARM": 43,
+     "A_BIRTH": 92,
+     "A_CONFIRM": 25,
+     "A_OWNER_RELEASE": 12,
+     "A_REARM": 39,
+     "A_REVISE": 4,
+     "A_TERMINAL": 92,
+     "B_BIRTH": 7,
+     "B_TERMINAL": 7,
+     "C_ARM": 3,
+     "C_BIRTH": 6,
+     "C_CONFIRM": 2,
+     "C_TERMINAL": 6
+    },
+    "start": "2025-12-01T00:00:00+00:00",
+    "waits": {
+     "ended_after_period_end": 0,
+     "endings": {
+      "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 1,
+      "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 4,
+      "TERMINAL:ORIGINAL_SETUP_DEADLINE": 4,
+      "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 5,
+      "TERMINAL:SCENARIO_TERMINAL": 2
+     },
+     "observed_usable_return": 4,
+     "opened": 16
+    }
+   }
+  },
+  "outcome_completeness": {
+   "awaiting_meaning": null,
+   "awaiting_terminal_record": 0,
+   "by_variant": {
+    "ENTRY_DELAY_0": {
+     "available": 1,
+     "awaiting": 0,
+     "awaiting_by_issue_month": {
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0
+     },
+     "expected": 1
+    },
+    "ENTRY_DELAY_120": {
+     "available": 1,
+     "awaiting": 0,
+     "awaiting_by_issue_month": {
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0
+     },
+     "expected": 1
+    },
+    "HORIZON_ONLY": {
+     "available": 1,
+     "awaiting": 0,
+     "awaiting_by_issue_month": {
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0
+     },
+     "expected": 1
+    },
+    "PRIMARY": {
+     "available": 1,
+     "awaiting": 0,
+     "awaiting_by_issue_month": {
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0
+     },
+     "expected": 1
+    }
+   },
+   "configured_variants": [
+    "PRIMARY",
+    "ENTRY_DELAY_0",
+    "ENTRY_DELAY_120",
+    "HORIZON_ONLY"
+   ],
+   "duplicate_terminal_records": 0,
+   "evaluable_calls": 1,
+   "expected_pairs": 4,
+   "note": "expected pairs = evaluable calls issued in the evaluation window x pinned evaluator variants. A pair without a terminal record has no inferred entry, outcome, economic result or censoring. This is outcome completeness, separate from the arithmetic reconciliation of the available records; for a run declared completed a missing record makes this report INCOMPLETE, while the run's saved status and assurance are unchanged.",
+   "run_status": "completed",
+   "state": "COMPLETE",
+   "terminal_records_available": 4
+  },
+  "path_records": {
+   "admitted": 4,
+   "available": 4,
+   "duplicate_examples": [],
+   "duplicates": 0,
+   "expected_missing": 0,
+   "extraneous": {
+    "CALL_NOT_EVALUABLE": 0,
+    "CALL_OUTSIDE_EVALUATION_WINDOW": 0,
+    "UNKNOWN_CALL": 0,
+    "VARIANT_NOT_CONFIGURED": 0
+   },
+   "extraneous_examples": [],
+   "note": "every available path record is compared with the expected population (evaluable calls issued in the evaluation window x pinned evaluator variants) before deduplication. Only admitted pairs enter counts, states and sums; extraneous and repeated records fail reconciliation and are never counted as outcomes. A missing expected outcome is completeness, not an extraneous record.",
+   "variant_check": "PINNED"
+  },
+  "reconciliation": {
+   "all_passed": true,
+   "checks": {
+    "ENTRY_DELAY_0_paths_sum": true,
+    "ENTRY_DELAY_0_price_net_sum_exact": true,
+    "ENTRY_DELAY_120_paths_sum": true,
+    "ENTRY_DELAY_120_price_net_sum_exact": true,
+    "HORIZON_ONLY_paths_sum": true,
+    "HORIZON_ONLY_price_net_sum_exact": true,
+    "PRIMARY_paths_sum": true,
+    "PRIMARY_price_net_sum_exact": true,
+    "a_confirmations_equal_report_total": true,
+    "admitted_path_records_attributed": true,
+    "assessable_minutes_sum": true,
+    "calls_equal_report_total": true,
+    "calls_partitioned_without_duplicates": true,
+    "minutes_sum_to_evaluation": true,
+    "no_duplicate_terminal_records": true,
+    "no_extraneous_path_records": true,
+    "path_records_accounted": true,
+    "view_samples_sum": true,
+    "waits_equal_report_total": true
+   },
+   "scope": "ARITHMETIC_OF_AVAILABLE_RECORDS"
+  },
+  "sum_meaning": "sum of normalized one-unit hypothetical price-net outcomes (N0=1, q=1/E): not an account return, not compounded, no sizing; funding not covered (PRICE_NET_ONLY)",
+  "total": {
+   "a_D": 82,
+   "a_N": 24,
+   "a_confirmations": 89,
+   "a_routing": {
+    "IMMEDIATE_ISSUED": 1,
+    "RETURN_WAIT": 57,
+    "TERMINAL:AT_OPPOSING_AREA": 7,
+    "TERMINAL:NO_ECONOMIC_RETURN_REGION": 22,
+    "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 2
+   },
+   "calls": {
+    "by_family_mode": {
+     "A_IMMEDIATE": 1
+    },
+    "call_ids": [
+     "call-AL-2025-10-26T23:34:00+00:00-83c238c49bda"
+    ],
+    "guidance_outcome": {
+     "TIME_EXPIRED": 1
+    },
+    "issued": 1,
+    "ongoing_at_last_commit": 0,
+    "resolved_after_period_end": 0
+   },
+   "coverage": {
+    "assessable_minutes": 175680,
+    "covered_minutes": 175680,
+    "minutes": 175680,
+    "unavailable_minutes": 0,
+    "view_row_minutes": {
+     "BALANCED_RANGE": 37539,
+     "CONDITIONAL_SCENARIO": 8531,
+     "NO_QUALIFIED_STRUCTURE": 120112,
+     "WATCH_ONLY": 9498
+    }
+   },
+   "end": "2026-01-01T00:00:00+00:00",
+   "hypothetical": {
+    "ENTRY_DELAY_0": {
+     "awaiting_meaning": null,
+     "awaiting_terminal_record": 0,
+     "by_status": {
+      "AMBIGUOUS": 0,
+      "CENSORED": 0,
+      "CLOSED": 1,
+      "NO_ENTRY": 0,
+      "UNRESOLVED": 0
+     },
+     "censored_or_unresolved": 0,
+     "closed_with_price_net": 1,
+     "economic_result_observed": true,
+     "exit_class": {
+      "GUIDANCE_TIME_EXPIRED": 1
+     },
+     "exits_after_period_end": 0,
+     "expected_pairs": 1,
+     "other_status": {},
+     "paths": 1,
+     "records_available": 1,
+     "status": {
+      "CLOSED": 1
+     },
+     "sum_population": {
+      "closed_with_price_net": 1,
+      "expected_pairs": 1,
+      "records_available": 1
+     },
+     "sum_price_net_normalized": "0.0012142268885051383116390153918109876186628435103663",
+     "sum_price_net_pct_presentation": "0.121"
+    },
+    "ENTRY_DELAY_120": {
+     "awaiting_meaning": null,
+     "awaiting_terminal_record": 0,
+     "by_status": {
+      "AMBIGUOUS": 0,
+      "CENSORED": 0,
+      "CLOSED": 1,
+      "NO_ENTRY": 0,
+      "UNRESOLVED": 0
+     },
+     "censored_or_unresolved": 0,
+     "closed_with_price_net": 1,
+     "economic_result_observed": true,
+     "exit_class": {
+      "GUIDANCE_TIME_EXPIRED": 1
+     },
+     "exits_after_period_end": 0,
+     "expected_pairs": 1,
+     "other_status": {},
+     "paths": 1,
+     "records_available": 1,
+     "status": {
+      "CLOSED": 1
+     },
+     "sum_population": {
+      "closed_with_price_net": 1,
+      "expected_pairs": 1,
+      "records_available": 1
+     },
+     "sum_price_net_normalized": "0.0014520851825958539861590064648908509618783532202296",
+     "sum_price_net_pct_presentation": "0.145"
+    },
+    "HORIZON_ONLY": {
+     "awaiting_meaning": null,
+     "awaiting_terminal_record": 0,
+     "by_status": {
+      "AMBIGUOUS": 0,
+      "CENSORED": 0,
+      "CLOSED": 1,
+      "NO_ENTRY": 0,
+      "UNRESOLVED": 0
+     },
+     "censored_or_unresolved": 0,
+     "closed_with_price_net": 1,
+     "economic_result_observed": true,
+     "exit_class": {
+      "HORIZON_EXIT": 1
+     },
+     "exits_after_period_end": 0,
+     "expected_pairs": 1,
+     "other_status": {},
+     "paths": 1,
+     "records_available": 1,
+     "status": {
+      "CLOSED": 1
+     },
+     "sum_population": {
+      "closed_with_price_net": 1,
+      "expected_pairs": 1,
+      "records_available": 1
+     },
+     "sum_price_net_normalized": "0.0010088152157412884280173158360334800747491349933667",
+     "sum_price_net_pct_presentation": "0.101"
+    },
+    "PRIMARY": {
+     "awaiting_meaning": null,
+     "awaiting_terminal_record": 0,
+     "by_status": {
+      "AMBIGUOUS": 0,
+      "CENSORED": 0,
+      "CLOSED": 1,
+      "NO_ENTRY": 0,
+      "UNRESOLVED": 0
+     },
+     "censored_or_unresolved": 0,
+     "closed_with_price_net": 1,
+     "economic_result_observed": true,
+     "exit_class": {
+      "GUIDANCE_TIME_EXPIRED": 1
+     },
+     "exits_after_period_end": 0,
+     "expected_pairs": 1,
+     "other_status": {},
+     "paths": 1,
+     "records_available": 1,
+     "status": {
+      "CLOSED": 1
+     },
+     "sum_population": {
+      "closed_with_price_net": 1,
+      "expected_pairs": 1,
+      "records_available": 1
+     },
+     "sum_price_net_normalized": "0.0010088152157412884280173158360334800747491349933667",
+     "sum_price_net_pct_presentation": "0.101"
+    }
+   },
+   "market_view_samples": {
+    "1h": {
+     "directional_matching_sign": 74,
+     "directional_scored": 153,
+     "endpoint_unavailable": 0
+    },
+    "4h": {
+     "directional_matching_sign": 77,
+     "directional_scored": 153,
+     "endpoint_unavailable": 0
+    },
+    "by_view": {
+     "BALANCED": 655,
+     "DOWN": 64,
+     "UNCERTAIN": 2120,
+     "UP": 89
+    },
+    "samples": 2928
+   },
+   "scenario_transitions": {
+    "A_ANCHOR_LOST": 179,
+    "A_ARM": 161,
+    "A_BIRTH": 359,
+    "A_CONFIRM": 89,
+    "A_OWNER_RELEASE": 32,
+    "A_REARM": 143,
+    "A_REVISE": 22,
+    "A_TERMINAL": 359,
+    "B_ARM": 6,
+    "B_BIRTH": 44,
+    "B_CONFIRM": 4,
+    "B_TERMINAL": 44,
+    "C_ARM": 18,
+    "C_BIRTH": 37,
+    "C_CONFIRM": 12,
+    "C_TERMINAL": 37
+   },
+   "start": "2025-09-01T00:00:00+00:00",
+   "waits": {
+    "ended_after_period_end": 0,
+    "endings": {
+     "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 4,
+     "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE": 12,
+     "TERMINAL:ORIGINAL_SETUP_DEADLINE": 8,
+     "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 16,
+     "TERMINAL:SCENARIO_TERMINAL": 17
+    },
+    "observed_usable_return": 12,
+    "opened": 57
+   }
+  }
+ },
+ "report_version": "adviser.report.v7",
+ "responses": {
+  "cutoff": "2026-01-01T06:05:00+00:00",
+  "cutoff_meaning": "A = waits still open at the last committed record",
+  "initial_incompatibility_notes": {
+   "attempt_not_scenario": "An INITIAL_RESPONSE_INCOMPATIBLE ending terminates the entry attempt only; the structural scenario is not invalidated and keeps its own lifecycle.",
+   "information_loss": "Declared information loss (MP-005 \u00a76): a child ended INITIAL_RESPONSE_INCOMPATIBLE at its preparation receives no later local classification (C or R) that it might have produced under MP-004 v0.5; no counterfactual classification is reconstructed. Changes of C/P or R/P between v0.5 and v0.6 therefore do not show a better local response.",
+   "subset": "INITIAL_RESPONSE_INCOMPATIBLE is a subset of X (never added a second time): P = C + R + X + A still holds; ratio over P, a zero denominator is undefined."
+  },
+  "meaning": {
+   "A": "still waiting for the response at the report cutoff",
+   "C": "ended by a local contradiction before any recovery",
+   "I": "calls issued",
+   "N": "first recoveries not issuable",
+   "P": "local references prepared",
+   "R": "first decisive recoveries observed",
+   "W": "A RETURN children routed to WAIT_RETURN",
+   "X": "other endings after the reference"
+  },
+  "months": {
+   "2025-09": {
+    "by_direction": {
+     "LONG": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 1,
+      "R": 0,
+      "W": 5,
+      "X": 1
+     },
+     "SHORT": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 2,
+      "R": 0,
+      "W": 6,
+      "X": 2
+     }
+    },
+    "counts": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 3,
+     "R": 0,
+     "W": 11,
+     "X": 3
+    },
+    "ended_before_reference": {
+     "CONTEXT_FORBIDDEN_PREISSUE": 1,
+     "ORIGINAL_SETUP_DEADLINE": 2,
+     "PRE_ENTRY_TARGET_CONTACT": 2,
+     "SCENARIO_TERMINAL": 3
+    },
+    "identities": {
+     "N_primary_partition": true,
+     "P_eq_C_plus_R_plus_X_plus_A": true,
+     "R_eq_N_plus_I": true,
+     "W_eq_P_plus_ended_before_reference_plus_wait_return_open": true,
+     "X_cause_partition": true,
+     "initial_incompatible_subset_of_X": true
+    },
+    "identities_hold": true,
+    "initial_incompatibility": {
+     "by_base": {
+      "CORRIDOR": 1,
+      "HISTORICAL_ECONOMICS": 2
+     },
+     "by_direction": {
+      "LONG": 1,
+      "SHORT": 2
+     },
+     "concurrent_annotations": {
+      "HISTORICAL_ECONOMICS": 1
+     },
+     "count": 3,
+     "examples": [
+      {
+       "A0": "111850..111947.1",
+       "C0": "111850..112150",
+       "F": ">= 112063.1",
+       "F_cap_C0": "112063.1..112150",
+       "H0": "112063",
+       "J0": null,
+       "L0": "111916.9",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-09-03T14:30:00+00:00-5252e6a700e8#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-09-03T16:26:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-03T16:25:00Z"
+      },
+      {
+       "A0": "115517.4..115560.2",
+       "C0": "115469.7..115560.2",
+       "F": "<= 115517.0",
+       "F_cap_C0": "115469.7..115517.0",
+       "H0": "115520",
+       "J0": null,
+       "L0": "115517.1",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-09-13T16:45:00+00:00-9ec3dc0c608c#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-09-13T18:16:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-13T18:15:00Z"
+      },
+      {
+       "A0": "109232.8..109355.2",
+       "C0": "109178.3..109355.2",
+       "F": "<= 109002.7",
+       "F_cap_C0": null,
+       "H0": "109325",
+       "J0": null,
+       "L0": "109002.8",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-09-25T23:30:00+00:00-e544db07020e#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": "HISTORICAL_ECONOMICS",
+       "incompatibility_base": "CORRIDOR",
+       "published_at": "2025-09-26T00:52:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-26T00:51:00Z"
+      }
+     ],
+     "ratio_over_P": "1.0000",
+     "subset_of_X": true
+    },
+    "local_conditions_annotated_in_priority_dispatches": {},
+    "not_issuable": {
+     "blocker_incidence_not_summable": {},
+     "late_first_recovery": 0,
+     "primary_class": {},
+     "primary_reason": {}
+    },
+    "other_endings_by_priority_cause": {
+     "INITIAL_RESPONSE_INCOMPATIBLE": 3
+    },
+    "ratios": {
+     "C/P": "0.0000",
+     "I/P": "0.0000",
+     "I/R": null,
+     "N/R": null,
+     "P/W": "0.2727",
+     "R/P": "0.0000"
+    },
+    "wait_return_open": 0
+   },
+   "2025-10": {
+    "by_direction": {
+     "LONG": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 3,
+      "R": 0,
+      "W": 6,
+      "X": 3
+     },
+     "SHORT": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 0,
+      "R": 0,
+      "W": 8,
+      "X": 0
+     }
+    },
+    "counts": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 3,
+     "R": 0,
+     "W": 14,
+     "X": 3
+    },
+    "ended_before_reference": {
+     "ORIGINAL_SETUP_DEADLINE": 2,
+     "PRE_ENTRY_TARGET_CONTACT": 4,
+     "SCENARIO_TERMINAL": 5
+    },
+    "identities": {
+     "N_primary_partition": true,
+     "P_eq_C_plus_R_plus_X_plus_A": true,
+     "R_eq_N_plus_I": true,
+     "W_eq_P_plus_ended_before_reference_plus_wait_return_open": true,
+     "X_cause_partition": true,
+     "initial_incompatible_subset_of_X": true
+    },
+    "identities_hold": true,
+    "initial_incompatibility": {
+     "by_base": {
+      "CORRIDOR": 1,
+      "HISTORICAL_ECONOMICS": 2
+     },
+     "by_direction": {
+      "LONG": 3,
+      "SHORT": 0
+     },
+     "concurrent_annotations": {
+      "HISTORICAL_ECONOMICS": 1
+     },
+     "count": 3,
+     "examples": [
+      {
+       "A0": "125005..125153.2",
+       "C0": "125005..125269.7",
+       "F": ">= 125205.9",
+       "F_cap_C0": "125205.9..125269.7",
+       "H0": "125205.8",
+       "J0": null,
+       "L0": "125136.6",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-10-06T17:15:00+00:00-cc9421e0b789#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-10-06T18:26:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-10-06T18:25:00Z"
+      },
+      {
+       "A0": "108750..108858.7",
+       "C0": "108750..108918.6",
+       "F": ">= 108907.2",
+       "F_cap_C0": "108907.2..108918.6",
+       "H0": "108907.1",
+       "J0": null,
+       "L0": "108827.1",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-10-19T18:15:00+00:00-6fd19d02f226#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-10-19T20:13:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-10-19T20:12:00Z"
+      },
+      {
+       "A0": "108498.6..108914",
+       "C0": "108498.6..108914",
+       "F": ">= 109025.3",
+       "F_cap_C0": null,
+       "H0": "109025.2",
+       "J0": null,
+       "L0": "108873.9",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-10-31T01:45:00+00:00-bb2bfaea92c2#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": "HISTORICAL_ECONOMICS",
+       "incompatibility_base": "CORRIDOR",
+       "published_at": "2025-10-31T03:32:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-10-31T03:31:00Z"
+      }
+     ],
+     "ratio_over_P": "1.0000",
+     "subset_of_X": true
+    },
+    "local_conditions_annotated_in_priority_dispatches": {},
+    "not_issuable": {
+     "blocker_incidence_not_summable": {},
+     "late_first_recovery": 0,
+     "primary_class": {},
+     "primary_reason": {}
+    },
+    "other_endings_by_priority_cause": {
+     "INITIAL_RESPONSE_INCOMPATIBLE": 3
+    },
+    "ratios": {
+     "C/P": "0.0000",
+     "I/P": "0.0000",
+     "I/R": null,
+     "N/R": null,
+     "P/W": "0.2143",
+     "R/P": "0.0000"
+    },
+    "wait_return_open": 0
+   },
+   "2025-11": {
+    "by_direction": {
+     "LONG": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 1,
+      "R": 0,
+      "W": 7,
+      "X": 1
+     },
+     "SHORT": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 1,
+      "R": 0,
+      "W": 9,
+      "X": 1
+     }
+    },
+    "counts": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 2,
+     "R": 0,
+     "W": 16,
+     "X": 2
+    },
+    "ended_before_reference": {
+     "CONTEXT_FORBIDDEN_PREISSUE": 2,
+     "PRE_ENTRY_TARGET_CONTACT": 5,
+     "SCENARIO_TERMINAL": 7
+    },
+    "identities": {
+     "N_primary_partition": true,
+     "P_eq_C_plus_R_plus_X_plus_A": true,
+     "R_eq_N_plus_I": true,
+     "W_eq_P_plus_ended_before_reference_plus_wait_return_open": true,
+     "X_cause_partition": true,
+     "initial_incompatible_subset_of_X": true
+    },
+    "identities_hold": true,
+    "initial_incompatibility": {
+     "by_base": {
+      "CORRIDOR": 1,
+      "HISTORICAL_ECONOMICS": 1
+     },
+     "by_direction": {
+      "LONG": 1,
+      "SHORT": 1
+     },
+     "concurrent_annotations": {
+      "HISTORICAL_ECONOMICS": 1
+     },
+     "count": 2,
+     "examples": [
+      {
+       "A0": "91967.1..92223.5",
+       "C0": "91877.4..92223.5",
+       "F": "<= 91823.4",
+       "F_cap_C0": null,
+       "H0": "92045.5",
+       "J0": null,
+       "L0": "91823.5",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-11-17T20:00:00+00:00-7d29324cfa21#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": "HISTORICAL_ECONOMICS",
+       "incompatibility_base": "CORRIDOR",
+       "published_at": "2025-11-17T21:44:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-11-17T21:43:00Z"
+      },
+      {
+       "A0": "85945.6..86190.3",
+       "C0": "85945.6..86232.3",
+       "F": ">= 86219.5",
+       "F_cap_C0": "86219.5..86232.3",
+       "H0": "86219.4",
+       "J0": null,
+       "L0": "86188",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-11-23T04:30:00+00:00-d1a237615d26#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-11-23T06:18:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-11-23T06:17:00Z"
+      }
+     ],
+     "ratio_over_P": "1.0000",
+     "subset_of_X": true
+    },
+    "local_conditions_annotated_in_priority_dispatches": {},
+    "not_issuable": {
+     "blocker_incidence_not_summable": {},
+     "late_first_recovery": 0,
+     "primary_class": {},
+     "primary_reason": {}
+    },
+    "other_endings_by_priority_cause": {
+     "INITIAL_RESPONSE_INCOMPATIBLE": 2
+    },
+    "ratios": {
+     "C/P": "0.0000",
+     "I/P": "0.0000",
+     "I/R": null,
+     "N/R": null,
+     "P/W": "0.1250",
+     "R/P": "0.0000"
+    },
+    "wait_return_open": 0
+   },
+   "2025-12": {
+    "by_direction": {
+     "LONG": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 1,
+      "R": 0,
+      "W": 11,
+      "X": 1
+     },
+     "SHORT": {
+      "A": 0,
+      "C": 0,
+      "I": 0,
+      "N": 0,
+      "P": 3,
+      "R": 0,
+      "W": 5,
+      "X": 3
+     }
+    },
+    "counts": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 4,
+     "R": 0,
+     "W": 16,
+     "X": 4
+    },
+    "ended_before_reference": {
+     "CONTEXT_FORBIDDEN_PREISSUE": 1,
+     "ORIGINAL_SETUP_DEADLINE": 4,
+     "PRE_ENTRY_TARGET_CONTACT": 5,
+     "SCENARIO_TERMINAL": 2
+    },
+    "identities": {
+     "N_primary_partition": true,
+     "P_eq_C_plus_R_plus_X_plus_A": true,
+     "R_eq_N_plus_I": true,
+     "W_eq_P_plus_ended_before_reference_plus_wait_return_open": true,
+     "X_cause_partition": true,
+     "initial_incompatible_subset_of_X": true
+    },
+    "identities_hold": true,
+    "initial_incompatibility": {
+     "by_base": {
+      "CORRIDOR": 0,
+      "HISTORICAL_ECONOMICS": 4
+     },
+     "by_direction": {
+      "LONG": 1,
+      "SHORT": 3
+     },
+     "concurrent_annotations": {},
+     "count": 4,
+     "examples": [
+      {
+       "A0": "84837.8..85419.2",
+       "C0": "84499.2..85419.2",
+       "F": "<= 84814.9",
+       "F_cap_C0": "84499.2..84814.9",
+       "H0": "84962.5",
+       "J0": null,
+       "L0": "84815",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-12-01T16:00:00+00:00-9bf8d5767f37#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-12-01T17:08:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-12-01T17:07:00Z"
+      },
+      {
+       "A0": "91383.7..91450",
+       "C0": "91238.7..91450",
+       "F": "<= 91323.7",
+       "F_cap_C0": "91238.7..91323.7",
+       "H0": "91395.2",
+       "J0": null,
+       "L0": "91323.8",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-12-05T09:45:00+00:00-b626f3fba0b8#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-12-05T11:07:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-12-05T11:06:00Z"
+      },
+      {
+       "A0": "87339.3..87439",
+       "C0": "87032..87439",
+       "F": "<= 87263.1",
+       "F_cap_C0": "87032..87263.1",
+       "H0": "87368",
+       "J0": null,
+       "L0": "87263.2",
+       "direction": "SHORT",
+       "entry_attempt_id": "AS-2025-12-19T17:45:00+00:00-1c194e3003b8#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-12-19T19:16:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-12-19T19:15:00Z"
+      },
+      {
+       "A0": "88125.9..88195.0",
+       "C0": "88125.9..88410.7",
+       "F": ">= 88197.6",
+       "F_cap_C0": "88197.6..88410.7",
+       "H0": "88197.5",
+       "J0": null,
+       "L0": "88157.2",
+       "direction": "LONG",
+       "entry_attempt_id": "AL-2025-12-25T15:45:00+00:00-fdaf67fb7996#entry",
+       "execution_profile": "HISTORICAL_FIXED",
+       "incompatibility_annotations": null,
+       "incompatibility_base": "HISTORICAL_ECONOMICS",
+       "published_at": "2025-12-25T16:38:00+00:00",
+       "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-12-25T16:37:00Z"
+      }
+     ],
+     "ratio_over_P": "1.0000",
+     "subset_of_X": true
+    },
+    "local_conditions_annotated_in_priority_dispatches": {},
+    "not_issuable": {
+     "blocker_incidence_not_summable": {},
+     "late_first_recovery": 0,
+     "primary_class": {},
+     "primary_reason": {}
+    },
+    "other_endings_by_priority_cause": {
+     "INITIAL_RESPONSE_INCOMPATIBLE": 4
+    },
+    "ratios": {
+     "C/P": "0.0000",
+     "I/P": "0.0000",
+     "I/R": null,
+     "N/R": null,
+     "P/W": "0.2500",
+     "R/P": "0.0000"
+    },
+    "wait_return_open": 0
+   }
+  },
+  "months_attribution": "child -> calendar month in which its WAIT opened, followed to its ending wherever it falls (never counted twice); no reset at a month boundary",
+  "months_reconcile": {
+   "every_month_identities_hold": true,
+   "initial_incompatible_months_sum_to_total": true,
+   "months_sum_to_total": true
+  },
+  "note": "C/P does not measure real deterioration and R/P does not measure continuation quality; outcomes and later entries belong to the separate economic report. No frequency or profit quota.",
+  "report_cross_checks": {
+   "I_equals_A_RETURN_calls_in_window": true,
+   "W_equals_waits_opened": true
+  },
+  "total": {
+   "by_direction": {
+    "LONG": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 6,
+     "R": 0,
+     "W": 29,
+     "X": 6
+    },
+    "SHORT": {
+     "A": 0,
+     "C": 0,
+     "I": 0,
+     "N": 0,
+     "P": 6,
+     "R": 0,
+     "W": 28,
+     "X": 6
+    }
+   },
+   "counts": {
+    "A": 0,
+    "C": 0,
+    "I": 0,
+    "N": 0,
+    "P": 12,
+    "R": 0,
+    "W": 57,
+    "X": 12
+   },
+   "ended_before_reference": {
+    "CONTEXT_FORBIDDEN_PREISSUE": 4,
+    "ORIGINAL_SETUP_DEADLINE": 8,
+    "PRE_ENTRY_TARGET_CONTACT": 16,
+    "SCENARIO_TERMINAL": 17
+   },
+   "identities": {
+    "N_primary_partition": true,
+    "P_eq_C_plus_R_plus_X_plus_A": true,
+    "R_eq_N_plus_I": true,
+    "W_eq_P_plus_ended_before_reference_plus_wait_return_open": true,
+    "X_cause_partition": true,
+    "initial_incompatible_subset_of_X": true
+   },
+   "identities_hold": true,
+   "initial_incompatibility": {
+    "by_base": {
+     "CORRIDOR": 3,
+     "HISTORICAL_ECONOMICS": 9
+    },
+    "by_direction": {
+     "LONG": 6,
+     "SHORT": 6
+    },
+    "concurrent_annotations": {
+     "HISTORICAL_ECONOMICS": 3
+    },
+    "count": 12,
+    "examples": [
+     {
+      "A0": "111850..111947.1",
+      "C0": "111850..112150",
+      "F": ">= 112063.1",
+      "F_cap_C0": "112063.1..112150",
+      "H0": "112063",
+      "J0": null,
+      "L0": "111916.9",
+      "direction": "LONG",
+      "entry_attempt_id": "AL-2025-09-03T14:30:00+00:00-5252e6a700e8#entry",
+      "execution_profile": "HISTORICAL_FIXED",
+      "incompatibility_annotations": null,
+      "incompatibility_base": "HISTORICAL_ECONOMICS",
+      "published_at": "2025-09-03T16:26:00+00:00",
+      "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-03T16:25:00Z"
+     },
+     {
+      "A0": "115517.4..115560.2",
+      "C0": "115469.7..115560.2",
+      "F": "<= 115517.0",
+      "F_cap_C0": "115469.7..115517.0",
+      "H0": "115520",
+      "J0": null,
+      "L0": "115517.1",
+      "direction": "SHORT",
+      "entry_attempt_id": "AS-2025-09-13T16:45:00+00:00-9ec3dc0c608c#entry",
+      "execution_profile": "HISTORICAL_FIXED",
+      "incompatibility_annotations": null,
+      "incompatibility_base": "HISTORICAL_ECONOMICS",
+      "published_at": "2025-09-13T18:16:00+00:00",
+      "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-13T18:15:00Z"
+     },
+     {
+      "A0": "109232.8..109355.2",
+      "C0": "109178.3..109355.2",
+      "F": "<= 109002.7",
+      "F_cap_C0": null,
+      "H0": "109325",
+      "J0": null,
+      "L0": "109002.8",
+      "direction": "SHORT",
+      "entry_attempt_id": "AS-2025-09-25T23:30:00+00:00-e544db07020e#entry",
+      "execution_profile": "HISTORICAL_FIXED",
+      "incompatibility_annotations": "HISTORICAL_ECONOMICS",
+      "incompatibility_base": "CORRIDOR",
+      "published_at": "2025-09-26T00:52:00+00:00",
+      "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-09-26T00:51:00Z"
+     },
+     {
+      "A0": "125005..125153.2",
+      "C0": "125005..125269.7",
+      "F": ">= 125205.9",
+      "F_cap_C0": "125205.9..125269.7",
+      "H0": "125205.8",
+      "J0": null,
+      "L0": "125136.6",
+      "direction": "LONG",
+      "entry_attempt_id": "AL-2025-10-06T17:15:00+00:00-cc9421e0b789#entry",
+      "execution_profile": "HISTORICAL_FIXED",
+      "incompatibility_annotations": null,
+      "incompatibility_base": "HISTORICAL_ECONOMICS",
+      "published_at": "2025-10-06T18:26:00+00:00",
+      "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-10-06T18:25:00Z"
+     },
+     {
+      "A0": "108750..108858.7",
+      "C0": "108750..108918.6",
+      "F": ">= 108907.2",
+      "F_cap_C0": "108907.2..108918.6",
+      "H0": "108907.1",
+      "J0": null,
+      "L0": "108827.1",
+      "direction": "LONG",
+      "entry_attempt_id": "AL-2025-10-19T18:15:00+00:00-6fd19d02f226#entry",
+      "execution_profile": "HISTORICAL_FIXED",
+      "incompatibility_annotations": null,
+      "incompatibility_base": "HISTORICAL_ECONOMICS",
+      "published_at": "2025-10-19T20:13:00+00:00",
+      "reference_bar": "okx/BTC-USDT-SWAP/trade_bar_1m#obs@2025-10-19T20:12:00Z"
+     }
+    ],
+    "ratio_over_P": "1.0000",
+    "subset_of_X": true
+   },
+   "local_conditions_annotated_in_priority_dispatches": {},
+   "not_issuable": {
+    "blocker_incidence_not_summable": {},
+    "late_first_recovery": 0,
+    "primary_class": {},
+    "primary_reason": {}
+   },
+   "other_endings_by_priority_cause": {
+    "INITIAL_RESPONSE_INCOMPATIBLE": 12
+   },
+   "ratios": {
+    "C/P": "0.0000",
+    "I/P": "0.0000",
+    "I/R": null,
+    "N/R": null,
+    "P/W": "0.2105",
+    "R/P": "0.0000"
+   },
+   "wait_return_open": 0
+  },
+  "unit": "A RETURN child (entry attempt), by direction; evaluation window only (warmup clearings apart)",
+  "warmup": {
+   "children": 14,
+   "cleared_at_evaluation_start": {},
+   "note": "warmup references are cleared at the evaluation start and never become evaluation references; the structural scenarios stay labelled warmup context",
+   "other_warmup_endings": 14
+  }
+ },
+ "room_erosion": [
+  {
+   "call_id": "call-AL-2025-10-26T23:34:00+00:00-83c238c49bda",
+   "erosion_bps": "2.07",
+   "room_at_primary_open_bps": "97.35",
+   "room_at_trigger_bps": "99.42"
+  }
+ ],
+ "section": "ADVISER_EVALUATION",
+ "trigger_destination": {
+  "incompatible_publications": 28,
+  "incompatible_publications_by_transition": {
+   "ARM": 28
+  },
+  "market_views_without_support_from_an_armed_scenario": 20,
+  "note": "Counted from the published antecedents and MarketView records only. An incompatible condition would reach its destination before it could confirm; v0.7 states it and does not count the scenario as directional support. Calls, entries, selection and terminals are those of v0.6.",
+  "restoration_examples": [
+   {
+    "at": "2025-09-28T21:30:00Z",
+    "destination": "110876",
+    "scenario_id": "AL-2025-09-28T20:30:00+00:00-2669c1a87065",
+    "transition": "REVISE",
+    "trigger_level": "110801.2"
+   },
+   {
+    "at": "2025-12-18T21:15:00Z",
+    "destination": "84407.7",
+    "scenario_id": "AS-2025-12-18T19:45:00+00:00-4d543cdcd6e8",
+    "transition": "REVISE",
+    "trigger_level": "84511.6"
+   }
+  ],
+  "restored_by_a_compatible_revision": 2,
+  "scenarios_with_an_incompatible_publication": 28,
+  "unit": "published records (not independent observations, not durations)"
+ },
+ "view_samples": {
+  "1h": {
+   "abstentions_balanced_uncertain": 2775,
+   "antecedent_activated": 128,
+   "conditional_samples": 153,
+   "directional_matching_sign": 74,
+   "directional_scored": 153,
+   "endpoint_unavailable": 0,
+   "note": "conditional labels; not calibrated probabilities; abstentions are not hits",
+   "persistence_matching_sign": 1434,
+   "persistence_scored": 2928,
+   "unavailable_view": 0
+  },
+  "4h": {
+   "abstentions_balanced_uncertain": 2775,
+   "antecedent_activated": 130,
+   "conditional_samples": 153,
+   "directional_matching_sign": 77,
+   "directional_scored": 153,
+   "endpoint_unavailable": 0,
+   "note": "conditional labels; not calibrated probabilities; abstentions are not hits",
+   "persistence_matching_sign": 1416,
+   "persistence_scored": 2928,
+   "unavailable_view": 0
+  },
+  "by_view": {
+   "BALANCED": 655,
+   "DOWN": 64,
+   "UNCERTAIN": 2120,
+   "UP": 89
+  },
+  "samples": 2928
+ },
+ "windows": {
+  "clock_end": "2026-01-01T06:05:00Z",
+  "clock_end_reached": true,
+  "evaluation": [
+   "2025-09-01T00:00:00+00:00",
+   "2026-01-01T00:00:00+00:00"
+  ],
+  "tail_end": "2026-01-01T06:05:00+00:00",
+  "warmup_start": "2025-07-28T00:00:00+00:00"
+ }
+}
