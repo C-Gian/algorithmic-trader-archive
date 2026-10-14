@@ -138,3 +138,8 @@ Per-episode detail: [`out/episodes.csv`](out/episodes.csv). It has one row per f
 - **Script.** `probe.py` SHA-256 `ffc98330…94a0`, unchanged since registration.
 
 **Not run:** product suites and CI (Owner-operated: PENDING / NOT CHECKED).
+
+
+## Later annotation — branch closed (14 October 2026)
+
+The text above is the original delivery, unchanged. Astra's instruction relayed by the Owner on 14 October 2026 (assignment "A confirmations → entry opportunities") states that the E exploration, the a2x branch and the confirmed-direction comparison are **closed**. No further execution, adaptation or follow-up study is authorized from this branch; v0.6 stays unchanged and future studies stay INACTIVE.

@@ -1,0 +1,117 @@
+{
+ "all_pass": true,
+ "checks": {
+  "89 confirmations, one row per scenario": true,
+  "every child linked (records after the confirmation, first in the confirmation dispatch)": true,
+  "every end classified": true,
+  "no child record before the confirmation": true,
+  "one end per child: ISSUE or TERMINAL/REJECT, last record": true,
+  "routing reasons follow the code precedence (structural before target contact before gates before WAIT)": true
+ },
+ "input": {
+  "entries": 34507,
+  "journal_sha256": "ea3ce99757af41c96fa154f745e06d29c8a1906508089c7e43a051b2899af0f0"
+ },
+ "tables": {
+  "calls": [
+   "call-AL-2025-10-26T23:34:00+00:00-3b71a8187c11"
+  ],
+  "confirmations": 89,
+  "earlier_tabulation_labels": {
+   "AT_OPPOSING_AREA": 7,
+   "CONTEXT_FORBIDDEN_PREISSUE": 4,
+   "INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 3,
+   "INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 9,
+   "ISSUED": 1,
+   "NO_ECONOMIC_RETURN_REGION": 22,
+   "ORIGINAL_SETUP_DEADLINE": 8,
+   "PRE_ENTRY_TARGET_CONTACT": 18,
+   "SCENARIO_TERMINAL:DESTINATION_REACHED": 15,
+   "SCENARIO_TERMINAL:INVALIDATED": 2
+  },
+  "end_categories": {
+   "1": 31,
+   "2": 8,
+   "3": 32,
+   "4": 17,
+   "ISSUED": 1
+  },
+  "end_subclasses": {
+   "1 | COST:NO_ECONOMIC_RETURN_REGION_AT_FIXED_COST": 22,
+   "1 | GEOMETRY:TARGET_INSIDE_OPPOSING_AREA": 7,
+   "1 | GEOMETRY:TARGET_REACHED_BY_CONFIRMING_BAR": 2,
+   "2 | TIMER:SETUP_EXPIRY_WHILE_BLOCKED": 8,
+   "3 | CONTEXT:WITHDRAWN_BEFORE_ISSUE": 4,
+   "3 | COST:REFERENCE_INCOMPATIBLE_WITH_ECONOMIC_REGION": 9,
+   "3 | GEOMETRY:REFERENCE_INCOMPATIBLE_WITH_CORRIDOR": 3,
+   "3 | NEW_PRICE_EVIDENCE:TARGET_OR_CAP_REACHED_BEFORE_ENTRY": 16,
+   "4 | SCENARIO:DESTINATION_REACHED": 15,
+   "4 | SCENARIO:INVALIDATED": 2,
+   "ISSUED | ISSUED": 1
+  },
+  "reconciliation": {
+   "end categories sum to the confirmations": true,
+   "end reasons = the earlier tabulation (A2X comparison, 89 first-attempt children)": true,
+   "issued children = calls": true,
+   "routes sum to the confirmations": true,
+   "wait ends sum to the waits": true
+  },
+  "routes": {
+   "IMMEDIATE_ISSUED": 1,
+   "RETURN_WAIT": 57,
+   "TERMINAL_AT_CONFIRMATION": 31
+  },
+  "routing_all_blockers_of_terminals": {
+   "AT_OPPOSING_AREA": 7,
+   "NO_ROOM_AFTER_COSTS": 20,
+   "PRE_ENTRY_TARGET_CONTACT": 2,
+   "REWARD_RISK_BELOW_MINIMUM": 4
+  },
+  "routing_diagnostic_D_N": {
+   "in_D=false,in_N=None,exclusion=INSIDE_ZONE": 7,
+   "in_D=true,in_N=false,exclusion=None": 58,
+   "in_D=true,in_N=true,exclusion=None": 24
+  },
+  "routing_terminal_reasons": {
+   "AT_OPPOSING_AREA": 7,
+   "NO_ECONOMIC_RETURN_REGION": 22,
+   "PRE_ENTRY_TARGET_CONTACT": 2
+  },
+  "scenario_terminal_ends_last_blockers": {
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR": 1,
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR,NO_ROOM_AFTER_COSTS": 14,
+   "NO_ROOM_AFTER_COSTS": 1,
+   "REWARD_RISK_BELOW_MINIMUM": 1
+  },
+  "timer_ends_last_blockers": {
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR,NO_ROOM_AFTER_COSTS": 2,
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR,REWARD_RISK_BELOW_MINIMUM": 2,
+   "REWARD_RISK_BELOW_MINIMUM": 4
+  },
+  "wait_blockers_seen_any_time": {
+   "BLOCKED_BY_ZONE": 1,
+   "CLOSE_OUTSIDE_RETURN_CORRIDOR": 50,
+   "NO_ROOM_AFTER_COSTS": 39,
+   "REWARD_RISK_BELOW_MINIMUM": 50
+  },
+  "wait_end_after_reference": {
+   "3 | COST:REFERENCE_INCOMPATIBLE_WITH_ECONOMIC_REGION": 9,
+   "3 | GEOMETRY:REFERENCE_INCOMPATIBLE_WITH_CORRIDOR": 3
+  },
+  "wait_end_by_category": {
+   "2 | TIMER:SETUP_EXPIRY_WHILE_BLOCKED": 8,
+   "3 | CONTEXT:WITHDRAWN_BEFORE_ISSUE": 4,
+   "3 | COST:REFERENCE_INCOMPATIBLE_WITH_ECONOMIC_REGION": 9,
+   "3 | GEOMETRY:REFERENCE_INCOMPATIBLE_WITH_CORRIDOR": 3,
+   "3 | NEW_PRICE_EVIDENCE:TARGET_OR_CAP_REACHED_BEFORE_ENTRY": 16,
+   "4 | SCENARIO:DESTINATION_REACHED": 15,
+   "4 | SCENARIO:INVALIDATED": 2
+  },
+  "wait_open_blockers": {
+   "NO_ROOM_AFTER_COSTS": 12,
+   "REWARD_RISK_BELOW_MINIMUM": 45
+  },
+  "wait_reference_prepared": 12,
+  "wait_reference_then_end_same_dispatch": 12
+ }
+}

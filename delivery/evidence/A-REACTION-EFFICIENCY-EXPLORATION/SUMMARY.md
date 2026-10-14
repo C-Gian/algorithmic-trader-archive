@@ -213,3 +213,8 @@ The Director independently recalculated the comparison from `episodes.csv`: 359 
 The accepted conclusion is a scarce and concentrated comparison, with zero aggregate association. Opposite-signed stratum contributions cancel; this does not establish absence of association in every stratum or irrelevance of reaction character generally.
 
 **Decision: this E branch stops here. E is not promoted to an operational criterion; A remains unchanged.** No weight, filter, class widening, new cutoff, other curve summary or further period is authorized. Definitions, tools and results are retained as acquired knowledge. No new activity is activated. v0.6 and HDP-001 remain frozen; the two future studies remain INACTIVE. CI was not queried.
+
+
+## Later annotation — branch closed (14 October 2026)
+
+The text above is the original delivery, unchanged. Astra's instruction relayed by the Owner on 14 October 2026 (assignment "A confirmations → entry opportunities") states that the E exploration, the a2x branch and the confirmed-direction comparison are **closed**. No further execution, adaptation or follow-up study is authorized from this branch; v0.6 stays unchanged and future studies stay INACTIVE.

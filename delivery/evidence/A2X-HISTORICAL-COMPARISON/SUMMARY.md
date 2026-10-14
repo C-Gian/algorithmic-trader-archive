@@ -163,3 +163,8 @@ The orchestrator accepted the historical comparison delivered at `d06960d` as de
 **Decision.** v0.6-a2x is retained as an experimental candidate, not promoted; this branch is closed without adaptations or further executions. No reduction of residual time, impulse-life extension or RETURN modification is authorized. Four added reactions, one additional confirmation and three changed conditional-reading dispatches establish behavioural effects, not anticipatory correctness or usefulness. No ordinary birth was displaced in this period; this does not establish harmlessness of the reservation policy in general. Post-hoc checks retain their qualification.
 
 There is no empirical basis here for preferring the candidate to the frozen policy. Any reopening requires a separate motivated decision about the whole policy, including the cost of reservation. v0.6 and the registered studies remain unchanged and INACTIVE. No new activity is activated; CI was not queried.
+
+
+## Later annotation — branch closed (14 October 2026)
+
+The text above is the original delivery, unchanged. Astra's instruction relayed by the Owner on 14 October 2026 (assignment "A confirmations → entry opportunities") states that the E exploration, the a2x branch and the confirmed-direction comparison are **closed**. No further execution, adaptation or follow-up study is authorized from this branch; v0.6 stays unchanged and future studies stay INACTIVE.

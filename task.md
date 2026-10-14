@@ -1,4 +1,40 @@
-# Current task — A confirmed direction: one offline historical replication on [2025-01-01, 2025-05-01)
+# Current task — From A confirmation to entry opportunity, September–December 2025 (v0.6, reconstruction)
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMATION-OPPORTUNITY-PATHS/SUMMARY.md)); the Director's review is separate and PENDING. E, a2x and the confirmed-direction comparison are closed (later annotations on their deliveries). v0.6 unchanged; future studies INACTIVE.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+**Question.** At confirmation, is there still room for an entry under the v0.6 policy, and how does the path toward issuance end?
+
+1. **Reuse first** the tabulations and diagnostics already kept: the first-expectation study, the revisions reconstruction, the v0.6 journal and the available child diagnostics.
+2. **Population.** All 89 first A confirmations of scenarios born in [2025-09-01, 2026-01-01): one row per scenario, linked to its child, with no selection by call or later destination.
+3. **Reconstruction**, for each confirmation in actual order:
+   - levels and conditions at confirmation;
+   - routing IMMEDIATE or WAIT/RETURN;
+   - geometric admissibility;
+   - recorded cost constraints (no profit computed);
+   - selection or conflict blocks;
+   - RETURN reference preparation;
+   - any local recovery and its admissibility;
+   - issuance or the child's end, with reason and time.
+4. **Separate explicitly:**
+   1. an incompatibility already present at confirmation;
+   2. a temporary restriction or block;
+   3. an unavailability arising during the wait;
+   4. a scenario terminal that also closes the child.
+
+   No cause is inferred from a terminal reason alone; same-dispatch causes stay distinguishable with the code's precedence. Geometry, costs, selection and new price evidence are not merged into a single "no entry".
+5. **Delivery.**
+   - A short reconciled summary: 89 → initial routes → waits/blocks → issuance or terminals.
+   - Per-scenario detail with the source of each reason; already tabulated work kept distinct from new processing.
+   - A reasoned conclusion: a recurring tension between confirmation and practicability, or insufficient evidence.
+6. **Limits.**
+   - No alternative entry, a-posteriori better price, or judgement of blocks by later B contacts.
+   - No replay, extraction, acquisition, economic evaluator or full suite.
+   - Missing information is declared, not filled.
+   - Record the assignment and the closure of the earlier branches as later annotations; STATE/task; commit and push; no pull/fetch or CI query.
+
+
+## Previous task — A confirmed direction: one offline historical replication on [2025-01-01, 2025-05-01)
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMED-DIRECTION-REPLICATION-2025/SUMMARY.md)); registered at `1a11154`, input identities at `363fb74` before processing; no amendment. The Director's review is separate.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
