@@ -1,4 +1,28 @@
-# Current task — Historical study of the complete v0.7 policy on January–April 2025 and September–December 2025
+# Current task — Price–volume semantics at a range exit: documentary feasibility
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([document](delivery/PRICE-VOLUME-SEMANTIC-FEASIBILITY.md)). The Director's review is separate.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+**Scope.** The exit from a pre-existing range and the immediately following response. Question: which observable relation between participation and price progress can justifiably change the reading of continuation or re-entry, before the sequel is known?
+
+1. **Professional source.** Start from the corpus and choose one pertinent explanation, verified in the original. Separate citation, paraphrase and our interpretation.
+   - If an essential step is missing, consult at most two additional primary sources with targeted retrieval, and record them.
+   - No general review.
+2. **Compare with the B/C rules.** State what price already recognizes, what volume adds, and when volume is redundant, contrary or not interpretable.
+   - Do not assume that more volume confirms a breakout.
+   - Do not attribute intentions, institutional participation or absorption to aggregate volume.
+3. **Representable data** from the schema, connector and docs, with no acquisition: units, conversions, causal availability, aggregation, and the difference from aggressor, classified-trade and order-book data. Declare data we lack; do not substitute aggregate volume.
+4. **One candidate only**, if reconstructible: observations, participation reference, order of events, update point, and support/contradict/ambiguous conditions. No invented thresholds; make discretionary choices explicit.
+5. **Three hand-built examples:** coherent, contrary and ambiguous, using only information available up to the decision.
+6. **Short conclusion.** Separate fidelity, possible decisional role and unevaluated efficacy. Then either declare a candidate defined well enough to discuss as development, or state a precise block. If blocked, stop without a substitute indicator.
+
+**Not authorized:**
+- implementation, acquisition, Owner extraction, historical processing, quantitative tests, backtests or the product suite;
+- reopening A, RETURN, E or a2x.
+
+v0.7 is unchanged; v0.6 and the registered studies stay frozen.
+
+## Previous task — Historical study of the complete v0.7 policy on January–April 2025 and September–December 2025
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/V07-HISTORICAL-POLICY-STUDY/SUMMARY.md)); registered at `1326864` before computation; two verification-script amendments declared. The Director's review is separate.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
