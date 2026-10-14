@@ -1,5 +1,5 @@
 # Current task — A confirmed direction: one offline historical replication on [2025-01-01, 2025-05-01)
-Date: 2026-10-14. Status: REGISTERED and registry constraint implemented before acquisition ([authorization](delivery/A-CONFIRMED-DIRECTION-REPLICATION-AUTHORIZATION.md), [registration](delivery/evidence/A-CONFIRMED-DIRECTION-REPLICATION-2025/REGISTRATION.md)); acquisition, pack, v0.6 processing and tabulation follow. The Director's review is separate.
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMED-DIRECTION-REPLICATION-2025/SUMMARY.md)); registered at `1a11154`, input identities at `363fb74` before processing; no amendment. The Director's review is separate.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
 

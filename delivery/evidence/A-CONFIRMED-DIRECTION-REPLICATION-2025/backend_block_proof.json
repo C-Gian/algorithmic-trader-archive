@@ -1,0 +1,58 @@
+{
+ "pack_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+ "preset_listed_by_workbench_api": false,
+ "listed_presets": [
+  "btc-september-development-v1",
+  "btc-september-october-continuity-v1",
+  "btc-2025-09-to-2025-12-continuous-init35d-v1",
+  "a-v06-operational-evaluation-2027-v1"
+ ],
+ "requests": [
+  {
+   "request": "POST /api/corpus/presets/a-confirmed-direction-historical-replication-2025-v1/prepare",
+   "body": null,
+   "status": 409,
+   "detail": "the registered study A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025 is offline-only: it is prepared only by the offline path, never through the app"
+  },
+  {
+   "request": "POST /api/evaluations",
+   "body": {
+    "pack_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+    "run_type": "adviser_evaluation",
+    "method": "v0.6"
+   },
+   "status": 409,
+   "detail": "the registered study A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025 is offline-only: no evaluation is started on its pack through the app"
+  },
+  {
+   "request": "POST /api/evaluations",
+   "body": {
+    "pack_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+    "run_type": "observation_only"
+   },
+   "status": 409,
+   "detail": "the registered study A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025 is offline-only: no evaluation is started on its pack through the app"
+  },
+  {
+   "request": "POST /api/observations",
+   "body": {
+    "source_kind": "pack",
+    "source_id": "pack-ec195b0b4bee44ee5d9c3c564ab8aa9631ed8fd4",
+    "speed": 0
+   },
+   "status": 409,
+   "detail": "the registered study A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025 is offline-only: its pack is never replayed through the app"
+  }
+ ],
+ "rows_before": {
+  "corpus_pack_jobs": 1,
+  "evaluations": 0,
+  "observation_replays": 0
+ },
+ "rows_after": {
+  "corpus_pack_jobs": 1,
+  "evaluations": 0,
+  "observation_replays": 0
+ },
+ "all_refused_without_rows": true
+}

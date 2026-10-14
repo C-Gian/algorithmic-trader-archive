@@ -1,0 +1,170 @@
+{
+ "all_checks_pass": true,
+ "checks": {
+  "P = close of the confirming bar, admitted at/before the cutoff": true,
+  "each determined orientation resolved inside its window or by the horizon": true,
+  "every probe window wholly inside the bar data, no missing interval": true,
+  "horizon = cutoff + 4h = the record's confirmed_deadline": true,
+  "no tail-window birth": true,
+  "one episode per confirmed A scenario (first and only CONFIRM)": true,
+  "selected barriers are B and V, opposite barriers mirror them around P": true
+ },
+ "reconciliation": {
+  "evaluation": {
+   "2x2 total = determined pairs": true,
+   "first confirmations = valid + invalid + not evaluable": true,
+   "opposite outcomes sum to valid": true,
+   "selected outcomes sum to valid": true,
+   "valid = determined + unresolved pairs": true
+  },
+  "warmup": {
+   "2x2 total = determined pairs": true,
+   "first confirmations = valid + invalid + not evaluable": true,
+   "opposite outcomes sum to valid": true,
+   "selected outcomes sum to valid": true,
+   "valid = determined + unresolved pairs": true
+  }
+ },
+ "tables": {
+  "evaluation": {
+   "by_direction": {
+    "LONG": 53,
+    "SHORT": 35
+   },
+   "determined_pairs": {
+    "mean_difference": "1/88",
+    "mean_difference_percentage_points": "1.14",
+    "mean_reference": "13/22",
+    "n": 88,
+    "opposite_favourable_first": 51,
+    "reference_total": "52",
+    "selected_favourable_first": 53
+   },
+   "first_confirmations": 88,
+   "not_evaluable_or_invalid": [],
+   "outcomes_opposite_O": {
+    "ADVERSE_FIRST": 36,
+    "FAVOURABLE_FIRST": 51,
+    "HORIZON_NO_FAVOURABLE_CONTACT": 1
+   },
+   "outcomes_selected_A": {
+    "ADVERSE_FIRST": 33,
+    "FAVOURABLE_FIRST": 53,
+    "HORIZON_NO_FAVOURABLE_CONTACT": 2
+   },
+   "overlap_and_concentration": {
+    "by_month": {
+     "2025-01": 22,
+     "2025-02": 15,
+     "2025-03": 26,
+     "2025-04": 25
+    },
+    "cluster_size_distribution": {
+     "1": 75,
+     "2": 5,
+     "3": 1
+    },
+    "clusters_of_overlapping_windows": 81,
+    "days_with_3_or_more": 7,
+    "distinct_days": 60,
+    "episodes": 88,
+    "max_per_day": 5,
+    "overlap_count_distribution": {
+     "0": 75,
+     "1": 12,
+     "2": 1
+    },
+    "with_an_overlapping_opposite_direction_window": 0,
+    "with_at_least_one_overlapping_window": 13
+   },
+   "paired_2x2_determined": {
+    "Y_A=0,Y_O=0": 5,
+    "Y_A=0,Y_O=1": 30,
+    "Y_A=1,Y_O=0": 32,
+    "Y_A=1,Y_O=1": 21
+   },
+   "paired_2x2_with_categories": {
+    "A:ADVERSE_FIRST | O:ADVERSE_FIRST": 3,
+    "A:ADVERSE_FIRST | O:FAVOURABLE_FIRST": 30,
+    "A:FAVOURABLE_FIRST | O:ADVERSE_FIRST": 32,
+    "A:FAVOURABLE_FIRST | O:FAVOURABLE_FIRST": 21,
+    "A:HORIZON_NO_FAVOURABLE_CONTACT | O:ADVERSE_FIRST": 1,
+    "A:HORIZON_NO_FAVOURABLE_CONTACT | O:HORIZON_NO_FAVOURABLE_CONTACT": 1
+   },
+   "pairs": {
+    "DETERMINED": 88
+   },
+   "status": {
+    "VALID_GEOMETRY": 88
+   },
+   "undetermined_reasons": {}
+  },
+  "warmup": {
+   "by_direction": {
+    "LONG": 18,
+    "SHORT": 10
+   },
+   "determined_pairs": {
+    "mean_difference": "1/56",
+    "mean_difference_percentage_points": "1.79",
+    "mean_reference": "5/8",
+    "n": 28,
+    "opposite_favourable_first": 17,
+    "reference_total": "35/2",
+    "selected_favourable_first": 18
+   },
+   "first_confirmations": 28,
+   "not_evaluable_or_invalid": [],
+   "outcomes_opposite_O": {
+    "ADVERSE_FIRST": 9,
+    "FAVOURABLE_FIRST": 17,
+    "HORIZON_NO_FAVOURABLE_CONTACT": 2
+   },
+   "outcomes_selected_A": {
+    "ADVERSE_FIRST": 10,
+    "FAVOURABLE_FIRST": 18
+   },
+   "overlap_and_concentration": {
+    "by_month": {
+     "2024-11": 2,
+     "2024-12": 26
+    },
+    "cluster_size_distribution": {
+     "1": 24,
+     "2": 2
+    },
+    "clusters_of_overlapping_windows": 26,
+    "days_with_3_or_more": 1,
+    "distinct_days": 22,
+    "episodes": 28,
+    "max_per_day": 3,
+    "overlap_count_distribution": {
+     "0": 24,
+     "1": 4
+    },
+    "with_an_overlapping_opposite_direction_window": 2,
+    "with_at_least_one_overlapping_window": 4
+   },
+   "paired_2x2_determined": {
+    "Y_A=0,Y_O=0": 3,
+    "Y_A=0,Y_O=1": 7,
+    "Y_A=1,Y_O=0": 8,
+    "Y_A=1,Y_O=1": 10
+   },
+   "paired_2x2_with_categories": {
+    "A:ADVERSE_FIRST | O:ADVERSE_FIRST": 1,
+    "A:ADVERSE_FIRST | O:FAVOURABLE_FIRST": 7,
+    "A:ADVERSE_FIRST | O:HORIZON_NO_FAVOURABLE_CONTACT": 2,
+    "A:FAVOURABLE_FIRST | O:ADVERSE_FIRST": 8,
+    "A:FAVOURABLE_FIRST | O:FAVOURABLE_FIRST": 10
+   },
+   "pairs": {
+    "DETERMINED": 28
+   },
+   "status": {
+    "VALID_GEOMETRY": 28
+   },
+   "undetermined_reasons": {}
+  }
+ }
+}
