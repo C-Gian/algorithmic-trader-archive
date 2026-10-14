@@ -19,7 +19,7 @@ A test file is selected when anything it reaches changed. Scopes, in increasing 
             the whole app, so every E2E file is selected for any ``src/`` change) and the compose smoke;
 ``full``    everything, as before this selector existed. Conservative fallback for shared components (dependencies,
             toolchain, Docker, CI, the selector itself, ``tests/conftest.py``), unknown paths, deleted or renamed
-            Python files, unparsable files, a changed file no test reaches, an unknown base, or an explicit request.
+            files of any type, unparsable files, a changed file no test reaches, an unknown base, or an explicit request.
 
 Nothing is skipped silently: the report lists each changed path with its class and every excluded test file.
 
@@ -86,8 +86,9 @@ def tracked_files() -> list[str]:
 @dataclass
 class Change:
     path: str
-    status: str            # A/M/D/R (R: both old and new paths are listed)
+    status: str            # A/M/D, or R for the old path of a rename (the new path is listed as A)
     cls: str = ""          # docs / ui / engine / full
+    renamed_to: str = ""
     reason: str = ""
     reached_by: list[str] = field(default_factory=list)
 
@@ -103,7 +104,7 @@ def changed_paths(base: str | None, worktree: bool) -> list[Change]:
             st = parts[i][0]
             if st in ("R", "C"):
                 old, new = parts[i + 1], parts[i + 2]
-                out[old] = Change(old, "D" if st == "R" else "M")
+                out[old] = Change(old, "R", renamed_to=new) if st == "R" else Change(old, "M")
                 out[new] = Change(new, "A")
                 i += 3
             else:
@@ -374,10 +375,15 @@ def classify(changes: list[Change], g: Graph, tests: list[str], forced: str | No
     for c in changes:
         p = c.path
         c.reached_by = sorted(reached.get(p, []))
-        if p in SHARED or p.startswith(SHARED_PREFIXES):
+        # the graph is built on the files present now, so the former dependants of a deleted or renamed path are
+        # unknown whatever its type: full, before any classification by path
+        if c.status == "D":
+            c.cls, c.reason = "full", "deleted (its former dependants are not in the current graph)"
+        elif c.status == "R":
+            c.cls, c.reason = "full", (f"renamed to {c.renamed_to} (its former dependants are not in the current "
+                                       "graph)")
+        elif p in SHARED or p.startswith(SHARED_PREFIXES):
             c.cls, c.reason = "full", "shared component"
-        elif c.status == "D" and p.endswith(".py"):
-            c.cls, c.reason = "full", "deleted or renamed Python file (its former dependants are unknown)"
         elif p in g.unparsable:
             c.cls, c.reason = "full", "Python file that could not be parsed"
         elif p in ROOT_DOCS or p.startswith(DOC_PREFIXES):
@@ -385,9 +391,7 @@ def classify(changes: list[Change], g: Graph, tests: list[str], forced: str | No
         elif p.startswith(UI_PREFIXES):
             c.cls, c.reason = "ui", "web app"
         elif p.startswith(("src/", "tests/", "scripts/", "schemas/")):
-            if c.status == "D":
-                c.cls, c.reason = "engine", "deleted non-Python file" + ("" if c.reached_by else "; no test names it")
-            elif not c.reached_by:
+            if not c.reached_by:
                 c.cls, c.reason = "full", "no test reaches this file"
             else:
                 c.cls, c.reason = "engine", "code, method document, schema, test or script"

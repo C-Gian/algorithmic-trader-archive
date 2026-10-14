@@ -35,7 +35,7 @@ Capital, quantity, leverage, margin and orders are human decisions. No real-orde
 - **CI uses the same selector:**
   - a push runs the FAST scope automatically, from the last successful CI commit of the branch;
   - a newer push cancels the superseded run;
-  - shared components, unknown paths and an unknown base fall back to FULL.
+  - shared components, unknown paths, any deleted or renamed file and an unknown base fall back to FULL.
   - Report the scope. A **FAST green is not a FULL green.**
 - **FULL CI before installation.** FULL CI green on the exact SHA is required before any installation or upgrade of the Owner environment, and whenever the task or the Director asks for it. Trigger it with Actions → CI → Run workflow (scope `full`) or with `[ci full]` in the head commit message.
 - **Never narrow the selection to avoid a failing test.** A misclassification is corrected by making the selection more conservative.

@@ -285,7 +285,7 @@ A file containing the marker `ci_select: no-references` (the selector and its ow
 | FAST — documentation | only `README/STATE/FOUNDATION/AGENTS/task.md`, `delivery/`, `research/`, `strategic_reviews/`, `source_notes/` | only the tests that read a changed file (often none) |
 | FAST — UI presentation | `web/` (plus docs) | web typecheck/build, the tests reading `web/src` (`test_ux_wording`), every E2E, the compose smoke |
 | FAST — engine/code | `src/`, `schemas/`, `tests/`, `scripts/` | the test files that reach the change, every E2E for a `src/` change, the compose smoke |
-| FULL | dependencies and toolchain, Docker, `.github/`, the selector, `tests/conftest.py`, `.gitattributes`/`.gitignore`, unknown paths, deleted Python files, a changed file no test reaches, an unknown base, or an explicit request | everything, as before |
+| FULL | dependencies and toolchain, Docker, `.github/`, the selector, `tests/conftest.py`, `.gitattributes`/`.gitignore`, unknown paths, any deleted or renamed file (any type: the graph only holds present files), a changed file no test reaches, an unknown base, or an explicit request | everything, as before |
 
 Mixed changes take the widest scope.
 

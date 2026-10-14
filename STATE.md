@@ -1777,7 +1777,7 @@ Astra authorization relayed by the Owner on 14 October 2026. Bounded to CI and t
   - references to file names and to path segments;
   - conftest for every test, and `web/` for every E2E.
 
-  Scopes: FAST documentation / UI / engine, or FULL. The FULL fallback covers dependencies and toolchain, Docker, CI, the selector, conftest, git attributes, unknown paths, deleted Python files, a changed file no test reaches, an unknown base, and an explicit request. Mixed changes take the widest scope. Every changed path is listed with its class, and every excluded test file is named.
+  Scopes: FAST documentation / UI / engine, or FULL. The FULL fallback covers dependencies and toolchain, Docker, CI, the selector, conftest, git attributes, unknown paths, deleted or renamed files of any type (corrected after review, see below), a changed file no test reaches, an unknown base, and an explicit request. Mixed changes take the widest scope. Every changed path is listed with its class, and every excluded test file is named.
 - **CI** (`.github/workflows/ci.yml`).
   - *Select checks*: the base is the newest successful CI commit of the branch that is an ancestor of HEAD, so a cancelled or failed run never becomes a base.
   - *Web typecheck and build* is a separate job without DB/browser.
@@ -1829,3 +1829,13 @@ Astra authorization relayed by the Owner on 14 October 2026. Bounded to CI and t
   - The local UI fast-path measurement: 40 passed.
   - actionlint, the verdict simulation, and selection examples on history.
   - Not run: the full suite (not needed, and excluded for the diagnosis). Remote CI: PENDING / NOT CHECKED.
+- **Correction after the static review of `ad482e4` (14 October 2026).**
+  - Finding: only deleted *Python* files forced FULL. Because the graph is built on the files present, a deleted or renamed non-Python file (UI, schema, method document, documentation) lost its former dependants and could select zero pertinent tests.
+  - Fix: every deletion, and the old path of every rename, now sets `scope=full` before any classification by path. The reason is recorded in the summary: "deleted (its former dependants are not in the current graph)" or "renamed to … (…)". A rename's old path is now reported with status `R` and its new path with status `A`.
+  - The algorithm and the test infrastructure are unchanged.
+  - Discriminating tests, pure, in `tests/test_ci_select.py`:
+    - deletion of a UI file, a schema, a method JSON, a method document and an evidence note → FULL with the reason;
+    - non-Python renames (UI, documentation, schema) → FULL with "renamed to …";
+    - the same ordinary edit without deletion keeps its scope: UI → ui with `test_ux_wording` + E2E; schema/method → engine; note → docs with 0 tests;
+    - git rename parsing.
+  - Checks: `tests/test_ci_select.py` 25 passed; actionlint 0 errors. Nothing else was run, as instructed. Remote CI: PENDING / NOT CHECKED.

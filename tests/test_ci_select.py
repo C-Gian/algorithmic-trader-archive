@@ -107,6 +107,47 @@ def test_unknown_unreached_deleted_and_mixed_changes_are_conservative():
     assert sel("STATE.md", "web/src/views/LiveProposal.tsx", "uv.lock")["scope"] == "full"
 
 
+@pytest.mark.parametrize("path, ordinary_scope", [
+    ("web/src/views/LiveProposal.tsx", "ui"),                          # UI
+    ("schemas/algotrader.semantic.v2.json", "engine"),                 # schema
+    ("src/algotrader/adviser/method/V07-PARAMETERS.json", "engine"),   # method document
+    ("src/algotrader/adviser/method/V07-TRIGGER-DESTINATION-RELEASE.md", "engine"),
+    ("delivery/evidence/V07-INTEGRATION/NOTE.md", "docs"),             # documentation
+])
+def test_a_deletion_of_any_type_is_full_while_the_same_ordinary_edit_keeps_its_scope(path, ordinary_scope):
+    # the graph holds only the files present now: a deleted file's former dependants cannot be found
+    r = sel(path, status="D")
+    assert r["scope"] == "full" and r["excluded"] == []
+    assert r["full_reasons"] == [f"{path}: deleted (its former dependants are not in the current graph)"]
+    assert "deleted (its former dependants" in cs.markdown(r)
+    ordinary = sel(path)
+    assert ordinary["scope"] == ordinary_scope and ordinary["full_reasons"] == []
+    if ordinary_scope == "docs":
+        assert ordinary["selected"] == []  # an evidence note no test reads
+
+
+def test_a_non_python_rename_is_full_while_the_same_ordinary_edit_keeps_its_scope():
+    old, new = "web/src/views/LiveProposal.tsx", "web/src/views/LiveProposalView.tsx"
+    r = cs.select("HEAD", False, None, changes=[cs.Change(old, "R", renamed_to=new), cs.Change(new, "A")])
+    assert r["scope"] == "full" and r["excluded"] == []
+    assert r["full_reasons"] == [f"{old}: renamed to {new} (its former dependants are not in the current graph)"]
+    assert f"renamed to {new}" in cs.markdown(r)
+    r = sel(old)
+    assert r["scope"] == "ui" and names(r, "unit") == {"test_ux_wording.py"}
+    for old, new in (("delivery/evidence/V07-INTEGRATION/NOTE.md", "delivery/evidence/V07-INTEGRATION/README.md"),
+                     ("schemas/algotrader.semantic.v2.json", "schemas/algotrader.semantic.v2-old.json")):
+        r = cs.select("HEAD", False, None, changes=[cs.Change(old, "R", renamed_to=new), cs.Change(new, "A")])
+        assert r["scope"] == "full" and r["full_reasons"][0].startswith(f"{old}: renamed to {new}")
+
+
+def test_git_reports_a_rename_as_the_old_path_renamed_and_the_new_path_added(monkeypatch):
+    raw = "R100\0web/a.tsx\0web/b.tsx\0D\0STATE.md\0M\0README.md\0"
+    monkeypatch.setattr(cs, "git", lambda *a: raw if a[0] == "diff" else "")
+    got = [(c.path, c.status, c.renamed_to) for c in cs.changed_paths("HEAD~1", False)]
+    assert got == [("README.md", "M", ""), ("STATE.md", "D", ""), ("web/a.tsx", "R", "web/b.tsx"),
+                   ("web/b.tsx", "A", "")]
+
+
 def test_explicit_request_and_unknown_base_select_everything():
     r = sel("STATE.md", forced="workflow_dispatch: scope=full")
     assert r["scope"] == "full" and r["full_reasons"][0] == "workflow_dispatch: scope=full" and r["excluded"] == []
