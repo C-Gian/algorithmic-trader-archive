@@ -1,6 +1,14 @@
 # Current task — Price–volume semantics at a range exit: documentary feasibility
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([document](delivery/PRICE-VOLUME-SEMANTIC-FEASIBILITY.md)). The Director's review is separate.
 
+**Review completion (Director documentary review, 14 October 2026).** Four corrections are recorded in the document's §7, with the original delivery preserved:
+1. a joint-checklist item is not A quality;
+2. "not satisfied" (equal or decrease) is not counter-evidence;
+3. no redundancy is claimed for consolidation volume;
+4. the ambiguous example is about the reference's meaning.
+
+Recommendation: the sources give an additional description only; the decisional link is missing; the step is concluded. No new source, processing, indicator, threshold or test.
+
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
 
 **Scope.** The exit from a pre-existing range and the immediately following response. Question: which observable relation between participation and price progress can justifiably change the reading of continuation or re-entry, before the sequel is known?

@@ -2,6 +2,11 @@
 
 **Executor delivery, 14 October 2026.** The Director's review is separate and PENDING. Astra's authorization, relayed by the Owner. Documentary only.
 
+**Review completion, 14 October 2026.** The Director's documentary review asked for four corrections and a precise recommendation. They are recorded in **§7**, which prevails over §§2–6 where they differ.
+- The original delivery text (`f6e8cb2`) is preserved below.
+- Corrected passages carry a pointer to §7.
+- No new source, processing, indicator or threshold was introduced.
+
 **Not done:** no implementation, acquisition, Owner extraction, historical processing, quantitative test or backtest. A, RETURN, E and a2x are not reopened. v0.7 is unchanged; v0.6 and the registered studies stay frozen.
 
 **Question.** Which observable relation between participation and price progress can justifiably change the reading of continuation or re-entry, before the sequel is known? The scope is the exit from a pre-existing range and the immediately following response.
@@ -83,7 +88,7 @@ Rules from MP-001 §B/§C and the shared box.
 
 | Source element | B/C counterpart | Classification |
 |---|---|---|
-| Consolidation "preferably on reduced volume" / "orderly" volume | COMPRESSION, CR, ER, width, touches (price only) | **Not interpretable**: "orderly" is undefined and no reference is given. Partly **redundant** in intent with the price contraction already required. Not used. |
+| Consolidation "preferably on reduced volume" / "orderly" volume | COMPRESSION, CR, ER, width, touches (price only) | **Not interpretable**: "orderly" is undefined and no reference is given. Partly **redundant** in intent with the price contraction already required. Not used. *[Redundancy withdrawn: §7.3.]* |
 | Range expansion on the break bar | Not required (a minimal close beyond U+z qualifies) | A price element the source pairs with volume. B has no counterpart; defining one would be our own choice **[D]**. |
 | Close near the high | Not required | As above. |
 | Break-bar volume higher than the previous bar | None (the participation ratio is descriptive only, vs a 20-bar median) | **The only addable relation** (§4). |
@@ -92,7 +97,7 @@ Rules from MP-001 §B/§C and the shared box.
 | Lower volume → re-entry | — | **Not in the source.** Its contrary of "A-quality" is "marginal", not "will re-enter". |
 
 **When volume would be contrary or not interpretable:**
-- **Contrary.** The break bar closes beyond U+z but trades less than the bar before it. In source terms the setup is "marginal". This weakens the A-quality reading; it does not predict re-entry.
+- **Contrary.** The break bar closes beyond U+z but trades less than the bar before it. In source terms the setup is "marginal". This weakens the A-quality reading; it does not predict re-entry. *[Corrected: §7.1, §7.2.]*
 - **Ambiguous:**
   - the previous bar is itself part of the move (a failed push at U with already high volume);
   - the two bars sit across a change in the clock-time activity profile of 24/7 trading, which is absent from equity daily bars;
@@ -121,7 +126,7 @@ They are kept separate with their currencies. The contract value `ct_val` (BTC p
 - Only confirmed bars are normalized (`confirm=1`).
 - `available_time` = bar close (`okx.completed_1m_bar_available_at_close.v1`).
 - A 15m aggregate sums the 1m volumes exactly **only when COMPLETE** (`temporal/engine.py`; README "Records"). An INCOMPLETE aggregate carries only a partial diagnostic.
-- So the break bar's and the previous bar's volumes are known at the break-bar close, the same instant B observes the break. Never earlier.
+- So the break bar's and the previous bar's volumes are known at the break-bar close, the same instant B observes the break. Never earlier. *[Modelled availability only, not live: §7.5.]*
 
 **Aggregation.** A sum over the fifteen 1m trade bars of the 15m interval. The existing participation ratio (latest complete 15m base volume / median of the previous 20) is **descriptive only and never confirms a call** (MP-001 §3, `adviser/core.py`).
 
@@ -153,7 +158,7 @@ The chosen source needs none of these: it uses aggregate volume only. Sources th
 
 The reading is updated once, at t_b, and never revised by later bars.
 
-**What it may change.** The expectation held during B's wait for the retest:
+**What it may change.** The expectation held during B's wait for the retest *[readings corrected in §7.1–§7.2; the decisional role is not founded, §7.7]*:
 - **support:** `vol_b > vol_p`, both COMPLETE → the exit has the source's "A-quality" participation item;
 - **contradict:** `vol_b ≤ vol_p` → the exit is "marginal" on that item. This is not a re-entry reading;
 - **ambiguous / not interpretable:**
@@ -168,7 +173,7 @@ The last three need definitions **[D]** before they could be operational. They a
 
 ## 5. Hand-built examples
 
-Hypothetical numbers, not data. The box is L = 100.00, U = 101.00, M = 100.50, z = 0.10, so U+z = 101.10. Volumes are in BTC; both bars are COMPLETE unless stated otherwise. Only information known at the break-bar close is used.
+Hypothetical numbers, not data. The box is L = 100.00, U = 101.00, M = 100.50, z = 0.10, so U+z = 101.10. Volumes are in BTC; both bars are COMPLETE unless stated otherwise. Only information known at the break-bar close is used. *[Readings corrected in §7.1, §7.2 and §7.4.]*
 
 | | Previous bar (O/H/L/C, vol) | Break bar (O/H/L/C, vol) | Reading at t_b |
 |---|---|---|---|
@@ -184,7 +189,7 @@ Hypothetical numbers, not data. The box is L = 100.00, U = 101.00, M = 100.50, z
   - its joint checklist: range expansion and close near the high are left out of B;
   - its time scale and market: equity daily vs BTC 15m perpetual;
   - its practice-based discretionary judgement.
-- The consolidation-volume item is not interpretable ("orderly" undefined) and partly redundant with COMPRESSION.
+- The consolidation-volume item is not interpretable ("orderly" undefined) and partly redundant with COMPRESSION. *[Redundancy withdrawn: §7.3.]*
 
 **Possible decisional role.** Only **expectation (aspettativa)**: a quality qualifier of the continuation reading between the break and B's retest.
 - Not the wait (attesa): B's window is unchanged.
@@ -193,6 +198,8 @@ Hypothetical numbers, not data. The box is L = 100.00, U = 101.00, M = 100.50, z
 - Any decisional use would change MP-001's "descriptive only" participation statement. That is a Director method decision, not taken here.
 
 **Efficacy: not evaluated.** No data was processed. Redundancy with the break bar's own range, and the size and direction of any effect, are unknown.
+
+*[The decisional role and the choice below are superseded by the recommendation in §7.7.]*
 
 **Choice.** **The candidate is defined well enough to discuss as development**, limited to the B break bar and the expectation role, with the explicit choices **[D]**:
 - daily → 15m translation;
@@ -204,6 +211,85 @@ Hypothetical numbers, not data. The box is L = 100.00, U = 101.00, M = 100.50, z
 **Precise blocks for the rest of the question:**
 - **response after the exit (retest / re-entry):** procedure not reconstructible, because the source is silent;
 - **failed exit / C:** not interpretable, because the source is silent;
-- **consolidation volume:** not interpretable, and redundant in intent with the price contraction;
+- **consolidation volume:** not interpretable, and redundant in intent with the price contraction *[redundancy withdrawn: §7.3]*;
 - **ANALISI_EVOLUTA volume:** not reconstructible;
 - **anything needing aggressor or order-book data:** data inadequate. Not substituted.
+
+## 7. Review completion (14 October 2026)
+
+Corrections requested by the Director's documentary review. Everything below uses only the material already in §§1–5: no new source, processing, indicator, threshold or test.
+
+### 7.1 Joint checklist: three layers kept apart
+
+- **Observable comparison.** `vol_b` against `vol_p`: the complete 15m base volumes of the break bar and of the bar before it. It has three outcomes: higher, equal, lower.
+- **Professional judgement (the source's).** "A quality" versus "marginal" is Bonde's judgement on the **whole** setup.
+  - It covers the joint guidelines: 8 in post 2, 10 characteristics in post 1.
+  - It rests on recognition trained by practice ("procedural memory").
+  - A higher break-bar volume **satisfies one guideline**. It does not make the breakout A-quality.
+- **Our adaptation to BTC 15m.** None of these choices comes from the sources:
+  - daily bars → 15m bars;
+  - one venue, a perpetual;
+  - base volume;
+  - previous-bar reference;
+  - a symmetric short side.
+
+**What this withdraws.**
+- §4 "support": the A-quality reading is withdrawn. It now reads: "the source's breakout-volume item is satisfied".
+- §5 "Coherent": "the volume item is satisfied". The other guidelines are **not judged**: range expansion, the previous bar narrow or negative, an orderly consolidation, linearity. The close near the high is only our observation of the example's numbers. No quality is attributed to the breakout.
+
+### 7.2 Meaning of the contrary comparison
+
+- **`vol_b > vol_p`:** the "higher volume" requirement is satisfied.
+- **`vol_b = vol_p`:** the requirement is **not satisfied (equal)**.
+- **`vol_b < vol_p`:** the requirement is **not satisfied (decrease)**.
+
+Equality and decrease are reported as separate outcomes. Neither is **evidence against continuation**. The consulted sources state no consequence of failing this item alone. "Marginal" (§§2, 4, 5) is withdrawn as a reading of the single item.
+
+§5 "Contrary" (90 vs 140) now reads: requirement not satisfied (decrease). Nothing more is read from it.
+
+### 7.3 Consolidation volume
+
+The conclusion of redundancy with COMPRESSION is **withdrawn**. It rested only on a similarity of intent.
+- Price contraction (TR ratio, ER, width, touches) does not measure volume contraction.
+- The consulted materials leave the consolidation-volume procedure **insufficiently specified**: "preferably on reduced volume" and "preferably orderly", with no reference, measure or period.
+- It is not reconstructed, and no redundancy is inferred.
+
+### 7.4 Ambiguous example
+
+With the previous-bar reference, the comparison is **determined**: 380 < 400, so the requirement is not satisfied (decrease).
+
+The ambiguity is in the **meaning of the reference**, not in the result. The previous bar already contains a push into the edge zone [U−z, U+z]. So it is uncertain whether "previous complete 15m bar" faithfully translates the source's "previous day" (a day the checklist expects to be narrow or negative).
+
+Withdrawn, because they used the box's volumes implicitly, which are neither in the example nor the candidate's reference:
+- "both volumes are high against the box bars";
+- "a box reference would say higher".
+
+No alternative reading is derived.
+
+### 7.5 Availability: modelled, not live
+
+§3's "known at the break-bar close" describes the **modelled historical availability**:
+- `okx.completed_1m_bar_available_at_close.v1`;
+- the aggregate's `known_at` = max(interval end, prerequisite availability).
+
+It does **not** attest live availability. The live publication delay of confirmed candles and the timing of 15m sealing on the live path are not attested here.
+
+### 7.6 Separation of the three questions
+
+- **Representable data:** the comparison can be computed from existing fields, under modelled availability (§3, §7.5). Nothing else is claimed.
+- **Professional fidelity:** the comparison reproduces **one item** of Bonde's guidelines. The judgement (A / marginal) and its stated consequences belong to the whole checklist and to trained recognition. The BTC 15m adaptation is ours.
+- **Efficacy:** not evaluated.
+
+### 7.7 Recommendation (supersedes §6 "Possible decisional role" and "Choice")
+
+**The consulted sources do not justify updating B's expectation through this single relation. They make available only an additional description, with no sufficiently founded decisional consequence.**
+
+**Block: the decisional link is missing.**
+- Bonde attaches consequences to the setup judged as a whole: "Better quality setups allow us to put logical and tight stop and they work instantly".
+- No consulted source states a consequence of the volume item **alone**, satisfied or not.
+- Kullamägi does not discuss breakout-bar volume.
+- The translation to BTC 15m is our own.
+
+The relation therefore stays **descriptive**. This is consistent with MP-001's "descriptive only" participation; no method change is proposed. The other blocks of §6 stand, with the consolidation block restated by §7.3.
+
+**This step is concluded.**
