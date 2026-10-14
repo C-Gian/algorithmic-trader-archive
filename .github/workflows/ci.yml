@@ -1,12 +1,118 @@
 name: CI
 
+# Fast by default, full on explicit conditions (see "CI and test selection" in README.md and AGENTS.md).
+# scripts/ci_select.py classifies every changed path since the last commit of this branch whose CI succeeded and selects
+# the pertinent checks; shared components, unknown paths, an unknown base or an explicit request run the full suite.
+# "FAST green" (selected checks) and "FULL green" (every check) are separate, explicitly named result jobs.
+
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "full = every check (pre-installation acceptance); auto = the same selection as a push"
+        type: choice
+        options: [full, auto]
+        default: full
+
+concurrency:
+  # a newer push to the same branch cancels the superseded run; a manual run is never cancelled by a push
+  group: ci-${{ github.event.pull_request.number || github.ref }}-${{ github.event_name == 'workflow_dispatch' && 'manual' || 'auto' }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read   # read earlier runs of this workflow to find the last successful base
 
 jobs:
-  checks:
+  select:
+    name: Select checks
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      scope: ${{ steps.sel.outputs.scope }}
+      web: ${{ steps.sel.outputs.web }}
+      compose: ${{ steps.sel.outputs.compose }}
+      has_tests: ${{ steps.sel.outputs.has_tests }}
+      matrix: ${{ steps.sel.outputs.matrix }}
+      started: ${{ steps.base.outputs.started }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # the selection diffs against an earlier commit
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: "0.12.10"
+      - name: Determine the base and any explicit full request
+        id: base
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          INPUT_SCOPE: ${{ inputs.scope }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          echo "started=$(date +%s)" >> "$GITHUB_OUTPUT"
+          full=""
+          if [ "$EVENT" = "workflow_dispatch" ] && [ "$INPUT_SCOPE" = "full" ]; then full="manual run with scope=full"; fi
+          if git log -1 --format=%B | grep -qiF "[ci full]"; then full="${full:-head commit message requests [ci full]}"; fi
+          base=""
+          if [ "$EVENT" = "pull_request" ]; then
+            base="$PR_BASE"
+          else
+            # the newest successful run of this workflow on this branch whose commit is an ancestor of HEAD: every
+            # change since then is classified (a cancelled or failed run never becomes a base)
+            shas=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?branch=$BRANCH&status=success&per_page=50" \
+                     --jq '.workflow_runs[].head_sha' 2>/dev/null || true)
+            for sha in $shas; do
+              if [ "$sha" != "$GITHUB_SHA" ] && git merge-base --is-ancestor "$sha" HEAD 2>/dev/null; then base="$sha"; break; fi
+            done
+          fi
+          echo "full=$full" >> "$GITHUB_OUTPUT"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "Base: ${base:-unknown} · explicit full: ${full:-no}"
+      - name: Select
+        id: sel
+        env:
+          FULL: ${{ steps.base.outputs.full }}
+          BASE: ${{ steps.base.outputs.base }}
+        run: |
+          set -euo pipefail
+          args=(--github)
+          if [ -n "$FULL" ]; then args+=(--full --reason "$FULL"); fi
+          if [ -n "$BASE" ]; then args+=(--base "$BASE"); fi
+          uv run --no-project scripts/ci_select.py "${args[@]}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ci-selection
+          path: ci-selection.json
+
+  web:
+    name: Web typecheck and build
+    needs: select
+    if: needs.select.outputs.web == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: npm --prefix web ci
+      - run: npm --prefix web run typecheck
+      - run: npm --prefix web run build
+
+  tests:
+    name: Tests (${{ matrix.name }})
+    needs: select
+    if: needs.select.outputs.has_tests == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false   # every shard reports; isolation: one runner and one fresh PostgreSQL service per shard
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
     services:
       postgres:
         image: postgres:18.6-trixie
@@ -26,31 +132,41 @@ jobs:
           version: "0.12.10"
       - run: uv python install
       - run: uv sync --locked
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7   # Node 24 is also used by unit tests (test_ux_wording runs the TS harness)
         with:
           node-version-file: .nvmrc
-      - name: Web install / typecheck / build
+      - name: Web build for the E2E stack
+        if: matrix.kind == 'e2e'
         run: |
           npm --prefix web ci
-          npm --prefix web run typecheck
           npm --prefix web run build
-      - name: Unit, contract, accounting, determinism, idempotency/recovery, API tests
-        run: uv run pytest --ignore=tests/e2e
-      - name: Install Chromium for the end-to-end smoke
+      - name: Install Chromium
+        if: matrix.kind == 'e2e'
         run: uv run playwright install --with-deps chromium
-      - name: End-to-end smoke (UI -> run start -> worker -> persisted state -> UI)
-        run: uv run pytest tests/e2e
+      - name: pytest (${{ matrix.name }})
         env:
           ALGOTRADER_EVIDENCE_DIR: ${{ github.workspace }}/var/evidence
+          FILES: ${{ matrix.files }}
+        run: uv run pytest $FILES --junitxml=var/junit/shard-${{ strategy.job-index }}.xml
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: e2e-evidence
+          name: junit-${{ strategy.job-index }}
+          path: var/junit
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v7
+        if: always() && matrix.kind == 'e2e'
+        with:
+          name: e2e-evidence-${{ strategy.job-index }}
           path: var/evidence
           if-no-files-found: ignore
 
   compose-smoke:
+    name: Compose smoke
+    needs: select
+    if: needs.select.outputs.compose == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
       - name: Start the documented stack
@@ -62,3 +178,109 @@ jobs:
         run: docker compose logs
       - run: docker compose down --volumes
         if: always()
+
+  result:
+    name: CI result
+    needs: [select, web, tests, compose-smoke]
+    if: ${{ !cancelled() }}   # a superseded (cancelled) run gives no verdict
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      ok: ${{ steps.verdict.outputs.ok }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v7
+        continue-on-error: true   # informational totals only; the verdict uses the job results
+        with:
+          pattern: junit-*
+          path: junit
+          merge-multiple: true
+      - name: Verdict and summary
+        id: verdict
+        env:
+          SCOPE: ${{ needs.select.outputs.scope }}
+          STARTED: ${{ needs.select.outputs.started }}
+          R_SELECT: ${{ needs.select.result }}
+          R_WEB: ${{ needs.web.result }}
+          R_TESTS: ${{ needs.tests.result }}
+          R_COMPOSE: ${{ needs.compose-smoke.result }}
+          WANT_WEB: ${{ needs.select.outputs.web }}
+          WANT_TESTS: ${{ needs.select.outputs.has_tests }}
+          WANT_COMPOSE: ${{ needs.select.outputs.compose }}
+        run: |
+          set -uo pipefail
+          ok=true
+          rows=""
+          check() {  # name result wanted: a selected check must succeed, an excluded one must have been skipped
+            if [ "$3" = "true" ]; then
+              [ "$2" = "success" ] || ok=false
+              rows+="| $1 | run | $2 |"$'\n'
+            else
+              [ "$2" = "skipped" ] || ok=false
+              rows+="| $1 | excluded by the selection | $2 |"$'\n'
+            fi
+          }
+          [ "$R_SELECT" = "success" ] || ok=false
+          check "Web typecheck and build" "$R_WEB" "$WANT_WEB"
+          check "Tests (all shards)" "$R_TESTS" "$WANT_TESTS"
+          check "Compose smoke" "$R_COMPOSE" "$WANT_COMPOSE"
+          elapsed=$(( $(date +%s) - ${STARTED:-$(date +%s)} ))
+          case "$SCOPE" in full) label="FULL suite";; docs) label="FAST — documentation";; ui) label="FAST — UI presentation";;
+                           engine) label="FAST — engine/code (selected)";; *) label="UNKNOWN (selection failed)"; ok=false;; esac
+          {
+            if [ "$ok" = true ] && [ "$SCOPE" = full ]; then echo "# FULL GREEN — every check passed"
+            elif [ "$ok" = true ]; then echo "# FAST GREEN — selected checks only ($label); not the full-suite acceptance"
+            else echo "# RED — $label"; fi
+            echo
+            echo "Elapsed from selection to verdict: $((elapsed / 60)) min $((elapsed % 60)) s (runner queueing included)."
+            echo
+            echo "| Check | Status | Result |"
+            echo "|---|---|---|"
+            echo "| Select checks | run | $R_SELECT |"
+            printf '%s' "$rows"
+            echo
+            python3 - <<'PY'
+          import pathlib, xml.etree.ElementTree as ET
+          tot = {"tests": 0, "failures": 0, "errors": 0, "skipped": 0}
+          skipped = []
+          for x in sorted(pathlib.Path("junit").glob("*.xml")):
+              for s in ET.parse(x).getroot().iter("testsuite"):
+                  for k in tot:
+                      tot[k] += int(s.get(k, 0) or 0)
+                  for tc in s.iter("testcase"):
+                      sk = tc.find("skipped")
+                      if sk is not None:
+                          skipped.append(f"{tc.get('classname')}::{tc.get('name')}: {sk.get('message', '')}")
+          print(f"pytest totals (JUnit): {tot['tests']} tests, {tot['failures']} failures, {tot['errors']} errors, "
+                f"{tot['skipped']} skipped")
+          for line in skipped[:50]:
+              print(f"- skipped: {line}")
+          PY
+            echo
+            echo "The selection (changed paths, classes, suites run and excluded) is in the 'Select checks' summary and the ci-selection artifact."
+          } >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/ci_select.py --durations-from-junit junit > test-durations.json || true
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
+          if [ "$ok" = true ]; then echo "::notice title=CI scope::$label green"; else echo "::error title=CI scope::$label failed"; exit 1; fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: test-durations
+          path: test-durations.json
+          if-no-files-found: ignore
+
+  full-green:
+    name: FULL suite green (acceptance)
+    needs: [select, result]
+    if: needs.select.outputs.scope == 'full' && needs.result.outputs.ok == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Every check ran and passed for $GITHUB_SHA."
+
+  fast-green:
+    name: FAST green (selected checks only, not acceptance)
+    needs: [select, result]
+    if: needs.select.outputs.scope != 'full' && needs.result.outputs.ok == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Selected checks (scope ${{ needs.select.outputs.scope }}) passed for $GITHUB_SHA; the full suite did not run."

@@ -267,7 +267,44 @@ uv run pytest --ignore=tests/e2e              # unit, contracts, accounting, det
 uv run pytest tests/e2e                       # browser UI -> API -> worker process -> PostgreSQL -> UI
 # tests/test_ux_wording.py runs web/src/views/replay/runStory.ts with Node 24 (type stripping); no browser needed
 python scripts/stack_smoke.py http://127.0.0.1:8000   # against a running stack
+uv run python scripts/ci_select.py --base HEAD --worktree   # the checks pertinent to your uncommitted changes
 ```
+
+### CI and test selection
+
+`scripts/ci_select.py` (standard library; no test runs inside it) classifies every changed path and finds the test files that can observe it. It uses one dependency graph:
+- static imports, including local imports and their parent packages;
+- module names written as strings, such as the E2E stack's `python -m algotrader.cli`, which reaches the whole app;
+- references to tracked files, by file name or by a path written as string segments;
+- `tests/conftest.py` for every test, and the whole `web/` tree for every E2E test (the stack serves the web build).
+
+A file containing the marker `ci_select: no-references` (the selector and its own test) names paths only as data, so its path strings create no edges.
+
+| Scope | When | What runs |
+|---|---|---|
+| FAST — documentation | only `README/STATE/FOUNDATION/AGENTS/task.md`, `delivery/`, `research/`, `strategic_reviews/`, `source_notes/` | only the tests that read a changed file (often none) |
+| FAST — UI presentation | `web/` (plus docs) | web typecheck/build, the tests reading `web/src` (`test_ux_wording`), every E2E, the compose smoke |
+| FAST — engine/code | `src/`, `schemas/`, `tests/`, `scripts/` | the test files that reach the change, every E2E for a `src/` change, the compose smoke |
+| FULL | dependencies and toolchain, Docker, `.github/`, the selector, `tests/conftest.py`, `.gitattributes`/`.gitignore`, unknown paths, deleted Python files, a changed file no test reaches, an unknown base, or an explicit request | everything, as before |
+
+Mixed changes take the widest scope.
+
+**Base and runs.**
+- A push compares HEAD with the newest commit of the branch whose CI succeeded. A cancelled or failed run never becomes a base, so no change goes unclassified.
+- A newer push to the same branch cancels the superseded run; a manual run is never cancelled by a push.
+- Selected test files run in parallel shards (at most 8 unit and 3 E2E), each on its own runner with a fresh PostgreSQL service.
+- Files are never split, so module fixtures and test order inside a file are unchanged.
+
+**Summary.**
+- The *Select checks* summary lists every changed path with its class, the shards run and every excluded test file.
+- *CI result* gives the verdict and the JUnit totals, skipped tests included. A selected job must succeed; an excluded one must be skipped.
+- The checks list shows **FULL suite green (acceptance)** or **FAST green (selected checks only, not acceptance)**.
+
+**Full run.** Actions → CI → *Run workflow* (scope `full`, the default), or `[ci full]` in the head commit message. FULL green on the exact SHA is required before installing or upgrading the Owner environment.
+
+**Limits.**
+- The graph is static: runtime dispatch by computed names is not seen. It is covered by the broad import edges, such as `methods.py` importing every core, and by the FULL fallback.
+- Shard balance uses a heuristic until measured per-file seconds are committed as `ci/test_durations.json`. To produce it, take the *test-durations* artifact of a FULL run, or run `scripts/ci_select.py --durations-from-junit <dir>`.
 
 ## Market data (OKX BTC-USDT-SWAP, public/read-only)
 

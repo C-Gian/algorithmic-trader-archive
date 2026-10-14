@@ -1,4 +1,41 @@
-# Current task — Integrate the tdc correction as product version v0.7
+# Current task — CI and test selection: fast pertinent checks, full suite on explicit conditions
+Date: 2026-10-14. Status: EXECUTOR DELIVERY (configuration in [ci.yml](.github/workflows/ci.yml) and [ci_select.py](scripts/ci_select.py); instructions in [AGENTS.md](AGENTS.md#test-selection-and-ci-scope-14-october-2026); evidence in STATE); the Director's review is separate and PENDING. No algorithm, method, engine or policy change. The Owner environment is not updated.
+
+## Assignment (authorized by Astra, relayed by the Owner, 14 October 2026; base `4ef4cd1`)
+
+A bounded change to CI and test selection, with no change to the algorithm. Goal: fast, pertinent checks for ordinary work, and the full suite under explicit conditions. A version increment alone does not require the whole suite.
+
+1. **Examine.**
+   - Read the workflow, fixtures and agent instructions.
+   - Use the timings and logs already available first.
+   - Identify costly repetitions and test dependencies.
+   - Do not run the full suite for this diagnosis.
+2. **Implement.**
+   - Define a reproducible selection for documentation only, UI presentation, engine logic, and shared components or impact that cannot be bounded.
+   - Consider every changed file. Unknown files and transversal changes get a conservative fallback; no check is skipped silently.
+   - **CI:**
+     - an automatic fast path with the pertinent checks;
+     - a full path available, with documented conditions;
+     - cancellation of superseded runs on the same branch;
+     - a visible summary of the suites run and excluded;
+     - an explicit distinction between fast green and full green.
+   - Check the dependencies on required checks before renaming or restructuring jobs. Do not change the GitHub protections; report any conflict.
+3. **Reduce cost where justified.** Parallelize only where isolation allows. Move simple checks off DB/browser when those are not needed to verify the behaviour. Do not delete slow tests, and do not share mutable state between tests to speed them up.
+4. **Verify, targeted.**
+   - Verify the selection on examples: documentation, UI, engine, and a transversal or unknown change.
+   - Measure the fast path and compare it with the full timings already available, stating the environment differences.
+   - Promise no timing before measuring it, and do not rerun the full suite repeatedly.
+5. **Operating instructions.** Update the existing agent instructions:
+   - local tests pertinent to the change;
+   - the full local suite only with a concrete reason;
+   - after a correction, rerun the parts involved;
+   - widen the checks only for risks that emerged;
+   - conditions of the full acceptance run before installation.
+6. **Delivery.** Configuration applied, short instructions, verified examples, timings, preserved coverage and limits. Update STATE/task, commit and push. No pull or fetch.
+7. **Excluded.** Updating the Owner environment, Owner data, acquisition, replay, studies and methodological changes.
+
+
+## Previous task — Integrate the tdc correction as product version v0.7
 Date: 2026-10-13. Status: EXECUTOR DELIVERY ([release](delivery/V07-TRIGGER-DESTINATION-RELEASE.md), [integration evidence](delivery/evidence/V07-INTEGRATION/NOTE.md)); the Director's review is separate and PENDING. v0.6, the variants and the registered studies are unchanged and INACTIVE.
 
 ## Assignment (relayed by the Owner, 13 October 2026; orchestrator authorization; approved reference `57fa14e`)

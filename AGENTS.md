@@ -27,6 +27,19 @@ Capital, quantity, leverage, margin and orders are human decisions. No real-orde
 - Reuse fixed local datasets. No routine redownload or mandatory H24 collection.
 - Always-NO_TRADE is not successful acceptance: expose coverage/candidate/rejection diagnostics. Do not force calls or weaken rules just to raise frequency.
 
+## Test selection and CI scope (14 October 2026)
+
+- **Pertinent local checks.** Before committing, run `uv run python scripts/ci_select.py --base HEAD --worktree`. It classifies every changed path (docs, ui, engine, full) and lists the tests that reach it. Run the checks it lists, using disposable DB/E2E services.
+- **Full local suite only with a concrete reason.** Examples: the selector falls back to full; a shared component; a risk the static selection cannot see (runtime method dispatch, timing, environment). State the reason in the report. A version increment alone is not a reason.
+- **After a correction,** rerun the failed tests and the selection for the corrected files. Widen the checks only for risks that actually emerged; never rerun the full suite just to confirm.
+- **CI uses the same selector:**
+  - a push runs the FAST scope automatically, from the last successful CI commit of the branch;
+  - a newer push cancels the superseded run;
+  - shared components, unknown paths and an unknown base fall back to FULL.
+  - Report the scope. A **FAST green is not a FULL green.**
+- **FULL CI before installation.** FULL CI green on the exact SHA is required before any installation or upgrade of the Owner environment, and whenever the task or the Director asks for it. Trigger it with Actions → CI → Run workflow (scope `full`) or with `[ci full]` in the head commit message.
+- **Never narrow the selection to avoid a failing test.** A misclassification is corrected by making the selection more conservative.
+
 ## Git and reporting
 
 After bounded changes and required checks succeed, the executor commits and pushes normally at the end of the work unless the task says otherwise. No force-push, history rewrite, secrets or unrelated changes. Stop on unexpected divergence; do not reconstruct main from a stale parent.
@@ -43,7 +56,7 @@ The Director independently reviews; an executor's PASS is not acceptance.
 
 ### CI handoff — Owner-operated (5 October 2026)
 
-After required local checks, commit and push, then hand the CI wait to the Owner. Do not wait for CI, poll GitHub, launch background CI checks, sleep for a rate-limit reset or retain a monitoring shell. Give the exact pushed SHA and the CI run link (if already known; otherwise the repository Actions page), report local checks separately, and mark remote CI PENDING / NOT CHECKED rather than guessing. Stop any owned CI-monitor process before finishing; do not stop unrelated Owner processes.
+After required local checks, commit and push, then hand the CI wait to the Owner. Do not wait for CI, poll GitHub, launch background CI checks, sleep for a rate-limit reset or retain a monitoring shell. Give the exact pushed SHA, the CI run link (if already known; otherwise the repository Actions page) and the CI scope the selector will choose (FAST docs/ui/engine or FULL), report local checks separately, and mark remote CI PENDING / NOT CHECKED rather than guessing. Stop any owned CI-monitor process before finishing; do not stop unrelated Owner processes.
 
 The Owner watches GitHub and reports green/red for that SHA. Green: give/update the concise Director completion summary. Red: inspect the failed job/log when the Owner supplies the failure or asks you to diagnose; make the bounded correction, run relevant checks, push and hand back the new SHA. If logs are inaccessible, say exactly what evidence is missing; never spend the session waiting for unauthenticated quota reset. No retries just to obtain green without understanding the failure. The Director still requires exact-SHA green CI for acceptance; delegating the wait does not waive CI or local tests. This Owner rule overrides older task text telling executors to await/check final CI.
 
