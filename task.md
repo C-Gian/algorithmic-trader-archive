@@ -1,4 +1,25 @@
-# Current task — CI and test selection: fast pertinent checks, full suite on explicit conditions
+# Current task — Controlled update of the Owner environment to `3f8d688` (v0.7)
+Date: 2026-10-14. Status: EXECUTOR RECORD ([STATE](STATE.md#owner-environment-updated-to-3f8d688--v07-installed-14-october-2026-executor-record)). Build served: `3f8d688cf7a068519bf32fafed27dd387be1a024+image`. Nothing was started.
+
+## Assignment (relayed by the Owner, 14 October 2026)
+
+The Owner attests a FULL suite green on the delivery `3f8d688`.
+
+1. **Checkout.** Verify it and derive the full SHA. No pull or fetch. If it does not match the attested delivery, stop and report the difference.
+2. **Update procedure.** Follow the README upgrade procedure. Keep the database, volumes, data, runs, checkpoints, selections and existing defaults. No cleanup or reset.
+3. **Before the restart.** Verify that no session, recorder or job is active that would restart and acquire data. If one is, report the conflict without stopping it and without allowing an implicit resumption.
+4. **After the update, verify only:**
+   - `/api/health`: the installed build matches the SHA;
+   - v0.7 is available in the ordinary selectors;
+   - v0.6 is still available and the v0.2 default is kept;
+   - existing history and runs are accessible read-only;
+   - no session or checkpoint was converted to v0.7;
+   - no new session or processing was started.
+5. **Excluded.** Start, feeds, acquisitions, replays, synthetic smoke runs, studies, other test suites and CI queries.
+6. **Records.** Record the CI attestation as the Owner's declaration, the accepted closure of v0.7 and the outcome of the update. Preserve the original deliveries, with later annotations. Commit and push only the necessary records. A later documentation commit does not require rebuilding the image.
+
+
+## Previous task — CI and test selection: fast pertinent checks, full suite on explicit conditions
 Date: 2026-10-14. Status: EXECUTOR DELIVERY (configuration in [ci.yml](.github/workflows/ci.yml) and [ci_select.py](scripts/ci_select.py); instructions in [AGENTS.md](AGENTS.md#test-selection-and-ci-scope-14-october-2026); evidence in STATE); the Director's review is separate and PENDING. No algorithm, method, engine or policy change. The Owner environment is not updated.
 
 ## Assignment (authorized by Astra, relayed by the Owner, 14 October 2026; base `4ef4cd1`)

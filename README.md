@@ -152,6 +152,8 @@ v0.6 is v0.5 with ONE named addition ([MP-005](delivery/MP-005-V06-INITIAL-RESPO
 
 ## Candidate v0.7 — trigger/destination compatibility (selectable; engineering review pending)
 
+*14 October 2026:* closure recorded as accepted (Owner's update instruction); installed in the Owner environment with build `3f8d688`. The in-app status label still reads *Engineering review pending* (unchanged code). Economic usefulness is unvalidated.
+
 v0.7 is the approved tdc correction (`57fa14e`) as a product version ([release](delivery/V07-TRIGGER-DESTINATION-RELEASE.md)). It is v0.6 plus one rule: when an armed A scenario's current recovery condition (its trigger plus one tick, direction-transformed) is already at or beyond its destination:
 - the engine publishes that it cannot confirm a continuation toward that destination;
 - the market reading does not count the scenario as directional support until a later revision publishes a compatible condition.

@@ -103,3 +103,14 @@ Run on a disposable local PostgreSQL 18 cluster (scratchpad, port 55432), never 
   - The cockpit row label for WATCH_ONLY ("Solo ipotesi in osservazione") is shared with v0.6. The incompatible scenario is shown with its actual state, armato.
   - The explanation appears in the reason and in the waiting step as well as in the dedicated note, so it is repeated.
 - **The opposing case** (a valid scenario plus an incompatible one in the opposite direction) remains only a white-box supplement.
+
+## Later annotation — closure and installation (14 October 2026)
+
+The text above is the original executor delivery, unchanged.
+- **Closure.** The v0.7 closure (`1930a27`, wording correction `4ef4cd1`) is recorded as **accepted**, as stated in the Owner's update instruction of 14 October 2026.
+- **CI.** The Owner attests a FULL suite green on `3f8d688`; the executor did not query it.
+- **Installation.** v0.7 is installed in the Owner environment with the build `3f8d688cf7a068519bf32fafed27dd387be1a024+image`.
+  - It is selectable next to v0.6; the default stays v0.2.
+  - No session or checkpoint was converted, and nothing was started.
+  - Details: [STATE](../../../STATE.md#owner-environment-updated-to-3f8d688--v07-installed-14-october-2026-executor-record).
+- **Status label.** The in-app label still reads "Engineering review pending"; it is code and was not changed.
