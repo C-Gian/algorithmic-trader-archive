@@ -280,6 +280,16 @@ def build_router(conn: Callable, md_root: Path, art_root: Path) -> APIRouter:
 
     @r.post("", status_code=201)
     def start(body: StartObservation) -> dict[str, Any]:
+        if body.source_kind == SourceKind.PACK:  # an offline-only study's pack is never run through the app
+            from ..corpus import presets as ps
+            from ..corpus.pack import packs_root
+
+            mp = packs_root(md_root) / body.source_id / "manifest.json"
+            if "/" not in body.source_id and "\\" not in body.source_id and mp.is_file():
+                off = ps.offline_only_pack_study(json.loads(mp.read_text(encoding="utf-8")))
+                if off is not None:
+                    raise HTTPException(409, f"the registered study {off.study_id} is offline-only: its pack is "
+                                             "never replayed through the app")
         with conn() as c:
             try:
                 rid = control.create_replay(c, md_root, body.source_kind, body.source_id, body.speed, body.paused)

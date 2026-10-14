@@ -197,6 +197,10 @@ def build_router(conn: Callable, data_root: Path, art_root: Path) -> APIRouter:
             except pk.PackError as exc:
                 raise HTTPException(409, f"pack {body.pack_id} is not usable: {exc}") from None
             p = snapshot["pack"]
+            off = ps.offline_only_pack_study(p)
+            if off is not None:  # first: no run of any type on an offline-only study's pack, before any row
+                raise HTTPException(409, f"the registered study {off.study_id} is offline-only: no evaluation "
+                                         "is started on its pack through the app")
             if p["status"] == "READY_WITH_LIMITATIONS" and not body.acknowledge_limitations:
                 raise HTTPException(409, "this pack is READY WITH LIMITATIONS (source gaps); acknowledge the listed "
                                          "limitations to start an inspection run: " + "; ".join(p["limitations"]))

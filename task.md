@@ -1,4 +1,38 @@
-# Current task — A confirmed direction: preliminary exposure and availability check for one replication on [2025-01-01, 2025-05-01)
+# Current task — A confirmed direction: one offline historical replication on [2025-01-01, 2025-05-01)
+Date: 2026-10-14. Status: REGISTERED and registry constraint implemented before acquisition ([authorization](delivery/A-CONFIRMED-DIRECTION-REPLICATION-AUTHORIZATION.md), [registration](delivery/evidence/A-CONFIRMED-DIRECTION-REPLICATION-2025/REGISTRATION.md)); acquisition, pack, v0.6 processing and tabulation follow. The Director's review is separate.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+1. **Additive registry change.** A dedicated study entry with `study_kind=HISTORICAL_REPLICATION`:
+   - a correct historical note, exposure not completely documented, `certified_uncontaminated=false`;
+   - ordinary preparation allowed on the offline path;
+   - excluded from the Workbench presets;
+   - the backend blocks Workbench preparation and refuses an economic start, even on direct request and with a pack already prepared.
+
+   Study kind and usage authorization stay distinct (`offline_only`). Absent fields leave existing studies and presets unchanged. No test-only override, no bypassed guard.
+2. **Targeted tests.**
+   - historical classification, with the existing study unchanged;
+   - exact window, initialization, tail and protections;
+   - offline preparation admitted;
+   - preset absent from the Workbench;
+   - direct preparation and economic start refused without creating a job;
+   - existing studies admitted as before.
+
+   No full suite.
+3. **Order.**
+   1. Register authorization, design, intervals and engine/tool identities before acquisition.
+   2. Implement, verify and commit.
+   3. Public OKX acquisition and pack outside the Owner stack.
+   4. Verify provenance, coverage, duplicates and conflicts; record input hashes before processing.
+   5. One continuous v0.6 run without evaluator.
+   6. `probe.py` byte-identical (`ffc98330…94a0`).
+   7. Tabulation and a reproducibility check, separate from Sep–Dec.
+4. **Intervals (UTC).** Warmup [2024-11-27, 2025-01-01); population [2025-01-01, 2025-05-01); tail to 2025-05-01T06:05Z. Stop only on an extended architectural conflict.
+5. **Delivery.** Diff, proofs of the backend block, identities, the paired result, unresolved pairs and limits. Exposure register, STATE and task; commit and push.
+6. **Excluded.** No pull/fetch, CI, Owner access or installation, economic evaluation, tuning or protected 2026 period.
+
+
+## Previous task — A confirmed direction: preliminary exposure and availability check for one replication on [2025-01-01, 2025-05-01)
 Date: 2026-10-14. Status: EXECUTOR REPORT ([preliminary report](delivery/A-CONFIRMED-DIRECTION-REPLICATION-PRELIMINARY.md)). Inputs are MISSING. The executor stopped at the concrete need (acquisition, pack, v0.6 processing); no registration prepared and no outcome computed.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026)

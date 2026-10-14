@@ -239,6 +239,18 @@ The Historical Workbench lists one registered study preset, `a-v06-operational-e
 - **Status.** Synthetic evidence only. Preparing the real window needs data that exist only after 2027-07-26T06:05Z and a separate executive assignment.
 - **Details.** `delivery/A-V06-OPERATIONAL-EVALUATION-REFERENCES.md` §8.
 
+**Offline-only historical replication entry (14 October 2026).** `study_presets.json` also registers `A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025`, with preset `a-confirmed-direction-historical-replication-2025-v1`:
+- **Window:** initialization [2024-11-27, 2025-01-01), evaluation [2025-01-01, 2025-05-01), tail to 2025-05-01T06:05Z.
+- **Two optional fields**, absent on the earlier study:
+  - `study_kind = HISTORICAL_REPLICATION`, the classification. Packs carry `study_kind` and a historical note: exposure not completely documented, never certified uncontaminated.
+  - `offline_only = true`, the usage.
+- **Offline-only behaviour:**
+  - The preset is prepared only by the ordinary offline path (`create_pack_job` + corpus worker).
+  - The app never lists it in the Workbench. A direct `POST /api/corpus/presets/{id}/prepare` is refused (409, no job).
+  - Any `POST /api/evaluations` or `POST /api/observations` on its pack is refused (409), even when the pack was prepared offline.
+- **Unchanged:** the earlier study and every preset keep their identity, classification and behaviour.
+- **Authorization:** `delivery/A-CONFIRMED-DIRECTION-REPLICATION-AUTHORIZATION.md`.
+
 ## Synthetic DEMO runs (Replay Lab → Synthetic Demo)
 
 - **Runs**: start (replay speed, optional DEMO fault injection), cancel, status, progress, elapsed time, heartbeat, attempt, failure text and recovery log.

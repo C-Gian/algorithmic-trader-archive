@@ -40,7 +40,8 @@ def _real(monkeypatch):
 
 def test_registered_study_preset_states_the_pinned_design_windows(monkeypatch):
     f, sp = _real(monkeypatch)
-    assert sp.fixture is False and [s.study_id for s in sp.studies] == ["A-V06-OPERATIONAL-EVALUATION"]
+    assert sp.fixture is False and [s.study_id for s in sp.studies] == ["A-V06-OPERATIONAL-EVALUATION",
+                                                                        "A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025"]
     s = sp.studies[0]
     for src in s.sources:  # the authoritative texts it was taken from are unchanged
         assert _sha_lf(ROOT / src.path) == src.sha256_lf, src.path

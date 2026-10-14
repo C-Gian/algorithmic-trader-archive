@@ -24,6 +24,11 @@ development or protected periods, and is classified ``REGISTERED_STUDY_WINDOW``.
 the month builder and every other preset keep the earlier checks. ``ALGOTRADER_STUDY_PRESETS`` may point at another
 file only so that tests can use tiny synthetic study windows.
 
+A study entry may add ``study_kind = HISTORICAL_REPLICATION`` (classified as a historical replication on already exposed
+data, not as a prospective window) and, independently, ``offline_only = true``: such a preset is prepared only by the
+ordinary offline path (``create_pack_job`` + corpus worker); the app API never lists it, refuses its Workbench
+preparation and refuses any evaluation start on its pack. Entries without these fields are unchanged.
+
 No call, outcome or adviser metric is defined or computed here.
 """
 
@@ -119,8 +124,16 @@ class StudySource(_Model):
     sha256_lf: str
 
 
+STUDY_KIND_HISTORICAL = "HISTORICAL_REPLICATION"
+
+
 class StudyPreset(_Model):
-    """One registered study window: its authoritative sources, the run it admits and its exact preset."""
+    """One registered study window: its authoritative sources, the run it admits and its exact preset.
+
+    Two optional, independent fields (absent on every earlier entry, which keeps its behaviour and classification):
+    ``study_kind`` classifies the window (``HISTORICAL_REPLICATION``: a replication on already exposed past data, not a
+    prospective window); ``offline_only`` restricts its use (never offered, prepared or run through the app; only the
+    ordinary offline preparation path)."""
 
     study_id: str
     label: str
@@ -128,6 +141,8 @@ class StudyPreset(_Model):
     run_type: Literal["adviser_evaluation"]
     method: str
     preset: Preset
+    study_kind: Literal["HISTORICAL_REPLICATION"] | None = None
+    offline_only: Literal[True] | None = None
 
 
 class StudyPresetsFile(_Model):
@@ -196,6 +211,19 @@ def registered_study(p: Preset) -> StudyPreset | None:
     """The registered study whose preset equals ``p`` field for field (None for every other preset)."""
     doc = preset_doc(p)
     return next((s for s in load_study_presets().studies if preset_doc(s.preset) == doc), None)
+
+
+def offline_only_study(p: Preset) -> StudyPreset | None:
+    """The registered study of ``p`` when it is restricted to the offline path (None otherwise)."""
+    s = registered_study(p)
+    return s if s is not None and s.offline_only else None
+
+
+def offline_only_pack_study(pack_doc: dict) -> StudyPreset | None:
+    """The offline-only registered study a pack manifest was prepared for (None for every other pack)."""
+    if (pack_doc.get("evidence_classes") or {}).get("label") != STUDY_EVIDENCE_CLASS or "preset" not in pack_doc:
+        return None
+    return offline_only_study(Preset.model_validate(pack_doc["preset"]))
 
 
 def check_windows(f: PresetsFile, p: Preset) -> None:
@@ -301,6 +329,13 @@ def windows_doc(p: Preset) -> dict:
 def classify(f: PresetsFile, p: Preset) -> dict:
     """Development / provisional-protected portions of the evaluation window, reported separately."""
     study = registered_study(p)
+    if study is not None and study.study_kind == STUDY_KIND_HISTORICAL:
+        return {"label": STUDY_EVIDENCE_CLASS, "portions": [], "study_id": study.study_id, "method": study.method,
+                "run_type": study.run_type, "study_kind": STUDY_KIND_HISTORICAL,
+                "note": ("Registered historical replication window on past, already exposed data outside the "
+                         "development and protected periods; its exposure is not completely documented, and data "
+                         "preparation and integrity checks never certify uncontaminated evidence."),
+                "certified_uncontaminated": False}
     if study is not None:  # never labelled DEVELOPMENT by default: it lies outside both periods (check_windows)
         return {"label": STUDY_EVIDENCE_CLASS, "portions": [], "study_id": study.study_id, "method": study.method,
                 "run_type": study.run_type,

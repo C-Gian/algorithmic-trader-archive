@@ -219,7 +219,8 @@ def add_routes(r: APIRouter, conn: Callable, data_root: Path) -> None:
             views += [{**preset_view(c, data_root, f, s.preset),
                        "study": {"study_id": s.study_id, "label": s.label, "run_type": s.run_type, "method": s.method,
                                  "sources": [x.model_dump() for x in s.sources]}}
-                      for s in ps.load_study_presets().studies]
+                      for s in ps.load_study_presets().studies
+                      if not s.offline_only]  # offline-only studies are never offered by the app
         return {"file": {"schema_version": f.schema_version, "version": f.version, "method": f.method,
                          "rules_version": f.rules_version, "register_sha256": ps.MP001_REGISTER_SHA256,
                          "capability_profile": f.capability_profile, "boundaries": f.boundaries,
@@ -238,6 +239,10 @@ def add_routes(r: APIRouter, conn: Callable, data_root: Path) -> None:
             return preset_view(c, data_root, f, p)
 
     def prepare_preset(f: ps.PresetsFile, p: ps.Preset) -> dict[str, Any]:
+        study = ps.offline_only_study(p)
+        if study is not None:  # refused before any job row is created, whatever the request path
+            raise HTTPException(409, f"the registered study {study.study_id} is offline-only: it is prepared only by "
+                                     "the offline path, never through the app")
         with conn() as c:
             try:
                 job_id = pj.create_pack_job(c, f, p)

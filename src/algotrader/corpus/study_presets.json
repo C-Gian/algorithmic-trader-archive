@@ -27,6 +27,45 @@
         "automatic_prepare": false,
         "initialization": "REGISTERED_EXPLICIT_INITIALIZATION"
       }
+    },
+    {
+      "study_id": "A-CONFIRMED-DIRECTION-HISTORICAL-REPLICATION-2025",
+      "label": "A confirmed direction — historical replication on 2025-01-01 to 2025-05-01 (offline only)",
+      "sources": [
+        {
+          "path": "delivery/A-CONFIRMED-DIRECTION-REPLICATION-AUTHORIZATION.md",
+          "sha256_lf": "5bba9951752d8ea911e44a2c60f5fabedd2816ead7fae83aa6472ed1525cd66c"
+        },
+        {
+          "path": "delivery/A-CONFIRMED-DIRECTION-REFERENCE-PROPOSAL.md",
+          "sha256_lf": "3e2eacb1d69b17fbb11d04e82657ebf30d6dbde2473d6860d0f9d4d6838931ba"
+        }
+      ],
+      "run_type": "adviser_evaluation",
+      "method": "v0.6",
+      "preset": {
+        "preset_id": "a-confirmed-direction-historical-replication-2025-v1",
+        "label": "A confirmed direction — historical replication 2025-01-01 to 2025-05-01 (35-day initialization, offline only)",
+        "default": false,
+        "warmup": {
+          "start": "2024-11-27T00:00:00Z",
+          "end": "2025-01-01T00:00:00Z"
+        },
+        "evaluation": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2025-05-01T00:00:00Z"
+        },
+        "tail": {
+          "start": "2025-05-01T00:00:00Z",
+          "end": "2025-05-01T06:05:00Z"
+        },
+        "evidence_class": "REGISTERED_STUDY_WINDOW",
+        "adviser_implemented": false,
+        "automatic_prepare": false,
+        "initialization": "REGISTERED_EXPLICIT_INITIALIZATION"
+      },
+      "study_kind": "HISTORICAL_REPLICATION",
+      "offline_only": true
     }
   ],
   "fixture": false
