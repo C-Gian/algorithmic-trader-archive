@@ -392,6 +392,12 @@ def _chain(entries: list[dict], mk: Market, d: int, data_end: datetime, out: dic
     for s in segs:
         end = dt(s["ended_at"]) if s["ended_at"] else None
         s["audit"] = audit_domain(s, mk, d, end, data_end, first_arm, gap=s["kind"] == "OBSERVATION_GAP")
+        if s["end_category"] == "CONFIRMED_ON_THIS_FORMULATION":
+            # amendment 1: the recorded confirming minute is not an audit note; it must be the first qualifying minute
+            own = f"QUALIFYING_MINUTE_IN_ENDING_DISPATCH:{s['end_detail']}"
+            s["confirming_minute_first_qualifying"] = own in s["audit"] and not any(
+                a.startswith("UNRECORDED_QUALIFYING_MINUTE") for a in s["audit"])
+            s["audit"] = [a for a in s["audit"] if a != own]
     if conf is not None:
         end = dt(out["terminal"]["at"]) if out["terminal"] else data_end
         post = []
@@ -541,6 +547,9 @@ def checks(obs: list[dict], journal: list[dict]) -> dict:
     c["epochs 1..n in publication order"] = ok_epoch
     c["at most one confirmation per scenario, on its last formulation, linked to its own epoch"] = ok_conf
     c["no tail-window birth"] = not any(o["window"] == "tail" for o in obs)
+    c["each confirming minute is the first qualifying minute of its formulation's domain (amendment 1)"] = all(
+        s.get("confirming_minute_first_qualifying") for o in obs if not o["linkage"] for s in o["segments"]
+        if s["end_category"] == "CONFIRMED_ON_THIS_FORMULATION")
     return c
 
 
@@ -571,9 +580,9 @@ def run(journal: list[dict], mk: Market, data_end: datetime) -> dict:
     for o in obs:
         for s in o["segments"]:
             for a in s["audit"]:
-                audits[f"{s['kind']}:{a.split(':')[0]}"] += 1
+                audits[f"{o['window']}:{s['kind']}:{s['end_category']}:{a.split(':')[0]}"] += 1
         for a in (o["confirmed"] or {}).get("audit", []):
-            audits[f"CONFIRMED:{a.split(':')[0]}"] += 1
+            audits[f"{o['window']}:CONFIRMED:{a.split(':')[0]}"] += 1
     res = {"tables": tabs, "reconciliation": rec, "checks": chk, "bar_audits": dict(sorted(audits.items())),
            "illustrations": illustrations(obs),
            "all_checks_pass": all(chk.values()) and all(all(v.values()) for v in rec.values())}

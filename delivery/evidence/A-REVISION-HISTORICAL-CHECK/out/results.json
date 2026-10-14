@@ -1,0 +1,316 @@
+{
+ "all_checks_pass": true,
+ "bar_audits": {
+  "evaluation:FORMULATION:STRUCTURAL_OR_CONTEXT_TERMINAL:QUALIFYING_MINUTE_IN_ENDING_DISPATCH": 1
+ },
+ "checks": {
+  "at most one confirmation per scenario, on its last formulation, linked to its own epoch": true,
+  "each confirming minute is the first qualifying minute of its formulation's domain (amendment 1)": true,
+  "epochs 1..n in publication order": true,
+  "every A scenario appears once": true,
+  "journal sequence strictly increasing and record ids unique": true,
+  "no tail-window birth": true,
+  "one BIRTH per A scenario": true,
+  "segments ordered by journal sequence; domains non-overlapping": true
+ },
+ "illustrations": {
+  "anchor loss -> WATCH gap -> REARM": "AL-2025-09-03T14:30:00+00:00-8cef7f98ee10",
+  "derived-incompatible formulation": "AL-2025-09-01T18:45:00+00:00-52af2866da89",
+  "destination before confirmation": "AL-2025-09-01T18:45:00+00:00-52af2866da89",
+  "revised or rearmed formulation never confirmed": "AL-2025-09-05T07:45:00+00:00-188e76004360",
+  "revision while armed (REVISE)": "AL-2025-09-05T02:15:00+00:00-25173c8596ba"
+ },
+ "reconciliation": {
+  "evaluation": {
+   "armed = never confirmed + confirmed (original + revised + rearmed) + not reconstructable": true,
+   "born = never armed + armed": true,
+   "category details sum to categories": true,
+   "confirmed terminal cross-tab = confirmed": true,
+   "first-formulation fates = reconstructable armed scenarios": true,
+   "formulation ends = formulations": true
+  },
+  "warmup": {
+   "armed = never confirmed + confirmed (original + revised + rearmed) + not reconstructable": true,
+   "born = never armed + armed": true,
+   "category details sum to categories": true,
+   "confirmed terminal cross-tab = confirmed": true,
+   "first-formulation fates = reconstructable armed scenarios": true,
+   "formulation ends = formulations": true
+  }
+ },
+ "tables": {
+  "evaluation": {
+   "calls": [
+    "call-AL-2025-10-26T23:34:00+00:00-3b71a8187c11"
+   ],
+   "categories": {
+    "ARMED_NEVER_CONFIRMED": 72,
+    "CONFIRMED_ON_ORIGINAL_FORMULATION": 28,
+    "CONFIRMED_ON_REARMED_FORMULATION": 54,
+    "CONFIRMED_ON_REVISED_FORMULATION": 7,
+    "NEVER_ARMED": 198
+   },
+   "category_detail": {
+    "ARMED_NEVER_CONFIRMED": {
+     "DESTINATION_BEFORE_CONFIRMATION": 21,
+     "DESTINATION_IN_OBSERVATION_GAP": 3,
+     "ORIGINAL_SETUP_EXPIRY": 3,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 45
+    },
+    "CONFIRMED_ON_ORIGINAL_FORMULATION": {
+     "DESTINATION": 17,
+     "HARD_DEADLINE": 1,
+     "STALLED": 1,
+     "V_CONTACT": 9
+    },
+    "CONFIRMED_ON_REARMED_FORMULATION": {
+     "DESTINATION": 34,
+     "HARD_DEADLINE": 3,
+     "STALLED": 2,
+     "V_CONTACT": 15
+    },
+    "CONFIRMED_ON_REVISED_FORMULATION": {
+     "DESTINATION": 3,
+     "V_CONTACT": 4
+    },
+    "NEVER_ARMED": {
+     "CONTEXT_WITHDRAWAL": 9,
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+     "STRUCTURAL_WITHDRAWAL:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1
+    }
+   },
+   "children_final_state__separate_from_scenarios": {
+    "ISSUED:<id>": 1,
+    "TERMINAL:AT_OPPOSING_AREA": 7,
+    "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 4,
+    "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 3,
+    "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 9,
+    "TERMINAL:NO_ECONOMIC_RETURN_REGION": 22,
+    "TERMINAL:ORIGINAL_SETUP_DEADLINE": 8,
+    "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 18,
+    "TERMINAL:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 39,
+    "TERMINAL:SCENARIO_TERMINAL:EXPIRED:ORIGINAL_SETUP_DEADLINE": 3,
+    "TERMINAL:SCENARIO_TERMINAL:EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 188,
+    "TERMINAL:SCENARIO_TERMINAL:INVALIDATED:V_CONTACT": 2,
+    "TERMINAL:SCENARIO_TERMINAL:WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 13,
+    "TERMINAL:SCENARIO_TERMINAL:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 42
+   },
+   "confirmed_terminal_crosstab": {
+    "original": {
+     "DESTINATION": 17,
+     "HARD_DEADLINE": 1,
+     "STALLED": 1,
+     "V_CONTACT": 9
+    },
+    "revised_or_rearmed": {
+     "DESTINATION": 37,
+     "HARD_DEADLINE": 3,
+     "STALLED": 2,
+     "V_CONTACT": 19
+    }
+   },
+   "derived_trigger_destination_by_formulation_end": {
+    "ARM:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 91,
+     "CONFIRMED_ON_THIS_FORMULATION": 28,
+     "DESTINATION_BEFORE_CONFIRMATION": 13,
+     "ORIGINAL_SETUP_EXPIRY": 1,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 7
+    },
+    "ARM:INCOMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 12,
+     "DESTINATION_BEFORE_CONFIRMATION": 6,
+     "SUPERSEDED_BY_REVISION": 2
+    },
+    "REARM:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 66,
+     "CONFIRMED_ON_THIS_FORMULATION": 54,
+     "DESTINATION_BEFORE_CONFIRMATION": 2,
+     "ORIGINAL_SETUP_EXPIRY": 2,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 9,
+     "SUPERSEDED_BY_REVISION": 10
+    },
+    "REVISE:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 10,
+     "CONFIRMED_ON_THIS_FORMULATION": 7,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 2,
+     "SUPERSEDED_BY_REVISION": 3
+    }
+   },
+   "first_formulation_fate": {
+    "first formulation ANCHOR_LOST_CERTIFIED": 46,
+    "first formulation ANCHOR_LOST_CERTIFIED -> later confirmation on another formulation": 57,
+    "first formulation CONFIRMED_ON_THIS_FORMULATION": 28,
+    "first formulation DESTINATION_BEFORE_CONFIRMATION": 19,
+    "first formulation ORIGINAL_SETUP_EXPIRY": 1,
+    "first formulation STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+    "first formulation SUPERSEDED_BY_REVISION": 5,
+    "first formulation SUPERSEDED_BY_REVISION -> later confirmation on another formulation": 4
+   },
+   "formulation_ends__publications_not_independent_scenarios": {
+    "ARM": {
+     "ANCHOR_LOST_CERTIFIED": 103,
+     "CONFIRMED_ON_THIS_FORMULATION": 28,
+     "DESTINATION_BEFORE_CONFIRMATION": 19,
+     "ORIGINAL_SETUP_EXPIRY": 1,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 9
+    },
+    "REARM": {
+     "ANCHOR_LOST_CERTIFIED": 66,
+     "CONFIRMED_ON_THIS_FORMULATION": 54,
+     "DESTINATION_BEFORE_CONFIRMATION": 2,
+     "ORIGINAL_SETUP_EXPIRY": 2,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 9,
+     "SUPERSEDED_BY_REVISION": 10
+    },
+    "REVISE": {
+     "ANCHOR_LOST_CERTIFIED": 10,
+     "CONFIRMED_ON_THIS_FORMULATION": 7,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 2,
+     "SUPERSEDED_BY_REVISION": 3
+    }
+   },
+   "formulations": 326,
+   "non_original_confirmation_paths": {
+    "REARM": {
+     "with an anchor loss": 54
+    },
+    "REVISE": {
+     "with an anchor loss": 7
+    }
+   },
+   "observation_gap_ends__publications_not_independent_scenarios": {
+    "DESTINATION_IN_OBSERVATION_GAP": 3,
+    "REARM": 143,
+    "STRUCTURAL_OR_CONTEXT_TERMINAL": 33
+   },
+   "observation_gaps": 179,
+   "scenarios": 359
+  },
+  "warmup": {
+   "calls": [],
+   "categories": {
+    "ARMED_NEVER_CONFIRMED": 21,
+    "CONFIRMED_ON_ORIGINAL_FORMULATION": 5,
+    "CONFIRMED_ON_REARMED_FORMULATION": 16,
+    "CONFIRMED_ON_REVISED_FORMULATION": 3,
+    "NEVER_ARMED": 61
+   },
+   "category_detail": {
+    "ARMED_NEVER_CONFIRMED": {
+     "DESTINATION_BEFORE_CONFIRMATION": 5,
+     "DESTINATION_IN_OBSERVATION_GAP": 1,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 15
+    },
+    "CONFIRMED_ON_ORIGINAL_FORMULATION": {
+     "DESTINATION": 4,
+     "HARD_DEADLINE": 1
+    },
+    "CONFIRMED_ON_REARMED_FORMULATION": {
+     "DESTINATION": 5,
+     "V_CONTACT": 11
+    },
+    "CONFIRMED_ON_REVISED_FORMULATION": {
+     "V_CONTACT": 3
+    },
+    "NEVER_ARMED": {
+     "CONTEXT_WITHDRAWAL": 1,
+     "EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 60
+    }
+   },
+   "children_final_state__separate_from_scenarios": {
+    "TERMINAL:AT_OPPOSING_AREA": 2,
+    "TERMINAL:CONTEXT_FORBIDDEN_PREISSUE": 3,
+    "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE:CORRIDOR": 1,
+    "TERMINAL:INITIAL_RESPONSE_INCOMPATIBLE:HISTORICAL_ECONOMICS": 3,
+    "TERMINAL:NO_ECONOMIC_RETURN_REGION": 9,
+    "TERMINAL:ORIGINAL_SETUP_DEADLINE": 1,
+    "TERMINAL:PRE_ENTRY_TARGET_CONTACT": 4,
+    "TERMINAL:SCENARIO_TERMINAL:DESTINATION_REACHED:DESTINATION_CONTACT": 7,
+    "TERMINAL:SCENARIO_TERMINAL:EXPIRED:SPENT_HIGH_BEYOND_B_BEFORE_REACTION": 60,
+    "TERMINAL:SCENARIO_TERMINAL:WITHDRAWN:CLOSE_AT_OR_BEYOND_A_PLUS_ZONE": 1,
+    "TERMINAL:SCENARIO_TERMINAL:WITHDRAWN:CONTEXT_OR_ADVERSE_EXPANSION": 15
+   },
+   "confirmed_terminal_crosstab": {
+    "original": {
+     "DESTINATION": 4,
+     "HARD_DEADLINE": 1
+    },
+    "revised_or_rearmed": {
+     "DESTINATION": 5,
+     "V_CONTACT": 14
+    }
+   },
+   "derived_trigger_destination_by_formulation_end": {
+    "ARM:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 21,
+     "CONFIRMED_ON_THIS_FORMULATION": 5,
+     "DESTINATION_BEFORE_CONFIRMATION": 4,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 6
+    },
+    "ARM:INCOMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 7,
+     "DESTINATION_BEFORE_CONFIRMATION": 1
+    },
+    "REARM:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 17,
+     "CONFIRMED_ON_THIS_FORMULATION": 16,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 3
+    },
+    "REVISE:COMPATIBLE": {
+     "ANCHOR_LOST_CERTIFIED": 6,
+     "CONFIRMED_ON_THIS_FORMULATION": 3
+    }
+   },
+   "first_formulation_fate": {
+    "first formulation ANCHOR_LOST_CERTIFIED": 10,
+    "first formulation ANCHOR_LOST_CERTIFIED -> later confirmation on another formulation": 18,
+    "first formulation CONFIRMED_ON_THIS_FORMULATION": 5,
+    "first formulation DESTINATION_BEFORE_CONFIRMATION": 5,
+    "first formulation STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+    "first formulation SUPERSEDED_BY_REVISION": 5,
+    "first formulation SUPERSEDED_BY_REVISION -> later confirmation on another formulation": 1
+   },
+   "formulation_ends__publications_not_independent_scenarios": {
+    "ARM": {
+     "ANCHOR_LOST_CERTIFIED": 28,
+     "CONFIRMED_ON_THIS_FORMULATION": 5,
+     "DESTINATION_BEFORE_CONFIRMATION": 5,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 6
+    },
+    "REARM": {
+     "ANCHOR_LOST_CERTIFIED": 17,
+     "CONFIRMED_ON_THIS_FORMULATION": 16,
+     "STRUCTURAL_OR_CONTEXT_TERMINAL": 1,
+     "SUPERSEDED_BY_REVISION": 3
+    },
+    "REVISE": {
+     "ANCHOR_LOST_CERTIFIED": 6,
+     "CONFIRMED_ON_THIS_FORMULATION": 3
+    }
+   },
+   "formulations": 91,
+   "non_original_confirmation_paths": {
+    "REARM": {
+     "with an anchor loss": 16
+    },
+    "REVISE": {
+     "with an anchor loss": 2,
+     "without anchor loss": 1
+    }
+   },
+   "observation_gap_ends__publications_not_independent_scenarios": {
+    "DESTINATION_IN_OBSERVATION_GAP": 1,
+    "REARM": 37,
+    "STRUCTURAL_OR_CONTEXT_TERMINAL": 13
+   },
+   "observation_gaps": 51,
+   "scenarios": 106
+  }
+ }
+}

@@ -188,3 +188,14 @@ Plus the whole tabulation path on a two-scenario synthetic journal.
 **Amendments.** Any correction after this registration is an explicit amendment that states which results were already visible.
 
 No product, engine, v0.6, v0.7 or study change.
+
+## Later annotation — execution and amendment (14 October 2026, after tabulation)
+
+The text above is the registration as committed at `bd6f1fa`, unchanged.
+- **Run.** The tabulation ran once with the registered script `9bdf912d…`: all checks and reconciliations passed.
+- **Amendment 1, made with every result visible.** The bar-audit label of the recorded confirming minute was corrected. The confirming minute is no longer an audit note, and a check now verifies that it is the first qualifying minute. Audit notes are broken down by segment end.
+- **Effect.** No classification or count changed.
+- **Reproducibility.** The amended script `fed62bfd…` was run twice, with identical hashes.
+- **Supplementary.** `describe.py` (level changes, B−T distances, epochs, gap lengths) is **not registered**. It was computed after the tabulation from `out/formulations.csv` only.
+
+Details: [SUMMARY.md](SUMMARY.md) §§7–8.

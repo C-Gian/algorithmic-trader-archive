@@ -1,5 +1,5 @@
 # Current task — A revisions: one descriptive historical tabulation (v0.6, Sep–Dec 2025)
-Date: 2026-10-14. Status: REGISTERED before tabulation ([registration](delivery/evidence/A-REVISION-HISTORICAL-CHECK/REGISTRATION.md)); tabulation not yet run. Earlier results of the related studies are already known. v0.6 and HDP-001 frozen; future studies INACTIVE.
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-REVISION-HISTORICAL-CHECK/SUMMARY.md)); registered before tabulation at `bd6f1fa` ([registration](delivery/evidence/A-REVISION-HISTORICAL-CHECK/REGISTRATION.md)); one amendment made with results visible; the Director's review is PENDING. Earlier results of the related studies are already known. v0.6 and HDP-001 frozen; future studies INACTIVE.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-REVISION-HISTORICAL-CHECK-PROPOSAL.md` at `91578fc`, the authorization prevails where more precise)
 

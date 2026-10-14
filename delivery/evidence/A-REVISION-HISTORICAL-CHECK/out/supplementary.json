@@ -1,0 +1,170 @@
+{
+ "evaluation": {
+  "B_q - T_q at publication, q units (<= 0: derived incompatible)": {
+   "ARM": {
+    "max": 818.6,
+    "median": 86.9,
+    "min": -42.3,
+    "n": 161
+   },
+   "REARM": {
+    "max": 1387.8,
+    "median": 285.4,
+    "min": 41.8,
+    "n": 143
+   },
+   "REVISE": {
+    "max": 693.3,
+    "median": 266.85,
+    "min": 50.4,
+    "n": 22
+   }
+  },
+  "confirmed epoch (1 = first ARM)": {
+   "1": 28,
+   "2": 38,
+   "3": 15,
+   "4": 6,
+   "5": 2
+  },
+  "destination B identical across every formulation of each scenario": true,
+  "formulations per armed never-confirmed scenario": {
+   "1": 32,
+   "2": 16,
+   "3": 19,
+   "4": 3,
+   "5": 2
+  },
+  "level shift from the previous formulation, q units (deeper reaction < 0)": {
+   "REARM": {
+    "K": {
+     "max": 185.5,
+     "median": -137.1,
+     "min": -943.2,
+     "n": 143
+    },
+    "R": {
+     "max": -12.3,
+     "median": -111.1,
+     "min": -778.6,
+     "n": 143
+    },
+    "V": {
+     "max": -12.3,
+     "median": -111.1,
+     "min": -778.6,
+     "n": 143
+    }
+   },
+   "REVISE": {
+    "K": {
+     "max": 16.5,
+     "median": -86.35,
+     "min": -394.2,
+     "n": 22
+    },
+    "R": {
+     "max": -0.8,
+     "median": -12.5,
+     "min": -60.5,
+     "n": 22
+    },
+    "V": {
+     "max": -0.8,
+     "median": -12.5,
+     "min": -60.5,
+     "n": 22
+    }
+   }
+  },
+  "observation gap length, minutes (publication of the loss to its end)": {
+   "max": 40.0,
+   "median": 11.0,
+   "min": 0.0,
+   "n": 179
+  }
+ },
+ "warmup": {
+  "B_q - T_q at publication, q units (<= 0: derived incompatible)": {
+   "ARM": {
+    "max": 1716.1,
+    "median": 37.2,
+    "min": -27.8,
+    "n": 45
+   },
+   "REARM": {
+    "max": 2137.3,
+    "median": 237.5,
+    "min": 22.4,
+    "n": 37
+   },
+   "REVISE": {
+    "max": 2128.1,
+    "median": 187.0,
+    "min": 37.0,
+    "n": 9
+   }
+  },
+  "confirmed epoch (1 = first ARM)": {
+   "1": 5,
+   "2": 13,
+   "3": 4,
+   "4": 1,
+   "5": 1
+  },
+  "destination B identical across every formulation of each scenario": true,
+  "formulations per armed never-confirmed scenario": {
+   "1": 9,
+   "2": 6,
+   "3": 6
+  },
+  "level shift from the previous formulation, q units (deeper reaction < 0)": {
+   "REARM": {
+    "K": {
+     "max": 33.0,
+     "median": -121.1,
+     "min": -520.0,
+     "n": 37
+    },
+    "R": {
+     "max": -16.6,
+     "median": -80.2,
+     "min": -655.1,
+     "n": 37
+    },
+    "V": {
+     "max": -16.6,
+     "median": -80.2,
+     "min": -655.1,
+     "n": 37
+    }
+   },
+   "REVISE": {
+    "K": {
+     "max": 9.2,
+     "median": -39.0,
+     "min": -140.5,
+     "n": 9
+    },
+    "R": {
+     "max": -0.0,
+     "median": -5.5,
+     "min": -27.4,
+     "n": 9
+    },
+    "V": {
+     "max": -0.0,
+     "median": -5.5,
+     "min": -27.4,
+     "n": 9
+    }
+   }
+  },
+  "observation gap length, minutes (publication of the loss to its end)": {
+   "max": 44.0,
+   "median": 12.0,
+   "min": 0.0,
+   "n": 51
+  }
+ }
+}
