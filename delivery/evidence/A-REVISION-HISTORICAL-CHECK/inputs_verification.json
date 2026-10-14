@@ -1,0 +1,32 @@
+{
+ "checks": {
+  "journal sha256 = committed manifest": true,
+  "trade bars sha256 = committed manifest": true,
+  "method v0.6, frozen rules/register, no evaluator, finish 2026-01-01T06:05Z": true,
+  "journal complete: entries, kinds and last chain = manifest": true,
+  "every journal record carries the frozen v0.6 identity": true,
+  "trade bars complete: 226,445 observations, 0 non-observations (= manifest)": true
+ },
+ "all_pass": true,
+ "journal_entries": 34507,
+ "journal_counts": {
+  "market_view": 8193,
+  "observation": 8014,
+  "landmark": 15231,
+  "scenario": 2003,
+  "entry_attempt": 1002,
+  "call": 1,
+  "material_change": 11,
+  "call_revision": 52
+ },
+ "journal_last_chain": "83c04c2f5a1c2c2ceec43570986a3542f93070174841868b6183f53581eb551d",
+ "trade_bars": 226445,
+ "trade_non_observations": 0,
+ "trade_bars_first_start": "2025-07-28T00:00:00+00:00",
+ "trade_bars_last_start": "2026-01-01T06:04:00+00:00",
+ "sha256": {
+  "journal.jsonl.gz": "ea3ce99757af41c96fa154f745e06d29c8a1906508089c7e43a051b2899af0f0",
+  "trade_bars.csv.gz": "06a1102470dd139a1a4a079220725aabb8fe890cc321df1c517ca8941c745abe"
+ },
+ "source": "C:\\Users\\Gian\\AppData\\Local\\Temp\\claude\\C--Projects-algorithmic-trader\\0d87e1fc-8ffd-4ce5-9229-8db539690c86\\scratchpad\\run"
+}

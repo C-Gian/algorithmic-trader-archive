@@ -1,4 +1,55 @@
-# Current task — Controlled update of the Owner environment to `3f8d688` (v0.7)
+# Current task — A revisions: one descriptive historical tabulation (v0.6, Sep–Dec 2025)
+Date: 2026-10-14. Status: REGISTERED before tabulation ([registration](delivery/evidence/A-REVISION-HISTORICAL-CHECK/REGISTRATION.md)); tabulation not yet run. Earlier results of the related studies are already known. v0.6 and HDP-001 frozen; future studies INACTIVE.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-REVISION-HISTORICAL-CHECK-PROPOSAL.md` at `91578fc`, the authorization prevails where more precise)
+
+**Question.** How does the published thesis evolve through the revisions, and which formulation is actually confirmed?
+
+1. **Inputs.**
+   - Only the v0.6 journal and bars already kept locally, outside the Owner stack. Re-verify identity and hashes.
+   - No replay, extraction or acquisition.
+   - Missing artifacts or fields are reported as a limit, never rebuilt by new executions.
+2. **Before the calculation.**
+   - Register the classifier, inputs, hashes and conventions.
+   - Verify them with a few discriminating synthetic cases:
+     - REVISE before confirmation;
+     - ANCHOR_LOST → WATCH → REARM;
+     - B contact before confirmation;
+     - publication and contact in the same dispatch;
+     - an ambiguous interval or insufficient linkage;
+     - LONG/SHORT and incompatibility including the tick.
+   - No full product suites.
+   - Commit the registration before tabulating, and declare that the earlier study's results are already known.
+3. **Population.**
+   - Every A scenario born in [2025-09-01, 2026-01-01), including those never armed or never confirmed.
+   - Warmup separate.
+   - One summary row per scenario, linked to its full sequence of formulations.
+4. **Reconstruction.**
+   - Keep every formulation with its own levels and times; distinguish the observed moment, the publication and the cursor.
+   - Separate REVISE, anchor loss, WATCH and REARM.
+   - A new condition counts only from its publication: no retroactive confirmation, no reuse of the source bar as a future event.
+   - Trigger/destination incompatibility is a DERIVED classification with the later formalized criterion, not a v0.6 verdict.
+   - A case that cannot be reconstructed gets an explicit category with its reason and stays in the accounting.
+5. **Outcomes.** Distinguish:
+   - never armed;
+   - armed but never confirmed;
+   - first confirmation on the original anchor;
+   - first confirmation on a revised or rearmed anchor;
+   - destination before confirmation;
+   - the follow-up of the formulation actually confirmed, and the scenario's actual terminal.
+
+   Scenario, child and call stay distinct. Results after a revision are never attributed to the first promise. Group percentages are not compared as evidence of an advantage of revisions.
+6. **Delivery.**
+   - A reconciled table, consultable sequences, and a few illustrations chosen by type, not by favourable outcome.
+   - Conclusion: what the first-formulation study represented and what it left out.
+   - Verify uniqueness, ordering, time domains, the link of each confirmation to its anchor, and the counts.
+   - Reproducibility may be checked on the same artifacts without rerunning the engine.
+   - Corrections after registration are explicit amendments that state which results were already visible.
+   - Update the exposure register, STATE and task. Commit and push. No pull/fetch, no CI query.
+7. **Excluded.** Product changes, economic evaluation, v0.7 evaluation and opening other studies.
+
+
+## Previous task — Controlled update of the Owner environment to `3f8d688` (v0.7)
 Date: 2026-10-14. Status: EXECUTOR RECORD ([STATE](STATE.md#owner-environment-updated-to-3f8d688--v07-installed-14-october-2026-executor-record)). Build served: `3f8d688cf7a068519bf32fafed27dd387be1a024+image`. Nothing was started.
 
 ## Assignment (relayed by the Owner, 14 October 2026)
