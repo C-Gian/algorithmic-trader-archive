@@ -1,4 +1,27 @@
-# Current task — A confirmed direction: fixed-geometry barrier reference (v0.6, Sep–Dec 2025)
+# Current task — A confirmed direction: preliminary exposure and availability check for one replication on [2025-01-01, 2025-05-01)
+Date: 2026-10-14. Status: EXECUTOR REPORT ([preliminary report](delivery/A-CONFIRMED-DIRECTION-REPLICATION-PRELIMINARY.md)). Inputs are MISSING. The executor stopped at the concrete need (acquisition, pack, v0.6 processing); no registration prepared and no outcome computed.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+One replication of the A directional comparison on scenarios born in [2025-01-01, 2025-05-01). This preliminary step covers only documented exposures and artifact availability.
+
+1. **Before consulting prices or results.**
+   - Read the exposure register and the relevant documents. Distinguish attested exposure, attested absence and insufficient information; never call the period "not examined" because a register row is missing.
+   - Search the authorized local environment for a pack with sufficient initialization and tail, already processed v0.6 journals and admitted bars, and manifests and identities. Read only inventories, manifests and metadata.
+   - No Owner stack or DB access; no price or outcome.
+   - Derive the exact initialization and tail boundaries from the existing rules; do not change Astra's window.
+2. **Comparison to keep.** Frozen v0.6. `probe.py` as registered at `6f3ac03` and delivered at `cd579d5`, unchanged: first confirmation per scenario with revised anchors included, the price available at the cutoff, mirrored barriers, four hours, ambiguity and denominators. Never adapted to data availability or earlier results.
+3. **Preliminary delivery.** A short report:
+   - documented exposures and gaps;
+   - inputs present, with identity and coverage;
+   - the exact intervals required;
+   - only the missing need: acquisition, Owner copy or v0.6 processing.
+
+   If everything is available, prepare the registration without computing outcomes. If something is missing, stop at the concrete need: no acquisition, extraction or engine run, and no substitute period.
+4. **Excluded.** Product suites, CI queries, pull/fetch and methodological changes. January–August 2026 protected; future studies INACTIVE.
+
+
+## Previous task — A confirmed direction: fixed-geometry barrier reference (v0.6, Sep–Dec 2025)
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/SUMMARY.md)); registered before tabulation at `6f3ac03` ([registration](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/REGISTRATION.md)); no amendment; the Director's review is separate and PENDING. Earlier results are known and declared. v0.6 and the studies are frozen.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-CONFIRMED-DIRECTION-REFERENCE-PROPOSAL.md` at `b1237f1`, the precisions below prevail)
