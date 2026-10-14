@@ -1,4 +1,39 @@
-# Current task — Price–volume semantics at a range exit: documentary feasibility
+# Current task — Complete professional breakout setup: translatability check
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([document](delivery/BREAKOUT-SETUP-TRANSLATABILITY.md)); decisive step missing, no candidate. The Director's review is separate.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026)
+
+**Question.** Does the complete Bonde checklist, with the Kullamägi passages, let one recognize a situation, form an expectation, and distinguish entry, wait and renunciation with the information available at that moment?
+
+**Sources.** Only those already identified: Kullamägi in the LIB-005 original PDF, and the two Bonde posts.
+- Verify passages directly; no new bibliographic search.
+- If an original is inaccessible, say so, and identify the provenance of any stored copy used.
+
+**Reconstruct one complete chain:**
+1. context and formation before the break;
+2. joint price, volume and other conditions;
+3. required elements vs qualifiers vs preferences vs discretion;
+4. the expectation before the sequel;
+5. entry, wait and renunciation;
+6. invalidation, destination, exit and time validity, only where documented.
+
+**For each step**, separate source rule, our interpretation, indispensable added choice and unspecified information.
+- Do not merge Bonde and Kullamägi automatically.
+- Do not invent scores, weights or compensation.
+
+**Check:**
+- **Causal order:** daily-close properties cannot justify an earlier intraday entry.
+- **Original market, scale and universe:** state what a transfer to BTC intraday would require, without implicit substitutions.
+
+**Examples.** A few manual joint examples: checklist satisfied, one item missing, elements in contrast. Use only information known at the decision.
+
+**One decision:**
+- either one candidate separate from v0.7, with every indispensable choice explicit;
+- or the precise decisive block, and stop, naming the original material or author clarification needed. Do not fill a decisive gap with our formulas.
+
+**Not authorized:** implementation, acquisition, historical processing, backtests, new tabulations or the product suite. v0.7 and the frozen studies are unchanged. The price–volume conclusions are preserved.
+
+## Previous task — Price–volume semantics at a range exit: documentary feasibility
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([document](delivery/PRICE-VOLUME-SEMANTIC-FEASIBILITY.md)). The Director's review is separate.
 
 **Review completion (Director documentary review, 14 October 2026).** Four corrections are recorded in the document's §7, with the original delivery preserved:
