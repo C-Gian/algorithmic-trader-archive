@@ -1,4 +1,46 @@
-# Current task — A revisions: one descriptive historical tabulation (v0.6, Sep–Dec 2025)
+# Current task — A confirmed direction: fixed-geometry barrier reference (v0.6, Sep–Dec 2025)
+Date: 2026-10-14. Status: REGISTERED before tabulation ([registration](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/REGISTRATION.md)); tabulation not yet run. Earlier results are known and declared. v0.6 and the studies are frozen.
+
+## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-CONFIRMED-DIRECTION-REFERENCE-PROPOSAL.md` at `b1237f1`, the precisions below prevail)
+
+1. **Population and inputs.**
+   - Every first A confirmation of scenarios born in [2025-09-01, 2026-01-01): one per scenario, original and later anchors included. Warmup separate.
+   - Only the v0.6 journal and bars already outside the Owner stack. Verify identity, hashes and coverage.
+   - If insufficient, report the limit: no new replay, no Owner access.
+2. **Register before the calculation.**
+   - Freeze the script, inputs, cutoff, geometry, temporal availability, classification and denominators.
+   - Declare the earlier outcomes already known.
+   - Commit before tabulating.
+3. **Cutoff and geometry.**
+   - Cutoff = the publication of the first confirmation.
+   - P = the causally available price identified in the records, checked against its bar.
+   - d = the A direction; a = d(B−P); b = d(P−V), both strictly positive. Unusable geometries stay accounted, with no instantaneous success or level adjustment.
+   - A barriers: favourable P+d·a, adverse P−d·b. Opposite: favourable P−d·a, adverse P+d·b.
+   - Decimal, no new tolerance.
+4. **Time and outcomes.**
+   - A fixed 4h horizon from the publication, even if the scenario ended earlier; never called "scenario success".
+   - Record the first future observable interval, the treatment of bars straddling the cutoff, bar availability and the horizon edge.
+   - No contact before or straddling the publication becomes a certain outcome; ambiguity is kept.
+   - Per direction:
+     - favourable first: Y=1;
+     - adverse first: Y=0;
+     - full horizon without favourable: Y=0, its own category;
+     - ambiguous or incomplete: Y undetermined.
+5. **Single primary result.** Reference_i = (Y_A+Y_O)/2; Difference_i = (Y_A−Y_O)/2.
+   - Show first: the population, valid/invalid geometries, the outcomes per direction, determined/unresolved pairs, and the paired 2×2 table.
+   - Then the mean difference on determined pairs.
+   - With unresolved valid pairs, also the bounds over the whole valid population, keeping all constraints, with no imputation.
+   - The reference includes A and uses A's moments.
+6. **Targeted checks.** A few hand-derived synthetic cases; no product suite.
+7. **Delivery.**
+   - One tabulation, plus reproducibility on the same inputs without the engine.
+   - Reconciled counts, per-episode detail, overlap and temporal concentration.
+   - Corrections as amendments.
+   - No significance tests, tuning, alternative subgroup, profit or method change.
+   - Update the exposure register, STATE and task. Commit and push; no pull/fetch or CI query. Director review separate.
+
+
+## Previous task — A revisions: one descriptive historical tabulation (v0.6, Sep–Dec 2025)
 Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-REVISION-HISTORICAL-CHECK/SUMMARY.md)); registered before tabulation at `bd6f1fa` ([registration](delivery/evidence/A-REVISION-HISTORICAL-CHECK/REGISTRATION.md)); one amendment made with results visible; the Director's review is PENDING. Earlier results of the related studies are already known. v0.6 and HDP-001 frozen; future studies INACTIVE.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-REVISION-HISTORICAL-CHECK-PROPOSAL.md` at `91578fc`, the authorization prevails where more precise)
