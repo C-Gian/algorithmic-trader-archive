@@ -1,5 +1,5 @@
 # Current task — A confirmed direction: fixed-geometry barrier reference (v0.6, Sep–Dec 2025)
-Date: 2026-10-14. Status: REGISTERED before tabulation ([registration](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/REGISTRATION.md)); tabulation not yet run. Earlier results are known and declared. v0.6 and the studies are frozen.
+Date: 2026-10-14. Status: EXECUTOR DELIVERY ([summary](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/SUMMARY.md)); registered before tabulation at `6f3ac03` ([registration](delivery/evidence/A-CONFIRMED-DIRECTION-REFERENCE/REGISTRATION.md)); no amendment; the Director's review is separate and PENDING. Earlier results are known and declared. v0.6 and the studies are frozen.
 
 ## Assignment (Astra authorization relayed by the Owner, 14 October 2026; design `delivery/A-CONFIRMED-DIRECTION-REFERENCE-PROPOSAL.md` at `b1237f1`, the precisions below prevail)
 
